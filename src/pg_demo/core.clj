@@ -4,8 +4,9 @@
             [java-jdbc.sql          :as jdbc-sql]
             [honeysql.core          :as honey]
             [honeysql.helpers       :refer :all]
+;           [cooljure.misc          :as cool-misc]
   )
-  (:use cooljure.core)
+  (:use cooljure.core cooljure.misc)
   (:gen-class))
 
 (def db-spec
@@ -48,13 +49,14 @@
   (newline)
 
   (spy :msg "drop"
-    (jdbc/execute! db-spec ["drop table if exists tags cascade"] ))
+    (jdbc/execute! db-spec [(format "drop table if exists %s cascade" 
+      (kw->dbstr :compute-langs)) ] ))
 
   (newline)
   (println "create")
   (jdbc/db-do-commands db-spec 
     (ddl/create-table
-      :tags
+      (kw->dbstr :compute-langs)
       [:id        :serial "primary key"]
       [:name      :text   "not null"] ))
 
@@ -63,7 +65,7 @@
     (jdbc/execute! db-spec 
       (spy :msg "sql"
         (honey/format 
-          (-> (insert-into :tags)
+          (-> (insert-into :compute-langs)
               (values [
                 {:name "Clojure"}
                 {:name "Java"} ] ))))))
@@ -73,14 +75,14 @@
     (jdbc/query db-spec
       (spy :msg "sql"
         (honey/format 
-          { :select [:*]  :from [:tags] } ))))
+          { :select [:*]  :from [:compute-langs] } ))))
 
   (newline)
   (spy :msg "query"
     (jdbc/query db-spec
       (spy :msg "sql"
         (honey/format 
-          { :select [:*]  :from [:tags]  :where [:= :name "Clojure"] } ))))
+          { :select [:*]  :from [:compute-langs]  :where [:= :name "Clojure"] } ))))
 
   (newline)
   (spy :msg "query helper"
@@ -88,7 +90,7 @@
       (spy :msg "sql"
         (honey/format 
           (-> (select :*)
-              (from :tags)
+              (from :compute-langs)
               (where [:= :name "Clojure"] ))))))
 
  (newline))

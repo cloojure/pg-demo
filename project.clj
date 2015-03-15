@@ -5,12 +5,13 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [
     [org.clojure/clojure        "1.6.0"]
-    [cooljure                   "0.1.22"]
+    [cooljure                   "0.1.25"]
     [org.clojure/java.jdbc      "0.3.6"]
     [java-jdbc/dsl              "0.1.1"]
     [honeysql                   "0.5.1"]
     [postgresql/postgresql      "8.4-702.jdbc4"]
   ]
+  :update :always
   :main ^:skip-aot pg-demo.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}})
