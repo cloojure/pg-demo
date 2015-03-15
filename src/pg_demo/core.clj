@@ -1,7 +1,10 @@
 (ns pg-demo.core
   (:require [clojure.java.jdbc      :as jdbc]
             [java-jdbc.ddl          :as ddl]
-            [java-jdbc.sql          :as sql])
+            [java-jdbc.sql          :as jdbc-sql]
+            [honeysql.core          :as honey]
+            [honeysql.helpers       :refer :all]
+  )
   (:use cooljure.core)
   (:gen-class))
 
@@ -15,6 +18,7 @@
 
 (defn v0 []
   (newline)
+  (println "-----------------------------------------------------------------------------")
   (println "v0")
 
   (spy :msg "drop"
@@ -34,11 +38,62 @@
 
   (spy :msg "query"
     (jdbc/query db-spec
-      (sql/select * :tags (sql/where {:name "Clojure"} ))))
- (newline)
-)
+      (jdbc-sql/select * :tags (jdbc-sql/where {:name "Clojure"} ))))
+ (newline))
+
+(defn v1 []
+  (newline)
+  (println "-----------------------------------------------------------------------------")
+  (println "v1")
+  (newline)
+
+  (spy :msg "drop"
+    (jdbc/execute! db-spec ["drop table if exists tags cascade"] ))
+
+  (newline)
+  (println "create")
+  (jdbc/db-do-commands db-spec 
+    (ddl/create-table
+      :tags
+      [:id        :serial "primary key"]
+      [:name      :text   "not null"] ))
+
+  (newline)
+  (spy :msg "insert"
+    (jdbc/execute! db-spec 
+      (spy :msg "sql"
+        (honey/format 
+          (-> (insert-into :tags)
+              (values [
+                {:name "Clojure"}
+                {:name "Java"} ] ))))))
+
+  (newline)
+  (spy :msg "query all"
+    (jdbc/query db-spec
+      (spy :msg "sql"
+        (honey/format 
+          { :select [:*]  :from [:tags] } ))))
+
+  (newline)
+  (spy :msg "query"
+    (jdbc/query db-spec
+      (spy :msg "sql"
+        (honey/format 
+          { :select [:*]  :from [:tags]  :where [:= :name "Clojure"] } ))))
+
+  (newline)
+  (spy :msg "query helper"
+    (jdbc/query db-spec
+      (spy :msg "sql"
+        (honey/format 
+          (-> (select :*)
+              (from :tags)
+              (where [:= :name "Clojure"] ))))))
+
+ (newline))
 
 (defn -main []
- (v0)
+ (v1)
 )
 

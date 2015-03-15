@@ -8,6 +8,7 @@
     [cooljure                   "0.1.22"]
     [org.clojure/java.jdbc      "0.3.6"]
     [java-jdbc/dsl              "0.1.1"]
+    [honeysql                   "0.5.1"]
     [postgresql/postgresql      "8.4-702.jdbc4"]
   ]
   :main ^:skip-aot pg-demo.core
