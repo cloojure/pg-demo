@@ -14,5 +14,5 @@
   :update :always
   :main ^:skip-aot pg-demo.core
   :target-path "target/%s"
-; :resource-paths ["resources"]
+  :resource-paths [ "resources/ojdbc7.jar" ]
   :profiles {:uberjar {:aot :all}})
