@@ -95,7 +95,33 @@
 
  (newline))
 
+(defn ora []
+  (newline)
+  (println "-----------------------------------------------------------------------------")
+  (println "ora")
+  (let [
+    db-spec { :classname "oracle.jdbc.OracleDriver"  ; must be in classpath
+              :subprotocol "oracle"
+              :subname "thin:@//argus-mart-db01.eng.rxlogix.com:1521:pvram" 
+              :user "mart_user"
+              :password "rxlogix" } 
+    db-str  "jdbc:oracle:thin:@//argus-mart-db01.eng.rxlogix.com:1521:pvram" 
+  ]
+    (newline)
+    (spy :msg "pkg_rls.set_context"
+      (jdbc/execute! db-spec [
+         "begin
+            pkg_rls.set_context ('admin', '1','ARGUS_MART', '#$!AgSeRvIcE@SaFeTy');
+          end; " ] ))
+
+    (newline)
+    (spy :msg "count(*)"
+      (jdbc/execute! db-spec [" select count(*) from rm_case_master; "] ))
+
+   (newline)))
+
 (defn -main []
- (v1)
+; (v1)
+  (ora)
 )
 

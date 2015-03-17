@@ -14,4 +14,5 @@
   :update :always
   :main ^:skip-aot pg-demo.core
   :target-path "target/%s"
+; :resource-paths ["resources"]
   :profiles {:uberjar {:aot :all}})
