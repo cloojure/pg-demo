@@ -11,9 +11,10 @@
 (def db-spec
   { :classname "org.postgresql.Driver"
     :subprotocol "postgresql"
-    :subname "//localhost:5432/alan"
-  ; :user "alan"
-  ; :pass "secret"
+    :subname "//localhost:5432/ubuntu"
+;   :subname "//localhost:5432/alan"
+;   :user "alan"
+;   :pass "secret"
   })
 
 (def table-name "rm_case_master" )
