@@ -1,4 +1,4 @@
-(ns pg-demo.rm-case-master-spec
+(ns pg-demo.rm-case-master
   (:require [clojure.java.jdbc      :as jdbc]
             [java-jdbc.ddl          :as ddl]
             [java-jdbc.sql          :as jdbc-sql]
