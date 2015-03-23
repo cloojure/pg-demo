@@ -236,7 +236,7 @@
 
    (newline)))
 
-(defn result-set->pg-insert [result-set]
+(defn result-set->pg-insert-0 [result-set]
   (doseq [it (take 3 result-set)]
     (newline)
     (println "-----------------------------------------------------------------------------")
@@ -248,6 +248,9 @@
     (newline)
     (spy :msg "insert result" (jdbc/insert! pg-spec "rm_case_master" it ))
   ))
+(defn result-set->pg-insert [result-set]
+  (spy :msg "insert result" (apply jdbc/insert! pg-spec "rm_case_master" result-set ))
+)
 
 (def row-count (atom 0))
 (defn result-row->pg-insert [pg-conn result-row]
@@ -296,8 +299,8 @@
 
         (jdbc/query db-conn
           [ "select * from rm_case_master" ]
-  ;       :result-set-fn  result-set->pg-insert
-          :row-fn         #(result-row->pg-insert pg-conn %)
+          :result-set-fn  result-set->pg-insert
+;         :row-fn         #(result-row->pg-insert pg-conn %)
         )))
 
     (newline)
