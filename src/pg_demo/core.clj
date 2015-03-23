@@ -253,7 +253,7 @@
 (defn result-row->pg-insert [result-row]
   (print ".") 
   (let [new-val (swap! row-count inc) ]
-    (when (zero? (rem (new-val 50)))
+    (when (zero? (rem new-val 100))
       (newline)))
   (flush)
   (jdbc/insert! pg-spec "rm_case_master" result-row ))
