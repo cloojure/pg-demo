@@ -926,6 +926,49 @@
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,SEQ_NUM,DLP_REVISION_NUMBER)
           ); " }
 
+    { "rm_case_hosp"
+          "CREATE TABLE rm_case_hosp (
+              ENTERPRISE_ID numeric NOT NULL,
+              CASE_ID numeric NOT NULL,
+              SEQ_NUM numeric NOT NULL,
+              START_DATE timestamp,
+              END_DATE timestamp,
+              DURATION numeric,
+              PROLONGED numeric,
+              SUMMARY numeric,
+              EVENT_CAUSED numeric,
+              START_DATE_RES numeric,
+              START_DATE_PARTIAL varchar(20),
+              END_DATE_RES numeric,
+              END_DATE_PARTIAL varchar(20),
+              DELETED timestamp,
+              DLP_REVISION_NUMBER numeric NOT NULL,
+              REVISION_DELETE_FLAG numeric,
+              DELETED_FLAG numeric(1) NOT NULL,
+              EFFECTIVE_START_DATE timestamp NOT NULL,
+              EFFECTIVE_END_DATE timestamp NOT NULL,
+              PRIMARY KEY (ENTERPRISE_ID,CASE_ID,SEQ_NUM,DLP_REVISION_NUMBER)
+          ); " }
+
+    { "rm_case_justifications"
+          "CREATE TABLE rm_case_justifications (
+              ENTERPRISE_ID numeric NOT NULL,
+              CASE_ID numeric NOT NULL,
+              FIELD_ID numeric NOT NULL,
+              PRIMARY_SEQ_NUM numeric NOT NULL,
+              ALT_SEQ_NUM numeric NOT NULL,
+              J_TEXT varchar(1000),
+              J_TEXT_J varchar(1000),
+              UPDATED_TIME timestamp,
+              DELETED timestamp,
+              DLP_REVISION_NUMBER numeric NOT NULL,
+              REVISION_DELETE_FLAG numeric,
+              DELETED_FLAG numeric(1) NOT NULL,
+              EFFECTIVE_START_DATE timestamp NOT NULL,
+              EFFECTIVE_END_DATE timestamp NOT NULL,
+              PRIMARY KEY (ENTERPRISE_ID,CASE_ID,FIELD_ID,PRIMARY_SEQ_NUM,ALT_SEQ_NUM,DLP_REVISION_NUMBER)
+          ); " }
+
   ] ))
 
 (def dummy 
