@@ -1068,7 +1068,7 @@
               AUTHOR varchar(200),
               TITLE varchar(500),
               VOL varchar(15),
-              "YEAR" varchar(4),
+              YEAR varchar(4),
               PGS varchar(30),
               DELETED timestamp,
               AUTHOR_J varchar(200),
