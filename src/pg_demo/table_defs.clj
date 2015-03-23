@@ -2571,6 +2571,33 @@
               PRIMARY KEY (ENTERPRISE_ID,GLOBAL_DICT_ID,DICT_ID)
           ); " }
 
+    { "rm_cfg_dictionaries_global"
+          "CREATE TABLE rm_cfg_dictionaries_global (
+              NAME varchar(30),
+              DIALOG_NUM numeric,
+              SQL_DRUG varchar(4000),
+              SQL_INDICATION varchar(4000),
+              SQL_EVENT_SIMPLE varchar(4000),
+              SQL_EVENT_PART1 varchar(4000),
+              SQL_EVENT_PART2 varchar(4000),
+              VERSION_NUMBER varchar(20),
+              DICTIONARY_SOURCE varchar(14),
+              DELETED timestamp,
+              SCHEMA_OWNER varchar(30),
+              GLOBAL_DICT_ID numeric NOT NULL,
+              PRIMARY KEY (GLOBAL_DICT_ID)
+          ); " }
+
+    { "rm_cfg_dsr_owner"
+          "CREATE TABLE rm_cfg_dsr_owner (
+              ENTERPRISE_ID numeric NOT NULL,
+              ID numeric NOT NULL,
+              REPORT_FORM_ID numeric,
+              OWNER_ID numeric,
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,"ID")
+          ); " }
+
   ] ))
 
 (def dummy 
