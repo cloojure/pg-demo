@@ -1022,6 +1022,23 @@
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,SEQ_NUM,DLP_REVISION_NUMBER)
           ); " }
 
+    { "rm_case_language"
+          "CREATE TABLE rm_case_language (
+              ENTERPRISE_ID numeric NOT NULL,
+              CASE_ID numeric NOT NULL,
+              FIELD_ID numeric NOT NULL,
+              LANGUAGE_ID numeric NOT NULL,
+              SEQ_NUM numeric NOT NULL,
+              DELETED timestamp,
+              TEXT text,
+              DLP_REVISION_NUMBER numeric NOT NULL,
+              EFFECTIVE_START_DATE timestamp NOT NULL,
+              EFFECTIVE_END_DATE timestamp NOT NULL,
+              DELETED_FLAG numeric(1) NOT NULL,
+              REVISION_DELETE_FLAG numeric,
+              PRIMARY KEY (ENTERPRISE_ID,CASE_ID,FIELD_ID,LANGUAGE_ID,SEQ_NUM,DLP_REVISION_NUMBER)
+          ); " }
+
   ] ))
 
 (def dummy 
