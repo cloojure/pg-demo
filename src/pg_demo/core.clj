@@ -253,7 +253,7 @@
   (println "insert result-set 1000") 
   (doseq [it (partition-all result-set)]
     (time
-      (apply jdbc/insert! pg-spec "rm_case_master" it-set )))
+      (apply jdbc/insert! pg-spec "rm_case_master" it )))
 )
 
 (def row-count (atom 0))
