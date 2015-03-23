@@ -2595,7 +2595,7 @@
               REPORT_FORM_ID numeric,
               OWNER_ID numeric,
               DELETED timestamp,
-              PRIMARY KEY (ENTERPRISE_ID,"ID")
+              PRIMARY KEY (ENTERPRISE_ID,ID)
           ); " }
 
   ] ))
