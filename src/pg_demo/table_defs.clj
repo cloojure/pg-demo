@@ -2275,6 +2275,302 @@
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,SEQ_NUM,DLP_REVISION_NUMBER)
           ); " }
 
+    { "rm_case_rev_master"
+          "CREATE TABLE rm_case_rev_master (
+              ENTERPRISE_ID numeric NOT NULL,
+              CASE_ID numeric NOT NULL,
+              DLP_REVISION_NUMBER numeric NOT NULL,
+              CASE_LOCKED numeric,
+              DATA_CLEANUP numeric,
+              CASE_REVISION_DATE timestamp,
+              DATE_LOCKED timestamp,
+              SITE_ID numeric,
+              STATE_ID numeric,
+              COUNTRY_ID numeric,
+              EFFECTIVE_RECEIPT_DATE timestamp,
+              EFFECTIVE_RECEIPT_DATE_J timestamp,
+              EFFECTIVE_SAFETY_DATE timestamp,
+              EFFECTIVE_TIME_STAMP timestamp,
+              DCM_XREF_NUM numeric,
+              REVISION_DELETE_FLAG numeric,
+              PRIMARY KEY (ENTERPRISE_ID,CASE_ID,DLP_REVISION_NUMBER)
+          ); " }
+
+    { "rm_case_routing"
+          "CREATE TABLE rm_case_routing (
+              ENTERPRISE_ID numeric NOT NULL,
+              CASE_ID numeric NOT NULL,
+              SEQ_NUM numeric NOT NULL,
+              ROUTE_DATE timestamp,
+              USER_ID numeric,
+              SORT_ID numeric,
+              COMMENT_TXT varchar(1000),
+              TO_STATE_ID numeric,
+              FR_STATE_ID numeric,
+              WORKFLOW_SEQ_NUM numeric,
+              DELETED timestamp,
+              JUSTIFICATION_ID numeric,
+              FOLLOWUP_NUM numeric,
+              COMMENT_TXT_J varchar(1000),
+              DLP_REVISION_NUMBER numeric NOT NULL,
+              S_FOLLOWUP_NUM numeric,
+              REPORT_SCHEDULING numeric,
+              CASE_STATUS numeric,
+              LAST_UPDATE_TIME timestamp,
+              REVISION_DELETE_FLAG numeric,
+              DELETED_FLAG numeric(1) NOT NULL,
+              EFFECTIVE_START_DATE timestamp NOT NULL,
+              EFFECTIVE_END_DATE timestamp NOT NULL,
+              PRIMARY KEY (ENTERPRISE_ID,CASE_ID,SEQ_NUM,DLP_REVISION_NUMBER)
+          ); " }
+
+    { "rm_case_study"
+          "CREATE TABLE rm_case_study (
+              ENTERPRISE_ID numeric NOT NULL,
+              CASE_ID numeric NOT NULL,
+              STUDY_KEY numeric,
+              STUDY_NUM varchar(35),
+              STUDY_TYPE numeric,
+              CENTER_ID numeric,
+              CENTER_NAME varchar(40),
+              PROTOCOL_ID numeric,
+              PROTOCOL_NUM varchar(40),
+              OTHER_ID varchar(20),
+              CODE_BROKEN numeric,
+              BROKEN_BY numeric,
+              BROKEN_DATE timestamp,
+              REASON varchar(100),
+              WEEK varchar(5),
+              VISIT varchar(5),
+              DELETED timestamp,
+              PRODUCT_COUNT numeric(2),
+              CLASSIFICATION_ID numeric,
+              BLIND_NAME varchar(70),
+              STUDY_DESC text,
+              STUDY_DESC_J text,
+              BLIND_NAME_J varchar(70),
+              CENTER_NAME_J varchar(40),
+              CLIN_COMPOUND_NUM_J varchar(70),
+              PROTOCOL_NUM_J varchar(40),
+              STUDY_NUM_J varchar(35),
+              DEV_PHASE_ID numeric,
+              DLP_REVISION_NUMBER numeric NOT NULL,
+              REVISION_DELETE_FLAG numeric,
+              DELETED_FLAG numeric(1) NOT NULL,
+              EFFECTIVE_START_DATE timestamp NOT NULL,
+              EFFECTIVE_END_DATE timestamp NOT NULL,
+              COHORT_ID numeric,
+              PRIMARY KEY (ENTERPRISE_ID,CASE_ID,DLP_REVISION_NUMBER)
+          ); " }
+
+    { "rm_case_user_defined"
+          "CREATE TABLE rm_case_user_defined (
+              ENTERPRISE_ID numeric NOT NULL,
+              TABLE_ID numeric NOT NULL,
+              CASE_ID numeric NOT NULL,
+              UD_SEQ_NUM numeric NOT NULL,
+              UD_NUMBER_1 numeric,
+              UD_NUMBER_2 numeric,
+              UD_NUMBER_3 numeric,
+              UD_NUMBER_4 numeric,
+              UD_NUMBER_5 numeric,
+              UD_NUMBER_6 numeric,
+              UD_NUMBER_7 numeric,
+              UD_NUMBER_8 numeric,
+              UD_NUMBER_9 numeric,
+              UD_NUMBER_10 numeric,
+              UD_NUMBER_11 numeric,
+              UD_NUMBER_12 numeric,
+              UD_DATE_1 timestamp,
+              UD_DATE_2 timestamp,
+              UD_DATE_3 timestamp,
+              UD_DATE_4 timestamp,
+              UD_DATE_5 timestamp,
+              UD_DATE_6 timestamp,
+              UD_DATE_7 timestamp,
+              UD_DATE_8 timestamp,
+              UD_DATE_9 timestamp,
+              UD_DATE_10 timestamp,
+              UD_DATE_11 timestamp,
+              UD_DATE_12 timestamp,
+              UD_TEXT_1 varchar(100),
+              UD_TEXT_2 varchar(100),
+              UD_TEXT_3 varchar(100),
+              UD_TEXT_4 varchar(100),
+              UD_TEXT_5 varchar(100),
+              UD_TEXT_6 varchar(100),
+              UD_TEXT_7 varchar(100),
+              UD_TEXT_8 varchar(100),
+              UD_TEXT_9 varchar(100),
+              UD_TEXT_10 varchar(100),
+              UD_TEXT_11 varchar(100),
+              UD_TEXT_12 varchar(100),
+              UD_TEXT_1_J varchar(100),
+              UD_TEXT_2_J varchar(100),
+              UD_TEXT_3_J varchar(100),
+              UD_TEXT_4_J varchar(100),
+              UD_TEXT_5_J varchar(100),
+              UD_TEXT_6_J varchar(100),
+              UD_TEXT_7_J varchar(100),
+              UD_TEXT_8_J varchar(100),
+              UD_TEXT_9_J varchar(100),
+              UD_TEXT_10_J varchar(100),
+              UD_TEXT_11_J varchar(100),
+              UD_TEXT_12_J varchar(100),
+              DELETED timestamp,
+              DLP_REVISION_NUMBER numeric NOT NULL,
+              EFFECTIVE_START_DATE timestamp NOT NULL,
+              EFFECTIVE_END_DATE timestamp NOT NULL,
+              DELETED_FLAG numeric(1) NOT NULL,
+              REVISION_DELETE_FLAG numeric,
+              PRIMARY KEY (ENTERPRISE_ID,TABLE_ID,CASE_ID,UD_SEQ_NUM,DLP_REVISION_NUMBER)
+          ); " }
+
+    { "rm_case_vacc_hist"
+          "CREATE TABLE rm_case_vacc_hist (
+              ENTERPRISE_ID numeric NOT NULL,
+              CASE_ID numeric NOT NULL,
+              SEQ_NUM numeric NOT NULL,
+              LOG_NO numeric NOT NULL,
+              LOCATION_ID numeric,
+              ADMIN_ROUTE_ID numeric,
+              VACC_DATE timestamp,
+              VACC_DATE_RES numeric,
+              VACCINE varchar(40),
+              DOSE_NO numeric,
+              DOSE numeric(22,7),
+              DOSE_UNIT_ID numeric,
+              LOT_NO varchar(20),
+              MANUFACTURER_ID numeric,
+              SORT_ID numeric,
+              PARENT_SEQ_NUM numeric,
+              VACC_DATE_PARTIAL varchar(20),
+              DELETED timestamp,
+              DLP_REVISION_NUMBER numeric NOT NULL,
+              REVISION_DELETE_FLAG numeric,
+              DELETED_FLAG numeric(1) NOT NULL,
+              EFFECTIVE_START_DATE timestamp NOT NULL,
+              EFFECTIVE_END_DATE timestamp NOT NULL,
+              VAERS_BLOCK_14 numeric,
+              PRIMARY KEY (ENTERPRISE_ID,CASE_ID,SEQ_NUM,LOG_NO,DLP_REVISION_NUMBER)
+          ); " }
+
+    { "rm_case_vacc_prior_ae"
+          "CREATE TABLE rm_case_vacc_prior_ae (
+              ENTERPRISE_ID numeric NOT NULL,
+              CASE_ID numeric NOT NULL,
+              SEQ_NUM numeric NOT NULL,
+              PATIENT numeric,
+              VACCINE varchar(40),
+              DOSE_NO numeric,
+              AGE numeric(22,7),
+              AGE_UNIT_ID numeric,
+              ADVERSE_EVENT varchar(50),
+              SORT_ID numeric,
+              ADVERSE_EVENT_J varchar(50),
+              VACCINE_J varchar(40),
+              DELETED timestamp,
+              DLP_REVISION_NUMBER numeric NOT NULL,
+              REVISION_DELETE_FLAG numeric,
+              DELETED_FLAG numeric(1) NOT NULL,
+              EFFECTIVE_START_DATE timestamp NOT NULL,
+              EFFECTIVE_END_DATE timestamp NOT NULL,
+              PRIMARY KEY (ENTERPRISE_ID,CASE_ID,SEQ_NUM,DLP_REVISION_NUMBER)
+          ); " }
+
+    { "rm_case_vacc_vaers"
+          "CREATE TABLE rm_case_vacc_vaers (
+              ENTERPRISE_ID numeric NOT NULL,
+              CASE_ID numeric NOT NULL,
+              VACC_AT_ID numeric,
+              VACC_STATE varchar(10),
+              VACC_COUNTY varchar(20),
+              PURCHASE_ID numeric,
+              VACC_ER_VISIT numeric,
+              ADMIN_BY varchar(40),
+              PHYSICIAN varchar(40),
+              FACILITY varchar(40),
+              ADDRESS varchar(120),
+              CITY varchar(30),
+              STATE varchar(10),
+              POSTAL_CODE varchar(10),
+              PHONE varchar(20),
+              RELATION_TO_PATIENT numeric,
+              REPORTED_PREVIOUSLY numeric,
+              ILLNESS varchar(50),
+              VAERS_NUMBER varchar(20),
+              PROLONGED_HOSP numeric(1),
+              ADDRESS_J varchar(120),
+              ADMIN_BY_J varchar(40),
+              CITY_J varchar(30),
+              FACILITY_J varchar(40),
+              ILLNESS_J varchar(50),
+              PHYSICIAN_J varchar(40),
+              STATE_J varchar(10),
+              VACC_COUNTY_J varchar(20),
+              VACC_STATE_J varchar(10),
+              DELETED timestamp,
+              DLP_REVISION_NUMBER numeric NOT NULL,
+              REVISION_DELETE_FLAG numeric,
+              DELETED_FLAG numeric(1) NOT NULL,
+              EFFECTIVE_START_DATE timestamp NOT NULL,
+              EFFECTIVE_END_DATE timestamp NOT NULL,
+              PRIMARY KEY (ENTERPRISE_ID,CASE_ID,DLP_REVISION_NUMBER)
+          ); " }
+
+    { "rm_cfg_auth_countries"
+          "CREATE TABLE rm_cfg_auth_countries (
+              ENTERPRISE_ID numeric NOT NULL,
+              GROUP_ID numeric NOT NULL,
+              COUNTRY_ID numeric NOT NULL,
+              TYPE numeric NOT NULL,
+              SEQ_NUM numeric NOT NULL,
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,GROUP_ID,COUNTRY_ID,TYPE,SEQ_NUM)
+          ); " }
+
+    { "rm_cfg_auth_products"
+          "CREATE TABLE rm_cfg_auth_products (
+              ENTERPRISE_ID numeric NOT NULL,
+              GROUP_ID numeric NOT NULL,
+              PRODUCT_ID numeric NOT NULL,
+              TYPE numeric NOT NULL,
+              SEQ_NUM numeric NOT NULL,
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,GROUP_ID,PRODUCT_ID,TYPE,SEQ_NUM)
+          ); " }
+
+    { "rm_cfg_auth_sites"
+          "CREATE TABLE rm_cfg_auth_sites (
+              ENTERPRISE_ID numeric NOT NULL,
+              GROUP_ID numeric NOT NULL,
+              SITE_ID numeric NOT NULL,
+              TYPE numeric NOT NULL,
+              SEQ_NUM numeric NOT NULL,
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,GROUP_ID,SITE_ID,TYPE,SEQ_NUM)
+          ); " }
+
+    { "rm_cfg_auth_studies"
+          "CREATE TABLE rm_cfg_auth_studies (
+              ENTERPRISE_ID numeric NOT NULL,
+              GROUP_ID numeric NOT NULL,
+              STUDY_KEY numeric NOT NULL,
+              TYPE numeric NOT NULL,
+              SEQ_NUM numeric NOT NULL,
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,GROUP_ID,STUDY_KEY,TYPE,SEQ_NUM)
+          ); " }
+
+    { "rm_cfg_dictionaries_enterprise"
+          "CREATE TABLE rm_cfg_dictionaries_enterprise (
+              ENTERPRISE_ID numeric NOT NULL,
+              GLOBAL_DICT_ID numeric NOT NULL,
+              DICT_ID numeric NOT NULL,
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,GLOBAL_DICT_ID,DICT_ID)
+          ); " }
+
   ] ))
 
 (def dummy 
