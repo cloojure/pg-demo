@@ -251,10 +251,9 @@
 
 (def row-count (atom 0))
 (defn result-row->pg-insert [result-row]
-  (print ".") 
   (let [new-val (swap! row-count inc) ]
     (when (zero? (rem new-val 10))
-      (print new-val)
+      (print (format "%d7" new-val))
       (flush))
     (when (zero? (rem new-val 100))
       (newline)))
