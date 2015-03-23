@@ -250,9 +250,9 @@
   ))
 
 (defn result-set->pg-insert [result-set]
-  (println "insert result-set 100") 
+  (println "insert result-set 1000") 
   (jdbc/with-db-connection [pg-conn pg-spec]
-    (doseq [it (partition-all 100 result-set)]
+    (doseq [it (partition-all 1000 result-set)]
       (time
         (apply jdbc/insert! pg-conn "rm_case_master" it ))))
 )
