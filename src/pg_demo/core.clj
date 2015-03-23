@@ -35,7 +35,7 @@
   (newline)
   (println "-----------------------------------------------------------------------------")
   (println "tx1")
-  (pg-demo.rm-case-master/drop-create)
+  (pg-demo.rm-case-master/drop-create pg-spec)
 
   (let [
   ]
@@ -50,10 +50,10 @@
 
     (newline)
     (jdbc/with-db-connection [ora-conn ora-spec]
-      (spy :msg "  1st stmt"
+      (spy :msg "pkg_rls.set_context()"
         (jdbc/execute! ora-conn [
           "begin
-             pkg_rls.set_context ('admin', '1','ARGUS_MART', '#$!AgSeRvIcE@SaFeTy');
+             pkg_rls.set_context('admin', '1','ARGUS_MART', '#$!AgSeRvIcE@SaFeTy');
            end; " ] ))
       (spyx
         (jdbc/query ora-conn [ "select count(*) as result from rm_case_master" ] ))
