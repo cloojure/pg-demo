@@ -3030,6 +3030,207 @@
               PRIMARY KEY (ENTERPRISE_ID,REPORT_STATE_ID)
           ); " }
 
+    { "rm_cfg_templates"
+          "CREATE TABLE rm_cfg_templates (
+              ENTERPRISE_ID numeric NOT NULL,
+              TEMPLATE_ID numeric NOT NULL,
+              BLOB_SEQ numeric(10) NOT NULL,
+              NAME varchar(40),
+              SHOW numeric,
+              LETTER_SCHED varchar(30),
+              ACTION_SCHED numeric,
+              LETTER_PATH varchar(200),
+              BLOBSIZE numeric,
+              REG_RPT_COVER numeric,
+              DELETED timestamp,
+              ACTION_TYPE_ID numeric,
+              RETURN_EMAIL_ADDRESS varchar(255),
+              AC_ID numeric,
+              NAME_J varchar(40),
+              PRIMARY KEY (ENTERPRISE_ID,TEMPLATE_ID,BLOB_SEQ)
+          ); " }
+
+    { "rm_cfg_users"
+          "CREATE TABLE rm_cfg_users (
+              ENTERPRISE_ID numeric NOT NULL,
+              USER_ID numeric NOT NULL,
+              USER_FULLNAME varchar(64),
+              USER_NAME varchar(64),
+              USER_PASSWORD varchar(1000),
+              USER_EMAIL varchar(100),
+              WORKFLOW_MGR numeric,
+              ACCOUNT_DISABLED numeric,
+              FORCE_EXPIRE numeric,
+              NUM_DAYS numeric,
+              PROTECT_FROM_UNBLIND numeric,
+              DISPLAY_WL_LOGIN numeric,
+              LANG_PREF numeric,
+              SITE_ID numeric,
+              PWD_SET_DATE timestamp,
+              CREATION_DATE timestamp,
+              ALLOW_UNBLINDING numeric(1),
+              ALLOW_LOCKING numeric(1),
+              ALLOW_CLOSING numeric(1),
+              SITE_SECURITY numeric(4),
+              AGSERVICE numeric(1),
+              FORCE_CHANGE numeric(2),
+              J_CONFIGURATION numeric(2),
+              SEE_NON_CURRENT numeric(2),
+              DELETED timestamp,
+              LOGIN_COUNT numeric NOT NULL,
+              SECURITY_DISABLED numeric NOT NULL,
+              SECURITY_DISABLED_TEXT varchar(400),
+              ROUTE_ON_CLOSE numeric,
+              LDAP_USER numeric,
+              ESM_USER numeric,
+              PERCEPTIVE_WORKFLOW_MGR numeric(1),
+              ENABLE_CHECKLIST_ON_ROUTE numeric NOT NULL,
+              AC_ADMIN numeric NOT NULL,
+              LDAP_SERVER_ID numeric,
+              COPY_CONFIG numeric,
+              GL_ENT_MGMT_ACCESS numeric NOT NULL,
+              GL_USR_MGMT_ACCESS numeric NOT NULL,
+              MENU_ACCESS varchar(2000),
+              SITE_NO_ACCESS varchar(2000),
+              WL_ACT_ITEM_ACCESS numeric NOT NULL,
+              WL_CONTACTS_ACCESS numeric NOT NULL,
+              WL_NEW_ACCESS numeric NOT NULL,
+              WL_OPEN_ACCESS numeric NOT NULL,
+              DEOPTIMIZER_COUNTER numeric,
+              GLOBAL_ADMIN numeric NOT NULL,
+              HASH_ALGO varchar(30),
+              SALT varchar(30),
+              PRIMARY KEY (ENTERPRISE_ID,USER_ID)
+          ); " }
+
+    { "rm_cfg_users_sites"
+          "CREATE TABLE rm_cfg_users_sites (
+              ENTERPRISE_ID numeric NOT NULL,
+              USER_ID numeric NOT NULL,
+              SITE_ID numeric NOT NULL,
+              ACCESS_LEVEL numeric(4) NOT NULL,
+              GROUP_ID numeric,
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,USER_ID,SITE_ID)
+          ); " }
+
+    { "rm_cfg_user_access"
+          "CREATE TABLE rm_cfg_user_access (
+              ENTERPRISE_ID numeric NOT NULL,
+              SEQ_NUM numeric NOT NULL,
+              USER_ID numeric NOT NULL,
+              APPLICATION_ID numeric NOT NULL,
+              DEFAULT_APPLICATIONID numeric NOT NULL,
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,SEQ_NUM)
+          ); " }
+
+    { "rm_cfg_user_enterprise_apps"
+          "CREATE TABLE rm_cfg_user_enterprise_apps (
+              USER_NAME varchar(64) NOT NULL,
+              APP_NAME varchar(100) NOT NULL,
+              SECURITY_LEVEL numeric,
+              ENTERPRISE_ID numeric NOT NULL,
+              PRIMARY KEY (ENTERPRISE_ID,USER_NAME,APP_NAME)
+          ); " }
+
+    { "rm_cfg_user_groups"
+          "CREATE TABLE rm_cfg_user_groups (
+              ENTERPRISE_ID numeric NOT NULL,
+              USER_ID numeric NOT NULL,
+              GROUP_ID numeric NOT NULL,
+              SEQ_NUM numeric NOT NULL,
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,USER_ID,GROUP_ID,SEQ_NUM)
+          ); " }
+
+    { "rm_cfg_workflow_rules"
+          "CREATE TABLE rm_cfg_workflow_rules (
+              ENTERPRISE_ID numeric NOT NULL,
+              SEQ_NUM numeric NOT NULL,
+              TO_STATE_ID numeric NOT NULL,
+              FR_STATE_ID numeric NOT NULL,
+              GROUP_ID numeric NOT NULL,
+              AC_ID numeric,
+              EXCLUSIVE_FLAG numeric,
+              EMAIL_FLAG numeric,
+              DESCRIPTION varchar(80),
+              SORT_ID numeric,
+              NORMAL_TIME numeric(8,2),
+              MAX_TIME numeric(8,2),
+              DELETED timestamp,
+              LOCK_CASE numeric,
+              REQUIRE_PASSWORD numeric,
+              PRODUCT_GROUP_ID numeric,
+              UD_TEXT_1 varchar(100),
+              UD_TEXT_2 varchar(100),
+              RESTRICT_WORKFLOW_GROUP numeric,
+              UNIT numeric,
+              PRIMARY KEY (ENTERPRISE_ID,SEQ_NUM)
+          ); " }
+
+    { "rm_cfg_workflow_states"
+          "CREATE TABLE rm_cfg_workflow_states (
+              ENTERPRISE_ID numeric NOT NULL,
+              STATE_ID numeric NOT NULL,
+              STATE_NAME varchar(30),
+              STATE_DESC varchar(100),
+              SORT_ID numeric,
+              DELETED timestamp,
+              SITE_ID numeric,
+              ARCHIVING numeric(1),
+              PREF_STATE_ID numeric,
+              PRIMARY KEY (ENTERPRISE_ID,STATE_ID)
+          ); " }
+
+    { "rm_cl_autopsy_results"
+          "CREATE TABLE rm_cl_autopsy_results (
+              ID numeric NOT NULL,
+              RESULTS varchar(35),
+              DELETED timestamp,
+              PRIMARY KEY (ID)
+          ); " }
+
+    { "rm_cl_bfarm_causality"
+          "CREATE TABLE rm_cl_bfarm_causality (
+              ID numeric NOT NULL,
+              CAUSALITY varchar(35) NOT NULL,
+              DELETED timestamp,
+              PRIMARY KEY (ID)
+          ); " }
+
+    { "rm_cl_device_deliv_type"
+          "CREATE TABLE rm_cl_device_deliv_type (
+              ID numeric NOT NULL,
+              TYPE varchar(24),
+              DELETED timestamp,
+              PRIMARY KEY (ID)
+          ); " }
+
+    { "rm_cl_device_evaluation"
+          "CREATE TABLE rm_cl_device_evaluation (
+              ID numeric NOT NULL,
+              DEV_EVAL varchar(24),
+              DELETED timestamp,
+              PRIMARY KEY (ID)
+          ); " }
+
+    { "rm_cl_device_operator"
+          "CREATE TABLE rm_cl_device_operator (
+              ID numeric NOT NULL,
+              DEV_OPER varchar(19),
+              DELETED timestamp,
+              PRIMARY KEY (ID)
+          ); " }
+
+    { "rm_cl_device_usage"
+          "CREATE TABLE rm_cl_device_usage (
+              ID numeric NOT NULL,
+              DEV_USAGE varchar(7),
+              DELETED timestamp,
+              PRIMARY KEY (ID)
+          ); " }
+
   ] ))
 
 (def dummy 
