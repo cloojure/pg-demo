@@ -5728,6 +5728,276 @@
               PRIMARY KEY (GLOBAL_DICT_ID,COUNTRY_CODE)
           ); " }
 
+    { "rm_who_drug_c_atc_code"
+          "CREATE TABLE rm_who_drug_c_atc_code (
+              GLOBAL_DICT_ID numeric NOT NULL,
+              ATC_CODE varchar(10) NOT NULL,
+              LEVEL numeric(1),
+              TEXT varchar(110),
+              PRIMARY KEY (GLOBAL_DICT_ID,ATC_CODE)
+          ); " }
+
+    { "rm_who_drug_c_country"
+          "CREATE TABLE rm_who_drug_c_country (
+              GLOBAL_DICT_ID numeric NOT NULL,
+              COUNTRY_CODE varchar(10) NOT NULL,
+              COUNTRY_NAME varchar(80),
+              PRIMARY KEY (GLOBAL_DICT_ID,COUNTRY_CODE)
+          ); " }
+
+    { "rm_who_drug_c_ingredients"
+          "CREATE TABLE rm_who_drug_c_ingredients (
+              GLOBAL_DICT_ID numeric NOT NULL,
+              INGREDIENT_ID varchar(10) NOT NULL,
+              CREATE_DATE varchar(8),
+              SUBSTANCE_ID varchar(10),
+              QUANTITY varchar(15),
+              QUANTITY_2 varchar(15),
+              UNIT varchar(10),
+              PHARM_PRODUCT_ID varchar(10),
+              MEDICINAL_PROD_ID varchar(10),
+              PRIMARY KEY (GLOBAL_DICT_ID,INGREDIENT_ID)
+          ); " }
+
+    { "rm_who_drug_c_master"
+          "CREATE TABLE rm_who_drug_c_master (
+              GLOBAL_DICT_ID numeric NOT NULL,
+              PK_ID numeric NOT NULL,
+              MEDICINAL_PROD_ID varchar(10) NOT NULL,
+              DRUG_RECORD_NUMBER varchar(6),
+              SEQ_NUM1 varchar(2),
+              SEQ_NUM2 varchar(3),
+              CODE varchar(13),
+              PROD_TYPE_ID varchar(10),
+              DRUG_NAME varchar(80),
+              SUBSTANCE_NAME varchar(110),
+              MANU_NAME varchar(80),
+              COUNTRY varchar(10),
+              PHARM_FORM_ID varchar(10),
+              FORMULATION varchar(80),
+              STRENGTH_ID varchar(10),
+              STRENGTH varchar(500),
+              GENERIC varchar(1),
+              ATC_CODE varchar(10),
+              ATC_TEXT varchar(110),
+              NAME_SPECIFIER varchar(30),
+              PRIMARY KEY (GLOBAL_DICT_ID,PK_ID)
+          ); " }
+
+    { "rm_who_drug_c_medicinal_prod"
+          "CREATE TABLE rm_who_drug_c_medicinal_prod (
+              GLOBAL_DICT_ID numeric NOT NULL,
+              MEDICINAL_PROD_ID varchar(10) NOT NULL,
+              ICH_MEDICINAL_PROD_ID varchar(35),
+              DRUG_RECORD_NUMBER varchar(6),
+              SEQ_NUM1 varchar(2),
+              SEQ_NUM2 varchar(3),
+              SEQ_NUM3 varchar(10),
+              SEQ_NUM4 varchar(10),
+              GENERIC varchar(1),
+              DRUG_NAME varchar(80),
+              NAME_SPECIFIER varchar(30),
+              MA_NUMBER varchar(30),
+              MA_DATE varchar(8),
+              MA_WITHDRAW_DATE varchar(8),
+              COUNTRY varchar(10),
+              COMPANY varchar(10),
+              MA_HOLDER varchar(10),
+              SOURCE_CODE varchar(10),
+              SOURCE_COUNTRY varchar(10),
+              SOURCE_YEAR varchar(3),
+              PRODUCT_TYPE varchar(10),
+              PRODUCT_GROUP varchar(10),
+              CREATE_DATE varchar(8),
+              DATE_CHANGED varchar(8),
+              PRIMARY KEY (GLOBAL_DICT_ID,MEDICINAL_PROD_ID)
+          ); " }
+
+    { "rm_who_drug_c_organization"
+          "CREATE TABLE rm_who_drug_c_organization (
+              GLOBAL_DICT_ID numeric NOT NULL,
+              ORGANIZATION_ID varchar(10) NOT NULL,
+              NAME varchar(80),
+              COUNTRY_CODE varchar(10),
+              PRIMARY KEY (GLOBAL_DICT_ID,ORGANIZATION_ID)
+          ); " }
+
+    { "rm_who_drug_c_pharma_form"
+          "CREATE TABLE rm_who_drug_c_pharma_form (
+              GLOBAL_DICT_ID numeric NOT NULL,
+              PHARM_FORM_ID varchar(10) NOT NULL,
+              TEXT varchar(80),
+              PRIMARY KEY (GLOBAL_DICT_ID,PHARM_FORM_ID)
+          ); " }
+
+    { "rm_who_drug_c_pharma_product"
+          "CREATE TABLE rm_who_drug_c_pharma_product (
+              GLOBAL_DICT_ID numeric NOT NULL,
+              PHARM_PRODUCT_ID varchar(10) NOT NULL,
+              PHARMACEUTICAL_FORM varchar(10),
+              ROUTE_OF_ADMIN varchar(10),
+              MEDICINAL_PROD_ID varchar(10),
+              NUMBER_OF_INGREDIENTS varchar(2),
+              CREATE_DATE varchar(8),
+              PRIMARY KEY (GLOBAL_DICT_ID,PHARM_PRODUCT_ID)
+          ); " }
+
+    { "rm_who_drug_c_product_group"
+          "CREATE TABLE rm_who_drug_c_product_group (
+              GLOBAL_DICT_ID numeric NOT NULL,
+              PRODUCT_GROUP_ID varchar(10) NOT NULL,
+              PRODUCT_GROUP_NAME varchar(60),
+              DATE_RECORDED varchar(8),
+              PRIMARY KEY (GLOBAL_DICT_ID,PRODUCT_GROUP_ID)
+          ); " }
+
+    { "rm_who_drug_c_product_type"
+          "CREATE TABLE rm_who_drug_c_product_type (
+              GLOBAL_DICT_ID numeric NOT NULL,
+              PROD_TYPE_ID varchar(10) NOT NULL,
+              TEXT varchar(80),
+              PRIMARY KEY (GLOBAL_DICT_ID,PROD_TYPE_ID)
+          ); " }
+
+    { "rm_who_drug_c_source"
+          "CREATE TABLE rm_who_drug_c_source (
+              GLOBAL_DICT_ID numeric NOT NULL,
+              SOURCE_CODE varchar(10) NOT NULL,
+              SOURCE varchar(80),
+              COUNTRY_CODE varchar(10),
+              PRIMARY KEY (GLOBAL_DICT_ID,SOURCE_CODE)
+          ); " }
+
+    { "rm_who_drug_c_strength"
+          "CREATE TABLE rm_who_drug_c_strength (
+              GLOBAL_DICT_ID numeric NOT NULL,
+              STRENGTH_ID varchar(10) NOT NULL,
+              TEXT varchar(500),
+              PRIMARY KEY (GLOBAL_DICT_ID,STRENGTH_ID)
+          ); " }
+
+    { "rm_who_drug_c_substance"
+          "CREATE TABLE rm_who_drug_c_substance (
+              GLOBAL_DICT_ID numeric NOT NULL,
+              SUBSTANCE_ID varchar(10) NOT NULL,
+              CAS_NUMBER varchar(10),
+              LANGUAGE_CODE varchar(10),
+              SUBSTANCE_NAME varchar(110),
+              SOURCE_YEAR varchar(3),
+              SOURCE_CODE varchar(10),
+              PRIMARY KEY (GLOBAL_DICT_ID,SUBSTANCE_ID)
+          ); " }
+
+    { "rm_who_drug_c_therapeutic_grp"
+          "CREATE TABLE rm_who_drug_c_therapeutic_grp (
+              GLOBAL_DICT_ID numeric NOT NULL,
+              THERAP_GROUP_ID varchar(10) NOT NULL,
+              ATC_CODE varchar(10),
+              CREATE_DATE varchar(8),
+              OFFICIAL_ATC_CODE varchar(1),
+              MEDICINAL_PROD_ID varchar(10),
+              PRIMARY KEY (GLOBAL_DICT_ID,THERAP_GROUP_ID)
+          ); " }
+
+    { "rm_who_drug_c_unit"
+          "CREATE TABLE rm_who_drug_c_unit (
+              GLOBAL_DICT_ID numeric NOT NULL,
+              UNIT_ID varchar(10) NOT NULL,
+              TEXT varchar(40),
+              PRIMARY KEY (GLOBAL_DICT_ID,UNIT_ID)
+          ); " }
+
+    { "rm_who_drug_c_unit_l"
+          "CREATE TABLE rm_who_drug_c_unit_l (
+              GLOBAL_DICT_ID numeric NOT NULL,
+              UNIT_ID varchar(10) NOT NULL,
+              TEXT varchar(100),
+              PRIMARY KEY (GLOBAL_DICT_ID,UNIT_ID)
+          ); " }
+
+    { "rm_who_drug_c_unit_x"
+          "CREATE TABLE rm_who_drug_c_unit_x (
+              GLOBAL_DICT_ID numeric NOT NULL,
+              UNIT_ID varchar(10) NOT NULL,
+              TEXT varchar(40),
+              PRIMARY KEY (GLOBAL_DICT_ID,UNIT_ID)
+          ); " }
+
+    { "rm_who_drug_dict"
+          "CREATE TABLE rm_who_drug_dict (
+              GLOBAL_DICT_ID numeric NOT NULL,
+              DRUG_RECORD_NUMBER char(6) NOT NULL,
+              SEQ_NUM1 char(2) NOT NULL,
+              SEQ_NUM2 char(3) NOT NULL,
+              CHECK_DIGIT char(1) NOT NULL,
+              SOURCE_CODE char(4),
+              COMPANY_CODE char(5),
+              DESIGNATION char(1),
+              SOURCE_YEAR char(4),
+              NUM_INGREDIENTS char(2),
+              SALT_CODE char(1),
+              YEAR_QUARTER char(3),
+              DRUG_NAME varchar(70),
+              DELETED timestamp,
+              PRIMARY KEY (GLOBAL_DICT_ID,DRUG_RECORD_NUMBER,SEQ_NUM1,SEQ_NUM2,CHECK_DIGIT)
+          ); " }
+
+    { "rm_who_drug_source"
+          "CREATE TABLE rm_who_drug_source (
+              GLOBAL_DICT_ID numeric NOT NULL,
+              SOURCE_CODE char(4) NOT NULL,
+              COUNTRY_CODE char(3),
+              SOURCE varchar(70),
+              DELETED timestamp,
+              PRIMARY KEY (GLOBAL_DICT_ID,SOURCE_CODE)
+          ); " }
+
+    { "rm_who_ingredients"
+          "CREATE TABLE rm_who_ingredients (
+              GLOBAL_DICT_ID numeric NOT NULL,
+              DRUG_RECORD_NUMBER char(6) NOT NULL,
+              SEQ_NUM1 char(2) NOT NULL,
+              SEQ_NUM2 char(3) NOT NULL,
+              CHECK_DIGIT char(1) NOT NULL,
+              CAS_NUMBER char(10),
+              DELETED timestamp
+          ); " }
+
+    { "rm_who_manufacturers"
+          "CREATE TABLE rm_who_manufacturers (
+              GLOBAL_DICT_ID numeric NOT NULL,
+              COMPANY_CODE char(5) NOT NULL,
+              COUNTRY_CODE char(3),
+              NAME varchar(100),
+              DELETED timestamp,
+              PRIMARY KEY (GLOBAL_DICT_ID,COMPANY_CODE)
+          ); " }
+
+    { "rm_who_soc"
+          "CREATE TABLE rm_who_soc (
+              GLOBAL_DICT_ID numeric NOT NULL,
+              SYSTEM_ORGAN_CLASS_CODE char(4) NOT NULL,
+              TEXT_ENGLISH varchar(100),
+              TEXT_FRENCH varchar(100),
+              TEXT_GERMAN varchar(100),
+              TEXT_SPANISH varchar(100),
+              TEXT_PORTUGUESE varchar(100),
+              DELETED timestamp,
+              PRIMARY KEY (GLOBAL_DICT_ID,SYSTEM_ORGAN_CLASS_CODE)
+          ); " }
+
+    { "rm_who_substances"
+          "CREATE TABLE rm_who_substances (
+              GLOBAL_DICT_ID numeric NOT NULL,
+              CAS_NUMBER char(10) NOT NULL,
+              LANGUAGE_CODE char(2),
+              SUBSTANCE_NAME varchar(45),
+              SOURCE_YEAR char(2),
+              SOURCE_CODE char(4),
+              DELETED timestamp,
+              PRIMARY KEY (GLOBAL_DICT_ID,CAS_NUMBER)
+          ); " }
+
   ] ))
 
 (def dummy 
