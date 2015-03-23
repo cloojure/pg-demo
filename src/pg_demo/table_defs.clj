@@ -1190,6 +1190,67 @@
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,MED_STATUS_ID,DLP_REVISION_NUMBER)
           ); " }
 
+    { "rm_case_mhlw_notes"
+          "CREATE TABLE rm_case_mhlw_notes (
+              ENTERPRISE_ID numeric NOT NULL,
+              CASE_ID numeric NOT NULL,
+              DELETED timestamp,
+              REMARK1 text,
+              REMARK2 text,
+              REMARK3 text,
+              REMARK4 text,
+              DLP_REVISION_NUMBER numeric NOT NULL,
+              EFFECTIVE_START_DATE timestamp NOT NULL,
+              EFFECTIVE_END_DATE timestamp NOT NULL,
+              DELETED_FLAG numeric(1) NOT NULL,
+              REVISION_DELETE_FLAG numeric,
+              PRIMARY KEY (ENTERPRISE_ID,CASE_ID,DLP_REVISION_NUMBER)
+          ); " }
+
+    { "rm_case_narrative"
+          "CREATE TABLE rm_case_narrative (
+              ENTERPRISE_ID numeric NOT NULL,
+              CASE_ID numeric NOT NULL,
+              ABBREV_NARRATIVE text,
+              ABBREV_NARRATIVE_J text,
+              NARRATIVE text,
+              NARRATIVE_J text,
+              DELETED timestamp,
+              DLP_REVISION_NUMBER numeric NOT NULL,
+              REVISION_DELETE_FLAG numeric,
+              DELETED_FLAG numeric(1) NOT NULL,
+              EFFECTIVE_START_DATE timestamp NOT NULL,
+              EFFECTIVE_END_DATE timestamp NOT NULL,
+              PRIMARY KEY (ENTERPRISE_ID,CASE_ID,DLP_REVISION_NUMBER)
+          ); " }
+
+    { "rm_case_neonates"
+          "CREATE TABLE rm_case_neonates (
+              ENTERPRISE_ID numeric NOT NULL,
+              CASE_ID numeric NOT NULL,
+              SEQ_NUM numeric NOT NULL,
+              DELIVER_DATE timestamp,
+              WEIGHT_GRAMS numeric(22,7),
+              WEIGHT_OZS numeric(22,7),
+              DELIVERY_TYPE_ID numeric,
+              APGAR1 numeric,
+              APGAR2 numeric,
+              APGAR3 numeric,
+              NOTES varchar(1000),
+              SORT_ID numeric,
+              DELETED timestamp,
+              BIRTH_TYPE_ID numeric,
+              FETAL_OUTCOME_ID numeric,
+              PARENT numeric NOT NULL,
+              NOTES_J varchar(1000),
+              DLP_REVISION_NUMBER numeric NOT NULL,
+              REVISION_DELETE_FLAG numeric,
+              DELETED_FLAG numeric(1) NOT NULL,
+              EFFECTIVE_START_DATE timestamp NOT NULL,
+              EFFECTIVE_END_DATE timestamp NOT NULL,
+              PRIMARY KEY (ENTERPRISE_ID,CASE_ID,SEQ_NUM,DLP_REVISION_NUMBER)
+          ); " }
+
   ] ))
 
 (def dummy 
