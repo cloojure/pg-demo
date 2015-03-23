@@ -118,10 +118,3 @@
 
     } ))
 
-(defn drop-create [db-spec]
-  (doseq [ [table-name creation-sql-str] table-name->creation-sql ]
-    (println (format "drop/create: %s" table-name))
-    (jdbc/with-db-connection [db-conn db-spec]
-      (jdbc/execute! db-conn [ (format "drop table if exists %s cascade" table-name) ] )
-      (jdbc/execute! db-conn [creation-sql-str] ))))
-
