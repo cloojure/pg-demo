@@ -255,10 +255,10 @@
   (println "result-row->pg-insert: insert:")
   (newline)
   (println "received:")
-  (prn (into (sorted-map) it))
+  (prn (into (sorted-map) result-row))
 
   (newline)
-  (spy :msg "insert result" (jdbc/insert! pg-spec "rm_case_master" it ))
+  (spy :msg "insert result" (jdbc/insert! pg-spec "rm_case_master" result-row ))
 )
 
 (defn tx1 []
