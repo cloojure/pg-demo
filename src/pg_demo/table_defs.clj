@@ -1251,6 +1251,37 @@
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,SEQ_NUM,DLP_REVISION_NUMBER)
           ); " }
 
+    { "rm_case_notes_attach"
+          "CREATE TABLE rm_case_notes_attach (
+              ENTERPRISE_ID numeric NOT NULL,
+              CASE_ID numeric NOT NULL,
+              SEQ_NUM numeric NOT NULL,
+              BLOB_SEQ numeric(10) NOT NULL,
+              CLASSIFICATION numeric,
+              ENTRY_DATE timestamp,
+              "TYPE" numeric,
+              E2B_ADD_DOC numeric,
+              BLOBSIZE numeric,
+              SORT_ID numeric,
+              FILETYPE varchar(300),
+              KEYWORDS varchar(200),
+              NOTES varchar(1000),
+              LAM_ID numeric(10),
+              LAM_NOTES_ATTACHMENT_ID numeric(10),
+              DELETED timestamp,
+              DOCUMENTUM_ID varchar(200),
+              INCL_REG_SUB numeric,
+              ESM_REPORT_ID numeric,
+              KEYWORDS_J varchar(200),
+              NOTES_J varchar(1000),
+              DLP_REVISION_NUMBER numeric NOT NULL,
+              REVISION_DELETE_FLAG numeric,
+              DELETED_FLAG numeric(1) NOT NULL,
+              EFFECTIVE_START_DATE timestamp NOT NULL,
+              EFFECTIVE_END_DATE timestamp NOT NULL,
+              PRIMARY KEY (ENTERPRISE_ID,CASE_ID,SEQ_NUM,BLOB_SEQ,DLP_REVISION_NUMBER)
+          ); " }
+
   ] ))
 
 (def dummy 
