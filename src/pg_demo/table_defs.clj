@@ -3231,6 +3231,121 @@
               PRIMARY KEY (ID)
           ); " }
 
+    { "rm_cl_followup_type"
+          "CREATE TABLE rm_cl_followup_type (
+              ID numeric NOT NULL,
+              TYPE varchar(75),
+              DELETED timestamp,
+              PRIMARY KEY (ID)
+          ); " }
+
+    { "rm_cl_jpn_drug_code_type"
+          "CREATE TABLE rm_cl_jpn_drug_code_type (
+              DRUG_CODE_ID numeric NOT NULL,
+              DRUG_CODE varchar(200),
+              DRUG_CODE_J varchar(200),
+              DELETED timestamp,
+              PRIMARY KEY (DRUG_CODE_ID)
+          ); " }
+
+    { "rm_cl_mfr_evaluation"
+          "CREATE TABLE rm_cl_mfr_evaluation (
+              ID numeric NOT NULL,
+              EVALUATION varchar(51),
+              DELETED timestamp,
+              PRIMARY KEY (ID)
+          ); " }
+
+    { "rm_cl_pmda_device_use"
+          "CREATE TABLE rm_cl_pmda_device_use (
+              USE_ID numeric NOT NULL,
+              USE varchar(20),
+              USE_J varchar(20),
+              DELETED timestamp,
+              PRIMARY KEY (USE_ID)
+          ); " }
+
+    { "rm_cl_prev_use"
+          "CREATE TABLE rm_cl_prev_use (
+              ID numeric NOT NULL,
+              DELETED timestamp,
+              PREV_USE varchar(25),
+              PRIMARY KEY (ID)
+          ); " }
+
+    { "rm_cl_rechall_outcome"
+          "CREATE TABLE rm_cl_rechall_outcome (
+              ID numeric NOT NULL,
+              OUTCOME varchar(16),
+              DELETED timestamp,
+              PRIMARY KEY (ID)
+          ); " }
+
+    { "rm_cl_remedial_action"
+          "CREATE TABLE rm_cl_remedial_action (
+              ID numeric NOT NULL,
+              ACTION varchar(106),
+              DELETED timestamp,
+              PRIMARY KEY (ID)
+          ); " }
+
+    { "rm_cl_report_scheduling"
+          "CREATE TABLE rm_cl_report_scheduling (
+              ID numeric NOT NULL,
+              RESULTS varchar(35),
+              DELETED timestamp,
+              PRIMARY KEY (ID)
+          ); " }
+
+    { "rm_cl_study_product_type"
+          "CREATE TABLE rm_cl_study_product_type (
+              PROD_TYPE_NAME varchar(50),
+              PROD_TYPE_ID numeric NOT NULL,
+              PRIMARY KEY (PROD_TYPE_ID)
+          ); " }
+
+    { "rm_cl_subject"
+          "CREATE TABLE rm_cl_subject (
+              ID numeric NOT NULL,
+              SUBJECT varchar(30) NOT NULL,
+              DELETED timestamp,
+              PRIMARY KEY (ID)
+          ); " }
+
+    { "rm_cl_term_type"
+          "CREATE TABLE rm_cl_term_type (
+              ID numeric NOT NULL,
+              TYPE varchar(100),
+              DELETED timestamp,
+              PRIMARY KEY (ID)
+          ); " }
+
+    { "rm_cl_trimester_status"
+          "CREATE TABLE rm_cl_trimester_status (
+              ID numeric NOT NULL,
+              STATUS varchar(100),
+              PRIMARY KEY (ID)
+          ); " }
+
+    { "rm_cl_usage_of_device"
+          "CREATE TABLE rm_cl_usage_of_device (
+              ID numeric NOT NULL,
+              USAGE_OF_DEVICE varchar(200),
+              DELETED timestamp,
+              PRIMARY KEY (ID)
+          ); " }
+
+    { "rm_cmn_lookup"
+          "CREATE TABLE rm_cmn_lookup (
+              ID numeric(1) NOT NULL,
+              STATE2 varchar(10),
+              STATE3 varchar(10),
+              STATE4 varchar(10),
+              DRUG_TYPE varchar(20),
+              DELETED timestamp,
+              PRIMARY KEY (ID)
+          ); " }
+
   ] ))
 
 (def dummy 
