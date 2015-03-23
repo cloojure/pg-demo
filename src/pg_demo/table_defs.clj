@@ -4673,6 +4673,342 @@
               PRIMARY KEY (ENTERPRISE_ID,MEDICAL_DEVICE_INFO_ID)
           ); " }
 
+    { "rm_lm_medical_status"
+          "CREATE TABLE rm_lm_medical_status (
+              ENTERPRISE_ID numeric NOT NULL,
+              MED_STATUS_ID numeric NOT NULL,
+              SEQ_NUM numeric,
+              LABEL varchar(40) NOT NULL,
+              PROTECTED numeric,
+              DISPLAY numeric,
+              LABEL_J varchar(40),
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,MED_STATUS_ID)
+          ); " }
+
+    { "rm_lm_mfr_eval_reason"
+          "CREATE TABLE rm_lm_mfr_eval_reason (
+              ENTERPRISE_ID numeric NOT NULL,
+              MFR_EVAL_ID numeric NOT NULL,
+              MFR_EVAL_REASON varchar(100),
+              DISPLAY numeric,
+              PROTECTED numeric,
+              DELETED timestamp,
+              MFR_EVAL_CODE numeric NOT NULL,
+              MFR_EVAL_REASON_J varchar(100),
+              PRIMARY KEY (ENTERPRISE_ID,MFR_EVAL_ID)
+          ); " }
+
+    { "rm_lm_occupations"
+          "CREATE TABLE rm_lm_occupations (
+              ENTERPRISE_ID numeric NOT NULL,
+              OCCUPATION_ID numeric NOT NULL,
+              OCCUPATION varchar(40) NOT NULL,
+              ICH numeric,
+              OCCUPATION_J varchar(40),
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,OCCUPATION_ID)
+          ); " }
+
+    { "rm_lm_pack_units"
+          "CREATE TABLE rm_lm_pack_units (
+              ENTERPRISE_ID numeric NOT NULL,
+              ID numeric NOT NULL,
+              DESCRIPTION varchar(20) NOT NULL,
+              DISPLAY numeric(4),
+              PROTECTED numeric(4),
+              DESCRIPTION_J varchar(20),
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,ID)
+          ); " }
+
+    { "rm_lm_pf_ingredients"
+          "CREATE TABLE rm_lm_pf_ingredients (
+              ENTERPRISE_ID numeric NOT NULL,
+              SEQ_NUM numeric NOT NULL,
+              FAMILY_ID numeric NOT NULL,
+              INGREDIENT_ID numeric NOT NULL,
+              ACTIVE numeric(4),
+              DELETED timestamp,
+              SORT_ID numeric,
+              PRIMARY KEY (ENTERPRISE_ID,SEQ_NUM)
+          ); " }
+
+    { "rm_lm_pmda_device_clasfication"
+          "CREATE TABLE rm_lm_pmda_device_clasfication (
+              ENTERPRISE_ID numeric NOT NULL,
+              CLASSIFICATION_ID numeric NOT NULL,
+              CLASSIFICATION_TYPE numeric,
+              CLASSIFICATION varchar(50),
+              CLASSIFICATION_J varchar(50),
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,CLASSIFICATION_ID)
+          ); " }
+
+    { "rm_lm_product"
+          "CREATE TABLE rm_lm_product (
+              ENTERPRISE_ID numeric NOT NULL,
+              PRODUCT_ID numeric NOT NULL,
+              PROD_NAME varchar(70),
+              FAMILY_ID numeric,
+              FORMULATION_ID numeric,
+              MANUFACTURER_ID numeric,
+              CONCENTRATION varchar(10),
+              CONC_UNIT_ID numeric,
+              INDICATION_ID varchar(50),
+              CODE_DICT numeric,
+              INDICATION_TEXT varchar(250),
+              INTL_BIRTH_DATE timestamp,
+              MODEL_NO varchar(20),
+              DRL_ID varchar(45),
+              DRUG_CODE varchar(20),
+              DELETED timestamp,
+              PROD_GENERIC_NAME text,
+              PROD_GENERIC_NAME_J text,
+              IND_LLT_CODE varchar(50),
+              IND_LLT varchar(250),
+              IND_HLT_CODE varchar(50),
+              IND_HLT varchar(250),
+              IND_HLGT_CODE varchar(50),
+              IND_HLGT varchar(250),
+              IND_SOC_CODE varchar(50),
+              IND_SOC varchar(250),
+              IND_SYN_CODE numeric,
+              IND_CODE_STATUS numeric,
+              MEDICINAL_PROD_ID varchar(10),
+              PROD_NAME_ABBRV varchar(5),
+              DEVICE_CODE varchar(50),
+              PSUR_GROUP_NAME varchar(50),
+              COMMENTS varchar(1000),
+              IND_CODED varchar(250),
+              IND_REPTD varchar(250),
+              DRL_ID_J varchar(45),
+              DRUG_CODE_J varchar(20),
+              DRUG_CODE_TYPE_J numeric,
+              INDICATION_TEXT_J varchar(250),
+              IND_CODE_STATUS_J numeric,
+              IND_HLGT_J varchar(250),
+              IND_HLT_J varchar(250),
+              IND_LLT_CODE_J varchar(50),
+              IND_LLT_J varchar(250),
+              IND_SOC_J varchar(250),
+              PROD_NAME_J varchar(70),
+              IND_SYN_CODE_J numeric,
+              IND_CODED_J varchar(250),
+              IND_REPTD_J varchar(250),
+              DEV_INTL_BIRTH_DATE timestamp,
+              COMMENTS_J varchar(1000),
+              PRIMARY KEY (ENTERPRISE_ID,PRODUCT_ID)
+          ); " }
+
+    { "rm_lm_product_concentrations"
+          "CREATE TABLE rm_lm_product_concentrations (
+              ENTERPRISE_ID numeric NOT NULL,
+              PRODUCT_ID numeric NOT NULL,
+              INGREDIENT_ID numeric NOT NULL,
+              SEQ_NUM numeric NOT NULL,
+              CONCENTRATION varchar(10),
+              CONC_UNIT_ID numeric,
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,PRODUCT_ID,INGREDIENT_ID,SEQ_NUM)
+          ); " }
+
+    { "rm_lm_product_family"
+          "CREATE TABLE rm_lm_product_family (
+              ENTERPRISE_ID numeric NOT NULL,
+              FAMILY_ID numeric NOT NULL,
+              NAME varchar(40),
+              PRIMARY_VIEW numeric,
+              DELETED timestamp,
+              PRODUCT_GROUP_ID numeric,
+              COMMENTS varchar(1000),
+              SEARCH_EQUATION_NUMBER varchar(10),
+              NAME_J varchar(40),
+              COMMENTS_J varchar(1000),
+              PRIMARY KEY (ENTERPRISE_ID,FAMILY_ID)
+          ); " }
+
+    { "rm_lm_product_group"
+          "CREATE TABLE rm_lm_product_group (
+              ENTERPRISE_ID numeric NOT NULL,
+              PRODUCT_GROUP_ID numeric NOT NULL,
+              NAME varchar(70),
+              DISPLAY numeric,
+              NAME_J varchar(70),
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,PRODUCT_GROUP_ID)
+          ); " }
+
+    { "rm_lm_product_lots"
+          "CREATE TABLE rm_lm_product_lots (
+              ENTERPRISE_ID numeric NOT NULL,
+              LOT_ID numeric NOT NULL,
+              PRODUCT_ID numeric NOT NULL,
+              LOT_NO varchar(35),
+              EXT_LOT_ID varchar(50),
+              EXPIRATION_DATE timestamp,
+              EXPIRATION_DATE_RES numeric,
+              EXPIRATION_DATE_PARTIAL varchar(20),
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,LOT_ID)
+          ); " }
+
+    { "rm_lm_protocols"
+          "CREATE TABLE rm_lm_protocols (
+              ENTERPRISE_ID numeric NOT NULL,
+              PROTOCOL_ID numeric NOT NULL,
+              PROTOCOL_DESC varchar(40),
+              DELETED timestamp,
+              DISPLAY numeric,
+              PROTOCOL_DESC_J varchar(40),
+              PRIMARY KEY (ENTERPRISE_ID,PROTOCOL_ID)
+          ); " }
+
+    { "rm_lm_purchased_with"
+          "CREATE TABLE rm_lm_purchased_with (
+              ENTERPRISE_ID numeric NOT NULL,
+              PURCHASE_ID numeric NOT NULL,
+              PURCHASE varchar(40),
+              PURCHASE_J varchar(40),
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,PURCHASE_ID)
+          ); " }
+
+    { "rm_lm_recipient"
+          "CREATE TABLE rm_lm_recipient (
+              ENTERPRISE_ID numeric NOT NULL,
+              RECIPIENT_ID numeric NOT NULL,
+              NAME varchar(30),
+              TITLE varchar(50),
+              ADDRESS varchar(50),
+              CITY varchar(30),
+              PHONE varchar(15),
+              EMAIL varchar(100),
+              STATE varchar(10),
+              POSTAL_CODE varchar(10),
+              FAX varchar(50),
+              PREFERRED numeric(1),
+              COUNTRY varchar(50),
+              COUNTRY_ID numeric,
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,RECIPIENT_ID)
+          ); " }
+
+    { "rm_lm_ref_types"
+          "CREATE TABLE rm_lm_ref_types (
+              ENTERPRISE_ID numeric NOT NULL,
+              REF_TYPE_ID numeric NOT NULL,
+              TYPE_DESC varchar(25) NOT NULL,
+              PROTECTED numeric,
+              DISPLAY numeric,
+              TYPE_DESC_J varchar(25),
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,REF_TYPE_ID)
+          ); " }
+
+    { "rm_lm_regulatory_contact"
+          "CREATE TABLE rm_lm_regulatory_contact (
+              ENTERPRISE_ID numeric NOT NULL,
+              AGENCY_ID numeric NOT NULL,
+              AGENCY_NAME varchar(40),
+              REG_NUM varchar(10),
+              CONTACT_NAME varchar(40),
+              TITLE varchar(40),
+              ADDRESS varchar(120),
+              CITY varchar(35),
+              STATE varchar(40),
+              POST_CODE varchar(15),
+              COUNTRY numeric,
+              PHONE varchar(20),
+              FAX varchar(50),
+              EMAIL varchar(100),
+              OFF_LINE numeric,
+              PREF_METHOD numeric,
+              DEPARTMENT varchar(60),
+              FIRST_NAME varchar(35),
+              MIDDLE_NAME varchar(15),
+              TEL_EXT varchar(10),
+              TEL_CONT_CODE varchar(3),
+              FAX_EXT varchar(10),
+              FAX_CONT_CODE varchar(3),
+              MAX_E2B_RPT numeric,
+              VIEW_PRINT_METHOD numeric,
+              RECEIVER_TYPE numeric,
+              SENDER_TYPE numeric,
+              CONT_COUNTRY_ID numeric,
+              CONT_COMPANY_NAME varchar(40),
+              CONT_NAME varchar(40),
+              CONT_TITLE varchar(40),
+              CONT_ADDRESS varchar(120),
+              CONT_CITY varchar(35),
+              CONT_STATE varchar(40),
+              CONT_POSTCODE varchar(15),
+              CONT_PHONE varchar(20),
+              CONT_FAX varchar(50),
+              CONT_DEPARTMENT varchar(60),
+              CONT_FIRST_NAME varchar(35),
+              CONT_MIDDLE_NAME varchar(15),
+              CONT_TEL_EXT varchar(10),
+              CONT_TEL_CONT_CODE varchar(3),
+              CONT_FAX_EXT varchar(10),
+              CONT_FAX_CONT_CODE varchar(3),
+              SENDER_EMAIL varchar(100),
+              FAX_MAIN varchar(50),
+              TERM_SELECTION numeric,
+              FAX_COVER varchar(255),
+              RULE_MARKETED numeric(2) NOT NULL,
+              RULE_INVESTIGATIONAL numeric(2) NOT NULL,
+              REPORTS_PER_EMAIL numeric(10),
+              SINGLE_ATTACHMENT numeric(1),
+              EMAIL_BODY_TYPE numeric(1),
+              DELETED timestamp,
+              CONT_LAB_CODE varchar(30),
+              CONTACT_TYPE numeric(1),
+              AWARE_SELECTION_ID numeric(1),
+              SUSAR_REPORTING numeric,
+              SMTP_FROM_EMAIL varchar(100),
+              SMTP_CC_EMAIL varchar(1000),
+              SMTP_BCC_EMAIL varchar(1000),
+              SMTP_READ_RECEIPT_FLAG numeric,
+              SMTP_DELIVERY_RECEIPT_FLAG numeric,
+              AUTO_ACCEPT_ICSR numeric NOT NULL,
+              TRANSMIT_E2B_ATTACHMENT numeric NOT NULL,
+              SUPPRESS_DUPLICATE_REPORTS numeric,
+              SUPPRESS_LICENSE_TYPE numeric,
+              AUTO_ACCEPT_ICSR_TYPE numeric(1),
+              USE_JPN_AWARE_DATE varchar(1),
+              MULT_RPT_MKT_DRUGS varchar(1),
+              MULT_RPT_INVEST_DRUGS varchar(1),
+              ADJUST_DUE_DT_FOR_HOLIDAYS numeric(1),
+              AGENCY_NAME_J varchar(40),
+              CONT_COMPANY_NAME_J varchar(40),
+              EMAIL_BODY text,
+              FAX_HEADER_J numeric,
+              PRIMARY KEY (ENTERPRISE_ID,AGENCY_ID)
+          ); " }
+
+    { "rm_lm_relation"
+          "CREATE TABLE rm_lm_relation (
+              ENTERPRISE_ID numeric NOT NULL,
+              ID numeric NOT NULL,
+              DESCRIPTION varchar(50),
+              DESCRIPTION_J varchar(50),
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,ID)
+          ); " }
+
+    { "rm_lm_reportable_prod_keyword"
+          "CREATE TABLE rm_lm_reportable_prod_keyword (
+              ENTERPRISE_ID numeric NOT NULL,
+              KEYWORD_ID numeric NOT NULL,
+              KEYWORD varchar(100),
+              FAMILY_ID numeric,
+              ACTIVATE numeric(1),
+              PROTECTED numeric(1),
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,KEYWORD_ID)
+          ); " }
+
   ] ))
 
 (def dummy 
