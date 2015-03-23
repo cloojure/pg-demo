@@ -236,15 +236,17 @@
 
    (newline)))
 
-(defn rs-fn [result-set]
+(defn rs->pg-insert [result-set]
   (doseq [it (take 3 result-set)]
     (newline)
     (println "-----------------------------------------------------------------------------")
+    (println "rs->pg-insert: insert:")
+    (newline)
+    (println "received:")
     (prn (into (sorted-map) it))
 
     (newline)
-    (println "rs-fn: insert:")
-    (spyx (jdbc/insert! pg-spec "rm_case_master" it ))
+    (spy :msg "insert result" (jdbc/insert! pg-spec "rm_case_master" it ))
   ))
 
 (defn tx1 []
@@ -277,12 +279,12 @@
           "begin
              pkg_rls.set_context ('admin', '1','ARGUS_MART', '#$!AgSeRvIcE@SaFeTy');
            end; " ] ))
-      (spy :msg "  count(*)"
+      (spyx
         (jdbc/query db-conn [ "select count(*) as result from rm_case_master" ] ))
 
       (jdbc/query db-conn
         [ "select * from rm_case_master" ]
-        :result-set-fn rs-fn)
+        :result-set-fn rs->pg-insert)
     )
 
     (newline)
