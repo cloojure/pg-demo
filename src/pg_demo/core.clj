@@ -37,7 +37,8 @@
 (defn result-set->pg-insert [tbl-name-str result-set]
   (jdbc/with-db-connection [pg-conn pg-spec]
     (let [rows-inserted (atom 0) ]
-      (doseq [it (partition-all 1000 result-set)]
+      (doseq [it (partition-all 1000 
+                    (take 1234 result-set))]    ; #awt #todo #kludge *********************************
         (print (format "%7d  " (swap! rows-inserted + (count it))))
         (time
           (apply jdbc/insert! pg-conn tbl-name-str it ))))))
