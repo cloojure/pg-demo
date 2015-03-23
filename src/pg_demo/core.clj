@@ -236,11 +236,11 @@
 
    (newline)))
 
-(defn rs->pg-insert [result-set]
+(defn result-set->pg-insert [result-set]
   (doseq [it (take 3 result-set)]
     (newline)
     (println "-----------------------------------------------------------------------------")
-    (println "rs->pg-insert: insert:")
+    (println "result-set->pg-insert: insert:")
     (newline)
     (println "received:")
     (prn (into (sorted-map) it))
@@ -248,6 +248,18 @@
     (newline)
     (spy :msg "insert result" (jdbc/insert! pg-spec "rm_case_master" it ))
   ))
+
+(defn result-row->pg-insert [result-row]
+  (newline)
+  (println "-----------------------------------------------------------------------------")
+  (println "result-row->pg-insert: insert:")
+  (newline)
+  (println "received:")
+  (prn (into (sorted-map) it))
+
+  (newline)
+  (spy :msg "insert result" (jdbc/insert! pg-spec "rm_case_master" it ))
+)
 
 (defn tx1 []
   (newline)
@@ -266,7 +278,8 @@
                   :password     "rxlogix" }
   ]
     ; Stupid Oracle DB will often crash without this set
-    (let [timeZone  (TimeZone/getTimeZone "America/Los_Angeles") ]
+;   (let [timeZone  (TimeZone/getTimeZone "America/Los_Angeles") ]
+    (let [timeZone  (TimeZone/getTimeZone "UTC") ]
       (TimeZone/setDefault timeZone))
     (newline)
     (spyx (jdbc/query odb-spec [ "select BANNER from SYS.V_$VERSION" ] ))
@@ -284,7 +297,9 @@
 
       (jdbc/query db-conn
         [ "select * from rm_case_master" ]
-        :result-set-fn rs->pg-insert)
+;       :result-set-fn  result-set->pg-insert
+        :row-fn         result-row->pg-insert
+      )
     )
 
     (newline)
