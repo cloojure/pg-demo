@@ -2710,6 +2710,77 @@
               PRIMARY KEY (ENTERPRISE_ID,USER_ID,COUNTRY_ID)
           ); " }
 
+    { "rm_cfg_medwatch_codes"
+          "CREATE TABLE rm_cfg_medwatch_codes (
+              DIALOG numeric(10) NOT NULL,
+              VALUE varchar(4) NOT NULL,
+              DESCRIPTION varchar(400) NOT NULL,
+              DEFINITION varchar(500),
+              SORTBY numeric(10,2) NOT NULL,
+              PRIMARY KEY (DIALOG,VALUE,SORTBY)
+          ); " }
+
+    { "rm_cfg_mem_report"
+          "CREATE TABLE rm_cfg_mem_report (
+              ENTERPRISE_ID numeric NOT NULL,
+              ID numeric(10) NOT NULL,
+              NAME varchar(50) NOT NULL,
+              USER_ID numeric NOT NULL,
+              REPORT_TYPE numeric,
+              XT_ROW numeric,
+              XT_ROW2 numeric(10),
+              XT_COLUMN numeric,
+              XT_COLUMN2 numeric(10),
+              XT_PRODUCT_TYPE numeric,
+              XT_PRODUCT_ID numeric,
+              XT_SCOPE_ID numeric,
+              XT_TOP numeric,
+              AC_ID numeric,
+              LOGO numeric,
+              SHADING numeric,
+              TITLE varchar(100),
+              START_DATE timestamp,
+              END_DATE timestamp,
+              RELATIVITY numeric,
+              SHARED numeric,
+              LS_GROUP numeric,
+              LS_SORT numeric,
+              FOR_PERIODIC numeric(1),
+              DELETED timestamp,
+              SUB_TITLE varchar(80),
+              FOOTER varchar(80),
+              CREATION_DATE numeric,
+              LS_GROUPINGS varchar(300),
+              DESCRIPTION varchar(200),
+              LAST_MODIFIED_TIME timestamp,
+              XT_ROW3 numeric(10),
+              XT_COLUMN3 numeric(10),
+              NO_REPORT_HEADER numeric(1) NOT NULL,
+              PRIMARY KEY (ENTERPRISE_ID,ID)
+          ); " }
+
+    { "rm_cfg_narrative_template"
+          "CREATE TABLE rm_cfg_narrative_template (
+              ENTERPRISE_ID numeric NOT NULL,
+              TEMPLATE_ID numeric NOT NULL,
+              TEMPLATE_NAME varchar(40),
+              LANGUAGE numeric,
+              RETIRED numeric,
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,TEMPLATE_ID)
+          ); " }
+
+    { "rm_cfg_narr_template_phrase"
+          "CREATE TABLE rm_cfg_narr_template_phrase (
+              ENTERPRISE_ID numeric NOT NULL,
+              TEMPLATE_ID numeric NOT NULL,
+              SEQ_NUM numeric NOT NULL,
+              AC_ID numeric,
+              SORT_ID numeric,
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,TEMPLATE_ID,SEQ_NUM)
+          ); " }
+
   ] ))
 
 (def dummy 
