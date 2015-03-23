@@ -969,6 +969,59 @@
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,FIELD_ID,PRIMARY_SEQ_NUM,ALT_SEQ_NUM,DLP_REVISION_NUMBER)
           ); " }
 
+    { "rm_case_lab_data"
+          "CREATE TABLE rm_case_lab_data (
+              ENTERPRISE_ID numeric NOT NULL,
+              CASE_ID numeric NOT NULL,
+              SEQ_NUM numeric NOT NULL,
+              LAB_TEST_ID numeric,
+              TEST_DATE timestamp,
+              SORT_ID numeric,
+              ASSESSMENT numeric,
+              TEST_DATE_RES numeric(4),
+              RESULTS varchar(50),
+              NORM_HIGH varchar(50),
+              NORM_LOW varchar(50),
+              TEST_DATE_PARTIAL varchar(20),
+              RESULT varchar(20),
+              UNIT varchar(35),
+              LAB_TEST_NAME varchar(250),
+              DELETED timestamp,
+              NOTES text,
+              NOTES_J text,
+              PT_CODE varchar(50),
+              LLT_CODE varchar(50),
+              HLT_CODE varchar(50),
+              HLGT_CODE varchar(50),
+              SOC_CODE varchar(50),
+              SYN_CODE numeric,
+              DICT_ID numeric,
+              LLT varchar(250),
+              HLT varchar(250),
+              HLGT varchar(250),
+              SOC varchar(250),
+              CODE_STATUS numeric,
+              TEST_REPTD varchar(250),
+              UNIT_ID numeric,
+              CODE_STATUS_J numeric,
+              HLGT_J varchar(250),
+              HLT_J varchar(250),
+              LAB_TEST_NAME_J varchar(250),
+              LLT_CODE_J varchar(50),
+              LLT_J varchar(250),
+              RESULTS_J varchar(50),
+              RESULT_J varchar(20),
+              SOC_J varchar(250),
+              TEST_REPTD_J varchar(250),
+              SYN_CODE_J numeric,
+              DLP_REVISION_NUMBER numeric NOT NULL,
+              REVISION_DELETE_FLAG numeric,
+              DELETED_FLAG numeric(1) NOT NULL,
+              EFFECTIVE_START_DATE timestamp NOT NULL,
+              EFFECTIVE_END_DATE timestamp NOT NULL,
+              PRIMARY KEY (ENTERPRISE_ID,CASE_ID,SEQ_NUM,DLP_REVISION_NUMBER)
+          ); " }
+
   ] ))
 
 (def dummy 
