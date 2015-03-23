@@ -285,7 +285,53 @@
               EFFECTIVE_START_DATE timestamp NOT NULL,
               EFFECTIVE_END_DATE timestamp NOT NULL,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,DLP_REVISION_NUMBER)
-          );" }
+          ); " }
+
+    { "rm_case_bfarm_data"
+          "CREATE TABLE rm_case_bfarm_data (
+              ENTERPRISE_ID numeric NOT NULL,
+              CASE_ID numeric NOT NULL,
+              MED_STATUS_ID numeric NOT NULL,
+              MED_STATUS numeric,
+              OTHER_TEXT varchar(20),
+              DELETED timestamp,
+              DLP_REVISION_NUMBER numeric NOT NULL,
+              EFFECTIVE_START_DATE timestamp NOT NULL,
+              EFFECTIVE_END_DATE timestamp NOT NULL,
+              DELETED_FLAG numeric(1) NOT NULL,
+              REVISION_DELETE_FLAG numeric,
+              PRIMARY KEY (ENTERPRISE_ID,CASE_ID,MED_STATUS_ID,DLP_REVISION_NUMBER)
+          ); " }
+
+    { "rm_case_classifications"
+          "CREATE TABLE rm_case_classifications (
+              ENTERPRISE_ID numeric NOT NULL,
+              CASE_ID numeric NOT NULL,
+              SEQ_NUM numeric NOT NULL,
+              CLASSIFICATION_ID numeric,
+              DELETED timestamp,
+              DLP_REVISION_NUMBER numeric NOT NULL,
+              REVISION_DELETE_FLAG numeric,
+              DELETED_FLAG numeric(1) NOT NULL,
+              EFFECTIVE_START_DATE timestamp NOT NULL,
+              EFFECTIVE_END_DATE timestamp NOT NULL,
+              PRIMARY KEY (ENTERPRISE_ID,CASE_ID,SEQ_NUM,DLP_REVISION_NUMBER)
+          ); " }
+
+    { "rm_case_comments"
+          "CREATE TABLE rm_case_comments (
+              ENTERPRISE_ID numeric NOT NULL,
+              CASE_ID numeric NOT NULL,
+              COMMENT_TXT text,
+              COMMENT_TXT_J text,
+              DELETED timestamp,
+              DLP_REVISION_NUMBER numeric NOT NULL,
+              REVISION_DELETE_FLAG numeric,
+              DELETED_FLAG numeric(1) NOT NULL,
+              EFFECTIVE_START_DATE timestamp NOT NULL,
+              EFFECTIVE_END_DATE timestamp NOT NULL,
+              PRIMARY KEY (ENTERPRISE_ID,CASE_ID,DLP_REVISION_NUMBER)
+          ); " }
 
   ] ))
 
