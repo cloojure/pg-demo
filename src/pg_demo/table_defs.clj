@@ -5235,6 +5235,285 @@
               PRIMARY KEY (ENTERPRISE_ID,CENTER_ID,STUDY_KEY,SEQ_NUM)
           ); " }
 
+    { "rm_lm_study_countries"
+          "CREATE TABLE rm_lm_study_countries (
+              ENTERPRISE_ID numeric NOT NULL,
+              STUDY_KEY numeric NOT NULL,
+              SEQ_NUM numeric NOT NULL,
+              COUNTRY_ID numeric NOT NULL,
+              INACTIVE_DATE timestamp,
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,STUDY_KEY,SEQ_NUM)
+          ); " }
+
+    { "rm_lm_study_products"
+          "CREATE TABLE rm_lm_study_products (
+              ENTERPRISE_ID numeric NOT NULL,
+              PRODUCT_ID numeric NOT NULL,
+              SEQ_NUM numeric NOT NULL,
+              LICENSE_ID numeric,
+              MEDICINAL_PROD_ID varchar(10),
+              DELETED timestamp,
+              BLINDED numeric NOT NULL,
+              COHORT_ID numeric NOT NULL,
+              PROD_TYPE_ID numeric,
+              PRIMARY KEY (ENTERPRISE_ID,COHORT_ID,PRODUCT_ID,SEQ_NUM)
+          ); " }
+
+    { "rm_lm_study_references"
+          "CREATE TABLE rm_lm_study_references (
+              ENTERPRISE_ID numeric NOT NULL,
+              STUDY_KEY numeric NOT NULL,
+              SEQ_NUM numeric NOT NULL,
+              SORT_ID numeric,
+              REF_TYPE_ID numeric,
+              REFERENCE varchar(40),
+              COUNTRY_ID numeric,
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,STUDY_KEY,SEQ_NUM)
+          ); " }
+
+    { "rm_lm_study_susar"
+          "CREATE TABLE rm_lm_study_susar (
+              ENTERPRISE_ID numeric NOT NULL,
+              STUDY_KEY numeric NOT NULL,
+              SEQ_NUM numeric NOT NULL,
+              ALWAYS_REPORT numeric NOT NULL,
+              COUNTRY_ID numeric NOT NULL,
+              LICENSE_TYPE_ID numeric NOT NULL,
+              AGENCY_ID numeric,
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,STUDY_KEY,SEQ_NUM)
+          ); " }
+
+    { "rm_lm_study_types"
+          "CREATE TABLE rm_lm_study_types (
+              STUDY_TYPE_ID numeric NOT NULL,
+              STUDY_TYPE varchar(15),
+              PROTECTED numeric,
+              DISPLAY numeric,
+              STUDY_TYPE_J varchar(15),
+              DELETED timestamp,
+              PRIMARY KEY (STUDY_TYPE_ID)
+          ); " }
+
+    { "rm_lm_udf_ddl_values"
+          "CREATE TABLE rm_lm_udf_ddl_values (
+              ENTERPRISE_ID numeric NOT NULL,
+              ID numeric NOT NULL,
+              FIELD_ID numeric NOT NULL,
+              DESCRIPTION varchar(100),
+              DESCRIPTION_J varchar(100),
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,ID)
+          ); " }
+
+    { "rm_lm_unblinding_status"
+          "CREATE TABLE rm_lm_unblinding_status (
+              ENTERPRISE_ID numeric NOT NULL,
+              STATUS_ID numeric NOT NULL,
+              UNBLINDING_STATUS varchar(30),
+              DISPLAY numeric(1),
+              PROTECTED numeric(1),
+              UNBLINDING_STATUS_J varchar(30),
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,STATUS_ID)
+          ); " }
+
+    { "rm_lm_vaccinated_at"
+          "CREATE TABLE rm_lm_vaccinated_at (
+              ENTERPRISE_ID numeric NOT NULL,
+              VACC_AT_ID numeric NOT NULL,
+              LOCATION varchar(40),
+              LOCATION_J varchar(40),
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,VACC_AT_ID)
+          ); " }
+
+    { "rm_lm_vaccines"
+          "CREATE TABLE rm_lm_vaccines (
+              VACC_ID numeric NOT NULL,
+              VACCINE_CODE varchar(6),
+              VACCINE_DESC varchar(100),
+              DELETED timestamp,
+              PRIMARY KEY (VACC_ID)
+          ); " }
+
+    { "rm_lm_vaers_rpt_block"
+          "CREATE TABLE rm_lm_vaers_rpt_block (
+              ENTERPRISE_ID numeric NOT NULL,
+              BLOCK_ID numeric NOT NULL,
+              BLOCK_NAME varchar(20),
+              BLOCK_NAME_J varchar(20),
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,BLOCK_ID)
+          ); " }
+
+    { "rm_meddra_hlgt_hlt_comp"
+          "CREATE TABLE rm_meddra_hlgt_hlt_comp (
+              GLOBAL_DICT_ID numeric NOT NULL,
+              HLGT_CODE numeric NOT NULL,
+              HLT_CODE numeric NOT NULL,
+              DELETED timestamp,
+              PRIMARY KEY (GLOBAL_DICT_ID,HLGT_CODE,HLT_CODE)
+          ); " }
+
+    { "rm_meddra_hlg_pref_term"
+          "CREATE TABLE rm_meddra_hlg_pref_term (
+              GLOBAL_DICT_ID numeric NOT NULL,
+              HLGT_CODE numeric NOT NULL,
+              HLGT_NAME varchar(120),
+              HLGT_WHO_ART_CODE varchar(7),
+              HLGT_HARTS_CODE numeric,
+              HLGT_COSTART_FG varchar(21),
+              HLGT_ICD9_CODE varchar(8),
+              HLGT_ICD9CM_CODE varchar(8),
+              HLGT_ICD10_CODE varchar(8),
+              HLGT_J_ART_CODE varchar(6),
+              DELETED timestamp,
+              PRIMARY KEY (GLOBAL_DICT_ID,HLGT_CODE)
+          ); " }
+
+    { "rm_meddra_hlg_pref_term_j"
+          "CREATE TABLE rm_meddra_hlg_pref_term_j (
+              GLOBAL_DICT_ID numeric NOT NULL,
+              HLGT_CODE numeric NOT NULL,
+              HLGT_KANJI varchar(400),
+              HLGT_KANA varchar(400),
+              HLGT_KANA1 varchar(400),
+              HLGT_KANA2 varchar(400),
+              PRIMARY KEY (GLOBAL_DICT_ID,HLGT_CODE)
+          ); " }
+
+    { "rm_meddra_hlt_pref_comp"
+          "CREATE TABLE rm_meddra_hlt_pref_comp (
+              GLOBAL_DICT_ID numeric NOT NULL,
+              HLT_CODE numeric NOT NULL,
+              PT_CODE numeric NOT NULL,
+              DELETED timestamp,
+              PRIMARY KEY (GLOBAL_DICT_ID,HLT_CODE,PT_CODE)
+          ); " }
+
+    { "rm_meddra_hl_pref_term"
+          "CREATE TABLE rm_meddra_hl_pref_term (
+              GLOBAL_DICT_ID numeric NOT NULL,
+              HLT_CODE numeric NOT NULL,
+              HLT_NAME varchar(120),
+              HLT_WHO_ART_CODE varchar(7),
+              HLT_HARTS_CODE numeric,
+              HLT_COSTART_FG varchar(21),
+              HLT_ICD9_CODE varchar(8),
+              HLT_ICD9CM_CODE varchar(8),
+              HLT_ICD10_CODE varchar(8),
+              HLT_J_ART_CODE varchar(6),
+              DELETED timestamp,
+              PRIMARY KEY (GLOBAL_DICT_ID,HLT_CODE)
+          ); " }
+
+    { "rm_meddra_hl_pref_term_j"
+          "CREATE TABLE rm_meddra_hl_pref_term_j (
+              GLOBAL_DICT_ID numeric NOT NULL,
+              HLT_CODE numeric NOT NULL,
+              HLT_KANJI varchar(400),
+              HLT_KANA varchar(400),
+              HLT_KANA1 varchar(400),
+              HLT_KANA2 varchar(400),
+              PRIMARY KEY (GLOBAL_DICT_ID,HLT_CODE)
+          ); " }
+
+    { "rm_meddra_md_hierarchy"
+          "CREATE TABLE rm_meddra_md_hierarchy (
+              GLOBAL_DICT_ID numeric NOT NULL,
+              PT_CODE numeric NOT NULL,
+              HLT_CODE numeric NOT NULL,
+              HLGT_CODE numeric NOT NULL,
+              SOC_CODE numeric NOT NULL,
+              PT_NAME varchar(120) NOT NULL,
+              HLT_NAME varchar(120) NOT NULL,
+              HLGT_NAME varchar(120) NOT NULL,
+              SOC_NAME varchar(120) NOT NULL,
+              SOC_ABBREV varchar(5) NOT NULL,
+              NULL_FIELD varchar(1),
+              PT_SOC_CODE numeric,
+              PRIMARY_SOC_FG varchar(1),
+              DELETED timestamp,
+              PRIMARY KEY (GLOBAL_DICT_ID,PT_CODE,HLT_CODE,HLGT_CODE,SOC_CODE)
+          ); " }
+
+    { "rm_meddra_pref_term"
+          "CREATE TABLE rm_meddra_pref_term (
+              GLOBAL_DICT_ID numeric NOT NULL,
+              PT_CODE numeric NOT NULL,
+              PT_NAME_ENGLISH varchar(120) NOT NULL,
+              NULL_FIELD varchar(1),
+              PT_SOC_CODE numeric,
+              PT_WHO_ART_CODE varchar(7),
+              PT_HARTS_CODE numeric,
+              PT_COSTART_FG varchar(21),
+              PT_ICD9_CODE varchar(8),
+              PT_ICD9CM_CODE varchar(8),
+              PT_ICD10_CODE varchar(8),
+              PT_J_ART_CODE varchar(6),
+              DELETED timestamp,
+              PRIMARY KEY (GLOBAL_DICT_ID,PT_CODE)
+          ); " }
+
+    { "rm_meddra_pref_term_j"
+          "CREATE TABLE rm_meddra_pref_term_j (
+              GLOBAL_DICT_ID numeric NOT NULL,
+              PT_CODE numeric NOT NULL,
+              PT_KANJI varchar(400),
+              PT_KANA varchar(400),
+              PT_KANA1 varchar(400),
+              PT_KANA2 varchar(400),
+              PRIMARY KEY (GLOBAL_DICT_ID,PT_CODE)
+          ); " }
+
+    { "rm_meddra_pref_term_llt"
+          "CREATE TABLE rm_meddra_pref_term_llt (
+              GLOBAL_DICT_ID numeric NOT NULL,
+              LLT_CODE numeric NOT NULL,
+              LLT_NAME_ENGLISH varchar(100) NOT NULL,
+              PT_CODE numeric,
+              LLT_WHO_ART_CODE varchar(7),
+              LLT_HARTS_CODE numeric,
+              LLT_COSTART_FG varchar(21),
+              LLT_ICD9_CODE varchar(8),
+              LLT_ICD9CM_CODE varchar(8),
+              LLT_ICD10_CODE varchar(8),
+              LLT_CURRENCY varchar(1),
+              LLT_J_ART_CODE varchar(6),
+              DELETED timestamp,
+              PRIMARY KEY (GLOBAL_DICT_ID,LLT_CODE)
+          ); " }
+
+    { "rm_meddra_pref_term_llt_j"
+          "CREATE TABLE rm_meddra_pref_term_llt_j (
+              GLOBAL_DICT_ID numeric NOT NULL,
+              LLT_CODE numeric NOT NULL,
+              LLT_KANJI varchar(400),
+              LLT_JCURR varchar(10),
+              LLT_KANA varchar(600),
+              LLT_KANA1 varchar(600),
+              LLT_KANA2 varchar(600),
+              PRIMARY KEY (GLOBAL_DICT_ID,LLT_CODE)
+          ); " }
+
+    { "rm_meddra_smq_content"
+          "CREATE TABLE rm_meddra_smq_content (
+              GLOBAL_DICT_ID numeric NOT NULL,
+              SMQ_CODE numeric NOT NULL,
+              TERM_CODE numeric NOT NULL,
+              TERM_LEVEL numeric NOT NULL,
+              TERM_SCOPE numeric NOT NULL,
+              TERM_CATEGORY varchar(1) NOT NULL,
+              TERM_WEIGHT numeric NOT NULL,
+              TERM_STATUS varchar(1) NOT NULL,
+              TERM_ADDITION_VERSION varchar(5) NOT NULL,
+              TERM_LAST_MODIFIED_VERSION varchar(5) NOT NULL,
+              PRIMARY KEY (GLOBAL_DICT_ID,SMQ_CODE,TERM_CODE)
+          ); " }
+
   ] ))
 
 (def dummy 
