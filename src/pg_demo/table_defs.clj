@@ -3346,6 +3346,26 @@
               PRIMARY KEY (ID)
           ); " }
 
+    { "rm_cmn_profile_enterprise"
+          "CREATE TABLE rm_cmn_profile_enterprise (
+              ENTERPRISE_ID numeric NOT NULL,
+              SECTION varchar(300) NOT NULL,
+              KEY varchar(300) NOT NULL,
+              VALUE varchar(1000),
+              TREE_NAME varchar(100),
+              KEY_TYPE numeric(2),
+              KEY_LABEL varchar(500),
+              KEY_OPTIONS varchar(1000),
+              LINK_TABLE varchar(100),
+              LINK_COLUMN_SEQ varchar(100),
+              LINK_COLUMN_DISPLAY varchar(100),
+              HELP_TEXT_TREE_NAME varchar(300),
+              NEXT_KEY varchar(300),
+              SORT_ORDER numeric,
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,SECTION,KEY)
+          ); " }
+
   ] ))
 
 (def dummy 
