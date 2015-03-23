@@ -5514,6 +5514,220 @@
               PRIMARY KEY (GLOBAL_DICT_ID,SMQ_CODE,TERM_CODE)
           ); " }
 
+    { "rm_meddra_smq_list"
+          "CREATE TABLE rm_meddra_smq_list (
+              GLOBAL_DICT_ID numeric NOT NULL,
+              SMQ_CODE numeric NOT NULL,
+              SMQ_NAME varchar(100) NOT NULL,
+              SMQ_LEVEL numeric NOT NULL,
+              SMQ_DESCRIPTION varchar(3000),
+              SMQ_SOURCE varchar(2000),
+              SMQ_NOTE varchar(2000),
+              MEDDRA_VERSION varchar(5) NOT NULL,
+              STATUS varchar(1) NOT NULL,
+              SMQ_ALGORITHM varchar(100) NOT NULL,
+              PRIMARY KEY (GLOBAL_DICT_ID,SMQ_CODE)
+          ); " }
+
+    { "rm_meddra_smq_list_j"
+          "CREATE TABLE rm_meddra_smq_list_j (
+              GLOBAL_DICT_ID numeric NOT NULL,
+              SMQ_CODE numeric,
+              SMQ_KANJI varchar(120),
+              SMQ_DESC_KANJI varchar(4000)
+          ); " }
+
+    { "rm_meddra_smq_term"
+          "CREATE TABLE rm_meddra_smq_term (
+              GLOBAL_DICT_ID numeric NOT NULL,
+              SMQ_ID numeric NOT NULL,
+              SMQ_CODE numeric,
+              SMQ_NAME varchar(100),
+              SMQ_NB_NAME varchar(120),
+              SMQ_LEVEL numeric,
+              SMQ_DESCRIPTION varchar(3000),
+              SMQ_SOURCE varchar(2000),
+              SMQ_NOTE varchar(2000),
+              MEDDRA_VERSION varchar(5),
+              STATUS varchar(1),
+              SMQ_ALGORITHM varchar(100),
+              SMQ_TYPE numeric,
+              CREATE_DATE timestamp,
+              MODIFIED_DATE timestamp,
+              PRIMARY KEY (GLOBAL_DICT_ID,SMQ_ID)
+          ); " }
+
+    { "rm_meddra_smq_term_details"
+          "CREATE TABLE rm_meddra_smq_term_details (
+              GLOBAL_DICT_ID numeric NOT NULL,
+              SMQ_TERM_ID numeric NOT NULL,
+              SMQ_ID numeric,
+              PARENT_SMQ_CODE numeric,
+              TERM_CODE numeric,
+              TERM_LEVEL numeric,
+              TERM_SCOPE numeric,
+              TERM_CATEGORY varchar(1),
+              TERM_WEIGHT numeric,
+              TERM_STATUS varchar(1),
+              TERM_NAME_ENGLISH varchar(120),
+              LLT_CURRENCY varchar(1),
+              TERM_ADDITION_VERSION varchar(5),
+              TERM_LAST_MODIFIED_VERSION varchar(5),
+              CREATE_DATE timestamp,
+              PRIMARY KEY (GLOBAL_DICT_ID,SMQ_TERM_ID)
+          ); " }
+
+    { "rm_meddra_soc"
+          "CREATE TABLE rm_meddra_soc (
+              GLOBAL_DICT_ID numeric NOT NULL,
+              SOC_CODE numeric NOT NULL,
+              SOC_NAME_ENGLISH varchar(120) NOT NULL,
+              SOC_ABBREV varchar(5) NOT NULL,
+              SOC_WHO_ART_CODE varchar(7),
+              SOC_HARTS_CODE numeric,
+              SOC_COSTART_FG varchar(21),
+              SOC_ICD9_CODE varchar(8),
+              SOC_ICD9CM_CODE varchar(8),
+              SOC_ICD10_CODE varchar(8),
+              SOC_J_ART_CODE varchar(6),
+              DELETED timestamp,
+              PRIMARY KEY (GLOBAL_DICT_ID,SOC_CODE)
+          ); " }
+
+    { "rm_meddra_soc_hlgt_comp"
+          "CREATE TABLE rm_meddra_soc_hlgt_comp (
+              GLOBAL_DICT_ID numeric NOT NULL,
+              SOC_CODE numeric NOT NULL,
+              HLGT_CODE numeric NOT NULL,
+              DELETED timestamp,
+              PRIMARY KEY (GLOBAL_DICT_ID,SOC_CODE,HLGT_CODE)
+          ); " }
+
+    { "rm_meddra_soc_intl_order"
+          "CREATE TABLE rm_meddra_soc_intl_order (
+              GLOBAL_DICT_ID numeric NOT NULL,
+              INTL_ORD_CODE numeric NOT NULL,
+              SOC_CODE numeric NOT NULL,
+              PRIMARY KEY (GLOBAL_DICT_ID,INTL_ORD_CODE)
+          ); " }
+
+    { "rm_meddra_soc_j"
+          "CREATE TABLE rm_meddra_soc_j (
+              GLOBAL_DICT_ID numeric NOT NULL,
+              SOC_CODE numeric NOT NULL,
+              SOC_KANJI varchar(400),
+              SOC_ORDER numeric,
+              SOC_KANA varchar(400),
+              SOC_KANA1 varchar(400),
+              SOC_KANA2 varchar(400),
+              PRIMARY KEY (GLOBAL_DICT_ID,SOC_CODE)
+          ); " }
+
+    { "rm_meddra_spec_cat"
+          "CREATE TABLE rm_meddra_spec_cat (
+              GLOBAL_DICT_ID numeric NOT NULL,
+              SPEC_CODE numeric NOT NULL,
+              SPEC_NAME varchar(120) NOT NULL,
+              SPEC_ABBREV varchar(10) NOT NULL,
+              DELETED timestamp
+          ); " }
+
+    { "rm_meddra_spec_pref_comp"
+          "CREATE TABLE rm_meddra_spec_pref_comp (
+              GLOBAL_DICT_ID numeric NOT NULL,
+              SPEC_CODE numeric NOT NULL,
+              PT_CODE numeric NOT NULL,
+              DELETED timestamp
+          ); " }
+
+    { "rm_meddra_synonyms"
+          "CREATE TABLE rm_meddra_synonyms (
+              GLOBAL_DICT_ID numeric NOT NULL,
+              SYN_ID numeric NOT NULL,
+              LLT_CODE numeric NOT NULL,
+              SYN varchar(255) NOT NULL,
+              SYN_J varchar(255),
+              PRIMARY KEY (GLOBAL_DICT_ID,SYN_ID)
+          ); " }
+
+    { "rm_rpt_routing"
+          "CREATE TABLE rm_rpt_routing (
+              ENTERPRISE_ID numeric NOT NULL,
+              REG_REPORT_ID numeric NOT NULL,
+              SEQ_NUM numeric NOT NULL,
+              ROUTE_DATE timestamp,
+              USER_ID numeric,
+              COMMENT_TXT varchar(1000),
+              TO_STATE_ID numeric,
+              FROM_REPORT_STATE_ID numeric,
+              JUSTIFICATION_ID numeric,
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,REG_REPORT_ID,SEQ_NUM)
+          ); " }
+
+    { "rm_su_case_study_drug"
+          "CREATE TABLE rm_su_case_study_drug (
+              ENTERPRISE_ID numeric NOT NULL,
+              CASE_ID numeric NOT NULL,
+              SEQ_NUM numeric,
+              UNBLIND_OK numeric(1),
+              BLIND_NAME varchar(70),
+              BLIND_NAME_J varchar(70)
+          ); " }
+
+    { "rm_who_ard"
+          "CREATE TABLE rm_who_ard (
+              GLOBAL_DICT_ID numeric NOT NULL,
+              ADV_REACTION_NUMBER char(4) NOT NULL,
+              SEQ_NUM char(3) NOT NULL,
+              CHECK_DIGIT char(1),
+              HIGH_LEVEL_TERM_LINK char(4),
+              SYSTEM_ORGAN_CLASS1 char(4),
+              SYSTEM_ORGAN_CLASS2 char(4),
+              SYSTEM_ORGAN_CLASS3 char(4),
+              TEXT_ENGLISH varchar(100),
+              TEXT_FRENCH varchar(100),
+              TEXT_PORTUGUESE varchar(100),
+              TEXT_GERMAN varchar(100),
+              TEXT_SPANISH varchar(100),
+              YEAR_QUARTER char(3),
+              DELETED timestamp,
+              PRIMARY KEY (GLOBAL_DICT_ID,ADV_REACTION_NUMBER,SEQ_NUM)
+          ); " }
+
+    { "rm_who_atc_classification"
+          "CREATE TABLE rm_who_atc_classification (
+              GLOBAL_DICT_ID numeric NOT NULL,
+              DRUG_RECORD_NUMBER varchar(6) NOT NULL,
+              SEQ_NUM1 varchar(2) NOT NULL,
+              SEQ_NUM2 varchar(3) NOT NULL,
+              CHECK_DIGIT varchar(1) NOT NULL,
+              ATC_CODE varchar(7) NOT NULL,
+              YEAR_QUARTER varchar(3),
+              OFFICIAL_ATC_CODE varchar(1),
+              DELETED timestamp,
+              PRIMARY KEY (GLOBAL_DICT_ID,DRUG_RECORD_NUMBER,SEQ_NUM1,SEQ_NUM2,CHECK_DIGIT,ATC_CODE)
+          ); " }
+
+    { "rm_who_atc_code"
+          "CREATE TABLE rm_who_atc_code (
+              GLOBAL_DICT_ID numeric NOT NULL,
+              ATC_CODE varchar(7) NOT NULL,
+              ATC_LEVEL varchar(1),
+              ATC_TEXT varchar(50),
+              DELETED timestamp,
+              PRIMARY KEY (GLOBAL_DICT_ID,ATC_CODE)
+          ); " }
+
+    { "rm_who_countries"
+          "CREATE TABLE rm_who_countries (
+              GLOBAL_DICT_ID numeric NOT NULL,
+              COUNTRY_CODE char(3) NOT NULL,
+              COUNTRY_NAME varchar(30),
+              DELETED timestamp,
+              PRIMARY KEY (GLOBAL_DICT_ID,COUNTRY_CODE)
+          ); " }
+
   ] ))
 
 (def dummy 
