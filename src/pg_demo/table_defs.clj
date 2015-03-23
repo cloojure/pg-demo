@@ -2598,6 +2598,118 @@
               PRIMARY KEY (ENTERPRISE_ID,ID)
           ); " }
 
+    { "rm_cfg_dsr_report"
+          "CREATE TABLE rm_cfg_dsr_report (
+              ENTERPRISE_ID numeric NOT NULL,
+              REPORT_FORM_ID numeric NOT NULL,
+              SHOW_HEADERFOOTER numeric NOT NULL,
+              LANDSCAPE_TEMPLATE varchar(100),
+              PORTRAIT_TEMPLATE varchar(100),
+              LANDSCAPE_BLOB_SIZE numeric,
+              PORTRAIT_BLOB_SIZE numeric,
+              SHOW_PAGE_NUMBERING numeric,
+              PAGE_NUMBERING numeric,
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,REPORT_FORM_ID)
+          ); " }
+
+    { "rm_cfg_dsr_template_variables"
+          "CREATE TABLE rm_cfg_dsr_template_variables (
+              ENTERPRISE_ID numeric NOT NULL,
+              ID numeric NOT NULL,
+              VARIABLE_NAME varchar(200),
+              SQL_QUERY varchar(4000),
+              REPORT_RELATED numeric(1),
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,ID)
+          ); " }
+
+    { "rm_cfg_groups"
+          "CREATE TABLE rm_cfg_groups (
+              ENTERPRISE_ID numeric NOT NULL,
+              GROUP_ID numeric NOT NULL,
+              GROUP_NAME varchar(40),
+              EMAIL_ADDR varchar(100),
+              CASE_ACCESS varchar(1000),
+              MENU_ACCESS varchar(1000),
+              DISABLED numeric,
+              LISTEDNESS_ACCESS varchar(1000),
+              EMAIL_SUPERVISOR varchar(100),
+              LAM numeric(2),
+              DEFAULT_REPORT_FORM_ID numeric,
+              DELETED timestamp,
+              PRODUCT_SECURITY numeric(1) NOT NULL,
+              STUDY_SECURITY numeric(1) NOT NULL,
+              NO_ADV_ACCESS numeric(1) NOT NULL,
+              NO_ADV_SHARE numeric(1) NOT NULL,
+              NO_ADV_SQL numeric(1) NOT NULL,
+              PRIMARY KEY (ENTERPRISE_ID,GROUP_ID)
+          ); " }
+
+    { "rm_cfg_groups_product"
+          "CREATE TABLE rm_cfg_groups_product (
+              ENTERPRISE_ID numeric NOT NULL,
+              SEQ_NUM numeric NOT NULL,
+              GROUP_ID numeric NOT NULL,
+              FAMILY_ID numeric,
+              PRODUCT_ID numeric,
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,SEQ_NUM)
+          ); " }
+
+    { "rm_cfg_groups_study"
+          "CREATE TABLE rm_cfg_groups_study (
+              ENTERPRISE_ID numeric NOT NULL,
+              SEQ_NUM numeric NOT NULL,
+              GROUP_ID numeric NOT NULL,
+              PROTOCOL_NUM varchar(40),
+              STUDY_KEY numeric,
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,SEQ_NUM)
+          ); " }
+
+    { "rm_cfg_lam_central_site"
+          "CREATE TABLE rm_cfg_lam_central_site (
+              ENTERPRISE_ID numeric NOT NULL,
+              SITE_ID numeric NOT NULL,
+              LAM_SITE_ID numeric NOT NULL,
+              SEQ_NUM numeric NOT NULL,
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,SITE_ID,LAM_SITE_ID,SEQ_NUM)
+          ); " }
+
+    { "rm_cfg_lam_rpt_sched"
+          "CREATE TABLE rm_cfg_lam_rpt_sched (
+              ENTERPRISE_ID numeric NOT NULL,
+              ID numeric NOT NULL,
+              CASE_ID numeric NOT NULL,
+              USER_ID numeric NOT NULL,
+              REASON varchar(100),
+              REQUEST_DATE timestamp,
+              PROCESSED numeric(1) NOT NULL,
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,ID)
+          ); " }
+
+    { "rm_cfg_letter_site"
+          "CREATE TABLE rm_cfg_letter_site (
+              ENTERPRISE_ID numeric NOT NULL,
+              ID numeric(10) NOT NULL,
+              TEMPLATE_ID numeric(10),
+              SITE_ID numeric(10),
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,ID)
+          ); " }
+
+    { "rm_cfg_list_acc_user_country"
+          "CREATE TABLE rm_cfg_list_acc_user_country (
+              ENTERPRISE_ID numeric NOT NULL,
+              USER_ID numeric NOT NULL,
+              COUNTRY_ID numeric NOT NULL,
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,USER_ID,COUNTRY_ID)
+          ); " }
+
   ] ))
 
 (def dummy 
