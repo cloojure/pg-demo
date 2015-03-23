@@ -1282,6 +1282,36 @@
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,SEQ_NUM,BLOB_SEQ,DLP_REVISION_NUMBER)
           ); " }
 
+    { "rm_case_parent_info"
+          "CREATE TABLE rm_case_parent_info (
+              ENTERPRISE_ID numeric NOT NULL,
+              CASE_ID numeric NOT NULL,
+              AGE_UNIT_ID numeric,
+              DATE_OF_LMP timestamp,
+              GENDER_ID numeric,
+              AGE numeric(22,7),
+              DOB timestamp,
+              DOB_RES numeric(1),
+              HEIGHT_CM numeric(22,7),
+              INITIALS varchar(10),
+              WEIGHT_KG numeric(22,7),
+              DOB_PARTIAL varchar(20),
+              WEIGHT_LBS numeric(22,7),
+              HEIGHT_IN numeric(22,7),
+              DELETED timestamp,
+              BREASTFEEDING numeric,
+              DATE_OF_LMP_RES numeric,
+              DATE_OF_LMP_PARTIAL varchar(20),
+              MED_HIST_TEXT text,
+              MED_HIST_TEXT_J text,
+              DLP_REVISION_NUMBER numeric NOT NULL,
+              REVISION_DELETE_FLAG numeric,
+              DELETED_FLAG numeric(1) NOT NULL,
+              EFFECTIVE_START_DATE timestamp NOT NULL,
+              EFFECTIVE_END_DATE timestamp NOT NULL,
+              PRIMARY KEY (ENTERPRISE_ID,CASE_ID,DLP_REVISION_NUMBER)
+          ); " }
+
   ] ))
 
 (def dummy 
