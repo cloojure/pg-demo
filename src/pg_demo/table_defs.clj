@@ -4307,6 +4307,372 @@
               PRIMARY KEY (ENTERPRISE_ID,INTERMEDIARY_ID)
           ); " }
 
+    { "rm_lm_investigators"
+          "CREATE TABLE rm_lm_investigators (
+              ENTERPRISE_ID numeric NOT NULL,
+              CENTER_ID numeric NOT NULL,
+              SEQ_NUM numeric NOT NULL,
+              NAME varchar(140),
+              PHONE varchar(20),
+              FAX varchar(50),
+              NOTES varchar(100),
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,CENTER_ID,SEQ_NUM)
+          ); " }
+
+    { "rm_lm_justifications"
+          "CREATE TABLE rm_lm_justifications (
+              ENTERPRISE_ID numeric NOT NULL,
+              JUSTIFICATION_ID numeric NOT NULL,
+              FIELD_ID numeric NOT NULL,
+              JUSTIFICATION varchar(1000),
+              PROTECTED numeric(1),
+              JUSTIFICATION_J varchar(1000),
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,JUSTIFICATION_ID,FIELD_ID)
+          ); " }
+
+    { "rm_lm_keywords"
+          "CREATE TABLE rm_lm_keywords (
+              ENTERPRISE_ID numeric NOT NULL,
+              KEYWORD_ID numeric NOT NULL,
+              KEYWORD varchar(40),
+              DISPLAY numeric(1),
+              PROTECTED numeric(1),
+              KEYWORD_J varchar(40),
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,KEYWORD_ID)
+          ); " }
+
+    { "rm_lm_labeled_terms"
+          "CREATE TABLE rm_lm_labeled_terms (
+              ENTERPRISE_ID numeric NOT NULL,
+              DATASHEET_ID numeric NOT NULL,
+              LABEL_TERM_ID numeric,
+              TERM_CODE varchar(40),
+              CODE_DICT numeric,
+              TERM_LEVEL numeric,
+              LABELED_TERM varchar(250),
+              DELETED timestamp,
+              SEQ_NUM numeric NOT NULL,
+              REVISION numeric,
+              ADDED_DATE timestamp,
+              CODE_STATUS numeric,
+              CODE_STATUS_J numeric,
+              LABELED_TERM_J varchar(250),
+              TERM_LLT varchar(250),
+              TERM_HLT varchar(250),
+              TERM_HLGT varchar(250),
+              TERM_SOC varchar(250),
+              TERM_LLT_CODE varchar(50),
+              TERM_HLT_CODE varchar(50),
+              TERM_HLGT_CODE varchar(50),
+              TERM_SOC_CODE varchar(50),
+              TERM_AS_CODED varchar(250),
+              TERM_AS_REPTD varchar(250),
+              TERM_LLT_J varchar(250),
+              TERM_HLT_J varchar(250),
+              TERM_HLGT_J varchar(250),
+              TERM_SOC_J varchar(250),
+              TERM_LLT_CODE_J varchar(50),
+              TERM_AS_CODED_J varchar(250),
+              TERM_AS_REPTD_J varchar(250),
+              SYN_CODE numeric,
+              SYN_CODE_J numeric,
+              NOTES text,
+              NOTES_J text,
+              EG_ID numeric,
+              PRIMARY KEY (ENTERPRISE_ID,SEQ_NUM)
+          ); " }
+
+    { "rm_lm_lab_assessment"
+          "CREATE TABLE rm_lm_lab_assessment (
+              ENTERPRISE_ID numeric NOT NULL,
+              ASSESSMENT_ID numeric NOT NULL,
+              ASSESSMENT varchar(20) NOT NULL,
+              DISPLAY numeric(1),
+              PROTECTED numeric(1),
+              ASSESSMENT_J varchar(20),
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,ASSESSMENT_ID)
+          ); " }
+
+    { "rm_lm_lab_test_group"
+          "CREATE TABLE rm_lm_lab_test_group (
+              ENTERPRISE_ID numeric NOT NULL,
+              LAB_TEST_GROUP_ID numeric NOT NULL,
+              LAB_TEST_GROUP varchar(100),
+              DISPLAY numeric(1),
+              PROTECTED numeric(1),
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,LAB_TEST_GROUP_ID)
+          ); " }
+
+    { "rm_lm_lab_test_types"
+          "CREATE TABLE rm_lm_lab_test_types (
+              ENTERPRISE_ID numeric NOT NULL,
+              LAB_TEST_ID numeric NOT NULL,
+              LAB_TEST varchar(250) NOT NULL,
+              NORM_LOW varchar(10),
+              NORM_HIGH varchar(10),
+              TEST_LLT varchar(250),
+              TEST_HLT varchar(250),
+              TEST_HLGT varchar(250),
+              TEST_SOC varchar(250),
+              TEST_LLT_CODE varchar(50),
+              TEST_PT_CODE varchar(50),
+              TEST_HLT_CODE varchar(50),
+              TEST_HLGT_CODE varchar(50),
+              TEST_SOC_CODE varchar(50),
+              DELETED timestamp,
+              CODE_STATUS numeric,
+              CODE_DICT numeric,
+              TEST_CODED varchar(250),
+              TEST_REPTD varchar(250),
+              CODE_STATUS_J numeric,
+              LAB_TEST_J varchar(250),
+              TEST_HLGT_J varchar(250),
+              TEST_HLT_J varchar(250),
+              TEST_LLT_CODE_J varchar(50),
+              TEST_LLT_J varchar(250),
+              TEST_SOC_J varchar(250),
+              TEST_REPTD_J varchar(250),
+              TEST_CODED_J varchar(250),
+              SYN_CODE numeric,
+              SYN_CODE_J numeric,
+              PRIMARY KEY (ENTERPRISE_ID,LAB_TEST_ID)
+          ); " }
+
+    { "rm_lm_lab_test_type_groups"
+          "CREATE TABLE rm_lm_lab_test_type_groups (
+              ENTERPRISE_ID numeric NOT NULL,
+              SEQ_NUM numeric NOT NULL,
+              LAB_TEST_ID numeric NOT NULL,
+              LAB_TEST_GROUP_ID numeric NOT NULL,
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,SEQ_NUM)
+          ); " }
+
+    { "rm_lm_languages"
+          "CREATE TABLE rm_lm_languages (
+              ENTERPRISE_ID numeric NOT NULL,
+              LANGUAGE_ID numeric NOT NULL,
+              LANGUAGE varchar(40),
+              ENABLED numeric,
+              LANGUAGE_J varchar(40),
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,LANGUAGE_ID)
+          ); " }
+
+    { "rm_lm_language_data"
+          "CREATE TABLE rm_lm_language_data (
+              ENTERPRISE_ID numeric NOT NULL,
+              ID numeric NOT NULL,
+              FIELD_ID numeric NOT NULL,
+              LANGUAGE_ID numeric NOT NULL,
+              DELETED timestamp,
+              TEXT text,
+              PRIMARY KEY (ENTERPRISE_ID,ID,FIELD_ID,LANGUAGE_ID)
+          ); " }
+
+    { "rm_lm_license"
+          "CREATE TABLE rm_lm_license (
+              ENTERPRISE_ID numeric NOT NULL,
+              LICENSE_ID numeric NOT NULL,
+              TRADE_NAME varchar(70),
+              MANUFACTURER_ID numeric,
+              COUNTRY_ID numeric,
+              LICENSE_TYPE_ID numeric,
+              LIC_NUMBER varchar(40),
+              AWARD_DATE timestamp,
+              WITHDRAW_DATE timestamp,
+              DRL_ID varchar(45),
+              BIOLOGIC numeric,
+              REG_RPT_RULES_ID numeric,
+              USE_AWARD_IBD_DATE numeric,
+              ACTIVE_MOIETY numeric,
+              DATASHEET_ID numeric,
+              GROUP_ID numeric,
+              COMPANY_ITEM_NO varchar(40),
+              PRODUCT_INFO_LOCATION varchar(400),
+              DELETED timestamp,
+              SINGLE_USE numeric,
+              COMBINATION_PRODUCT numeric,
+              OTC_PRODUCT numeric NOT NULL,
+              PMA varchar(20),
+              NOMENCLATURE numeric(5),
+              MEDICAL_DEVICE_INFO_ID numeric,
+              CTPR_GROUP_NAME varchar(50),
+              COMMENTS varchar(1000),
+              MHLW_RE_EXAMINATION_DATE timestamp,
+              CLINICAL_COMPOUND_NUMBER varchar(70),
+              TRADE_NAME_J varchar(70),
+              COMMENTS_J varchar(1000),
+              EXCLUDE_RPT_CANDIDATE numeric(1),
+              PMDA_CLASS_ID_1 numeric,
+              PMDA_CLASS_ID_2 numeric,
+              PMDA_CLASS_ID_3 numeric,
+              PRIMARY KEY (ENTERPRISE_ID,LICENSE_ID)
+          ); " }
+
+    { "rm_lm_license_types"
+          "CREATE TABLE rm_lm_license_types (
+              LICENSE_TYPE_ID numeric NOT NULL,
+              LICENSE_TYPE varchar(30),
+              LICENSE_TYPE_J varchar(30),
+              DELETED timestamp,
+              PRIMARY KEY (LICENSE_TYPE_ID)
+          ); " }
+
+    { "rm_lm_lic_category"
+          "CREATE TABLE rm_lm_lic_category (
+              ENTERPRISE_ID numeric NOT NULL,
+              CATEGORY_ID numeric NOT NULL,
+              CATEGORY_J varchar(200),
+              E2B_CODE numeric,
+              DISPLAY numeric,
+              CATEGORY varchar(200),
+              PROTECTED numeric,
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,CATEGORY_ID)
+          ); " }
+
+    { "rm_lm_lic_countries"
+          "CREATE TABLE rm_lm_lic_countries (
+              ENTERPRISE_ID numeric NOT NULL,
+              COUNTRY_ID numeric NOT NULL,
+              LICENSE_ID numeric NOT NULL,
+              SEQ_NUM numeric NOT NULL,
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,COUNTRY_ID,LICENSE_ID,SEQ_NUM)
+          ); " }
+
+    { "rm_lm_lic_products"
+          "CREATE TABLE rm_lm_lic_products (
+              ENTERPRISE_ID numeric NOT NULL,
+              LICENSE_ID numeric NOT NULL,
+              PRODUCT_ID numeric NOT NULL,
+              SEQ_NUM numeric NOT NULL,
+              DISPLAY numeric(4),
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,LICENSE_ID,PRODUCT_ID,SEQ_NUM)
+          ); " }
+
+    { "rm_lm_lic_report_rules"
+          "CREATE TABLE rm_lm_lic_report_rules (
+              ENTERPRISE_ID numeric NOT NULL,
+              LICENSE_ID numeric NOT NULL,
+              SEQ_NUM numeric NOT NULL,
+              FREQ numeric,
+              START_MONTH numeric,
+              END_MONTH numeric,
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,LICENSE_ID,SEQ_NUM)
+          ); " }
+
+    { "rm_lm_listedness"
+          "CREATE TABLE rm_lm_listedness (
+              ENTERPRISE_ID numeric NOT NULL,
+              LISTEDNESS_ID numeric NOT NULL,
+              LISTEDNESS varchar(20),
+              PROTECTED numeric,
+              DISPLAY numeric,
+              DELETED timestamp,
+              LABELEDNESS varchar(20),
+              LABELEDNESS_J varchar(20),
+              LISTEDNESS_J varchar(20),
+              PRIMARY KEY (ENTERPRISE_ID,LISTEDNESS_ID)
+          ); " }
+
+    { "rm_lm_literature_type"
+          "CREATE TABLE rm_lm_literature_type (
+              ENTERPRISE_ID numeric NOT NULL,
+              ID numeric NOT NULL,
+              TYPE varchar(40),
+              TYPE_J varchar(40),
+              DISPLAY numeric(1),
+              PROTECTED numeric(1),
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,ID)
+          ); " }
+
+    { "rm_lm_lit_citations"
+          "CREATE TABLE rm_lm_lit_citations (
+              ENTERPRISE_ID numeric NOT NULL,
+              LITERATURE_ID numeric NOT NULL,
+              JOURNAL varchar(80),
+              AUTHOR varchar(200),
+              TITLE varchar(250),
+              VOL varchar(15),
+              YEAR varchar(4),
+              PGS varchar(30),
+              AUTHOR_J varchar(200),
+              JOURNAL_J varchar(80),
+              TITLE_J varchar(250),
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,LITERATURE_ID)
+          ); " }
+
+    { "rm_lm_location"
+          "CREATE TABLE rm_lm_location (
+              ENTERPRISE_ID numeric NOT NULL,
+              LOCATION_ID numeric NOT NULL,
+              LOCATION_DESC varchar(20) NOT NULL,
+              PROTECTED numeric,
+              DISPLAY numeric,
+              LOCATION_DESC_J varchar(20),
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,LOCATION_ID)
+          ); " }
+
+    { "rm_lm_malfunction_type"
+          "CREATE TABLE rm_lm_malfunction_type (
+              ENTERPRISE_ID numeric NOT NULL,
+              MALFUNCTION_TYPE_ID numeric NOT NULL,
+              MALFUNCTION_TYPE varchar(100) NOT NULL,
+              PROTECTED numeric,
+              DISPLAY numeric,
+              ENABLE_DATE numeric,
+              MALFUNCTION_TYPE_J varchar(100),
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,MALFUNCTION_TYPE_ID)
+          ); " }
+
+    { "rm_lm_manufacturer"
+          "CREATE TABLE rm_lm_manufacturer (
+              ENTERPRISE_ID numeric NOT NULL,
+              MANUFACTURER_ID numeric NOT NULL,
+              MANU_NAME varchar(40) NOT NULL,
+              ADDRESS varchar(120),
+              CITY varchar(30),
+              STATE varchar(10),
+              POSTAL_CODE varchar(10),
+              COUNTRY varchar(50),
+              CONTACT varchar(40),
+              PHONE varchar(20),
+              REG_NO varchar(10),
+              DELETED timestamp,
+              FAX varchar(50),
+              COUNTRY_ID numeric,
+              ADDRESS_J varchar(120),
+              CITY_J varchar(30),
+              CONTACT_J varchar(40),
+              MANU_NAME_J varchar(40),
+              STATE_J varchar(10),
+              PRIMARY KEY (ENTERPRISE_ID,MANUFACTURER_ID)
+          ); " }
+
+    { "rm_lm_medical_device_info"
+          "CREATE TABLE rm_lm_medical_device_info (
+              ENTERPRISE_ID numeric NOT NULL,
+              MEDICAL_DEVICE_INFO_ID numeric NOT NULL,
+              MEDICAL_DEVICE_INFO varchar(200),
+              PROTECTED numeric(1) NOT NULL,
+              DISPLAY numeric(1) NOT NULL,
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,MEDICAL_DEVICE_INFO_ID)
+          ); " }
+
   ] ))
 
 (def dummy 
