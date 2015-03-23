@@ -249,8 +249,13 @@
     (spy :msg "insert result" (jdbc/insert! pg-spec "rm_case_master" it ))
   ))
 
+(def row-count (atom 0))
 (defn result-row->pg-insert [result-row]
-  (print ".")
+  (print ".") 
+  (let [new-val (swap! row-count inc) ]
+    (when (zero? (rem (new-val 50)))
+      (newline)))
+  (flush)
   (jdbc/insert! pg-spec "rm_case_master" result-row ))
 
 (defn tx1 []
