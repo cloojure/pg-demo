@@ -257,9 +257,7 @@
       (print new-val)
       (flush))
     (when (zero? (rem new-val 100))
-      (newline))
-  ))
-  
+      (newline)))
   (jdbc/insert! pg-spec "rm_case_master" result-row ))
 
 (defn tx1 []
