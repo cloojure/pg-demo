@@ -8,6 +8,20 @@
 ; A map from table name (string) -> table creation sql (string)
 (def table-name->creation-sql 
   (into (sorted-map) [
+    #_{ "rm_lm_study_cohorts"         ; #awt #todo
+          "CREATE TABLE rm_lm_study_cohorts (
+              ENTERPRISE_ID numeric NOT NULL,
+              COHORT_ID numeric NOT NULL,
+              STUDY_KEY numeric NOT NULL,
+              BLIND_NAME varchar(70),
+              BLIND_NAME_J varchar(70),
+              STUDY_TYPE_ID numeric NOT NULL,
+              SORT_ID numeric NOT NULL,
+              primary_val numeric NOT NULL,         -- #awt #todo
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,COHORT_ID)
+          ); " }
+
     { "rm_case_master"
           "CREATE TABLE rm_case_master (
               ENTERPRISE_ID numeric NOT NULL,
@@ -5219,20 +5233,6 @@
               SEQ_NUM numeric NOT NULL,
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,CENTER_ID,STUDY_KEY,SEQ_NUM)
-          ); " }
-
-    { "rm_lm_study_cohorts"
-          "CREATE TABLE rm_lm_study_cohorts (
-              ENTERPRISE_ID numeric NOT NULL,
-              COHORT_ID numeric NOT NULL,
-              STUDY_KEY numeric NOT NULL,
-              BLIND_NAME varchar(70),
-              BLIND_NAME_J varchar(70),
-              STUDY_TYPE_ID numeric NOT NULL,
-              SORT_ID numeric NOT NULL,
-              \"primary\" numeric NOT NULL,
-              DELETED timestamp,
-              PRIMARY KEY (ENTERPRISE_ID,COHORT_ID)
           ); " }
 
   ] ))
