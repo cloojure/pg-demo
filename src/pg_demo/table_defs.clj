@@ -2219,6 +2219,62 @@
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,SEQ_NUM,DLP_REVISION_NUMBER)
           ); " }
 
+    { "rm_case_reporters"
+          "CREATE TABLE rm_case_reporters (
+              ENTERPRISE_ID numeric NOT NULL,
+              CASE_ID numeric NOT NULL,
+              SEQ_NUM numeric NOT NULL,
+              MEDIA_ID numeric,
+              OCCUPATION_ID numeric,
+              HCP_FLAG numeric,
+              PRIMARY_CONTACT numeric,
+              CORR_CONTACT numeric,
+              REPORTER_TYPE numeric,
+              INTERMEDIARY_ID numeric,
+              RPT_SENT numeric,
+              SORT_ID numeric,
+              CONFIDENTIAL numeric(1),
+              COUNTRY_ID numeric,
+              SUFFIX varchar(15),
+              MIDDLE_NAME varchar(15),
+              PREFIX varchar(50),
+              FIRST_NAME varchar(35),
+              LAST_NAME varchar(50),
+              REPORTER_ID varchar(20),
+              INSTITUTION varchar(60),
+              DEPARTMENT varchar(60),
+              CITY varchar(35),
+              STATE varchar(40),
+              POSTCODE varchar(15),
+              COUNTRY varchar(50),
+              PHONE varchar(20),
+              ALTPHONE varchar(20),
+              FAX varchar(50),
+              REPORTER_REF varchar(20),
+              EMAIL varchar(100),
+              ADDRESS varchar(120),
+              SUFFIX_J varchar(15),
+              ADDRESS_J varchar(120),
+              CITY_J varchar(35),
+              DEPARTMENT_J varchar(60),
+              FIRST_NAME_J varchar(35),
+              INSTITUTION_J varchar(60),
+              LAST_NAME_J varchar(50),
+              MIDDLE_NAME_J varchar(15),
+              PREFIX_J varchar(50),
+              STATE_J varchar(40),
+              DELETED timestamp,
+              DLP_REVISION_NUMBER numeric NOT NULL,
+              REVISION_DELETE_FLAG numeric,
+              DELETED_FLAG numeric(1) NOT NULL,
+              EFFECTIVE_START_DATE timestamp NOT NULL,
+              EFFECTIVE_END_DATE timestamp NOT NULL,
+              NOTES text,
+              NOTES_J text,
+              INSTITUTION_ID varchar(15),
+              PRIMARY KEY (ENTERPRISE_ID,CASE_ID,SEQ_NUM,DLP_REVISION_NUMBER)
+          ); " }
+
   ] ))
 
 (def dummy 
