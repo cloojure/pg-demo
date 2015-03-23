@@ -5,7 +5,7 @@
             [honeysql.core          :as honey]
             [honeysql.helpers       :refer :all]
 ;           [cooljure.misc          :as cool-misc]
-            [pg-demo.rm-case-master]
+            [pg-demo.table-defs     :as tables]
   )
   (:use cooljure.core 
         cooljure.misc)
@@ -30,7 +30,7 @@
   (jdbc/with-db-connection [pg-conn pg-spec]
     (let [rows-inserted (atom 0) ]
       (doseq [it (partition-all 1000 result-set)]
-        (print (swap! rows-inserted + (count it)))
+        (print "  " (swap! rows-inserted + (count it)) "  ")
         (time
           (apply jdbc/insert! pg-conn tbl-name-str it ))))))
 
@@ -38,7 +38,7 @@
   (newline)
   (println "Initializing tables:")
   (newline)
-  (time (pg-demo.rm-case-master/drop-create pg-spec))
+  (time (tables/drop-create pg-spec))
 
   (let [
   ]
