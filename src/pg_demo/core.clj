@@ -250,14 +250,14 @@
   ))
 
 (def row-count (atom 0))
-(defn result-row->pg-insert [result-row]
+(defn result-row->pg-insert [pg-conn result-row]
   (let [new-val (swap! row-count inc) ]
     (when (zero? (rem new-val 10))
       (print (format "%7d" new-val))
       (flush))
     (when (zero? (rem new-val 100))
       (newline)))
-  (jdbc/insert! pg-spec "rm_case_master" result-row ))
+  (jdbc/insert! pg-conn "rm_case_master" result-row ))
 
 (defn tx1 []
   (newline)
@@ -284,21 +284,22 @@
     (spyx (jdbc/query odb-spec [ "select sysdate as current_day from dual" ] ))
 
     (newline)
-    (jdbc/with-db-connection [db-conn odb-spec]
-      (spy :msg "  1st stmt"
-        (jdbc/execute! db-conn [
-          "begin
-             pkg_rls.set_context ('admin', '1','ARGUS_MART', '#$!AgSeRvIcE@SaFeTy');
-           end; " ] ))
-      (spyx
-        (jdbc/query db-conn [ "select count(*) as result from rm_case_master" ] ))
+    (jdbc/with-db-connection [pg-conn pg-spec]
+      (jdbc/with-db-connection [db-conn odb-spec]
+        (spy :msg "  1st stmt"
+          (jdbc/execute! db-conn [
+            "begin
+               pkg_rls.set_context ('admin', '1','ARGUS_MART', '#$!AgSeRvIcE@SaFeTy');
+             end; " ] ))
+        (spyx
+          (jdbc/query db-conn [ "select count(*) as result from rm_case_master" ] ))
 
-      (jdbc/query db-conn
-        [ "select * from rm_case_master" ]
-;       :result-set-fn  result-set->pg-insert
-        :row-fn         result-row->pg-insert
+        (jdbc/query db-conn
+          [ "select * from rm_case_master" ]
+  ;       :result-set-fn  result-set->pg-insert
+          :row-fn         #(result-row->pg-insert pg-conn %)
+        )
       )
-    )
 
     (newline)
     (newline)
