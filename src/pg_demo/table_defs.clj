@@ -1259,7 +1259,7 @@
               BLOB_SEQ numeric(10) NOT NULL,
               CLASSIFICATION numeric,
               ENTRY_DATE timestamp,
-              "TYPE" numeric,
+              TYPE numeric,
               E2B_ADD_DOC numeric,
               BLOBSIZE numeric,
               SORT_ID numeric,
