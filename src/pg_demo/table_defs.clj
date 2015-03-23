@@ -2781,6 +2781,255 @@
               PRIMARY KEY (ENTERPRISE_ID,TEMPLATE_ID,SEQ_NUM)
           ); " }
 
+    { "rm_cfg_per_report"
+          "CREATE TABLE rm_cfg_per_report (
+              ENTERPRISE_ID numeric NOT NULL,
+              REPORT_FORM_ID numeric NOT NULL,
+              AGENCY_ID numeric,
+              INGREDIENT_ID numeric,
+              INDICATION varchar(50),
+              FORMULATION_ID numeric,
+              REPORT_NUM varchar(50),
+              REPORT_TITLE varchar(100),
+              INGREDIENT varchar(120),
+              TRADE_NAME varchar(400),
+              APPROVAL varchar(100),
+              INGD_TRD_APRV numeric(10),
+              AC_ID numeric,
+              INCL_OPTIONS numeric(10),
+              INCL_LINE_LISTING numeric(10),
+              GROUP_BY numeric,
+              SORT_BY numeric,
+              LINE_OPTIONS numeric(8),
+              LIST_ONCEALL_NARR numeric(10),
+              START_DATE timestamp,
+              DUE_DAYS numeric(10),
+              AUTO_GEN_PREG numeric(10),
+              AUTO_DAYS numeric(10),
+              AUTO_TIME varchar(5),
+              GROUP_ID numeric,
+              LANGUAGE numeric(10),
+              PRINT_CONFIG numeric,
+              CUM_START_DATE timestamp,
+              CUM_END_DATE timestamp,
+              DELETED timestamp,
+              SUMMARY numeric,
+              GROUP_BY2 numeric,
+              GROUP_BY3 numeric,
+              CATEGORY varchar(50),
+              SHARED numeric,
+              USER_ID numeric,
+              HIT_LIST numeric(1),
+              SORT_BY2 numeric,
+              SORT_BY3 numeric,
+              GROUP_BY4 numeric,
+              TITLE_PER_DRUG varchar(50),
+              TITLE_PER_DRUG_OPTION varchar(50),
+              REASSESSMENT numeric(3),
+              FOOTER varchar(120),
+              FDA_SHEETNAME varchar(40),
+              FDA_AGENCY_ID numeric,
+              SUB_CATEGORY varchar(50),
+              SOLICITED_AC_ID numeric,
+              SOLICITED_RPT_TITLE varchar(60),
+              SOLICITED_HIT_LIST numeric(1),
+              PREV_REPORT_START_DT timestamp,
+              MESSAGE_TYPE_ID numeric,
+              ICSR_AGENCY_ID numeric,
+              FROM_DATE timestamp,
+              TO_DATE timestamp,
+              INCL_DATE_FILTER_TYPE numeric,
+              LAST_MODIFIED_USER_ID numeric,
+              CREATE_TIME timestamp,
+              UPDATE_TIME timestamp,
+              JUSTIFICATION_TEXT varchar(1000),
+              PRINT_PAGE_NUM numeric,
+              JPN_APPROVAL varchar(100),
+              CSPS_DATE varchar(100),
+              CTPCS_DATE varchar(100),
+              ENABLE_DELIV_QTY numeric(1),
+              PRINT_ALL_AGENCY numeric,
+              PRINT_ALL_ANOTHER_NDA numeric(1) NOT NULL,
+              PRINT_ALL_CASES numeric(1) NOT NULL,
+              PRINT_ALL_EXPEDITED numeric(1) NOT NULL,
+              PRINT_ALL_FORM numeric(1) NOT NULL,
+              PRINT_ALL_PERIODIC numeric(1) NOT NULL,
+              PRINT_NO_WATERMARK numeric(1) NOT NULL,
+              PRIMARY KEY (ENTERPRISE_ID,REPORT_FORM_ID)
+          ); " }
+
+    { "rm_cfg_per_rpt_child"
+          "CREATE TABLE rm_cfg_per_rpt_child (
+              ENTERPRISE_ID numeric NOT NULL,
+              ID numeric NOT NULL,
+              REPORT_FORM_ID numeric NOT NULL,
+              REC_TYPE numeric(3),
+              FIELD numeric,
+              DATE_START timestamp,
+              DATE_END timestamp,
+              OPTIONS numeric(4),
+              DELETED timestamp,
+              SORT_ID numeric(2),
+              FIELD_TEXT varchar(250),
+              PRIMARY KEY (ENTERPRISE_ID,ID)
+          ); " }
+
+    { "rm_cfg_per_rpt_cri"
+          "CREATE TABLE rm_cfg_per_rpt_cri (
+              ENTERPRISE_ID numeric NOT NULL,
+              REPORT_TYPE numeric(10) NOT NULL,
+              REPORT_FORM_ID numeric NOT NULL,
+              REPORT_TYPE_ID numeric NOT NULL,
+              SERIOUS numeric(1),
+              FATAL numeric(1),
+              LISTEDNESS numeric(1),
+              RELATED numeric(1),
+              HCP numeric(1),
+              DATASHEET numeric,
+              SHEET_NAME varchar(40),
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,REPORT_TYPE)
+          ); " }
+
+    { "rm_cfg_per_rpt_freq"
+          "CREATE TABLE rm_cfg_per_rpt_freq (
+              ENTERPRISE_ID numeric NOT NULL,
+              ID numeric NOT NULL,
+              REPORT_FORM_ID numeric NOT NULL,
+              FREQ numeric(2),
+              START_MONTH numeric(8),
+              END_MONTH numeric(8),
+              SUBMITTED numeric(1),
+              TOTAL_DELIV_QTY varchar(15),
+              TOTAL_DELIV_QTY_UNIT_ID numeric,
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,ID,REPORT_FORM_ID)
+          ); " }
+
+    { "rm_cfg_per_rpt_security"
+          "CREATE TABLE rm_cfg_per_rpt_security (
+              ENTERPRISE_ID numeric NOT NULL,
+              SEQ_NUM numeric NOT NULL,
+              REPORT_FORM_ID numeric NOT NULL,
+              GROUP_ID numeric NOT NULL,
+              RIGHTS numeric NOT NULL,
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,SEQ_NUM)
+          ); " }
+
+    { "rm_cfg_placeholders"
+          "CREATE TABLE rm_cfg_placeholders (
+              ENTERPRISE_ID numeric NOT NULL,
+              PLACE_ID numeric NOT NULL,
+              PLACE_HOLDER_TYPE numeric,
+              PLACE_HOLDER varchar(40),
+              SQL_QUERY varchar(4000),
+              DELETED timestamp,
+              ORDERBY_CLAUSE1 varchar(200),
+              ORDERBY_CLAUSE2 varchar(200),
+              SQL_QUERY_J varchar(4000),
+              PRIMARY KEY (ENTERPRISE_ID,PLACE_ID)
+          ); " }
+
+    { "rm_cfg_priorities"
+          "CREATE TABLE rm_cfg_priorities (
+              ENTERPRISE_ID numeric NOT NULL,
+              PRIORITY_ID numeric NOT NULL,
+              ASSESS_SERIOUS numeric,
+              ASSESS_LISTED numeric,
+              ASSESS_CAUS numeric,
+              DUE_DATE_NOTIFY numeric,
+              DUE_SOON_DAYS numeric,
+              AC_ID numeric,
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,PRIORITY_ID)
+          ); " }
+
+    { "rm_cfg_psur_multi_ingredients"
+          "CREATE TABLE rm_cfg_psur_multi_ingredients (
+              ENTERPRISE_ID numeric NOT NULL,
+              ID numeric NOT NULL,
+              REPORT_FORM_ID numeric NOT NULL,
+              INGREDIENT_ID numeric NOT NULL,
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,ID)
+          ); " }
+
+    { "rm_cfg_reg_report_rules"
+          "CREATE TABLE rm_cfg_reg_report_rules (
+              ENTERPRISE_ID numeric NOT NULL,
+              REG_RPT_RULES_ID numeric NOT NULL,
+              COUNTRY_ID numeric,
+              LICENSE_TYPE_ID numeric,
+              TITLE varchar(40),
+              PERIODIC numeric,
+              IND_STUDIES numeric,
+              REPORT_FORM_ID numeric,
+              LANGUAGE_ID numeric,
+              TIMEFRAME numeric,
+              EVENT numeric,
+              FATAL numeric,
+              SERIOUS numeric,
+              LISTED numeric,
+              CAUSAL numeric,
+              AC_ID numeric,
+              AGENCY_ID numeric,
+              GROUP_ID numeric,
+              CAUSAL_RPTD numeric(1),
+              CASE_CAUSAL numeric(1),
+              CASE_CAUSAL_RPTD numeric(1),
+              MOST_CONSERV numeric(1),
+              TEMPLATE_ID numeric,
+              ACTIVE_MOIETY numeric(3),
+              PROTECT numeric(1),
+              SDRUG_NON_ADMIN numeric(2),
+              DELETED timestamp,
+              COMMENT_TYPE_ID numeric(10),
+              REF_TYPE_ID numeric,
+              ACTIVE numeric(1),
+              FAMILY_ID numeric,
+              PRODUCT_GROUP_ID numeric,
+              EVT_INTENSITY_ID numeric,
+              EVT_SERIOUSNESS numeric,
+              MESSAGE_TYPE_ID numeric,
+              NON_CLINICAL_TRIAL_CASES numeric(1),
+              AUTO_DISTRIBUTE_REPORTS numeric NOT NULL,
+              BLIND_STUDY_PRODUCT numeric(1) NOT NULL,
+              FORCE_DISTRIBUTE_DAYS numeric,
+              HCP_CASE numeric(1),
+              NO_FOLLOWUP_DOWNGRADE numeric(1),
+              RPT_CATEGORY_ID numeric,
+              LIC_CATEGORY_ID numeric,
+              SUPER_RULE numeric(1),
+              GROUP_2_COUNTRY_ADJUST_DAYS numeric,
+              DEVICE_CATEGORY_ID numeric,
+              PRIMARY KEY (ENTERPRISE_ID,REG_RPT_RULES_ID)
+          ); " }
+
+    { "rm_cfg_rpt_wf_rules"
+          "CREATE TABLE rm_cfg_rpt_wf_rules (
+              ENTERPRISE_ID numeric NOT NULL,
+              TO_STATE_ID numeric NOT NULL,
+              FR_STATE_ID numeric NOT NULL,
+              AC_ID numeric,
+              EXCLUSIVE_FLAG numeric,
+              EMAIL_FLAG numeric,
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,TO_STATE_ID,FR_STATE_ID)
+          ); " }
+
+    { "rm_cfg_rpt_wf_states"
+          "CREATE TABLE rm_cfg_rpt_wf_states (
+              ENTERPRISE_ID numeric NOT NULL,
+              REPORT_STATE_ID numeric NOT NULL,
+              STATE_DESC varchar(30),
+              STATE_NAME varchar(30),
+              DELETED timestamp,
+              STATE_DESC_J varchar(30),
+              STATE_NAME_J varchar(30),
+              PRIMARY KEY (ENTERPRISE_ID,REPORT_STATE_ID)
+          ); " }
+
   ] ))
 
 (def dummy 
