@@ -250,16 +250,8 @@
   ))
 
 (defn result-row->pg-insert [result-row]
-  (newline)
-  (println "-----------------------------------------------------------------------------")
-  (println "result-row->pg-insert: insert:")
-  (newline)
-  (println "received:")
-  (prn (into (sorted-map) result-row))
-
-  (newline)
-  (spy :msg "insert result" (jdbc/insert! pg-spec "rm_case_master" result-row ))
-)
+  (print ".")
+  (jdbc/insert! pg-spec "rm_case_master" result-row ))
 
 (defn tx1 []
   (newline)
@@ -278,8 +270,8 @@
                   :password     "rxlogix" }
   ]
     ; Stupid Oracle DB will often crash without this set
-;   (let [timeZone  (TimeZone/getTimeZone "America/Los_Angeles") ]
-    (let [timeZone  (TimeZone/getTimeZone "UTC") ]
+    ; Stupid Oracle DB gives bogus timezone offsets values
+    (let [timeZone  (TimeZone/getTimeZone "UTC") ]      ; or "America/Los_Angeles"
       (TimeZone/setDefault timeZone))
     (newline)
     (spyx (jdbc/query odb-spec [ "select BANNER from SYS.V_$VERSION" ] ))
