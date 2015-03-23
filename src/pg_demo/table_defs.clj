@@ -1039,6 +1039,64 @@
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,FIELD_ID,LANGUAGE_ID,SEQ_NUM,DLP_REVISION_NUMBER)
           ); " }
 
+    { "rm_case_letters"
+          "CREATE TABLE rm_case_letters (
+              ENTERPRISE_ID numeric NOT NULL,
+              CASE_ID numeric NOT NULL,
+              SEQ_NUM numeric NOT NULL,
+              BLOB_SEQ numeric(10) NOT NULL,
+              TEMPLATE_ID numeric,
+              SORT_ID numeric,
+              BLOBSIZE numeric,
+              DELETED timestamp,
+              DLP_REVISION_NUMBER numeric NOT NULL,
+              EFFECTIVE_START_DATE timestamp NOT NULL,
+              EFFECTIVE_END_DATE timestamp NOT NULL,
+              DELETED_FLAG numeric(1) NOT NULL,
+              REVISION_DELETE_FLAG numeric,
+              PRIMARY KEY (ENTERPRISE_ID,CASE_ID,SEQ_NUM,BLOB_SEQ,DLP_REVISION_NUMBER)
+          ); " }
+
+    { "rm_case_literature"
+          "CREATE TABLE rm_case_literature (
+              ENTERPRISE_ID numeric NOT NULL,
+              CASE_ID numeric NOT NULL,
+              SEQ_NUM numeric NOT NULL,
+              SORT_ID numeric,
+              LITERATURE_ID numeric,
+              JOURNAL varchar(80),
+              AUTHOR varchar(200),
+              TITLE varchar(500),
+              VOL varchar(15),
+              "YEAR" varchar(4),
+              PGS varchar(30),
+              DELETED timestamp,
+              AUTHOR_J varchar(200),
+              JOURNAL_J varchar(80),
+              TITLE_J varchar(500),
+              DLP_REVISION_NUMBER numeric NOT NULL,
+              REVISION_DELETE_FLAG numeric,
+              DELETED_FLAG numeric(1) NOT NULL,
+              EFFECTIVE_START_DATE timestamp NOT NULL,
+              EFFECTIVE_END_DATE timestamp NOT NULL,
+              PRIMARY KEY (ENTERPRISE_ID,CASE_ID,SEQ_NUM,DLP_REVISION_NUMBER)
+          ); " }
+
+    { "rm_case_local_eva_comment"
+          "CREATE TABLE rm_case_local_eva_comment (
+              ENTERPRISE_ID numeric NOT NULL,
+              CASE_ID numeric NOT NULL,
+              EVALUATOR_TYPE_ID numeric NOT NULL,
+              LOCAL_COMMENT text,
+              DELETED timestamp,
+              DLP_REVISION_NUMBER numeric NOT NULL,
+              REVISION_DELETE_FLAG numeric,
+              DELETED_FLAG numeric(1) NOT NULL,
+              EFFECTIVE_START_DATE timestamp NOT NULL,
+              EFFECTIVE_END_DATE timestamp NOT NULL,
+              PRIMARY KEY (ENTERPRISE_ID,CASE_ID,EVALUATOR_TYPE_ID,DLP_REVISION_NUMBER)
+          ); " }
+
   ] ))
 
 (def dummy 
