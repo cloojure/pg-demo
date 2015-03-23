@@ -5009,6 +5009,172 @@
               PRIMARY KEY (ENTERPRISE_ID,KEYWORD_ID)
           ); " }
 
+    { "rm_lm_reported"
+          "CREATE TABLE rm_lm_reported (
+              ENTERPRISE_ID numeric NOT NULL,
+              ID numeric NOT NULL,
+              DESCRIPTION varchar(50),
+              DESCRIPTION_J varchar(50),
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,ID)
+          ); " }
+
+    { "rm_lm_reporter"
+          "CREATE TABLE rm_lm_reporter (
+              ENTERPRISE_ID numeric NOT NULL,
+              REPORTER_ID numeric NOT NULL,
+              CENTER_ID numeric,
+              PREFIX varchar(50),
+              FIRST_NAME varchar(35),
+              LAST_NAME varchar(50),
+              OCCUPATION_ID numeric,
+              CUST_RPT_ID varchar(20),
+              ADDRESS varchar(120),
+              CITY varchar(35),
+              STATE varchar(40),
+              ZIP varchar(15),
+              COUNTRY varchar(50),
+              PHONE varchar(20),
+              ALT_PHONE varchar(20),
+              FAX varchar(50),
+              EMAIL varchar(100),
+              HEALTHCARE_PROF numeric,
+              RPTR_TYPE_ID numeric,
+              SUFFIX varchar(15),
+              RECIPIENT numeric(1),
+              PREFERRED numeric(1),
+              ADDRESS_J varchar(120),
+              SUFFIX_J varchar(15),
+              DELETED timestamp,
+              DEPARTMENT varchar(60),
+              DEPARTMENT_J varchar(60),
+              COUNTRY_ID numeric,
+              CITY_J varchar(35),
+              FIRST_NAME_J varchar(35),
+              LAST_NAME_J varchar(50),
+              PREFIX_J varchar(50),
+              STATE_J varchar(40),
+              PRIMARY KEY (ENTERPRISE_ID,REPORTER_ID)
+          ); " }
+
+    { "rm_lm_reporter_institution"
+          "CREATE TABLE rm_lm_reporter_institution (
+              ENTERPRISE_ID numeric NOT NULL,
+              SEQ_NUM numeric NOT NULL,
+              INST_ID numeric NOT NULL,
+              REPORTER_ID numeric NOT NULL,
+              SORT_ID numeric,
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,SEQ_NUM)
+          ); " }
+
+    { "rm_lm_reporter_type"
+          "CREATE TABLE rm_lm_reporter_type (
+              ENTERPRISE_ID numeric NOT NULL,
+              RPTR_TYPE_ID numeric NOT NULL,
+              REPORTER_TYPE varchar(30) NOT NULL,
+              PROTECTED numeric,
+              DISPLAY numeric,
+              E2B_CODE numeric,
+              REPORTER_TYPE_J varchar(30),
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,RPTR_TYPE_ID)
+          ); " }
+
+    { "rm_lm_report_build_status"
+          "CREATE TABLE rm_lm_report_build_status (
+              STATUS_ID numeric NOT NULL,
+              STATUS_NAME varchar(100) NOT NULL,
+              REPORT_TYPE numeric NOT NULL,
+              STATUS_NAME_J varchar(100),
+              PRIMARY KEY (STATUS_ID,REPORT_TYPE)
+          ); " }
+
+    { "rm_lm_report_forms"
+          "CREATE TABLE rm_lm_report_forms (
+              ENTERPRISE_ID numeric NOT NULL,
+              REPORT_FORM_ID numeric NOT NULL,
+              FORM_DESC varchar(200) NOT NULL,
+              AGENCY_ID numeric,
+              RPT_TYPE numeric,
+              HIDDEN numeric,
+              FORM_CATEGORY numeric,
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,REPORT_FORM_ID)
+          ); " }
+
+    { "rm_lm_report_media"
+          "CREATE TABLE rm_lm_report_media (
+              ENTERPRISE_ID numeric NOT NULL,
+              MEDIA_ID numeric NOT NULL,
+              MEDIA varchar(30) NOT NULL,
+              PROTECTED numeric,
+              DISPLAY numeric,
+              MEDIA_J varchar(30),
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,MEDIA_ID)
+          ); " }
+
+    { "rm_lm_report_type"
+          "CREATE TABLE rm_lm_report_type (
+              ENTERPRISE_ID numeric NOT NULL,
+              RPT_TYPE_ID numeric NOT NULL,
+              REPORT_TYPE varchar(30) NOT NULL,
+              PROTECTED numeric,
+              DISPLAY numeric,
+              INCL_LIT numeric,
+              INCL_TRIAL numeric,
+              E2B_CODE numeric,
+              ABRV varchar(3),
+              INVESTIGATIONAL numeric,
+              REPORT_TYPE_J varchar(30),
+              DELETED timestamp,
+              INCL_RESEARCH numeric NOT NULL,
+              PRIMARY KEY (ENTERPRISE_ID,RPT_TYPE_ID)
+          ); " }
+
+    { "rm_lm_rpt_category"
+          "CREATE TABLE rm_lm_rpt_category (
+              ENTERPRISE_ID numeric NOT NULL,
+              RPT_CATEGORY_ID numeric NOT NULL,
+              RPT_CATEGORY varchar(3),
+              REPORT_FORM_ID numeric,
+              DESCRIPTION_J varchar(200),
+              E2B_CODE numeric,
+              DISPLAY numeric,
+              DESCRIPTION varchar(200),
+              PROTECTED numeric,
+              CATEGORY_FILTER numeric,
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,RPT_CATEGORY_ID)
+          ); " }
+
+    { "rm_lm_severity"
+          "CREATE TABLE rm_lm_severity (
+              SEVERITY_ID numeric NOT NULL,
+              SEVERITY varchar(30) NOT NULL,
+              PROTECTED numeric,
+              DISPLAY numeric,
+              DELETED timestamp,
+              PRIMARY KEY (SEVERITY_ID)
+          ); " }
+
+    { "rm_lm_sites"
+          "CREATE TABLE rm_lm_sites (
+              ENTERPRISE_ID numeric NOT NULL,
+              SITE_ID numeric NOT NULL,
+              SITE_DESC varchar(40),
+              SITE_ABRV varchar(4),
+              DELETED timestamp,
+              LAM_SITE numeric,
+              PROTECT_PATIENT numeric,
+              PROTECT_REPORTER numeric,
+              APPROVED_REPORTS numeric(1),
+              PROCESS_LAM_ASSESS numeric NOT NULL,
+              INTAKE_FOLDER_ID numeric,
+              PRIMARY KEY (ENTERPRISE_ID,SITE_ID)
+          ); " }
+
   ] ))
 
 (def dummy 
