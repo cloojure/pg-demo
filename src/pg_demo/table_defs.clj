@@ -1520,6 +1520,53 @@
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,DLP_REVISION_NUMBER)
           ); " }
 
+    { "rm_case_pat_tests"
+          "CREATE TABLE rm_case_pat_tests (
+              ENTERPRISE_ID numeric NOT NULL,
+              REL_TEST_ID numeric NOT NULL,
+              DELETED timestamp,
+              REL_TESTS text,
+              REL_TESTS_J text,
+              DLP_REVISION_NUMBER numeric NOT NULL,
+              REVISION_DELETE_FLAG numeric,
+              DELETED_FLAG numeric(1) NOT NULL,
+              EFFECTIVE_START_DATE timestamp NOT NULL,
+              EFFECTIVE_END_DATE timestamp NOT NULL,
+              PRIMARY KEY (ENTERPRISE_ID,REL_TEST_ID,DLP_REVISION_NUMBER)
+          ); " }
+
+    { "rm_case_pmda_event_assess"
+          "CREATE TABLE rm_case_pmda_event_assess (
+              ENTERPRISE_ID numeric NOT NULL,
+              CASE_ID numeric NOT NULL,
+              SEQ_NUM numeric NOT NULL,
+              EVENT_SEQ_NUM numeric NOT NULL,
+              PRODUCT_ID numeric NOT NULL,
+              PROD_SEQ_NUM numeric NOT NULL,
+              RPT_CAUSALITY_ID numeric,
+              DET_CAUSALITY_ID numeric,
+              DELETED timestamp,
+              DLP_REVISION_NUMBER numeric NOT NULL,
+              EFFECTIVE_START_DATE timestamp NOT NULL,
+              EFFECTIVE_END_DATE timestamp NOT NULL,
+              DELETED_FLAG numeric(1) NOT NULL,
+              REVISION_DELETE_FLAG numeric,
+              PRIMARY KEY (ENTERPRISE_ID,CASE_ID,SEQ_NUM,EVENT_SEQ_NUM,PROD_SEQ_NUM,DLP_REVISION_NUMBER)
+          ); " }
+
+    { "rm_case_pmda_general"
+          "CREATE TABLE rm_case_pmda_general (
+              ENTERPRISE_ID numeric NOT NULL,
+              CASE_ID numeric NOT NULL,
+              DELETED timestamp,
+              DLP_REVISION_NUMBER numeric NOT NULL,
+              EFFECTIVE_START_DATE timestamp NOT NULL,
+              EFFECTIVE_END_DATE timestamp NOT NULL,
+              DELETED_FLAG numeric(1) NOT NULL,
+              REVISION_DELETE_FLAG numeric,
+              PRIMARY KEY (ENTERPRISE_ID,CASE_ID,DLP_REVISION_NUMBER)
+          ); " }
+
   ] ))
 
 (def dummy 
