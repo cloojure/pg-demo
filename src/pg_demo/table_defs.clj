@@ -3366,6 +3366,282 @@
               PRIMARY KEY (ENTERPRISE_ID,SECTION,KEY)
           ); " }
 
+    { "rm_cmn_profile_global"
+          "CREATE TABLE rm_cmn_profile_global (
+              SECTION varchar(300) NOT NULL,
+              KEY varchar(300) NOT NULL,
+              VALUE varchar(1000),
+              TREE_NAME varchar(100),
+              KEY_TYPE numeric(2),
+              KEY_LABEL varchar(500),
+              KEY_OPTIONS varchar(1000),
+              LINK_TABLE varchar(100),
+              LINK_COLUMN_SEQ varchar(100),
+              LINK_COLUMN_DISPLAY varchar(100),
+              HELP_TEXT_TREE_NAME varchar(300),
+              NEXT_KEY varchar(300),
+              SORT_ORDER numeric,
+              DELETED timestamp,
+              PRIMARY KEY (SECTION,KEY)
+          ); " }
+
+    { "rm_cmn_reg_reports"
+          "CREATE TABLE rm_cmn_reg_reports (
+              ENTERPRISE_ID numeric NOT NULL,
+              REG_REPORT_ID numeric NOT NULL,
+              DUE_DATE timestamp,
+              DATE_APPROVED timestamp,
+              DATE_GENERATED timestamp,
+              DATE_SUBMITTED timestamp,
+              DATE_XMIT timestamp,
+              DATE_SCHEDULED timestamp,
+              DATE_SUBMISSION_DETERMINED timestamp,
+              AWARE_DATE timestamp,
+              PRODUCT_ID numeric,
+              GROUP_ID numeric,
+              DETERMINED_USER_ID numeric,
+              LICENSE_ID numeric,
+              COUNTRY_ID numeric,
+              REPORT_FORM_ID numeric,
+              PDF_ID numeric,
+              LANGUAGE_ID numeric,
+              FOLLOWUP_NUM numeric,
+              XMIT_TYPE numeric,
+              CASE_REV numeric,
+              PRIORITY numeric,
+              STATE_ID numeric,
+              OWNER_ID numeric,
+              LAST_STATE_ID numeric,
+              TIMEFRAME numeric,
+              AUTO_SCHED numeric(1),
+              AGENCY_ID numeric,
+              SUBMIT_REQUIRED numeric(1),
+              USER_ID numeric,
+              TEMPLATE_ID numeric,
+              PARENT_REPORT_ID numeric,
+              PER_REPORT_FLAG numeric,
+              METHOD numeric(4),
+              OUTPUT_STATUS numeric(4),
+              PRINT_ID numeric,
+              TRANSMIT_ID numeric,
+              STATUS numeric(4),
+              AWARE_METHOD numeric,
+              ESM_REPORT_ID numeric,
+              TRACKING_NUM varchar(30),
+              EVENT varchar(250),
+              BODY_SYS varchar(250),
+              STATUS_TEXT varchar(200),
+              GENERATION_ERROR varchar(1000),
+              SUBMIT_NOTES varchar(1000),
+              NON_SUBMIT_REASON varchar(1000),
+              DELETED timestamp,
+              PROTECT numeric(1),
+              COMMENT_TYPE_ID numeric(10),
+              REF_TYPE_ID numeric,
+              SOURCE_REPORT_ID numeric,
+              DOCUMENTUM_ID varchar(200),
+              MARK_AS_SUBMITTED numeric(1),
+              NOTIFICATION numeric,
+              DOCUMENTUM_ID_PUBLISH varchar(200),
+              PROD_SEQ_NUM numeric,
+              SCHEDULED_BY_ID numeric,
+              REPORT_FORM_TYPE numeric,
+              MESSAGE_TYPE_ID numeric,
+              SUSAR numeric,
+              LAST_UPDATE_TIME timestamp,
+              SAFETY_DATE timestamp,
+              AUTO_DISTRIBUTE_REPORTS numeric NOT NULL,
+              BLIND_STUDY_PRODUCT numeric(1),
+              NULLIFICATION numeric(1),
+              PREV_ESM_RPT_ID numeric,
+              NULLIFICATION_REASON varchar(1000),
+              NO_FOLLOWUP_DOWNGRADE numeric,
+              EVENT_J varchar(250),
+              BODY_SYS_J varchar(250),
+              RPT_COMMENT text,
+              GROUP_2_COUNTRY_ADJUST_DAYS numeric,
+              PRIMARY KEY (ENTERPRISE_ID,REG_REPORT_ID)
+          ); " }
+
+    { "rm_code_list_code_attributes"
+          "CREATE TABLE rm_code_list_code_attributes (
+              ENTERPRISE_ID numeric NOT NULL,
+              CODE_LIST_ID varchar(100) NOT NULL,
+              CODE numeric NOT NULL,
+              PROTECTED numeric(1),
+              LAST_UPDATE_TIME timestamp,
+              DELETED timestamp,
+              DISPLAY numeric(1),
+              DATA_SOURCE numeric(1),
+              PRIMARY KEY (ENTERPRISE_ID,CODE_LIST_ID,CODE)
+          ); " }
+
+    { "rm_code_list_detail_discrete"
+          "CREATE TABLE rm_code_list_detail_discrete (
+              ENTERPRISE_ID numeric NOT NULL,
+              CODE_LIST_ID varchar(100) NOT NULL,
+              DECODE_CONTEXT varchar(20) NOT NULL,
+              CODE numeric NOT NULL,
+              DISPLAY_VALUE varchar(1000),
+              PREFERRED numeric(1),
+              SORT numeric,
+              LAST_UPDATE_TIME timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,CODE_LIST_ID,DECODE_CONTEXT,CODE)
+          ); " }
+
+    { "rm_code_list_master"
+          "CREATE TABLE rm_code_list_master (
+              ENTERPRISE_ID numeric NOT NULL,
+              CODE_LIST_ID varchar(100) NOT NULL,
+              CODE_LIST_DESC varchar(1000),
+              SRC_TABLE_NAME varchar(30),
+              SRC_TABLE_FILTER varchar(100),
+              LAST_UPDATE_TIME timestamp,
+              DATA_SOURCE numeric(1),
+              PRIMARY KEY (ENTERPRISE_ID,CODE_LIST_ID)
+          ); " }
+
+    { "rm_lm_accidental_exposure"
+          "CREATE TABLE rm_lm_accidental_exposure (
+              ENTERPRISE_ID numeric NOT NULL,
+              ID numeric NOT NULL,
+              DESCRIPTION varchar(20) NOT NULL,
+              DELETED timestamp,
+              DISPLAY numeric,
+              PROTECTED numeric,
+              DESCRIPTION_J varchar(20),
+              PRIMARY KEY (ENTERPRISE_ID,ID)
+          ); " }
+
+    { "rm_lm_action_item_type"
+          "CREATE TABLE rm_lm_action_item_type (
+              ENTERPRISE_ID numeric NOT NULL,
+              ACTION_TYPE_ID numeric NOT NULL,
+              ACTION_TYPE varchar(40) NOT NULL,
+              PROTECTED numeric,
+              DISPLAY numeric,
+              DESCRIPTION varchar(1000),
+              QUERY_ACTION numeric,
+              AC_ID numeric,
+              USER_GROUP numeric,
+              DUE_DAYS numeric,
+              LETTER_PLACEHOLDR_CONTENT varchar(1000),
+              ACTION_TYPE_J varchar(40),
+              DESCRIPTION_J varchar(1000),
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,ACTION_TYPE_ID)
+          ); " }
+
+    { "rm_lm_action_taken"
+          "CREATE TABLE rm_lm_action_taken (
+              ENTERPRISE_ID numeric NOT NULL,
+              ACT_TAKEN_ID numeric NOT NULL,
+              ACTION_TAKEN varchar(30) NOT NULL,
+              PROTECTED numeric,
+              DISPLAY numeric,
+              E2B_CODE numeric,
+              ACTION_TAKEN_J varchar(30),
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,ACT_TAKEN_ID)
+          ); " }
+
+    { "rm_lm_admin_route"
+          "CREATE TABLE rm_lm_admin_route (
+              ENTERPRISE_ID numeric NOT NULL,
+              ADMIN_ROUTE_ID numeric NOT NULL,
+              PROTECTED numeric,
+              DISPLAY numeric,
+              SHORT_NAME varchar(5),
+              E2B_CODE varchar(6),
+              ROUTE varchar(15) NOT NULL,
+              ROUTE_DESC varchar(40),
+              ROUTE_DESC_J varchar(40),
+              ROUTE_J varchar(15),
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,ADMIN_ROUTE_ID)
+          ); " }
+
+    { "rm_lm_age_groups"
+          "CREATE TABLE rm_lm_age_groups (
+              ENTERPRISE_ID numeric NOT NULL,
+              AGE_GROUP_ID numeric NOT NULL,
+              GROUP_NAME varchar(20) NOT NULL,
+              GROUP_LOW numeric(22,7),
+              GROUP_HIGH numeric(22,7),
+              PROTECTED numeric,
+              DISPLAY numeric,
+              E2B_CODE numeric,
+              GROUP_NAME_J varchar(20),
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,AGE_GROUP_ID)
+          ); " }
+
+    { "rm_lm_age_units"
+          "CREATE TABLE rm_lm_age_units (
+              ENTERPRISE_ID numeric NOT NULL,
+              AGE_UNIT_ID numeric NOT NULL,
+              AGE_UNIT varchar(10) NOT NULL,
+              RELATION numeric,
+              PROTECTED numeric,
+              DISPLAY numeric,
+              E2B_CODE numeric,
+              AGE_UNIT_J varchar(10),
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,AGE_UNIT_ID)
+          ); " }
+
+    { "rm_lm_always_serious_term"
+          "CREATE TABLE rm_lm_always_serious_term (
+              ENTERPRISE_ID numeric NOT NULL,
+              AST_ID numeric(22) NOT NULL,
+              AST_PT_CODE varchar(50),
+              AST_PT_TERM varchar(250),
+              AST_LLT_CODE varchar(50),
+              AST_LLT varchar(250),
+              AST_HLT_CODE varchar(50),
+              AST_HLT varchar(250),
+              AST_HLGT_CODE varchar(50),
+              AST_HLGT varchar(250),
+              AST_SOC_CODE varchar(50),
+              AST_SOC varchar(250),
+              CODE_STATUS numeric,
+              CODE_DICT numeric,
+              DELETED timestamp,
+              AST_CODED varchar(250),
+              AST_REPTD varchar(250),
+              AST_REPTD_J varchar(250),
+              AST_CODED_J varchar(250),
+              AST_PT_TERM_J varchar(250),
+              AST_LLT_CODE_J varchar(50),
+              AST_LLT_J varchar(250),
+              AST_HLT_J varchar(250),
+              AST_HLGT_J varchar(250),
+              AST_SOC_J varchar(250),
+              CODE_STATUS_J numeric,
+              SYN_CODE numeric,
+              SYN_CODE_J numeric,
+              PRIMARY KEY (ENTERPRISE_ID,AST_ID)
+          ); " }
+
+    { "rm_lm_applications"
+          "CREATE TABLE rm_lm_applications (
+              APPLICATION_ID numeric NOT NULL,
+              APPLICATION_DESC varchar(50) NOT NULL,
+              DELETED timestamp,
+              PRIMARY KEY (APPLICATION_ID)
+          ); " }
+
+    { "rm_lm_attachment_type"
+          "CREATE TABLE rm_lm_attachment_type (
+              ENTERPRISE_ID numeric NOT NULL,
+              ATTACHMENT_ID numeric NOT NULL,
+              ATTACHMENT_DESC varchar(200),
+              DISPLAY numeric(1),
+              PROTECTED numeric(1),
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,ATTACHMENT_ID)
+          ); " }
+
   ] ))
 
 (def dummy 
