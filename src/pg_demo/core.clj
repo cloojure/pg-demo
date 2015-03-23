@@ -27,23 +27,31 @@
 (def insert-chunk-size 1000)
 
 
-(defn drop-create [db-spec]
-  (doseq [ [table-name creation-sql-str] tables/table-name->creation-sql ]
-    (println (format "drop/create: %s" table-name))
-    (jdbc/with-db-connection [db-conn db-spec]
-      (jdbc/execute! db-conn [ (format "drop table if exists %s cascade" table-name) ] )
-      (jdbc/execute! db-conn [creation-sql-str] ))))
+(defn tables-drop-create []
+  (jdbc/with-db-connection [pg-conn pg-spec]
+    (doseq [ [table-name creation-sql-str] tables/table-name->creation-sql ]
+      (println (format "  drop/create: %s" table-name))
+      (jdbc/execute! pg-conn [ (format "drop table if exists %s cascade" table-name) ] )
+      (jdbc/execute! pg-conn [creation-sql-str] ))))
 
 (defn result-set->pg-insert [tbl-name-str result-set]
-  (println "inserting result-set -> " tbl-name-str) 
   (jdbc/with-db-connection [pg-conn pg-spec]
     (let [rows-inserted (atom 0) ]
       (doseq [it (partition-all 1000 result-set)]
-        (print "  " (swap! rows-inserted + (count it)) "  ")
+        (print (format "%7d  " (swap! rows-inserted + (count it))))
         (time
           (apply jdbc/insert! pg-conn tbl-name-str it ))))))
 
-(defn prepare-oracle []
+(defn oracle-set-context [ora-conn]
+  (jdbc/execute! ora-conn 
+    [ "begin
+         pkg_rls.set_context('admin', '1','ARGUS_MART', '#$!AgSeRvIcE@SaFeTy');
+       end; " ] ))
+
+(defn oracle-init []
+  (newline)
+  (println "-----------------------------------------------------------------------------")
+  (println "oracle-init")
   ; Stupid Oracle DB will often crash without this set
   ; Stupid Oracle DB gives bogus timezone offsets
   (let [timeZone  (TimeZone/getTimeZone "UTC") ]      ; or "America/Los_Angeles"
@@ -56,28 +64,25 @@
   ; Show size of main table
   (newline)
   (jdbc/with-db-connection [ora-conn ora-spec]
-    (spy :msg "pkg_rls.set_context()"
-      (jdbc/execute! ora-conn [
-        "begin
-           pkg_rls.set_context('admin', '1','ARGUS_MART', '#$!AgSeRvIcE@SaFeTy');
-         end; " ] ))
+    (spy :msg "pkg_rls.set_context()" 
+      (oracle-set-context ora-conn))
     (newline)
-    (spyx (jdbc/query ora-conn [ "select count(*) as result from rm_case_master" ] ))))
+    (spyx (jdbc/query ora-conn [ "select count(*) as result from rm_case_master" ] )))
+  (println "-----------------------------------------------------------------------------")
+)
 
 (defn transfer-data []
-  (println \newline "Initializing tables:")
-  (time (drop-create pg-spec))
-
   (newline)
-  (println "Transferring rows from Oracle to Postgres:")
+  (println "Initializing tables:")
+  (tables-drop-create)
+
   (jdbc/with-db-connection [ora-conn ora-spec]
-    (jdbc/execute! ora-conn [
-      "begin
-         pkg_rls.set_context('admin', '1','ARGUS_MART', '#$!AgSeRvIcE@SaFeTy');
-       end; " ] )
-    (jdbc/query ora-conn
-      ["select * from rm_case_master"]
-      :result-set-fn  #(result-set->pg-insert "rm_case_master" %) ))
+    (oracle-set-context ora-conn)
+    (doseq [ table-name (keys tables/table-name->creation-sql) ]
+      (newline)
+      (println "Transferring rows from Oracle to Postgres:" table-name)
+      (jdbc/query ora-conn [ (format "select * from %s" table-name) ]
+        :result-set-fn  #(result-set->pg-insert table-name %) )))
 
   (newline)
   (newline)
@@ -90,7 +95,7 @@
   (newline))
 
 (defn -main []
-  (prepare-oracle)
+  (oracle-init)
   (transfer-data)
 )
 
