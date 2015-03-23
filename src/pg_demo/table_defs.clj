@@ -5175,6 +5175,66 @@
               PRIMARY KEY (ENTERPRISE_ID,SITE_ID)
           ); " }
 
+    { "rm_lm_studies"
+          "CREATE TABLE rm_lm_studies (
+              ENTERPRISE_ID numeric NOT NULL,
+              STUDY_KEY numeric NOT NULL,
+              ALERT_AC_ID numeric,
+              STUDY_NUM varchar(35),
+              PROTOCOL_NUM varchar(40),
+              OTHER_NUM varchar(20),
+              STUDY_TYPE numeric,
+              UNBLIND_OK numeric(1),
+              ENCODING numeric(4),
+              DRUG_AUTO numeric(4),
+              DRUG_DICT varchar(20),
+              EVENT_AUTO numeric(4),
+              EVENT_DICT varchar(20),
+              EVENT_NO_MANUAL numeric(4),
+              EVENT_CLOSURE numeric(4),
+              CLASSIFICATION_ID numeric,
+              TEMPLATE numeric(1),
+              RULES_TEMPLATE_ID numeric,
+              ID_PROTOCOL numeric,
+              STUDY_ABBREV varchar(5),
+              DELETED timestamp,
+              COMMENTS varchar(1000),
+              DEV_PHASE_ID numeric,
+              CASE_UNDER_ADMIN_J numeric,
+              STUDY_NUM_J varchar(35),
+              TARGET_DISEASE_J varchar(500),
+              CLIN_COMP_NUM_J varchar(70),
+              STUDY_DESC text,
+              STUDY_DESC_J text,
+              CENTRAL_EVENT numeric,
+              COMMENTS_J varchar(1000),
+              PRIMARY KEY (ENTERPRISE_ID,STUDY_KEY)
+          ); " }
+
+    { "rm_lm_study_centers"
+          "CREATE TABLE rm_lm_study_centers (
+              ENTERPRISE_ID numeric NOT NULL,
+              CENTER_ID numeric NOT NULL,
+              STUDY_KEY numeric NOT NULL,
+              SEQ_NUM numeric NOT NULL,
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,CENTER_ID,STUDY_KEY,SEQ_NUM)
+          ); " }
+
+    { "rm_lm_study_cohorts"
+          "CREATE TABLE rm_lm_study_cohorts (
+              ENTERPRISE_ID numeric NOT NULL,
+              COHORT_ID numeric NOT NULL,
+              STUDY_KEY numeric NOT NULL,
+              BLIND_NAME varchar(70),
+              BLIND_NAME_J varchar(70),
+              STUDY_TYPE_ID numeric NOT NULL,
+              SORT_ID numeric NOT NULL,
+              \"primary\" numeric NOT NULL,
+              DELETED timestamp,
+              PRIMARY KEY (ENTERPRISE_ID,COHORT_ID)
+          ); " }
+
   ] ))
 
 (def dummy 
