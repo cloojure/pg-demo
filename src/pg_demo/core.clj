@@ -248,8 +248,11 @@
     (newline)
     (spy :msg "insert result" (jdbc/insert! pg-spec "rm_case_master" it ))
   ))
+
 (defn result-set->pg-insert [result-set]
-  (spy :msg "insert result" (apply jdbc/insert! pg-spec "rm_case_master" result-set ))
+  (println "insert result-set") 
+  (time
+    (apply jdbc/insert! pg-spec "rm_case_master" result-set ))
 )
 
 (def row-count (atom 0))
