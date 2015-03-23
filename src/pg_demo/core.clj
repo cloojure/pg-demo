@@ -298,8 +298,7 @@
           [ "select * from rm_case_master" ]
   ;       :result-set-fn  result-set->pg-insert
           :row-fn         #(result-row->pg-insert pg-conn %)
-        )
-      )
+        )))
 
     (newline)
     (newline)
@@ -307,7 +306,7 @@
     (println "-----------------------------------------------------------------------------")
     (println "query")
     (newline)
-    (doseq [it (take 3  (jdbc/query pg-spec
+    (doseq [it (take 2  (jdbc/query pg-spec
                           (jdbc-sql/select * "rm_case_master" )))
     ]
       (newline)
