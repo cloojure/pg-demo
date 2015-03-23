@@ -116,5 +116,34 @@
                 PRIMARY KEY (ENTERPRISE_ID,CASE_ID,DLP_REVISION_NUMBER) 
           );"
 
+      "rm_case_actions"
+          "CREATE TABLE rm_case_actions (
+                ENTERPRISE_ID numeric NOT NULL,
+                CASE_ID numeric NOT NULL,
+                SEQ_NUM numeric NOT NULL,
+                USER_ID numeric,
+                DATE_OPEN timestamp,
+                DATE_DUE timestamp,
+                DATE_DONE timestamp,
+                DESCRIPTION varchar(1000),
+                SORT_ID numeric,
+                CODE numeric,
+                GROUP_ID numeric,
+                SYSTEM_CREATED numeric,
+                ACTION_STATUS numeric,
+                DESCRIPTION_J varchar(1000),
+                DELETED timestamp,
+                DLP_REVISION_NUMBER numeric NOT NULL,
+                REVISION_DELETE_FLAG numeric,
+                DELETED_FLAG numeric(1) NOT NULL,
+                EFFECTIVE_START_DATE timestamp NOT NULL,
+                EFFECTIVE_END_DATE timestamp NOT NULL,
+                SENT_IN_LTR numeric,
+                PRIMARY KEY (ENTERPRISE_ID,CASE_ID,SEQ_NUM,DLP_REVISION_NUMBER)
+            );"
+
+;     ""
+;         ""
+
     } ))
 

@@ -56,10 +56,10 @@
   ; Stupid Oracle DB gives bogus timezone offsets
   (let [timeZone  (TimeZone/getTimeZone "UTC") ]      ; or "America/Los_Angeles"
     (TimeZone/setDefault timeZone))
-  (newline) (spyx (jdbc/query ora-spec [ "select sysdate as current_day from dual" ] ))
+  (newline) (spyx (jdbc/query ora-spec "select sysdate as current_day from dual" ))
 
   ; Show Oracle DB version info
-  (newline) (spyx (jdbc/query ora-spec [ "select BANNER from SYS.V_$VERSION" ] ))
+  (newline) (spyx (jdbc/query ora-spec "select BANNER from SYS.V_$VERSION" ))
 
   ; Show size of main table
   (newline)
@@ -67,7 +67,7 @@
     (spy :msg "pkg_rls.set_context()" 
       (oracle-set-context ora-conn))
     (newline)
-    (spyx (jdbc/query ora-conn [ "select count(*) as result from rm_case_master" ] )))
+    (spyx (jdbc/query ora-conn "select count(*) as result from rm_case_master" )))
   (println "-----------------------------------------------------------------------------")
 )
 
@@ -80,18 +80,21 @@
     (oracle-set-context ora-conn)
     (doseq [ table-name (keys tables/table-name->creation-sql) ]
       (newline)
-      (println "Transferring rows from Oracle to Postgres:" table-name)
+      (newline)
+      (println "-----------------------------------------------------------------------------")
+      (println "Transferring rows from Oracle to Postgres:" table-name "  rows:"
+        (-> (jdbc/query ora-conn [ (format "select count(*) as result from %s" table-name) ] )
+            first
+            :result
+            long ))
       (jdbc/query ora-conn [ (format "select * from %s" table-name) ]
-        :result-set-fn  #(result-set->pg-insert table-name %) )))
-
-  (newline)
-  (newline)
-  (println "-----------------------------------------------------------------------------")
-  (println "query:")
-  (doseq [it (take 2 (jdbc/query pg-spec "select * from rm_case_master" )) ]
-    (newline)
-    (prn (into (sorted-map) it)))
-
+        :result-set-fn  #(result-set->pg-insert table-name %) )
+      (newline)
+      (println "query:")
+      (doseq [it (take 2 (jdbc/query pg-spec (format "select * from %s" table-name ))) ]
+        (newline)
+        (prn (into (sorted-map) it)))
+    ))
   (newline))
 
 (defn -main []
