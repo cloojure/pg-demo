@@ -1567,6 +1567,123 @@
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,DLP_REVISION_NUMBER)
           ); " }
 
+    { "rm_case_pmda_license"
+          "CREATE TABLE rm_case_pmda_license (
+              ENTERPRISE_ID numeric NOT NULL,
+              CASE_ID numeric NOT NULL,
+              SEQ_NUM numeric NOT NULL,
+              LICENSE_ID numeric NOT NULL,
+              PROD_SEQ_NUM numeric NOT NULL,
+              LIC_CATEGORY_ID numeric,
+              REPORT_TYPE numeric,
+              RPT_CATEGORY_ID numeric,
+              CASE_COMPLETE numeric,
+              PMDA_NUMBER varchar(100),
+              INCOMPLETE_COMMENT text,
+              FUTURE_ACTIONS text,
+              FORM_2_MEMO text,
+              SENDER_COMMENT text,
+              DOWNGRADED numeric,
+              SERIOUS_DISEASE numeric,
+              SIGNIFICANT_CHANGE numeric,
+              EFFECTIVENESS numeric,
+              PROBLEM_DESC text,
+              SORT_ID numeric,
+              DELETED timestamp,
+              DLP_REVISION_NUMBER numeric NOT NULL,
+              EFFECTIVE_START_DATE timestamp NOT NULL,
+              EFFECTIVE_END_DATE timestamp NOT NULL,
+              DELETED_FLAG numeric(1) NOT NULL,
+              REVISION_DELETE_FLAG numeric,
+              PRIMARY KEY (ENTERPRISE_ID,CASE_ID,SEQ_NUM,DLP_REVISION_NUMBER)
+          ); " }
+
+    { "rm_case_pmda_lic_studies"
+          "CREATE TABLE rm_case_pmda_lic_studies (
+              ENTERPRISE_ID numeric NOT NULL,
+              CASE_ID numeric NOT NULL,
+              SEQ_NUM numeric NOT NULL,
+              LICENSE_ID numeric NOT NULL,
+              STUDIES text,
+              DELETED timestamp,
+              DLP_REVISION_NUMBER numeric NOT NULL,
+              REVISION_DELETE_FLAG numeric,
+              DELETED_FLAG numeric(1) NOT NULL,
+              EFFECTIVE_START_DATE timestamp NOT NULL,
+              EFFECTIVE_END_DATE timestamp NOT NULL,
+              PRIMARY KEY (ENTERPRISE_ID,CASE_ID,SEQ_NUM,LICENSE_ID,DLP_REVISION_NUMBER)
+          ); " }
+
+    { "rm_case_pmda_mgmt_num"
+          "CREATE TABLE rm_case_pmda_mgmt_num (
+              ENTERPRISE_ID numeric NOT NULL,
+              CASE_ID numeric NOT NULL,
+              PROD_SEQ_NUM numeric NOT NULL,
+              SEQ_NUM numeric NOT NULL,
+              RECEIVED_DATE timestamp,
+              ACK_BRANCH_NUMBER varchar(8),
+              REG_BRANCH_NUMBER varchar(8),
+              DELETED timestamp,
+              DLP_REVISION_NUMBER numeric NOT NULL,
+              REVISION_DELETE_FLAG numeric,
+              DELETED_FLAG numeric(1) NOT NULL,
+              EFFECTIVE_START_DATE timestamp NOT NULL,
+              EFFECTIVE_END_DATE timestamp NOT NULL,
+              PRIMARY KEY (ENTERPRISE_ID,CASE_ID,PROD_SEQ_NUM,SEQ_NUM,DLP_REVISION_NUMBER)
+          ); " }
+
+    { "rm_case_pmda_notes"
+          "CREATE TABLE rm_case_pmda_notes (
+              ENTERPRISE_ID numeric NOT NULL,
+              CASE_ID numeric NOT NULL,
+              REMARK1 text,
+              REMARK2 text,
+              REMARK3 text,
+              REMARK4 text,
+              DELETED timestamp,
+              DLP_REVISION_NUMBER numeric NOT NULL,
+              EFFECTIVE_START_DATE timestamp NOT NULL,
+              EFFECTIVE_END_DATE timestamp NOT NULL,
+              DELETED_FLAG numeric(1) NOT NULL,
+              REVISION_DELETE_FLAG numeric,
+              PRIMARY KEY (ENTERPRISE_ID,CASE_ID,DLP_REVISION_NUMBER)
+          ); " }
+
+    { "rm_case_pmda_reportability"
+          "CREATE TABLE rm_case_pmda_reportability (
+              ENTERPRISE_ID numeric NOT NULL,
+              CASE_ID numeric NOT NULL,
+              SEQ_NUM numeric NOT NULL,
+              PROD_SEQ_NUM numeric NOT NULL,
+              EVENT_SEQ_NUM numeric NOT NULL,
+              LICENSE_ID numeric NOT NULL,
+              LISTEDNESS numeric,
+              REPORTABILITY numeric,
+              TIMEFRAME numeric,
+              DELETED timestamp,
+              DLP_REVISION_NUMBER numeric NOT NULL,
+              REVISION_DELETE_FLAG numeric,
+              DELETED_FLAG numeric(1) NOT NULL,
+              EFFECTIVE_START_DATE timestamp NOT NULL,
+              EFFECTIVE_END_DATE timestamp NOT NULL,
+              PRIMARY KEY (ENTERPRISE_ID,CASE_ID,SEQ_NUM,PROD_SEQ_NUM,EVENT_SEQ_NUM,LICENSE_ID,DLP_REVISION_NUMBER)
+          ); " }
+
+    { "rm_case_pmda_rpt_version"
+          "CREATE TABLE rm_case_pmda_rpt_version (
+              ENTERPRISE_ID numeric NOT NULL,
+              CASE_ID numeric NOT NULL,
+              REVISION numeric NOT NULL,
+              LAST_UPDATE_TIME timestamp,
+              DELETED timestamp,
+              DLP_REVISION_NUMBER numeric NOT NULL,
+              REVISION_DELETE_FLAG numeric,
+              DELETED_FLAG numeric(1) NOT NULL,
+              EFFECTIVE_START_DATE timestamp NOT NULL,
+              EFFECTIVE_END_DATE timestamp NOT NULL,
+              PRIMARY KEY (ENTERPRISE_ID,CASE_ID,REVISION,DLP_REVISION_NUMBER)
+          ); " }
+
   ] ))
 
 (def dummy 
