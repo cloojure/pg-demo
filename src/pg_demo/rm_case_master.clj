@@ -115,9 +115,8 @@
   ); " )
 
 (defn drop-create [db-spec]
-  (newline)
-  (println (format "drop   %s" table-name))
-  (jdbc/execute! db-spec [ (format "drop table if exists %s cascade" table-name) ] )
-  (println (format "create %s" table-name))
-  (jdbc/execute! db-spec [creation-sql-str] ))
+  (println (format "drop/create: %s" table-name))
+  (jdbc/with-db-connection [db-conn db-spec]
+    (jdbc/execute! db-conn [ (format "drop table if exists %s cascade" table-name) ] )
+    (jdbc/execute! db-conn [creation-sql-str] )))
 

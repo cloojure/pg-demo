@@ -24,18 +24,21 @@
     :user         "mart_user"
     :password     "rxlogix" } )
 
-(defn result-set->pg-insert [result-set]
-  (println "insert result-set 1000") 
+(def insert-chunk-size 1000)
+(defn result-set->pg-insert [tbl-name-str result-set]
+  (println "inserting result-set -> " tbl-name-str) 
   (jdbc/with-db-connection [pg-conn pg-spec]
-    (doseq [it (partition-all 1000 result-set)]
-      (time
-        (apply jdbc/insert! pg-conn "rm_case_master" it )))))
+    (let [rows-inserted (atom 0) ]
+      (doseq [it (partition-all 1000 result-set)]
+        (println (swap! rows-inserted + (count it)))
+        (time
+          (apply jdbc/insert! pg-conn tbl-name-str it ))))))
 
 (defn tx1 []
   (newline)
-  (println "-----------------------------------------------------------------------------")
-  (println "tx1")
-  (pg-demo.rm-case-master/drop-create pg-spec)
+  (println "Initializing tables:")
+  (newline)
+  (time (pg-demo.rm-case-master/drop-create pg-spec))
 
   (let [
   ]
@@ -62,7 +65,7 @@
       (println "Transferring rows from Oracle to Postgres:")
       (jdbc/query ora-conn
         [ "select * from rm_case_master" ]
-        :result-set-fn  result-set->pg-insert ))
+        :result-set-fn  #(result-set->pg-insert "rm_case_master" %) ))
 
     (newline)
     (newline)
