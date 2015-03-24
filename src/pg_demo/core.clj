@@ -111,7 +111,7 @@
 (def enable-testing true)   ; #todo  FOR TESTING ONLY *******************************************
 (def test-rs-limit-fn       ; #todo  FOR TESTING ONLY *******************************************
   (if enable-testing 
-    #(take 1234 %)
+    #(take 12345 %)
     identity ))
 
 (defn result-set->pg-insert [table-name result-set]
@@ -124,7 +124,8 @@
           (print (format "%s: %7d/%7d  "    table-name 
                                             (swap! rows-inserted + (count rows-chunk-new))
                                             table-rows ))
-          (time (apply jdbc/insert! pg-conn table-name rows-chunk-new  )))))
+          (time (apply jdbc/insert! pg-conn table-name rows-chunk-new  ))
+          (flush))))
 
     (when false
       (newline)
@@ -135,10 +136,18 @@
   ))
 
 (defn proc-table [table-name]
-  (jdbc/with-db-connection [ora-conn ora-spec]
-    (oracle-set-context ora-conn)
-    (jdbc/query ora-conn [ (format "select * from %s" table-name) ]
-      :result-set-fn  #(result-set->pg-insert table-name %) )))
+  (let [completed (atom false)]
+    (while (not @completed)
+      (Thread/sleep (rand-int (* 30 1000)))
+      (println "Trying tx for:" table-name)
+      (try
+        (jdbc/with-db-connection [ora-conn ora-spec]
+          (oracle-set-context ora-conn)
+          (jdbc/query ora-conn [ (format "select * from %s" table-name) ]
+            :result-set-fn  #(result-set->pg-insert table-name %) ))
+        (reset! completed true)
+        (catch Exception ex 
+          (println (format "    %s failed... will retry" table-name)))))))
 
 (defn transfer-data []
   (newline)
