@@ -15,24 +15,21 @@
 
 (def large-db true)
 
-(if large-db
-  (def ora-spec    
-    { :classname    "oracle.jdbc.OracleDriver"  ; must be in classpath
-      :subprotocol  "oracle"
-      :subname      "thin:@//10.100.6.231:1521/pvram"
-      :user         "mart_user_bkp"
-      :password     "rxlogix" } )
-  (def ora-spec    
-    { :classname    "oracle.jdbc.OracleDriver"  ; must be in classpath
-      :subprotocol  "oracle"
-      :subname      "thin:@//10.100.6.231:1521/pvram"
-      :user         "mart_user"
-      :password     "rxlogix" } ))
+(def ora-spec    
+  { :classname    "oracle.jdbc.OracleDriver"  ; must be in classpath
+    :subprotocol  "oracle"
+    :subname      "thin:@//10.100.6.231:1521/pvram"
+    :user         (if large-db  "mart_user_bkp" 
+                                "mart_user" )
+    :password     "rxlogix" 
+  } )
 
 (def pg-spec
   { :classname    "org.postgresql.Driver"
     :subprotocol  "postgresql"
-    :subname      "//localhost:5432/ubuntu_large" } )
+    :subname      (if large-db  "//localhost:5432/ubuntu_large"
+                                "//localhost:5432/ubuntu" ) 
+  } )
 
 (def insert-chunk-size 1000)
 
