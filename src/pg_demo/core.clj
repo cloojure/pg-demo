@@ -16,14 +16,14 @@
 (def ora-spec    
   { :classname    "oracle.jdbc.OracleDriver"  ; must be in classpath
     :subprotocol  "oracle"
-    :subname      "thin:@//10.100.6.231:1521/pvram"
+    :subname      "thin:@//10.100.6.231:1521/pvram_bkp"
     :user         "mart_user"
     :password     "rxlogix" } )
 
 (def pg-spec
   { :classname    "org.postgresql.Driver"
     :subprotocol  "postgresql"
-    :subname      "//localhost:5432/ubuntu" } )
+    :subname      "//localhost:5432/ubuntu_large" } )
 
 (def insert-chunk-size 1000)
 
