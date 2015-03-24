@@ -90,7 +90,7 @@
                                 :result
                                 long ) 
             ]
-              (println (format "%50s -> %9d" table-name table-rows))
+              (println (format "%15d  %s" table-rows table-name))
               {table-name table-rows} )))))))
 
 (defn drop-create-tables []
@@ -100,7 +100,6 @@
   (time
     (jdbc/with-db-connection [pg-conn pg-spec]
       (doseq [ [table-name creation-sql-str] tables/table-name->creation-sql ]
-;       (println (format "  %s" table-name))
         (print ".")
         (flush)
         (jdbc/execute! pg-conn [ (format "drop table if exists %s cascade" table-name) ] )
