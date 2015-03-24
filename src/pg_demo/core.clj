@@ -73,32 +73,34 @@
 (def enable-testing true)   ; #todo  FOR TESTING ONLY *******************************************
 (def test-rs-limit-fn       ; #todo  FOR TESTING ONLY *******************************************
   (if enable-testing 
-    #(take 12345 %)
+    #(take 1234 %)
     identity ))
 
 (defn result-set->pg-insert [table-name table-rows result-set]
-  (jdbc/with-db-connection [pg-conn pg-spec]
-    (println (format "  drop/create: %s" table-name))
-    (newline)
-    (let [creation-sql-str (tables/table-name->creation-sql table-name) ]
+  (println (format "  drop/create: %s" table-name))
+  (newline)
+  (let [creation-sql-str (tables/table-name->creation-sql table-name) ]
+    (jdbc/with-db-connection [pg-conn pg-spec]
       (jdbc/execute! pg-conn [ (format "drop table if exists %s cascade" table-name) ] )
       (jdbc/execute! pg-conn [creation-sql-str] ))
 
-    (let [rows-inserted     (atom 0) 
-          result-set        (test-rs-limit-fn result-set) ]
-      (doseq [rows-chunk (partition-all 1000 result-set) ]
-        (let [rows-chunk-new    (map #(set/rename-keys % column-name-corrections) rows-chunk) ]
-          (print (format "%s: %7d/%7d  "    table-name 
-                                            (swap! rows-inserted + (count rows-chunk-new))
-                                            table-rows ))
-          (time (apply jdbc/insert! pg-conn table-name rows-chunk-new  )))))
+    (jdbc/with-db-connection [pg-conn pg-spec]
+      (let [rows-inserted     (atom 0) 
+            result-set        (test-rs-limit-fn result-set) ]
+        (doseq [rows-chunk (partition-all 1000 result-set) ]
+          (let [rows-chunk-new    (map #(set/rename-keys % column-name-corrections) rows-chunk) ]
+            (print (format "%s: %7d/%7d  "    table-name 
+                                              (swap! rows-inserted + (count rows-chunk-new))
+                                              table-rows ))
+            (time (apply jdbc/insert! pg-conn table-name rows-chunk-new  )))))
 
-    (newline)
-    (println table-name "query:")
-    (doseq [it (take 2 (jdbc/query pg-spec (format "select * from %s" table-name ))) ]
-      (newline)
-      (prn (into (sorted-map) it)))
-  ))
+      (when false
+        (newline)
+        (println table-name "query:")
+        (doseq [it (take 2 (jdbc/query pg-spec (format "select * from %s" table-name ))) ]
+          (newline)
+          (prn (into (sorted-map) it))))
+    )))
 
 (defn proc-table [table-name]
   (jdbc/with-db-connection [ora-conn ora-spec]
