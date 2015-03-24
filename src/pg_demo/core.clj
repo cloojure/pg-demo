@@ -16,8 +16,8 @@
 (def ora-spec    
   { :classname    "oracle.jdbc.OracleDriver"  ; must be in classpath
     :subprotocol  "oracle"
-    :subname      "thin:@//10.100.6.231:1521/pvram_bkp"
-    :user         "mart_user"
+    :subname      "thin:@//10.100.6.231:1521/pvram"
+    :user         "mart_user_bkp"
     :password     "rxlogix" } )
 
 (def pg-spec
