@@ -1,5 +1,6 @@
 (ns pg-demo.core
   (:require [clojure.java.jdbc      :as jdbc]
+            [clojure.set            :as set]
             [java-jdbc.ddl          :as ddl]
             [java-jdbc.sql          :as jdbc-sql]
             [honeysql.core          :as honey]
@@ -26,6 +27,12 @@
 
 (def insert-chunk-size 1000)
 
+(def column-name-corrections
+  "A map used to rename problematic columns with more acceptable names.  In the future,
+  it would be best if SQL reserved words (or their derivatives) were not used for column
+  names in the first place."
+  { :primary :primary_val } )
+
 
 (defn tables-drop-create []
   (jdbc/with-db-connection [pg-conn pg-spec]
@@ -36,12 +43,13 @@
 
 (defn result-set->pg-insert [tbl-name-str result-set]
   (jdbc/with-db-connection [pg-conn pg-spec]
-    (let [rows-inserted (atom 0) ]
-      (doseq [it (partition-all 1000 
-                    (take 1234 result-set))]    ; #awt #todo #kludge *********************************
-        (print (format "%7d  " (swap! rows-inserted + (count it))))
-        (time
-          (apply jdbc/insert! pg-conn tbl-name-str it ))))))
+    (let [rows-inserted     (atom 0) ]
+      (doseq [rows-chunk (partition-all 1000 
+                    (take 1234 result-set)) ]    ; #todo #kludge *********************************
+        (let [rows-chunk-new    (map #(set/rename-keys % column-name-corrections) rows-chunk) ]
+          (print (format "%7d  " (swap! rows-inserted + (count rows-chunk-new))))
+          (time
+            (apply jdbc/insert! pg-conn tbl-name-str rows-chunk-new  )))))))
 
 (defn oracle-set-context [ora-conn]
   (jdbc/execute! ora-conn 
