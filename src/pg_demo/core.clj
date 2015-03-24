@@ -44,8 +44,7 @@
 (defn result-set->pg-insert [tbl-name-str result-set]
   (jdbc/with-db-connection [pg-conn pg-spec]
     (let [rows-inserted     (atom 0) ]
-      (doseq [rows-chunk (partition-all 1000 
-                    (take 1234 result-set)) ]    ; #todo #kludge *********************************
+      (doseq [rows-chunk (partition-all 1000 result-set) ]
         (let [rows-chunk-new    (map #(set/rename-keys % column-name-corrections) rows-chunk) ]
           (print (format "%7d  " (swap! rows-inserted + (count rows-chunk-new))))
           (time
