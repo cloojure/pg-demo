@@ -13,12 +13,21 @@
   (:import java.util.TimeZone)
   (:gen-class))
 
-(def ora-spec    
-  { :classname    "oracle.jdbc.OracleDriver"  ; must be in classpath
-    :subprotocol  "oracle"
-    :subname      "thin:@//10.100.6.231:1521/pvram"
-    :user         "mart_user_bkp"
-    :password     "rxlogix" } )
+(def large-db true)
+
+(if large-db
+  (def ora-spec    
+    { :classname    "oracle.jdbc.OracleDriver"  ; must be in classpath
+      :subprotocol  "oracle"
+      :subname      "thin:@//10.100.6.231:1521/pvram"
+      :user         "mart_user_bkp"
+      :password     "rxlogix" } )
+  (def ora-spec    
+    { :classname    "oracle.jdbc.OracleDriver"  ; must be in classpath
+      :subprotocol  "oracle"
+      :subname      "thin:@//10.100.6.231:1521/pvram"
+      :user         "mart_user"
+      :password     "rxlogix" } ))
 
 (def pg-spec
   { :classname    "org.postgresql.Driver"
@@ -51,10 +60,11 @@
             (apply jdbc/insert! pg-conn tbl-name-str rows-chunk-new  )))))))
 
 (defn oracle-set-context [ora-conn]
-  (jdbc/execute! ora-conn 
-    [ "begin
-         pkg_rls.set_context('admin', '1','ARGUS_MART', '#$!AgSeRvIcE@SaFeTy');
-       end; " ] ))
+  (when-not large-db
+    (jdbc/execute! ora-conn 
+      [ "begin
+           pkg_rls.set_context('admin', '1','ARGUS_MART', '#$!AgSeRvIcE@SaFeTy');
+         end; " ] )))
 
 (defn oracle-init []
   (newline)
