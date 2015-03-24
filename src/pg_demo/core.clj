@@ -145,8 +145,16 @@
   (println "-----------------------------------------------------------------------------")
   (println "Beginning data transfer...")
   (newline)
-  (doseq [table-name (keys tables/table-name->creation-sql) ]
-    (proc-table table-name)))
+  (let [table-futures-map   (into (sorted-map)
+                              (for [table-name (keys tables/table-name->creation-sql) ]
+                                { table-name (future (proc-table table-name)) } ))
+  ]
+    (doseq [it table-futures-map]
+      (print "  waiting for:" (key it))
+      (deref (val it))  ; block until complete
+      (println "  done."))
+    (shutdown-agents)
+  ))
 
 (defn -main []
   (oracle-init)
