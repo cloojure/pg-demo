@@ -135,16 +135,16 @@
   ))
 
 (defn proc-table [table-name]
-  (newline)
-  (println "-----------------------------------------------------------------------------")
-  (println "Beginning data transfer...")
-  (newline)
   (jdbc/with-db-connection [ora-conn ora-spec]
     (oracle-set-context ora-conn)
     (jdbc/query ora-conn [ (format "select * from %s" table-name) ]
       :result-set-fn  #(result-set->pg-insert table-name %) )))
 
 (defn transfer-data []
+  (newline)
+  (println "-----------------------------------------------------------------------------")
+  (println "Beginning data transfer...")
+  (newline)
   (doseq [table-name (keys tables/table-name->creation-sql) ]
     (proc-table table-name)))
 
