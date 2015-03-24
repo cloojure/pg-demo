@@ -73,7 +73,7 @@
 (def enable-testing true)   ; #todo  FOR TESTING ONLY *******************************************
 (def test-rs-limit-fn       ; #todo  FOR TESTING ONLY *******************************************
   (if enable-testing 
-    #(take 1234 %)
+    #(take 12345 %)
     identity ))
 
 (defn result-set->pg-insert [table-name table-rows result-set]
