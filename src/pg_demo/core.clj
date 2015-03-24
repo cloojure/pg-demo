@@ -67,8 +67,47 @@
       (oracle-set-context ora-conn))
     (newline)
     (spyx (jdbc/query ora-conn "select count(*) as result from rm_case_master" )))
-  (println "-----------------------------------------------------------------------------")
+  (newline)
 )
+
+(def oracle-table-rows 
+  "A map from table-name to table-rows."
+  (promise))
+
+(defn count-tables []
+  (newline)
+  (println "-----------------------------------------------------------------------------")
+  (println "Counting rows for all Oracle tables...")
+  (time
+    (jdbc/with-db-connection [ora-conn ora-spec]
+      (oracle-set-context ora-conn)
+      (deliver oracle-table-rows 
+        (into (sorted-map) 
+          (for [table-name (sort (keys tables/table-name->creation-sql)) ]
+            (let [table-rows   (-> (jdbc/query ora-conn 
+                                        [ (format "select count(*) as result from %s" table-name) ] )
+                                first
+                                :result
+                                long ) 
+            ]
+              (println (format "%50s -> %9d" table-name table-rows))
+              {table-name table-rows} )))))))
+
+(defn drop-create-tables []
+  (newline)
+  (println "-----------------------------------------------------------------------------")
+  (println "Running drop/create on all Postgres tables...")
+  (time
+    (jdbc/with-db-connection [pg-conn pg-spec]
+      (doseq [ [table-name creation-sql-str] tables/table-name->creation-sql ]
+;       (println (format "  %s" table-name))
+        (print ".")
+        (flush)
+        (jdbc/execute! pg-conn [ (format "drop table if exists %s cascade" table-name) ] )
+        (jdbc/execute! pg-conn [creation-sql-str] ))
+      (newline)
+    )))
+
 
 (def enable-testing true)   ; #todo  FOR TESTING ONLY *******************************************
 (def test-rs-limit-fn       ; #todo  FOR TESTING ONLY *******************************************
@@ -76,56 +115,44 @@
     #(take 1234 %)
     identity ))
 
-(defn result-set->pg-insert [table-name table-rows result-set]
-  (println (format "  drop/create: %s" table-name))
-  (newline)
-  (let [creation-sql-str (tables/table-name->creation-sql table-name) ]
-    (jdbc/with-db-connection [pg-conn pg-spec]
-      (jdbc/execute! pg-conn [ (format "drop table if exists %s cascade" table-name) ] )
-      (jdbc/execute! pg-conn [creation-sql-str] ))
+(defn result-set->pg-insert [table-name result-set]
+  (jdbc/with-db-connection [pg-conn pg-spec]
+    (let [rows-inserted     (atom 0) 
+          table-rows        (@oracle-table-rows table-name)
+          result-set        (test-rs-limit-fn result-set) ]
+      (doseq [rows-chunk (partition-all 10000 result-set) ]
+        (let [rows-chunk-new (map #(set/rename-keys % column-name-corrections) rows-chunk) ]
+          (print (format "%s: %7d/%7d  "    table-name 
+                                            (swap! rows-inserted + (count rows-chunk-new))
+                                            table-rows ))
+          (time (apply jdbc/insert! pg-conn table-name rows-chunk-new  )))))
 
-    (jdbc/with-db-connection [pg-conn pg-spec]
-      (let [rows-inserted     (atom 0) 
-            result-set        (test-rs-limit-fn result-set) ]
-        (doseq [rows-chunk (partition-all 1000 result-set) ]
-          (let [rows-chunk-new    (map #(set/rename-keys % column-name-corrections) rows-chunk) ]
-            (print (format "%s: %7d/%7d  "    table-name 
-                                              (swap! rows-inserted + (count rows-chunk-new))
-                                              table-rows ))
-            (time (apply jdbc/insert! pg-conn table-name rows-chunk-new  )))))
-
-      (when false
+    (when false
+      (newline)
+      (println table-name "query:")
+      (doseq [it (take 2 (jdbc/query pg-spec (format "select * from %s" table-name ))) ]
         (newline)
-        (println table-name "query:")
-        (doseq [it (take 2 (jdbc/query pg-spec (format "select * from %s" table-name ))) ]
-          (newline)
-          (prn (into (sorted-map) it))))
-    )))
+        (prn (into (sorted-map) it))))
+  ))
 
 (defn proc-table [table-name]
+  (newline)
+  (println "-----------------------------------------------------------------------------")
+  (println "Beginning data transfer...")
+  (newline)
   (jdbc/with-db-connection [ora-conn ora-spec]
     (oracle-set-context ora-conn)
-    (let [table-rows    (-> (jdbc/query ora-conn 
-                            [ (format "select count(*) as result from %s" table-name) ] )
-                        first
-                        :result
-                        long )
-    ]
-      (newline)
-      (println "-----------------------------------------------------------------------------")
-      (println "Transferring rows from Oracle to Postgres:" table-name "  rows:" table-rows)
-      (jdbc/query ora-conn [ (format "select * from %s" table-name) ]
-        :result-set-fn  #(result-set->pg-insert table-name table-rows %) )
-    )))
+    (jdbc/query ora-conn [ (format "select * from %s" table-name) ]
+      :result-set-fn  #(result-set->pg-insert table-name %) )))
 
 (defn transfer-data []
-  (newline)
   (doseq [table-name (keys tables/table-name->creation-sql) ]
-    (proc-table table-name))
-  (newline))
+    (proc-table table-name)))
 
 (defn -main []
   (oracle-init)
+  (count-tables)
+  (drop-create-tables)
   (transfer-data)
 )
 
