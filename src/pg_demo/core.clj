@@ -32,7 +32,7 @@
                                 "//localhost:5432/ubuntu" ) 
   } )
 
-(def insert-chunk-size 1000)
+(def insert-chunk-size 10000)
 
 (def column-name-corrections
   "A map used to rename problematic columns with more acceptable names.  In the future,
@@ -123,7 +123,7 @@
     (let [rows-inserted     (atom 0) 
           table-rows        (@oracle-table-rows table-name)
           result-set        (test-rs-limit-fn result-set) ]
-      (doseq [rows-chunk (partition-all 10000 result-set) ]
+      (doseq [rows-chunk (partition-all insert-chunk-size result-set) ]
         (let [rows-chunk-new (map #(set/rename-keys % column-name-corrections) rows-chunk) ]
           (time (apply jdbc/insert! pg-conn table-name rows-chunk-new  ))
           (println (format "%9d/%9d  %s"    (swap! rows-inserted + (count rows-chunk-new))
@@ -142,8 +142,7 @@
 (defn proc-table [table-name]
   (let [completed (atom false)]
     (while (not @completed)
-;     (Thread/sleep (rand-int (* 30 1000)))
-      (println "Trying tx for:" table-name)
+      (println "Processing:" table-name)
       (try
         (jdbc/with-db-connection [ora-conn ora-spec]
           (oracle-set-context ora-conn)
@@ -151,7 +150,9 @@
             :result-set-fn  #(result-set->pg-insert table-name %) ))
         (reset! completed true)
         (catch Exception ex 
-          (println (format "    %s failed... will retry" table-name)))))))
+          (println (format "    %s failed... will retry" table-name))
+          (Thread/sleep (-> (rand 5) (+ 5) (* 1000) (long)))  ; [5..10) seconds (in millis)
+        )))))
 
 (defn transfer-data []
   (newline)
