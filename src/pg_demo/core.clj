@@ -112,7 +112,7 @@
 (def enable-testing true)   ; #todo  FOR TESTING ONLY *******************************************
 (def test-rs-limit-fn       ; #todo  FOR TESTING ONLY *******************************************
   (if enable-testing 
-    #(take 12345 %)
+    #(take 36345 %)
     identity ))
 
 ;; A threadpool with 2 threads.
