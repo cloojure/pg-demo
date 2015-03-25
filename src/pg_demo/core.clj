@@ -7,6 +7,7 @@
             [honeysql.helpers       :refer :all]
 ;           [cooljure.misc          :as cool-misc]
             [pg-demo.table-defs     :as tables]
+            [com.climate.claypoole  :as cp]
   )
   (:use cooljure.core 
         cooljure.misc)
@@ -111,8 +112,11 @@
 (def enable-testing true)   ; #todo  FOR TESTING ONLY *******************************************
 (def test-rs-limit-fn       ; #todo  FOR TESTING ONLY *******************************************
   (if enable-testing 
-    #(take 12345 %)
+    #(take 1234 %)
     identity ))
+
+;; A threadpool with 2 threads.
+(def pg-threadpool (cp/threadpool 4))
 
 ; This works, but too hard to control the number of simultaneous processes
 (defn result-set->pg-insert [table-name result-set]
@@ -139,7 +143,7 @@
 (defn proc-table [table-name]
   (let [completed (atom false)]
     (while (not @completed)
-      (Thread/sleep (rand-int (* 30 1000)))
+;     (Thread/sleep (rand-int (* 30 1000)))
       (println "Trying tx for:" table-name)
       (try
         (jdbc/with-db-connection [ora-conn ora-spec]
@@ -157,12 +161,11 @@
   (newline)
   (let [table-futures-map   (into (sorted-map)
                               (for [table-name (keys tables/table-name->creation-sql) ]
-                                { table-name (future (proc-table table-name)) } ))
+                                { table-name (cp/future pg-threadpool (proc-table table-name)) } ))
   ]
     (doseq [it table-futures-map]
-      (print "  waiting for:" (key it))
       (deref (val it))  ; block until complete
-      (println "  done."))
+      (println (key it) "  done"))
     (shutdown-agents)
   ))
 
