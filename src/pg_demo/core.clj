@@ -114,6 +114,7 @@
     #(take 12345 %)
     identity ))
 
+; This works, but too hard to control the number of simultaneous processes
 (defn result-set->pg-insert [table-name result-set]
   (jdbc/with-db-connection [pg-conn pg-spec]
     (let [rows-inserted     (atom 0) 
