@@ -112,7 +112,7 @@
 (def enable-testing true)   ; #todo  FOR TESTING ONLY *******************************************
 (def test-rs-limit-fn       ; #todo  FOR TESTING ONLY *******************************************
   (if enable-testing 
-    #(take 36345 %)
+    #(take 12345 %)
     identity ))
 
 (def pg-threadpool (cp/threadpool 4))
