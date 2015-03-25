@@ -14,7 +14,7 @@
   (:import java.util.TimeZone)
   (:gen-class))
 
-(def large-db true)
+(def large-db false)
 
 (def ora-spec    
   { :classname    "oracle.jdbc.OracleDriver"  ; must be in classpath
@@ -117,7 +117,6 @@
 
 (def pg-threadpool (cp/threadpool 4))
 
-; This works, but too hard to control the number of simultaneous processes
 (defn result-set->pg-insert [table-name result-set]
   (jdbc/with-db-connection [pg-conn pg-spec]
     (let [rows-inserted     (atom 0) 
@@ -159,9 +158,13 @@
   (println "-----------------------------------------------------------------------------")
   (println "Beginning data transfer...")
   (newline)
-  (let [table-futures-map   (into (sorted-map)
-                              (for [table-name (keys tables/table-name->creation-sql) ]
-                                { table-name (cp/future pg-threadpool (proc-table table-name)) } ))
+  (let [
+    table-names-sorted    (as-> (keys @oracle-table-rows) it      ; table names
+                                (sort-by @oracle-table-rows it)   ; sort by # rows
+                                (reverse it))                     ; descending order
+    table-futures-map     (into (sorted-map)
+                            (for [table-name table-names-sorted]
+                              { table-name (cp/future pg-threadpool (proc-table table-name)) } ))
   ]
     (doseq [it table-futures-map]
       (deref (val it))  ; block until complete
