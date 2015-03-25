@@ -126,11 +126,10 @@
       (doseq [rows-chunk (partition-all 10000 result-set) ]
         (let [rows-chunk-new (map #(set/rename-keys % column-name-corrections) rows-chunk) ]
           (time (apply jdbc/insert! pg-conn table-name rows-chunk-new  ))
-          (println (format "%s: %7d/%7d  "    table-name 
-                                            (swap! rows-inserted + (count rows-chunk-new))
-                                            table-rows ))
-          (newline) 
-          (flush))))
+          (println (format "%9d/%9d  %s"    (swap! rows-inserted + (count rows-chunk-new))
+                                            table-rows
+                                            table-name ))
+          (newline) (flush) )))
 
     (when false
       (newline)
