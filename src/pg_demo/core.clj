@@ -116,7 +116,7 @@
     identity ))
 
 ;; A threadpool with 2 threads.
-(def pg-threadpool (cp/threadpool 4))
+(def pg-threadpool (cp/threadpool 6))
 
 ; This works, but too hard to control the number of simultaneous processes
 (defn result-set->pg-insert [table-name result-set]
@@ -126,10 +126,11 @@
           result-set        (test-rs-limit-fn result-set) ]
       (doseq [rows-chunk (partition-all 10000 result-set) ]
         (let [rows-chunk-new (map #(set/rename-keys % column-name-corrections) rows-chunk) ]
-          (print (format "%s: %7d/%7d  "    table-name 
+          (time (apply jdbc/insert! pg-conn table-name rows-chunk-new  ))
+          (println (format "%s: %7d/%7d  "    table-name 
                                             (swap! rows-inserted + (count rows-chunk-new))
                                             table-rows ))
-          (time (apply jdbc/insert! pg-conn table-name rows-chunk-new  ))
+          (newline) 
           (flush))))
 
     (when false
