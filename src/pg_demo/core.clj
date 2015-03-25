@@ -116,7 +116,7 @@
     identity ))
 
 ;; A threadpool with 2 threads.
-(def pg-threadpool (cp/threadpool 6))
+(def pg-threadpool (cp/threadpool 4))
 
 ; This works, but too hard to control the number of simultaneous processes
 (defn result-set->pg-insert [table-name result-set]
