@@ -109,7 +109,7 @@
     )))
 
 
-(def enable-testing true)   ; #todo  FOR TESTING ONLY *******************************************
+(def enable-testing false)   ; #todo  FOR TESTING ONLY *******************************************
 (def test-rs-limit-fn       ; #todo  FOR TESTING ONLY *******************************************
   (if enable-testing 
     #(take 12345 %)
