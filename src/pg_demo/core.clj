@@ -115,7 +115,6 @@
     #(take 36345 %)
     identity ))
 
-;; A threadpool with 2 threads.
 (def pg-threadpool (cp/threadpool 4))
 
 ; This works, but too hard to control the number of simultaneous processes
