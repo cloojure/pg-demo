@@ -11,4 +11,5 @@ pom.xml.asc
 .hg/
 *.log
 *.out
-out-*.txt 
+out.txt
+out-*.txt
