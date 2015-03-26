@@ -1,11 +1,11 @@
 \timing on
 
 drop   materialized view if exists
-  rmc_meepnp ;
+  rmc_meepnp_s2 ;
 
 explain analyze
 create materialized view
-  rmc_meepnp
+  rmc_meepnp_s2
   as select
     rm_case_master.case_id,
     rm_case_master.case_num,
