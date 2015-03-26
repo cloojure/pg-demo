@@ -1,0 +1,361 @@
+
+running views
+Running #1...
+psql:1-version-mat-view.sql:1: NOTICE:  materialized view "case_version_table" does not exist, skipping
+DROP MATERIALIZED VIEW
+SELECT 1031016
+psql --dbname=ubuntu_large --log-file=view-1.log --file=1-version-mat-view.sq  0.03s user 0.01s system 0% cpu 1:03.65 total
+Running #2...
+psql:2-case-view-drop.sql:1: NOTICE:  materialized view "case_master" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:2-case-view-drop.sql:2: NOTICE:  materialized view "case_product" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:2-case-view-drop.sql:3: NOTICE:  materialized view "case_followup" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:2-case-view-drop.sql:4: NOTICE:  materialized view "case_assess" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:2-case-view-drop.sql:5: NOTICE:  materialized view "case_pat_info" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:2-case-view-drop.sql:6: NOTICE:  materialized view "case_study" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:2-case-view-drop.sql:7: NOTICE:  materialized view "case_event" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:2-case-view-drop.sql:8: NOTICE:  materialized view "case_death" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:2-case-view-drop.sql:9: NOTICE:  materialized view "case_death_details" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:2-case-view-drop.sql:10: NOTICE:  materialized view "case_event_assess" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:2-case-view-drop.sql:11: NOTICE:  materialized view "case_pregnancy" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:2-case-view-drop.sql:12: NOTICE:  materialized view "case_reporters" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:2-case-view-drop.sql:13: NOTICE:  materialized view "case_actions" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:2-case-view-drop.sql:14: NOTICE:  materialized view "case_contact_log" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:2-case-view-drop.sql:15: NOTICE:  materialized view "case_dose_regimens" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:2-case-view-drop.sql:16: NOTICE:  materialized view "case_event_consequence" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:2-case-view-drop.sql:17: NOTICE:  materialized view "case_event_detail" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:2-case-view-drop.sql:18: NOTICE:  materialized view "case_event_nature" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:2-case-view-drop.sql:19: NOTICE:  materialized view "case_event_product_rptblty" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:2-case-view-drop.sql:20: NOTICE:  materialized view "case_hosp" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:2-case-view-drop.sql:21: NOTICE:  materialized view "case_lab_data" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:2-case-view-drop.sql:22: NOTICE:  materialized view "case_literature" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:2-case-view-drop.sql:23: NOTICE:  materialized view "case_neonates" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:2-case-view-drop.sql:24: NOTICE:  materialized view "case_parent_info" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:2-case-view-drop.sql:25: NOTICE:  materialized view "case_routing" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:2-case-view-drop.sql:26: NOTICE:  materialized view "case_reference" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:2-case-view-drop.sql:27: NOTICE:  materialized view "case_prod_drugs" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:2-case-view-drop.sql:28: NOTICE:  materialized view "case_event_imputability" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:2-case-view-drop.sql:29: NOTICE:  materialized view "case_company_cmts" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:2-case-view-drop.sql:30: NOTICE:  materialized view "case_local_eva_comment" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:2-case-view-drop.sql:31: NOTICE:  materialized view "case_narrative" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:2-case-view-drop.sql:32: NOTICE:  materialized view "case_relationships" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:2-case-view-drop.sql:33: NOTICE:  materialized view "case_prod_ingredient" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:2-case-view-drop.sql:34: NOTICE:  materialized view "case_prod_indications" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:2-case-view-drop.sql:35: NOTICE:  materialized view "case_classifications" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:2-case-view-drop.sql:36: NOTICE:  materialized view "case_med_status" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:2-case-view-drop.sql:37: NOTICE:  materialized view "case_pat_hist" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:2-case-view-drop.sql:38: NOTICE:  materialized view "case_pat_tests" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql --dbname=ubuntu_large --log-file=view-1.log --file=2-case-view-drop.sql  0.04s user 0.00s system 92% cpu 0.045 total
+SELECT 1031016
+SELECT 1298460
+SELECT 170544
+SELECT 1031016
+SELECT 1031016
+SELECT 1031016
+SELECT 1186056
+SELECT 1007760
+SELECT 11628
+SELECT 5608572
+SELECT 213180
+SELECT 686052
+SELECT 89148
+SELECT 604656
+SELECT 379848
+SELECT 15504
+SELECT 1352724
+SELECT 0
+SELECT 1379856
+SELECT 42636
+SELECT 193800
+SELECT 65892
+SELECT 19380
+SELECT 58140
+SELECT 2705448
+SELECT 488376
+SELECT 1298460
+SELECT 3876
+SELECT 189924
+SELECT 19380
+SELECT 437988
+SELECT 0
+SELECT 1120164
+SELECT 674424
+SELECT 38760
+SELECT 0
+SELECT 368220
+SELECT 569772
+psql --dbname=ubuntu_large --log-file=view-1.log --file=2-case-view.sql  0.03s user 0.01s system 0% cpu 6:47.78 total
+Running #3...
+psql:3-lm-view-drop.sql:1: NOTICE:  materialized view "lm_pf_ingredients" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:2: NOTICE:  materialized view "lm_lic_countries" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:3: NOTICE:  materialized view "lm_report_media" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:4: NOTICE:  materialized view "lm_intermediary" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:5: NOTICE:  materialized view "lm_product" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:6: NOTICE:  materialized view "lm_product_family" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:7: NOTICE:  materialized view "lm_license" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:8: NOTICE:  materialized view "lm_lic_products" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:9: NOTICE:  materialized view "lm_ingredients" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:10: NOTICE:  materialized view "lm_ethnicity" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:11: NOTICE:  materialized view "lm_accidental_exposure" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:12: NOTICE:  materialized view "lm_action_item_type" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:13: NOTICE:  materialized view "lm_action_taken" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:14: NOTICE:  materialized view "lm_admin_route" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:15: NOTICE:  materialized view "lm_age_groups" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:16: NOTICE:  materialized view "lm_age_units" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:17: NOTICE:  materialized view "lm_always_serious_term" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:18: NOTICE:  materialized view "lm_birth_type" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:19: NOTICE:  materialized view "lm_case_classification" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:20: NOTICE:  materialized view "lm_causality" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:21: NOTICE:  materialized view "lm_centers" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:22: NOTICE:  materialized view "lm_clinical_ref_types" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:23: NOTICE:  materialized view "lm_condition_type" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:24: NOTICE:  materialized view "lm_contact_type" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:25: NOTICE:  materialized view "lm_countries" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:26: NOTICE:  materialized view "lm_datasheet" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:27: NOTICE:  materialized view "lm_datasheet_event_groups" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:28: NOTICE:  materialized view "lm_date_ranges" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:29: NOTICE:  materialized view "lm_delivery_types" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:30: NOTICE:  materialized view "lm_dev_phase" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:31: NOTICE:  materialized view "lm_device_type" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:32: NOTICE:  materialized view "lm_dose_frequency" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:33: NOTICE:  materialized view "lm_dose_units" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:34: NOTICE:  materialized view "lm_evt_consequence" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:35: NOTICE:  materialized view "lm_evt_frequency" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:36: NOTICE:  materialized view "lm_evt_intensity" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:37: NOTICE:  materialized view "lm_evt_nature" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:38: NOTICE:  materialized view "lm_evt_outcome" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:39: NOTICE:  materialized view "lm_fetal_outcome" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:40: NOTICE:  materialized view "lm_formulation" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:41: NOTICE:  materialized view "lm_gender" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:42: NOTICE:  materialized view "lm_hcp" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:43: NOTICE:  materialized view "lm_institution" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:44: NOTICE:  materialized view "lm_keywords" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:45: NOTICE:  materialized view "lm_lab_assessment" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:46: NOTICE:  materialized view "lm_lab_test_group" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:47: NOTICE:  materialized view "lm_lab_test_types" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:48: NOTICE:  materialized view "lm_labeled_terms" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:49: NOTICE:  materialized view "lm_lic_category" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:50: NOTICE:  materialized view "lm_license_types" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:51: NOTICE:  materialized view "lm_listedness" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:52: NOTICE:  materialized view "lm_literature_type" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:53: NOTICE:  materialized view "lm_manufacturer" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:54: NOTICE:  materialized view "lm_medical_status" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:55: NOTICE:  materialized view "lm_occupations" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:56: NOTICE:  materialized view "lm_product_concentrations" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:57: NOTICE:  materialized view "lm_ref_types" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:58: NOTICE:  materialized view "lm_relation" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:59: NOTICE:  materialized view "lm_report_forms" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:60: NOTICE:  materialized view "lm_report_type" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:61: NOTICE:  materialized view "lm_reporter" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:62: NOTICE:  materialized view "lm_reporter_institution" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:63: NOTICE:  materialized view "lm_reporter_type" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:64: NOTICE:  materialized view "lm_severity" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:65: NOTICE:  materialized view "lm_sites" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:66: NOTICE:  materialized view "lm_studies" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:67: NOTICE:  materialized view "lm_study_centers" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:68: NOTICE:  materialized view "lm_study_cohorts" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:69: NOTICE:  materialized view "lm_study_products" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:70: NOTICE:  materialized view "lm_study_susar" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:71: NOTICE:  materialized view "lm_study_types" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:72: NOTICE:  materialized view "lm_udf_ddl_values" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:73: NOTICE:  materialized view "lm_unblinding_status" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:74: NOTICE:  materialized view "cfg_users" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:75: NOTICE:  materialized view "cfg_groups" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:76: NOTICE:  materialized view "cmn_reg_reports" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql:3-lm-view-drop.sql:77: NOTICE:  materialized view "case_reg_reports" does not exist, skipping
+DROP MATERIALIZED VIEW
+psql --dbname=ubuntu_large --log-file=view-1.log --file=3-lm-view-drop.sql  0.04s user 0.01s system 29% cpu 0.167 total
+SELECT 23
+SELECT 67
+SELECT 4
+SELECT 5
+SELECT 34
+SELECT 20
+SELECT 64
+SELECT 68
+SELECT 10088
+SELECT 10
+SELECT 3
+SELECT 12
+SELECT 7
+SELECT 83
+SELECT 6
+SELECT 9
+SELECT 306
+SELECT 19
+SELECT 18
+SELECT 9
+SELECT 3
+SELECT 6
+SELECT 8
+SELECT 5
+SELECT 251
+SELECT 42
+SELECT 13
+SELECT 18
+SELECT 2
+SELECT 22
+SELECT 8
+SELECT 28
+SELECT 266
+SELECT 2
+SELECT 4
+SELECT 4
+SELECT 0
+SELECT 18
+SELECT 7
+SELECT 70
+SELECT 4
+SELECT 3
+SELECT 2
+SELECT 30
+SELECT 8
+SELECT 10
+SELECT 21
+SELECT 320
+SELECT 6
+SELECT 6
+SELECT 3
+SELECT 2
+SELECT 6
+SELECT 13
+SELECT 36
+SELECT 40
+SELECT 54
+SELECT 4
+SELECT 108
+SELECT 13
+SELECT 2
+SELECT 3
+SELECT 14
+SELECT 4
+SELECT 10
+SELECT 21
+SELECT 7
+SELECT 25
+SELECT 38
+SELECT 1
+SELECT 3
+SELECT 5
+SELECT 5
+SELECT 66
+SELECT 26
+SELECT 427
+SELECT 1364352
+psql --dbname=ubuntu_large --log-file=view-1.log --file=3-lm-view.sql  0.04s user 0.01s system 0% cpu 5.789 total
+
+done
+

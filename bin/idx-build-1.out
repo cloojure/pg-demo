@@ -1,0 +1,45 @@
+psql:idx-build-1.sql:4: NOTICE:  index "idx_rm_case_master__case_id" does not exist, skipping
+DROP INDEX
+psql:idx-build-1.sql:5: NOTICE:  index "idx_rm_case_event__case_id" does not exist, skipping
+DROP INDEX
+psql:idx-build-1.sql:6: NOTICE:  index "idx_rm_case_event__seq_num" does not exist, skipping
+DROP INDEX
+psql:idx-build-1.sql:7: NOTICE:  index "idx_rm_case_event_assess__case_id" does not exist, skipping
+DROP INDEX
+psql:idx-build-1.sql:8: NOTICE:  index "idx_rm_case_event_assess__event_seq_num" does not exist, skipping
+DROP INDEX
+psql:idx-build-1.sql:9: NOTICE:  index "idx_rm_case_event_assess__prod_seq_num" does not exist, skipping
+DROP INDEX
+psql:idx-build-1.sql:10: NOTICE:  index "idx_rm_case_narrative__case_id" does not exist, skipping
+DROP INDEX
+psql:idx-build-1.sql:11: NOTICE:  index "idx_rm_case_pat_info__case_id" does not exist, skipping
+DROP INDEX
+psql:idx-build-1.sql:12: NOTICE:  index "idx_rm_case_product__case_id" does not exist, skipping
+DROP INDEX
+psql:idx-build-1.sql:13: NOTICE:  index "idx_rm_case_product__seq_num" does not exist, skipping
+DROP INDEX
+psql:idx-build-1.sql:14: NOTICE:  index "idx_rm_case_product__generic_name" does not exist, skipping
+DROP INDEX
+Timing is on.
+CREATE INDEX
+Time: 65599.955 ms
+CREATE INDEX
+Time: 9995.481 ms
+CREATE INDEX
+Time: 10175.644 ms
+CREATE INDEX
+Time: 20869.786 ms
+CREATE INDEX
+Time: 18151.803 ms
+CREATE INDEX
+Time: 18578.105 ms
+CREATE INDEX
+Time: 1856.328 ms
+CREATE INDEX
+Time: 4565.796 ms
+CREATE INDEX
+Time: 7147.816 ms
+CREATE INDEX
+Time: 6324.864 ms
+CREATE INDEX
+Time: 18871.874 ms

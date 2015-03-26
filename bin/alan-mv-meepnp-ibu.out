@@ -1,0 +1,41 @@
+\timing on
+Timing is on.
+drop   materialized view if exists
+  rmc_meepnp_ibu ;
+psql:alan-mv-meepnp-ibu.sql:4: NOTICE:  materialized view "rmc_meepnp_ibu" does not exist, skipping
+DROP MATERIALIZED VIEW
+Time: 0.805 ms
+explain analyze
+create materialized view
+  rmc_meepnp_ibu
+  as select
+    rm_case_master.case_id,
+    rm_case_master.case_num,
+    rm_case_master.create_time,
+    rm_case_master.dlp_revision_number,
+    rm_case_event.art_code,
+    rm_case_event.code_status,
+    rm_case_event.details,
+    rm_case_event.diagnosis,
+    rm_case_event_assess.det_listedness_id,
+    rm_case_product.product_name,
+    rm_case_product.generic_name,
+    rm_case_narrative.narrative,
+    rm_case_pat_info.gender_id 
+  from
+    rm_case_master,
+    rm_case_event,
+    rm_case_event_assess,
+    rm_case_product,
+    rm_case_narrative, 
+    rm_case_pat_info
+  where
+    rm_case_master.case_id = rm_case_event.case_id and
+    rm_case_master.case_id = rm_case_event_assess.case_id and
+    rm_case_master.case_id = rm_case_product.case_id and
+    rm_case_master.case_id = rm_case_narrative.case_id and
+    rm_case_master.case_id = rm_case_pat_info.case_id and
+    rm_case_product.product_name ILIKE 'ibuprofen%' -- 'tylenol%'  
+psql:alan-mv-meepnp-ibu.sql:42: ERROR:  could not extend file "base/606177/62751265.41": wrote only 4096 of 8192 bytes at block 5449984
+HINT:  Check free disk space.
+Time: 794528.478 ms

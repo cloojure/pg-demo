@@ -1,0 +1,40 @@
+\timing on
+Timing is on.
+drop   materialized view if exists
+  rmc_m_e;
+psql:alan-mv-1.sql:4: NOTICE:  materialized view "rmc_m_e" does not exist, skipping
+DROP MATERIALIZED VIEW
+Time: 0.300 ms
+explain analyze
+create materialized view
+  rmc_m_e
+  as select
+    rm_case_master.assessment_needed,
+    rm_case_master.case_id,
+    rm_case_master.case_num,
+    rm_case_master.country_id,
+    rm_case_master.create_time,
+    rm_case_master.dlp_revision_number,
+    rm_case_event.art_code,
+    rm_case_event.code_status,
+    rm_case_event.deleted,
+    rm_case_event.desc_coded,
+    rm_case_event.details,
+    rm_case_event.diagnosis
+  from
+    rm_case_master,
+    rm_case_event
+  where
+    rm_case_master.case_id = rm_case_event.case_id ;
+                                                                                 QUERY PLAN                                                                                 
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Merge Join  (cost=20.51..10901948.10 rows=657603024 width=87) (actual time=0.027..257780.409 rows=164594340 loops=1)
+   Merge Cond: (rm_case_master.case_id = rm_case_event.case_id)
+   ->  Index Scan using idx_rm_case_master__case_id on rm_case_master  (cost=0.43..622910.46 rows=11097335 width=39) (actual time=0.009..50092.299 rows=11096988 loops=1)
+   ->  Materialize  (cost=0.43..397915.27 rows=4154048 width=54) (actual time=0.008..57207.334 rows=164594340 loops=1)
+         ->  Index Scan using idx_rm_case_event__case_id on rm_case_event  (cost=0.43..387530.15 rows=4154048 width=54) (actual time=0.005..29270.506 rows=4155072 loops=1)
+ Planning time: 5.868 ms
+ Execution time: 412160.648 ms
+(7 rows)
+
+Time: 412185.710 ms

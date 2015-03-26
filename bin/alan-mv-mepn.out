@@ -1,0 +1,25 @@
+Timing is on.
+psql:alan-mv-mepn.sql:4: NOTICE:  materialized view "rmc_m_e_p_n" does not exist, skipping
+DROP MATERIALIZED VIEW
+Time: 0.322 ms
+                                                                                      QUERY PLAN                                                                                       
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Merge Join  (cost=21.54..3047930.17 rows=133881613 width=124) (actual time=0.059..10505.803 rows=837216 loops=1)
+   Merge Cond: (rm_case_master.case_id = rm_case_event.case_id)
+   ->  Merge Join  (cost=1.48..646628.44 rows=2259309 width=89) (actual time=0.043..5104.475 rows=209304 loops=1)
+         Merge Cond: (rm_case_narrative.case_id = rm_case_master.case_id)
+         ->  Index Scan using idx_rm_case_narrative__case_id on rm_case_narrative  (cost=0.42..36500.60 rows=833340 width=16) (actual time=0.008..1037.040 rows=831441 loops=1)
+         ->  Materialize  (cost=0.86..582812.48 rows=819142 width=73) (actual time=0.031..3733.523 rows=220932 loops=1)
+               ->  Nested Loop  (cost=0.86..580764.62 rows=819142 width=73) (actual time=0.028..3625.490 rows=220932 loops=1)
+                     ->  Index Scan using idx_rm_case_product__case_id on rm_case_product  (cost=0.43..227325.51 rows=11581 width=34) (actual time=0.014..3308.487 rows=11628 loops=1)
+                           Filter: ((product_name)::text ~~* 'TYLENOL%'::text)
+                           Rows Removed by Filter: 2883744
+                     ->  Index Scan using idx_rm_case_master__case_id on rm_case_master  (cost=0.43..28.86 rows=166 width=39) (actual time=0.005..0.013 rows=19 loops=11628)
+                           Index Cond: (case_id = rm_case_product.case_id)
+   ->  Materialize  (cost=0.43..397915.27 rows=4154048 width=54) (actual time=0.009..3465.308 rows=4869985 loops=1)
+         ->  Index Scan using idx_rm_case_event__case_id on rm_case_event  (cost=0.43..387530.15 rows=4154048 width=54) (actual time=0.005..1800.522 rows=4048273 loops=1)
+ Planning time: 5.253 ms
+ Execution time: 13477.603 ms
+(16 rows)
+
+Time: 13485.301 ms

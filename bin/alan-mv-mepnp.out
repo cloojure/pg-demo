@@ -1,0 +1,29 @@
+Timing is on.
+psql:alan-mv-mepnp.sql:4: NOTICE:  materialized view "rmc_m_e_p_n_p" does not exist, skipping
+DROP MATERIALIZED VIEW
+Time: 0.305 ms
+                                                                                      QUERY PLAN                                                                                       
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Merge Join  (cost=25.17..7433864.10 rows=408419316 width=99) (actual time=0.067..46342.897 rows=6697728 loops=1)
+   Merge Cond: (rm_case_master.case_id = rm_case_event.case_id)
+   ->  Merge Join  (cost=1.48..647678.46 rows=2259309 width=81) (actual time=0.042..4465.005 rows=209304 loops=1)
+         Merge Cond: (rm_case_narrative.case_id = rm_case_master.case_id)
+         ->  Index Scan using idx_rm_case_narrative__case_id on rm_case_narrative  (cost=0.42..36791.79 rows=833340 width=16) (actual time=0.007..254.159 rows=831441 loops=1)
+         ->  Materialize  (cost=0.86..583579.96 rows=819142 width=65) (actual time=0.031..3869.735 rows=220932 loops=1)
+               ->  Nested Loop  (cost=0.86..581532.11 rows=819142 width=65) (actual time=0.028..3753.415 rows=220932 loops=1)
+                     ->  Index Scan using idx_rm_case_product__case_id on rm_case_product  (cost=0.43..228092.99 rows=11581 width=34) (actual time=0.014..3384.355 rows=11628 loops=1)
+                           Filter: ((product_name)::text ~~* 'TYLENOL%'::text)
+                           Rows Removed by Filter: 2883744
+                     ->  Index Scan using idx_rm_case_master__case_id on rm_case_master  (cost=0.43..28.86 rows=166 width=31) (actual time=0.006..0.016 rows=19 loops=11628)
+                           Index Cond: (case_id = rm_case_product.case_id)
+   ->  Materialize  (cost=4.03..686281.76 rows=12672095 width=44) (actual time=0.020..34457.251 rows=19641857 loops=1)
+         ->  Merge Join  (cost=4.03..654601.52 rows=12672095 width=44) (actual time=0.017..27734.233 rows=13068161 loops=1)
+               Merge Cond: (rm_case_pat_info.case_id = rm_case_event.case_id)
+               ->  Index Scan using idx_rm_case_pat_info__case_id on rm_case_pat_info  (cost=0.43..91700.46 rows=1918620 width=12) (actual time=0.007..11732.911 rows=1869921 loops=1)
+               ->  Materialize  (cost=0.43..397915.27 rows=4154048 width=32) (actual time=0.008..4870.285 rows=13068161 loops=1)
+                     ->  Index Scan using idx_rm_case_event__case_id on rm_case_event  (cost=0.43..387530.15 rows=4154048 width=32) (actual time=0.005..1882.338 rows=4048273 loops=1)
+ Planning time: 8.988 ms
+ Execution time: 54878.225 ms
+(20 rows)
+
+Time: 54889.730 ms
