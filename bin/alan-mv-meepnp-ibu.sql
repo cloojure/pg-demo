@@ -3,7 +3,7 @@
 drop   materialized view if exists
   rmc_meepnp_ibu ;
 
-explain -- analyze
+explain analyze
 create materialized view
   rmc_meepnp_ibu
   as select
