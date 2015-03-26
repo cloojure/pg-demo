@@ -3,7 +3,7 @@
 drop   materialized view if exists
   rmc_m_e_p_n_p ;
 
-explain -- analyze
+explain analyze
 create materialized view
   rmc_m_e_p_n_p
   as select
