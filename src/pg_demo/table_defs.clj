@@ -21,7 +21,7 @@
               primary_val numeric NOT NULL,
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,COHORT_ID)
-          ); " }
+          )" }
 
     { "rm_case_master"
           "CREATE TABLE rm_case_master (
@@ -129,7 +129,7 @@
               EFFECTIVE_START_DATE timestamp NOT NULL,
               EFFECTIVE_END_DATE timestamp NOT NULL,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,DLP_REVISION_NUMBER) 
-          );" }
+          )" }
 
     { "rm_case_actions"
           "CREATE TABLE rm_case_actions (
@@ -155,7 +155,7 @@
               EFFECTIVE_END_DATE timestamp NOT NULL,
               SENT_IN_LTR numeric,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,SEQ_NUM,DLP_REVISION_NUMBER)
-          );" }
+          )" }
 
     { "rm_case_afssaps"
           "CREATE TABLE rm_case_afssaps (
@@ -168,7 +168,7 @@
               TERM_PRODUCT_DEV numeric(1),
               OTHER numeric(1),
               OTHER_DESC varchar(50),
-              FUTURE_ACTIONS text,
+              FUTURE_ACTIONS varchar(999),
               DELETED timestamp,
               DLP_REVISION_NUMBER numeric NOT NULL,
               EFFECTIVE_START_DATE timestamp NOT NULL,
@@ -176,7 +176,7 @@
               DELETED_FLAG numeric(1) NOT NULL,
               REVISION_DELETE_FLAG numeric,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,SEQ_NUM,DLP_REVISION_NUMBER)
-          );" }
+          )" }
 
     { "rm_case_all_locked_rev"
           "CREATE TABLE rm_case_all_locked_rev (
@@ -190,7 +190,7 @@
               VALIDSTART timestamp,
               VALIDEND timestamp,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,DLP_REVISION_NUMBER)
-          );" }
+          )" }
 
     { "rm_case_assess"
           "CREATE TABLE rm_case_assess (
@@ -208,7 +208,7 @@
               AGENT_NOTES varchar(1000),
               LISTEDNESS_NOTES varchar(1000),
               BFARM_CAUSALITY numeric(10),
-              BFARM_MANUAL_TEXT text,
+              BFARM_MANUAL_TEXT varchar(999),
               COMPANY_DIAGNOSIS varchar(250),
               COMPANY_DIAGNOSIS_NOTES varchar(1000),
               DIAGNOSIS_DICT_ID numeric,
@@ -257,8 +257,8 @@
               UD_NUMBER_10 numeric(30,10),
               UD_NUMBER_11 numeric(30,10),
               UD_NUMBER_12 numeric(30,10),
-              EVALUATION text,
-              EVALUATION_J text,
+              EVALUATION varchar(999),
+              EVALUATION_J varchar(999),
               CO_SUSPECT_COUNT numeric(3),
               EVENT_SYNOPSIS varchar(5),
               EVENT_PRIMARY varchar(400),
@@ -300,7 +300,7 @@
               EFFECTIVE_START_DATE timestamp NOT NULL,
               EFFECTIVE_END_DATE timestamp NOT NULL,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_bfarm_data"
           "CREATE TABLE rm_case_bfarm_data (
@@ -316,7 +316,7 @@
               DELETED_FLAG numeric(1) NOT NULL,
               REVISION_DELETE_FLAG numeric,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,MED_STATUS_ID,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_classifications"
           "CREATE TABLE rm_case_classifications (
@@ -331,14 +331,14 @@
               EFFECTIVE_START_DATE timestamp NOT NULL,
               EFFECTIVE_END_DATE timestamp NOT NULL,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,SEQ_NUM,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_comments"
           "CREATE TABLE rm_case_comments (
               ENTERPRISE_ID numeric NOT NULL,
               CASE_ID numeric NOT NULL,
-              COMMENT_TXT text,
-              COMMENT_TXT_J text,
+              COMMENT_TXT varchar(999),
+              COMMENT_TXT_J varchar(999),
               DELETED timestamp,
               DLP_REVISION_NUMBER numeric NOT NULL,
               REVISION_DELETE_FLAG numeric,
@@ -346,22 +346,22 @@
               EFFECTIVE_START_DATE timestamp NOT NULL,
               EFFECTIVE_END_DATE timestamp NOT NULL,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_company_cmts"
           "CREATE TABLE rm_case_company_cmts (
               ENTERPRISE_ID numeric NOT NULL,
               CASE_ID numeric NOT NULL,
               DELETED timestamp,
-              COMMENT_TXT text,
-              COMMENT_TXT_J text,
+              COMMENT_TXT varchar(999),
+              COMMENT_TXT_J varchar(999),
               DLP_REVISION_NUMBER numeric NOT NULL,
               REVISION_DELETE_FLAG numeric,
               DELETED_FLAG numeric(1) NOT NULL,
               EFFECTIVE_START_DATE timestamp NOT NULL,
               EFFECTIVE_END_DATE timestamp NOT NULL,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_contact_log"
           "CREATE TABLE rm_case_contact_log (
@@ -386,8 +386,7 @@
               DELETED_FLAG numeric(1) NOT NULL,
               REVISION_DELETE_FLAG numeric,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,SEQ_NUM,DLP_REVISION_NUMBER)
-          );
-          " }
+          )" }
 
     { "rm_case_death"
           "CREATE TABLE rm_case_death (
@@ -405,7 +404,7 @@
               EFFECTIVE_START_DATE timestamp NOT NULL,
               EFFECTIVE_END_DATE timestamp NOT NULL,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_death_details"
           "CREATE TABLE rm_case_death_details (
@@ -446,7 +445,7 @@
               EFFECTIVE_START_DATE timestamp NOT NULL,
               EFFECTIVE_END_DATE timestamp NOT NULL,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,SEQ_NUM,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_device_prod_deliv"
           "CREATE TABLE rm_case_device_prod_deliv (
@@ -465,7 +464,7 @@
               DELETED_FLAG numeric(1) NOT NULL,
               REVISION_DELETE_FLAG numeric,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,PROD_SEQ_NUM,SEQ_NUM,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_dose_regimens"
           "CREATE TABLE rm_case_dose_regimens (
@@ -566,7 +565,7 @@
               VAERS_BLOCK_10 numeric,
               VAERS_BLOCK_14 numeric,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,SEQ_NUM,LOG_NO,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_eu_device"
           "CREATE TABLE rm_case_eu_device (
@@ -581,15 +580,15 @@
               EXPECTED_DATE timestamp,
               EXPECTED_DATE_RES numeric,
               EXPECTED_DATE_PARTIAL varchar(20),
-              PROJECTED_TIMING text,
-              PROJECTED_TIMING_FINAL text,
-              CORRECTIVE_ACTION_FINAL text,
-              INVESTIGATION_RESULT text,
-              FURTHER_INVESTIGATION text,
-              CURRENT_DEV_LOCATIONS text,
-              COUNTRIES_OF_DISTRIBUTION text,
+              PROJECTED_TIMING varchar(999),
+              PROJECTED_TIMING_FINAL varchar(999),
+              CORRECTIVE_ACTION_FINAL varchar(999),
+              INVESTIGATION_RESULT varchar(999),
+              FURTHER_INVESTIGATION varchar(999),
+              CURRENT_DEV_LOCATIONS varchar(999),
+              COUNTRIES_OF_DISTRIBUTION varchar(999),
               DELETED timestamp,
-              CORRECTIVE_ACTION text,
+              CORRECTIVE_ACTION varchar(999),
               DEVICE_PURCHASED varchar(120),
               ADDRESS varchar(120),
               DEVICE_STERILE numeric(1),
@@ -601,7 +600,7 @@
               SEQ_NUM numeric NOT NULL,
               PROD_SEQ_NUM numeric,
               NCA_REF_NUM varchar(100),
-              INDENTIF text,
+              INDENTIF varchar(999),
               PATS_INVOLVED numeric,
               DEVS_INVOLVED numeric,
               USER_FAC_REF varchar(20),
@@ -612,14 +611,14 @@
               FINAL_REPORT numeric(1),
               PUBLIC_THREAT numeric,
               SIMILAR_INCIDENT_NUM numeric(3),
-              MANUFACTURER_COMMENTS text,
+              MANUFACTURER_COMMENTS varchar(999),
               DLP_REVISION_NUMBER numeric NOT NULL,
               EFFECTIVE_START_DATE timestamp NOT NULL,
               EFFECTIVE_END_DATE timestamp NOT NULL,
               DELETED_FLAG numeric(1) NOT NULL,
               REVISION_DELETE_FLAG numeric,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,SEQ_NUM,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_event"
           "CREATE TABLE rm_case_event (
@@ -714,8 +713,8 @@
               UD_NUMBER_10 numeric(30,10),
               UD_NUMBER_11 numeric(30,10),
               UD_NUMBER_12 numeric(30,10),
-              DETAILS text,
-              DETAILS_J text,
+              DETAILS varchar(999),
+              DETAILS_J varchar(999),
               SYN_CODE numeric,
               DELETED timestamp,
               STUDY_RELATED_REPTD numeric(1),
@@ -759,7 +758,7 @@
               EFFECTIVE_START_DATE timestamp NOT NULL,
               EFFECTIVE_END_DATE timestamp NOT NULL,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,SEQ_NUM,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_event_assess"
           "CREATE TABLE rm_case_event_assess (
@@ -791,7 +790,7 @@
               EFFECTIVE_START_DATE timestamp NOT NULL,
               EFFECTIVE_END_DATE timestamp NOT NULL,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,EVENT_SEQ_NUM,PROD_SEQ_NUM,DATASHEET_ID,LICENSE_ID,SEQ_NUM,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_event_consequence"
           "CREATE TABLE rm_case_event_consequence (
@@ -811,7 +810,7 @@
               DELETED_FLAG numeric(1) NOT NULL,
               REVISION_DELETE_FLAG numeric,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,SEQ_NUM,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_event_detail"
           "CREATE TABLE rm_case_event_detail (
@@ -840,7 +839,7 @@
               EFFECTIVE_START_DATE timestamp NOT NULL,
               EFFECTIVE_END_DATE timestamp NOT NULL,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,SEQ_NUM,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_event_imputability"
           "CREATE TABLE rm_case_event_imputability (
@@ -865,7 +864,7 @@
               EFFECTIVE_START_DATE timestamp NOT NULL,
               EFFECTIVE_END_DATE timestamp NOT NULL,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,EVENT_SEQ_NUM,AGENT_SEQ_NUM,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_event_nature"
           "CREATE TABLE rm_case_event_nature (
@@ -881,7 +880,7 @@
               DELETED_FLAG numeric(1) NOT NULL,
               REVISION_DELETE_FLAG numeric,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,SEQ_NUM,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_event_product_rptblty"
           "CREATE TABLE rm_case_event_product_rptblty (
@@ -897,7 +896,7 @@
               EFFECTIVE_START_DATE timestamp NOT NULL,
               EFFECTIVE_END_DATE timestamp NOT NULL,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,PROD_SEQ_NUM,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_event_rech_prod"
           "CREATE TABLE rm_case_event_rech_prod (
@@ -913,7 +912,7 @@
               EFFECTIVE_START_DATE timestamp NOT NULL,
               EFFECTIVE_END_DATE timestamp NOT NULL,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,EVENT_SEQ_NUM,SEQ_NUM,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_followup"
           "CREATE TABLE rm_case_followup (
@@ -939,7 +938,7 @@
               EFFECTIVE_START_DATE timestamp NOT NULL,
               EFFECTIVE_END_DATE timestamp NOT NULL,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,SEQ_NUM,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_hosp"
           "CREATE TABLE rm_case_hosp (
@@ -963,7 +962,7 @@
               EFFECTIVE_START_DATE timestamp NOT NULL,
               EFFECTIVE_END_DATE timestamp NOT NULL,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,SEQ_NUM,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_justifications"
           "CREATE TABLE rm_case_justifications (
@@ -982,7 +981,7 @@
               EFFECTIVE_START_DATE timestamp NOT NULL,
               EFFECTIVE_END_DATE timestamp NOT NULL,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,FIELD_ID,PRIMARY_SEQ_NUM,ALT_SEQ_NUM,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_lab_data"
           "CREATE TABLE rm_case_lab_data (
@@ -1002,8 +1001,8 @@
               UNIT varchar(35),
               LAB_TEST_NAME varchar(250),
               DELETED timestamp,
-              NOTES text,
-              NOTES_J text,
+              NOTES varchar(999),
+              NOTES_J varchar(999),
               PT_CODE varchar(50),
               LLT_CODE varchar(50),
               HLT_CODE varchar(50),
@@ -1035,7 +1034,7 @@
               EFFECTIVE_START_DATE timestamp NOT NULL,
               EFFECTIVE_END_DATE timestamp NOT NULL,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,SEQ_NUM,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_language"
           "CREATE TABLE rm_case_language (
@@ -1045,14 +1044,14 @@
               LANGUAGE_ID numeric NOT NULL,
               SEQ_NUM numeric NOT NULL,
               DELETED timestamp,
-              TEXT text,
+              TEXT varchar(999),
               DLP_REVISION_NUMBER numeric NOT NULL,
               EFFECTIVE_START_DATE timestamp NOT NULL,
               EFFECTIVE_END_DATE timestamp NOT NULL,
               DELETED_FLAG numeric(1) NOT NULL,
               REVISION_DELETE_FLAG numeric,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,FIELD_ID,LANGUAGE_ID,SEQ_NUM,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_letters"
           "CREATE TABLE rm_case_letters (
@@ -1070,7 +1069,7 @@
               DELETED_FLAG numeric(1) NOT NULL,
               REVISION_DELETE_FLAG numeric,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,SEQ_NUM,BLOB_SEQ,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_literature"
           "CREATE TABLE rm_case_literature (
@@ -1095,14 +1094,14 @@
               EFFECTIVE_START_DATE timestamp NOT NULL,
               EFFECTIVE_END_DATE timestamp NOT NULL,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,SEQ_NUM,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_local_eva_comment"
           "CREATE TABLE rm_case_local_eva_comment (
               ENTERPRISE_ID numeric NOT NULL,
               CASE_ID numeric NOT NULL,
               EVALUATOR_TYPE_ID numeric NOT NULL,
-              LOCAL_COMMENT text,
+              LOCAL_COMMENT varchar(999),
               DELETED timestamp,
               DLP_REVISION_NUMBER numeric NOT NULL,
               REVISION_DELETE_FLAG numeric,
@@ -1110,7 +1109,7 @@
               EFFECTIVE_START_DATE timestamp NOT NULL,
               EFFECTIVE_END_DATE timestamp NOT NULL,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,EVALUATOR_TYPE_ID,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_medwatch_data"
           "CREATE TABLE rm_case_medwatch_data (
@@ -1180,14 +1179,14 @@
               MANU_CORRECTED numeric(1),
               PLA varchar(10),
               DELETED timestamp,
-              NARRATIVE_TEXT text,
+              NARRATIVE_TEXT varchar(999),
               DLP_REVISION_NUMBER numeric NOT NULL,
               EFFECTIVE_START_DATE timestamp NOT NULL,
               EFFECTIVE_END_DATE timestamp NOT NULL,
               DELETED_FLAG numeric(1) NOT NULL,
               REVISION_DELETE_FLAG numeric,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_med_status"
           "CREATE TABLE rm_case_med_status (
@@ -1203,33 +1202,33 @@
               EFFECTIVE_START_DATE timestamp NOT NULL,
               EFFECTIVE_END_DATE timestamp NOT NULL,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,MED_STATUS_ID,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_mhlw_notes"
           "CREATE TABLE rm_case_mhlw_notes (
               ENTERPRISE_ID numeric NOT NULL,
               CASE_ID numeric NOT NULL,
               DELETED timestamp,
-              REMARK1 text,
-              REMARK2 text,
-              REMARK3 text,
-              REMARK4 text,
+              REMARK1 varchar(999),
+              REMARK2 varchar(999),
+              REMARK3 varchar(999),
+              REMARK4 varchar(999),
               DLP_REVISION_NUMBER numeric NOT NULL,
               EFFECTIVE_START_DATE timestamp NOT NULL,
               EFFECTIVE_END_DATE timestamp NOT NULL,
               DELETED_FLAG numeric(1) NOT NULL,
               REVISION_DELETE_FLAG numeric,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_narrative"
           "CREATE TABLE rm_case_narrative (
               ENTERPRISE_ID numeric NOT NULL,
               CASE_ID numeric NOT NULL,
-              ABBREV_NARRATIVE text,
-              ABBREV_NARRATIVE_J text,
-              NARRATIVE text,
-              NARRATIVE_J text,
+              ABBREV_NARRATIVE varchar(999),
+              ABBREV_NARRATIVE_J varchar(999),
+              NARRATIVE varchar(999),
+              NARRATIVE_J varchar(999),
               DELETED timestamp,
               DLP_REVISION_NUMBER numeric NOT NULL,
               REVISION_DELETE_FLAG numeric,
@@ -1237,7 +1236,7 @@
               EFFECTIVE_START_DATE timestamp NOT NULL,
               EFFECTIVE_END_DATE timestamp NOT NULL,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_neonates"
           "CREATE TABLE rm_case_neonates (
@@ -1264,7 +1263,7 @@
               EFFECTIVE_START_DATE timestamp NOT NULL,
               EFFECTIVE_END_DATE timestamp NOT NULL,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,SEQ_NUM,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_notes_attach"
           "CREATE TABLE rm_case_notes_attach (
@@ -1295,7 +1294,7 @@
               EFFECTIVE_START_DATE timestamp NOT NULL,
               EFFECTIVE_END_DATE timestamp NOT NULL,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,SEQ_NUM,BLOB_SEQ,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_parent_info"
           "CREATE TABLE rm_case_parent_info (
@@ -1317,15 +1316,15 @@
               BREASTFEEDING numeric,
               DATE_OF_LMP_RES numeric,
               DATE_OF_LMP_PARTIAL varchar(20),
-              MED_HIST_TEXT text,
-              MED_HIST_TEXT_J text,
+              MED_HIST_TEXT varchar(999),
+              MED_HIST_TEXT_J varchar(999),
               DLP_REVISION_NUMBER numeric NOT NULL,
               REVISION_DELETE_FLAG numeric,
               DELETED_FLAG numeric(1) NOT NULL,
               EFFECTIVE_START_DATE timestamp NOT NULL,
               EFFECTIVE_END_DATE timestamp NOT NULL,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_pat_hist"
           "CREATE TABLE rm_case_pat_hist (
@@ -1345,8 +1344,8 @@
               START_DATE_PARTIAL varchar(20),
               STOP_DATE_PARTIAL varchar(20),
               CONDITION varchar(250),
-              NOTE text,
-              NOTE_J text,
+              NOTE varchar(999),
+              NOTE_J varchar(999),
               ITEM_LLT varchar(250),
               ITEM_HLT varchar(250),
               ITEM_HLGT varchar(250),
@@ -1428,7 +1427,7 @@
               EFFECTIVE_START_DATE timestamp NOT NULL,
               EFFECTIVE_END_DATE timestamp NOT NULL,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,SEQ_NUM,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_pat_info"
           "CREATE TABLE rm_case_pat_info (
@@ -1528,27 +1527,27 @@
               DELETED_FLAG numeric(1) NOT NULL,
               EFFECTIVE_START_DATE timestamp NOT NULL,
               EFFECTIVE_END_DATE timestamp NOT NULL,
-              NOTES text,
-              NOTES_J text,
+              NOTES varchar(999),
+              NOTES_J varchar(999),
               AGE_UNIT_ID_AT_VACC numeric,
               PAT_AGE_AT_VACC numeric,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_pat_tests"
           "CREATE TABLE rm_case_pat_tests (
               ENTERPRISE_ID numeric NOT NULL,
               REL_TEST_ID numeric NOT NULL,
               DELETED timestamp,
-              REL_TESTS text,
-              REL_TESTS_J text,
+              REL_TESTS varchar(999),
+              REL_TESTS_J varchar(999),
               DLP_REVISION_NUMBER numeric NOT NULL,
               REVISION_DELETE_FLAG numeric,
               DELETED_FLAG numeric(1) NOT NULL,
               EFFECTIVE_START_DATE timestamp NOT NULL,
               EFFECTIVE_END_DATE timestamp NOT NULL,
               PRIMARY KEY (ENTERPRISE_ID,REL_TEST_ID,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_pmda_event_assess"
           "CREATE TABLE rm_case_pmda_event_assess (
@@ -1567,7 +1566,7 @@
               DELETED_FLAG numeric(1) NOT NULL,
               REVISION_DELETE_FLAG numeric,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,SEQ_NUM,EVENT_SEQ_NUM,PROD_SEQ_NUM,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_pmda_general"
           "CREATE TABLE rm_case_pmda_general (
@@ -1580,7 +1579,7 @@
               DELETED_FLAG numeric(1) NOT NULL,
               REVISION_DELETE_FLAG numeric,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_pmda_license"
           "CREATE TABLE rm_case_pmda_license (
@@ -1594,15 +1593,15 @@
               RPT_CATEGORY_ID numeric,
               CASE_COMPLETE numeric,
               PMDA_NUMBER varchar(100),
-              INCOMPLETE_COMMENT text,
-              FUTURE_ACTIONS text,
-              FORM_2_MEMO text,
-              SENDER_COMMENT text,
+              INCOMPLETE_COMMENT varchar(999),
+              FUTURE_ACTIONS varchar(999),
+              FORM_2_MEMO varchar(999),
+              SENDER_COMMENT varchar(999),
               DOWNGRADED numeric,
               SERIOUS_DISEASE numeric,
               SIGNIFICANT_CHANGE numeric,
               EFFECTIVENESS numeric,
-              PROBLEM_DESC text,
+              PROBLEM_DESC varchar(999),
               SORT_ID numeric,
               DELETED timestamp,
               DLP_REVISION_NUMBER numeric NOT NULL,
@@ -1611,7 +1610,7 @@
               DELETED_FLAG numeric(1) NOT NULL,
               REVISION_DELETE_FLAG numeric,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,SEQ_NUM,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_pmda_lic_studies"
           "CREATE TABLE rm_case_pmda_lic_studies (
@@ -1619,7 +1618,7 @@
               CASE_ID numeric NOT NULL,
               SEQ_NUM numeric NOT NULL,
               LICENSE_ID numeric NOT NULL,
-              STUDIES text,
+              STUDIES varchar(999),
               DELETED timestamp,
               DLP_REVISION_NUMBER numeric NOT NULL,
               REVISION_DELETE_FLAG numeric,
@@ -1627,7 +1626,7 @@
               EFFECTIVE_START_DATE timestamp NOT NULL,
               EFFECTIVE_END_DATE timestamp NOT NULL,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,SEQ_NUM,LICENSE_ID,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_pmda_mgmt_num"
           "CREATE TABLE rm_case_pmda_mgmt_num (
@@ -1645,16 +1644,16 @@
               EFFECTIVE_START_DATE timestamp NOT NULL,
               EFFECTIVE_END_DATE timestamp NOT NULL,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,PROD_SEQ_NUM,SEQ_NUM,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_pmda_notes"
           "CREATE TABLE rm_case_pmda_notes (
               ENTERPRISE_ID numeric NOT NULL,
               CASE_ID numeric NOT NULL,
-              REMARK1 text,
-              REMARK2 text,
-              REMARK3 text,
-              REMARK4 text,
+              REMARK1 varchar(999),
+              REMARK2 varchar(999),
+              REMARK3 varchar(999),
+              REMARK4 varchar(999),
               DELETED timestamp,
               DLP_REVISION_NUMBER numeric NOT NULL,
               EFFECTIVE_START_DATE timestamp NOT NULL,
@@ -1662,7 +1661,7 @@
               DELETED_FLAG numeric(1) NOT NULL,
               REVISION_DELETE_FLAG numeric,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_pmda_reportability"
           "CREATE TABLE rm_case_pmda_reportability (
@@ -1682,7 +1681,7 @@
               EFFECTIVE_START_DATE timestamp NOT NULL,
               EFFECTIVE_END_DATE timestamp NOT NULL,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,SEQ_NUM,PROD_SEQ_NUM,EVENT_SEQ_NUM,LICENSE_ID,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_pmda_rpt_version"
           "CREATE TABLE rm_case_pmda_rpt_version (
@@ -1697,7 +1696,7 @@
               EFFECTIVE_START_DATE timestamp NOT NULL,
               EFFECTIVE_END_DATE timestamp NOT NULL,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,REVISION,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_pregnancy"
           "CREATE TABLE rm_case_pregnancy (
@@ -1723,7 +1722,7 @@
               EFFECTIVE_START_DATE timestamp NOT NULL,
               EFFECTIVE_END_DATE timestamp NOT NULL,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,PARENT,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_product"
           "CREATE TABLE rm_case_product (
@@ -1747,8 +1746,8 @@
               WHO_DRUG_CODE varchar(45),
               CO_DRUG_CODE varchar(20),
               PRODUCT_NAME varchar(70),
-              GENERIC_NAME text,
-              GENERIC_NAME_J text,
+              GENERIC_NAME varchar(999),
+              GENERIC_NAME_J varchar(999),
               UD_TEXT_1 varchar(100),
               UD_TEXT_2 varchar(100),
               UD_TEXT_3 varchar(100),
@@ -1826,22 +1825,22 @@
               DELETED_FLAG numeric(1) NOT NULL,
               EFFECTIVE_START_DATE timestamp NOT NULL,
               EFFECTIVE_END_DATE timestamp NOT NULL,
-              NOTES text,
-              NOTES_J text,
-              QC_ANALYSIS_CAT_TEXT text,
-              QC_ANALYSIS_CAT_TEXT_J text,
-              QC_ANAL_SUMMARY_TEXT text,
-              QC_ANAL_SUMMARY_TEXT_J text,
-              QC_RESULT text,
-              QC_RESULT_J text,
-              QC_COMMENT text,
-              QC_COMMENT_J text,
-              QC_COMPLAINT_CAT_TEXT text,
-              QC_COMPLAINT_CAT_TEXT_J text,
+              NOTES varchar(999),
+              NOTES_J varchar(999),
+              QC_ANALYSIS_CAT_TEXT varchar(999),
+              QC_ANALYSIS_CAT_TEXT_J varchar(999),
+              QC_ANAL_SUMMARY_TEXT varchar(999),
+              QC_ANAL_SUMMARY_TEXT_J varchar(999),
+              QC_RESULT varchar(999),
+              QC_RESULT_J varchar(999),
+              QC_COMMENT varchar(999),
+              QC_COMMENT_J varchar(999),
+              QC_COMPLAINT_CAT_TEXT varchar(999),
+              QC_COMPLAINT_CAT_TEXT_J varchar(999),
               VAERS_BLOCK_ID numeric,
               PROD_LIC_ID numeric,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,SEQ_NUM,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_prod_devices"
           "CREATE TABLE rm_case_prod_devices (
@@ -1964,11 +1963,11 @@
               DELETED_FLAG numeric(1) NOT NULL,
               EFFECTIVE_START_DATE timestamp NOT NULL,
               EFFECTIVE_END_DATE timestamp NOT NULL,
-              PRELIMINARY_COMMENTS text,
-              NARRATIVE_TEXT text,
-              PRELIMINARY_COMMENTS_J text,
+              PRELIMINARY_COMMENTS varchar(999),
+              NARRATIVE_TEXT varchar(999),
+              PRELIMINARY_COMMENTS_J varchar(999),
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,SEQ_NUM,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_prod_devices_pmda"
           "CREATE TABLE rm_case_prod_devices_pmda (
@@ -1981,8 +1980,8 @@
               MALFUNCTION_STATUS numeric,
               MALFUNCTION_NAME varchar(255),
               RESPONSIBLE_OFFICER varchar(50),
-              PATIENT_STATUS text,
-              PATIENT_TREATMENT text,
+              PATIENT_STATUS varchar(999),
+              PATIENT_TREATMENT varchar(999),
               FIRST_TIME_USE numeric,
               TIMES_OF_USE numeric,
               SINCE_FIRST_USE numeric,
@@ -1992,13 +1991,13 @@
               RECALL_VESTIGIAL numeric,
               RECALL_PLANNED numeric,
               RECALL_IMPOSSIBLE numeric,
-              REMARKS text,
-              INVESTIGATION_RESULTS text,
-              ACTION_TAKEN_UNTIL_NOW text,
+              REMARKS varchar(999),
+              INVESTIGATION_RESULTS varchar(999),
+              ACTION_TAKEN_UNTIL_NOW varchar(999),
               FUTURE_ACTIONS numeric,
-              DEVICE_SUMMARY text,
+              DEVICE_SUMMARY varchar(999),
               MEASURE_CLASSIFICATION varchar(100),
-              RESEARCH_AND_MEASURES text,
+              RESEARCH_AND_MEASURES varchar(999),
               DELETED timestamp,
               DLP_REVISION_NUMBER numeric NOT NULL,
               REVISION_DELETE_FLAG numeric,
@@ -2006,7 +2005,7 @@
               EFFECTIVE_START_DATE timestamp NOT NULL,
               EFFECTIVE_END_DATE timestamp NOT NULL,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,PROD_SEQ_NUM,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_prod_drugs"
           "CREATE TABLE rm_case_prod_drugs (
@@ -2106,7 +2105,7 @@
               EFFECTIVE_START_DATE timestamp NOT NULL,
               EFFECTIVE_END_DATE timestamp NOT NULL,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,SEQ_NUM,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_prod_indications"
           "CREATE TABLE rm_case_prod_indications (
@@ -2147,7 +2146,7 @@
               EFFECTIVE_START_DATE timestamp NOT NULL,
               EFFECTIVE_END_DATE timestamp NOT NULL,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,PROD_SEQ_NUM,SEQ_NUM,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_prod_ingredient"
           "CREATE TABLE rm_case_prod_ingredient (
@@ -2165,7 +2164,7 @@
               EFFECTIVE_START_DATE timestamp NOT NULL,
               EFFECTIVE_END_DATE timestamp NOT NULL,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,SEQ_NUM,ITEM,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_prod_qc_cid"
           "CREATE TABLE rm_case_prod_qc_cid (
@@ -2184,7 +2183,7 @@
               DELETED_FLAG numeric(1) NOT NULL,
               REVISION_DELETE_FLAG numeric,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,PROD_SEQ_NUM,SEQ_NUM,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_reference"
           "CREATE TABLE rm_case_reference (
@@ -2204,7 +2203,7 @@
               EFFECTIVE_START_DATE timestamp NOT NULL,
               EFFECTIVE_END_DATE timestamp NOT NULL,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,SEQ_NUM,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_reg_reports"
           "CREATE TABLE rm_case_reg_reports (
@@ -2216,7 +2215,7 @@
               SORT_ID numeric,
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,SEQ_NUM)
-          ); " }
+          )" }
 
     { "rm_case_relationships"
           "CREATE TABLE rm_case_relationships (
@@ -2232,7 +2231,7 @@
               EFFECTIVE_START_DATE timestamp NOT NULL,
               EFFECTIVE_END_DATE timestamp NOT NULL,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,SEQ_NUM,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_reporters"
           "CREATE TABLE rm_case_reporters (
@@ -2284,11 +2283,11 @@
               DELETED_FLAG numeric(1) NOT NULL,
               EFFECTIVE_START_DATE timestamp NOT NULL,
               EFFECTIVE_END_DATE timestamp NOT NULL,
-              NOTES text,
-              NOTES_J text,
+              NOTES varchar(999),
+              NOTES_J varchar(999),
               INSTITUTION_ID varchar(15),
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,SEQ_NUM,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_rev_master"
           "CREATE TABLE rm_case_rev_master (
@@ -2309,7 +2308,7 @@
               DCM_XREF_NUM numeric,
               REVISION_DELETE_FLAG numeric,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_routing"
           "CREATE TABLE rm_case_routing (
@@ -2337,7 +2336,7 @@
               EFFECTIVE_START_DATE timestamp NOT NULL,
               EFFECTIVE_END_DATE timestamp NOT NULL,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,SEQ_NUM,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_study"
           "CREATE TABLE rm_case_study (
@@ -2361,8 +2360,8 @@
               PRODUCT_COUNT numeric(2),
               CLASSIFICATION_ID numeric,
               BLIND_NAME varchar(70),
-              STUDY_DESC text,
-              STUDY_DESC_J text,
+              STUDY_DESC varchar(999),
+              STUDY_DESC_J varchar(999),
               BLIND_NAME_J varchar(70),
               CENTER_NAME_J varchar(40),
               CLIN_COMPOUND_NUM_J varchar(70),
@@ -2376,7 +2375,7 @@
               EFFECTIVE_END_DATE timestamp NOT NULL,
               COHORT_ID numeric,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_user_defined"
           "CREATE TABLE rm_case_user_defined (
@@ -2439,7 +2438,7 @@
               DELETED_FLAG numeric(1) NOT NULL,
               REVISION_DELETE_FLAG numeric,
               PRIMARY KEY (ENTERPRISE_ID,TABLE_ID,CASE_ID,UD_SEQ_NUM,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_vacc_hist"
           "CREATE TABLE rm_case_vacc_hist (
@@ -2468,7 +2467,7 @@
               EFFECTIVE_END_DATE timestamp NOT NULL,
               VAERS_BLOCK_14 numeric,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,SEQ_NUM,LOG_NO,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_vacc_prior_ae"
           "CREATE TABLE rm_case_vacc_prior_ae (
@@ -2491,7 +2490,7 @@
               EFFECTIVE_START_DATE timestamp NOT NULL,
               EFFECTIVE_END_DATE timestamp NOT NULL,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,SEQ_NUM,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_case_vacc_vaers"
           "CREATE TABLE rm_case_vacc_vaers (
@@ -2531,7 +2530,7 @@
               EFFECTIVE_START_DATE timestamp NOT NULL,
               EFFECTIVE_END_DATE timestamp NOT NULL,
               PRIMARY KEY (ENTERPRISE_ID,CASE_ID,DLP_REVISION_NUMBER)
-          ); " }
+          )" }
 
     { "rm_cfg_auth_countries"
           "CREATE TABLE rm_cfg_auth_countries (
@@ -2542,7 +2541,7 @@
               SEQ_NUM numeric NOT NULL,
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,GROUP_ID,COUNTRY_ID,TYPE,SEQ_NUM)
-          ); " }
+          )" }
 
     { "rm_cfg_auth_products"
           "CREATE TABLE rm_cfg_auth_products (
@@ -2553,7 +2552,7 @@
               SEQ_NUM numeric NOT NULL,
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,GROUP_ID,PRODUCT_ID,TYPE,SEQ_NUM)
-          ); " }
+          )" }
 
     { "rm_cfg_auth_sites"
           "CREATE TABLE rm_cfg_auth_sites (
@@ -2564,7 +2563,7 @@
               SEQ_NUM numeric NOT NULL,
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,GROUP_ID,SITE_ID,TYPE,SEQ_NUM)
-          ); " }
+          )" }
 
     { "rm_cfg_auth_studies"
           "CREATE TABLE rm_cfg_auth_studies (
@@ -2575,7 +2574,7 @@
               SEQ_NUM numeric NOT NULL,
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,GROUP_ID,STUDY_KEY,TYPE,SEQ_NUM)
-          ); " }
+          )" }
 
     { "rm_cfg_dictionaries_enterprise"
           "CREATE TABLE rm_cfg_dictionaries_enterprise (
@@ -2584,7 +2583,7 @@
               DICT_ID numeric NOT NULL,
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,GLOBAL_DICT_ID,DICT_ID)
-          ); " }
+          )" }
 
     { "rm_cfg_dictionaries_global"
           "CREATE TABLE rm_cfg_dictionaries_global (
@@ -2601,7 +2600,7 @@
               SCHEMA_OWNER varchar(30),
               GLOBAL_DICT_ID numeric NOT NULL,
               PRIMARY KEY (GLOBAL_DICT_ID)
-          ); " }
+          )" }
 
     { "rm_cfg_dsr_owner"
           "CREATE TABLE rm_cfg_dsr_owner (
@@ -2611,7 +2610,7 @@
               OWNER_ID numeric,
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,ID)
-          ); " }
+          )" }
 
     { "rm_cfg_dsr_report"
           "CREATE TABLE rm_cfg_dsr_report (
@@ -2626,7 +2625,7 @@
               PAGE_NUMBERING numeric,
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,REPORT_FORM_ID)
-          ); " }
+          )" }
 
     { "rm_cfg_dsr_template_variables"
           "CREATE TABLE rm_cfg_dsr_template_variables (
@@ -2637,7 +2636,7 @@
               REPORT_RELATED numeric(1),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,ID)
-          ); " }
+          )" }
 
     { "rm_cfg_groups"
           "CREATE TABLE rm_cfg_groups (
@@ -2659,7 +2658,7 @@
               NO_ADV_SHARE numeric(1) NOT NULL,
               NO_ADV_SQL numeric(1) NOT NULL,
               PRIMARY KEY (ENTERPRISE_ID,GROUP_ID)
-          ); " }
+          )" }
 
     { "rm_cfg_groups_product"
           "CREATE TABLE rm_cfg_groups_product (
@@ -2670,7 +2669,7 @@
               PRODUCT_ID numeric,
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,SEQ_NUM)
-          ); " }
+          )" }
 
     { "rm_cfg_groups_study"
           "CREATE TABLE rm_cfg_groups_study (
@@ -2681,7 +2680,7 @@
               STUDY_KEY numeric,
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,SEQ_NUM)
-          ); " }
+          )" }
 
     { "rm_cfg_lam_central_site"
           "CREATE TABLE rm_cfg_lam_central_site (
@@ -2691,7 +2690,7 @@
               SEQ_NUM numeric NOT NULL,
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,SITE_ID,LAM_SITE_ID,SEQ_NUM)
-          ); " }
+          )" }
 
     { "rm_cfg_lam_rpt_sched"
           "CREATE TABLE rm_cfg_lam_rpt_sched (
@@ -2704,7 +2703,7 @@
               PROCESSED numeric(1) NOT NULL,
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,ID)
-          ); " }
+          )" }
 
     { "rm_cfg_letter_site"
           "CREATE TABLE rm_cfg_letter_site (
@@ -2714,7 +2713,7 @@
               SITE_ID numeric(10),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,ID)
-          ); " }
+          )" }
 
     { "rm_cfg_list_acc_user_country"
           "CREATE TABLE rm_cfg_list_acc_user_country (
@@ -2723,7 +2722,7 @@
               COUNTRY_ID numeric NOT NULL,
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,USER_ID,COUNTRY_ID)
-          ); " }
+          )" }
 
     { "rm_cfg_medwatch_codes"
           "CREATE TABLE rm_cfg_medwatch_codes (
@@ -2733,7 +2732,7 @@
               DEFINITION varchar(500),
               SORTBY numeric(10,2) NOT NULL,
               PRIMARY KEY (DIALOG,VALUE,SORTBY)
-          ); " }
+          )" }
 
     { "rm_cfg_mem_report"
           "CREATE TABLE rm_cfg_mem_report (
@@ -2772,7 +2771,7 @@
               XT_COLUMN3 numeric(10),
               NO_REPORT_HEADER numeric(1) NOT NULL,
               PRIMARY KEY (ENTERPRISE_ID,ID)
-          ); " }
+          )" }
 
     { "rm_cfg_narrative_template"
           "CREATE TABLE rm_cfg_narrative_template (
@@ -2783,7 +2782,7 @@
               RETIRED numeric,
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,TEMPLATE_ID)
-          ); " }
+          )" }
 
     { "rm_cfg_narr_template_phrase"
           "CREATE TABLE rm_cfg_narr_template_phrase (
@@ -2794,7 +2793,7 @@
               SORT_ID numeric,
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,TEMPLATE_ID,SEQ_NUM)
-          ); " }
+          )" }
 
     { "rm_cfg_per_report"
           "CREATE TABLE rm_cfg_per_report (
@@ -2871,7 +2870,7 @@
               PRINT_ALL_PERIODIC numeric(1) NOT NULL,
               PRINT_NO_WATERMARK numeric(1) NOT NULL,
               PRIMARY KEY (ENTERPRISE_ID,REPORT_FORM_ID)
-          ); " }
+          )" }
 
     { "rm_cfg_per_rpt_child"
           "CREATE TABLE rm_cfg_per_rpt_child (
@@ -2887,7 +2886,7 @@
               SORT_ID numeric(2),
               FIELD_TEXT varchar(250),
               PRIMARY KEY (ENTERPRISE_ID,ID)
-          ); " }
+          )" }
 
     { "rm_cfg_per_rpt_cri"
           "CREATE TABLE rm_cfg_per_rpt_cri (
@@ -2904,7 +2903,7 @@
               SHEET_NAME varchar(40),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,REPORT_TYPE)
-          ); " }
+          )" }
 
     { "rm_cfg_per_rpt_freq"
           "CREATE TABLE rm_cfg_per_rpt_freq (
@@ -2919,7 +2918,7 @@
               TOTAL_DELIV_QTY_UNIT_ID numeric,
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,ID,REPORT_FORM_ID)
-          ); " }
+          )" }
 
     { "rm_cfg_per_rpt_security"
           "CREATE TABLE rm_cfg_per_rpt_security (
@@ -2930,7 +2929,7 @@
               RIGHTS numeric NOT NULL,
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,SEQ_NUM)
-          ); " }
+          )" }
 
     { "rm_cfg_placeholders"
           "CREATE TABLE rm_cfg_placeholders (
@@ -2944,7 +2943,7 @@
               ORDERBY_CLAUSE2 varchar(200),
               SQL_QUERY_J varchar(4000),
               PRIMARY KEY (ENTERPRISE_ID,PLACE_ID)
-          ); " }
+          )" }
 
     { "rm_cfg_priorities"
           "CREATE TABLE rm_cfg_priorities (
@@ -2958,7 +2957,7 @@
               AC_ID numeric,
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,PRIORITY_ID)
-          ); " }
+          )" }
 
     { "rm_cfg_psur_multi_ingredients"
           "CREATE TABLE rm_cfg_psur_multi_ingredients (
@@ -2968,7 +2967,7 @@
               INGREDIENT_ID numeric NOT NULL,
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,ID)
-          ); " }
+          )" }
 
     { "rm_cfg_reg_report_rules"
           "CREATE TABLE rm_cfg_reg_report_rules (
@@ -3019,7 +3018,7 @@
               GROUP_2_COUNTRY_ADJUST_DAYS numeric,
               DEVICE_CATEGORY_ID numeric,
               PRIMARY KEY (ENTERPRISE_ID,REG_RPT_RULES_ID)
-          ); " }
+          )" }
 
     { "rm_cfg_rpt_wf_rules"
           "CREATE TABLE rm_cfg_rpt_wf_rules (
@@ -3031,7 +3030,7 @@
               EMAIL_FLAG numeric,
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,TO_STATE_ID,FR_STATE_ID)
-          ); " }
+          )" }
 
     { "rm_cfg_rpt_wf_states"
           "CREATE TABLE rm_cfg_rpt_wf_states (
@@ -3043,7 +3042,7 @@
               STATE_DESC_J varchar(30),
               STATE_NAME_J varchar(30),
               PRIMARY KEY (ENTERPRISE_ID,REPORT_STATE_ID)
-          ); " }
+          )" }
 
     { "rm_cfg_templates"
           "CREATE TABLE rm_cfg_templates (
@@ -3063,7 +3062,7 @@
               AC_ID numeric,
               NAME_J varchar(40),
               PRIMARY KEY (ENTERPRISE_ID,TEMPLATE_ID,BLOB_SEQ)
-          ); " }
+          )" }
 
     { "rm_cfg_users"
           "CREATE TABLE rm_cfg_users (
@@ -3116,7 +3115,7 @@
               HASH_ALGO varchar(30),
               SALT varchar(30),
               PRIMARY KEY (ENTERPRISE_ID,USER_ID)
-          ); " }
+          )" }
 
     { "rm_cfg_users_sites"
           "CREATE TABLE rm_cfg_users_sites (
@@ -3127,7 +3126,7 @@
               GROUP_ID numeric,
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,USER_ID,SITE_ID)
-          ); " }
+          )" }
 
     { "rm_cfg_user_access"
           "CREATE TABLE rm_cfg_user_access (
@@ -3138,7 +3137,7 @@
               DEFAULT_APPLICATIONID numeric NOT NULL,
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,SEQ_NUM)
-          ); " }
+          )" }
 
     { "rm_cfg_user_enterprise_apps"
           "CREATE TABLE rm_cfg_user_enterprise_apps (
@@ -3147,7 +3146,7 @@
               SECURITY_LEVEL numeric,
               ENTERPRISE_ID numeric NOT NULL,
               PRIMARY KEY (ENTERPRISE_ID,USER_NAME,APP_NAME)
-          ); " }
+          )" }
 
     { "rm_cfg_user_groups"
           "CREATE TABLE rm_cfg_user_groups (
@@ -3157,7 +3156,7 @@
               SEQ_NUM numeric NOT NULL,
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,USER_ID,GROUP_ID,SEQ_NUM)
-          ); " }
+          )" }
 
     { "rm_cfg_workflow_rules"
           "CREATE TABLE rm_cfg_workflow_rules (
@@ -3182,7 +3181,7 @@
               RESTRICT_WORKFLOW_GROUP numeric,
               UNIT numeric,
               PRIMARY KEY (ENTERPRISE_ID,SEQ_NUM)
-          ); " }
+          )" }
 
     { "rm_cfg_workflow_states"
           "CREATE TABLE rm_cfg_workflow_states (
@@ -3196,7 +3195,7 @@
               ARCHIVING numeric(1),
               PREF_STATE_ID numeric,
               PRIMARY KEY (ENTERPRISE_ID,STATE_ID)
-          ); " }
+          )" }
 
     { "rm_cl_autopsy_results"
           "CREATE TABLE rm_cl_autopsy_results (
@@ -3204,7 +3203,7 @@
               RESULTS varchar(35),
               DELETED timestamp,
               PRIMARY KEY (ID)
-          ); " }
+          )" }
 
     { "rm_cl_bfarm_causality"
           "CREATE TABLE rm_cl_bfarm_causality (
@@ -3212,7 +3211,7 @@
               CAUSALITY varchar(35) NOT NULL,
               DELETED timestamp,
               PRIMARY KEY (ID)
-          ); " }
+          )" }
 
     { "rm_cl_device_deliv_type"
           "CREATE TABLE rm_cl_device_deliv_type (
@@ -3220,7 +3219,7 @@
               TYPE varchar(24),
               DELETED timestamp,
               PRIMARY KEY (ID)
-          ); " }
+          )" }
 
     { "rm_cl_device_evaluation"
           "CREATE TABLE rm_cl_device_evaluation (
@@ -3228,7 +3227,7 @@
               DEV_EVAL varchar(24),
               DELETED timestamp,
               PRIMARY KEY (ID)
-          ); " }
+          )" }
 
     { "rm_cl_device_operator"
           "CREATE TABLE rm_cl_device_operator (
@@ -3236,7 +3235,7 @@
               DEV_OPER varchar(19),
               DELETED timestamp,
               PRIMARY KEY (ID)
-          ); " }
+          )" }
 
     { "rm_cl_device_usage"
           "CREATE TABLE rm_cl_device_usage (
@@ -3244,7 +3243,7 @@
               DEV_USAGE varchar(7),
               DELETED timestamp,
               PRIMARY KEY (ID)
-          ); " }
+          )" }
 
     { "rm_cl_followup_type"
           "CREATE TABLE rm_cl_followup_type (
@@ -3252,7 +3251,7 @@
               TYPE varchar(75),
               DELETED timestamp,
               PRIMARY KEY (ID)
-          ); " }
+          )" }
 
     { "rm_cl_jpn_drug_code_type"
           "CREATE TABLE rm_cl_jpn_drug_code_type (
@@ -3261,7 +3260,7 @@
               DRUG_CODE_J varchar(200),
               DELETED timestamp,
               PRIMARY KEY (DRUG_CODE_ID)
-          ); " }
+          )" }
 
     { "rm_cl_mfr_evaluation"
           "CREATE TABLE rm_cl_mfr_evaluation (
@@ -3269,7 +3268,7 @@
               EVALUATION varchar(51),
               DELETED timestamp,
               PRIMARY KEY (ID)
-          ); " }
+          )" }
 
     { "rm_cl_pmda_device_use"
           "CREATE TABLE rm_cl_pmda_device_use (
@@ -3278,7 +3277,7 @@
               USE_J varchar(20),
               DELETED timestamp,
               PRIMARY KEY (USE_ID)
-          ); " }
+          )" }
 
     { "rm_cl_prev_use"
           "CREATE TABLE rm_cl_prev_use (
@@ -3286,7 +3285,7 @@
               DELETED timestamp,
               PREV_USE varchar(25),
               PRIMARY KEY (ID)
-          ); " }
+          )" }
 
     { "rm_cl_rechall_outcome"
           "CREATE TABLE rm_cl_rechall_outcome (
@@ -3294,7 +3293,7 @@
               OUTCOME varchar(16),
               DELETED timestamp,
               PRIMARY KEY (ID)
-          ); " }
+          )" }
 
     { "rm_cl_remedial_action"
           "CREATE TABLE rm_cl_remedial_action (
@@ -3302,7 +3301,7 @@
               ACTION varchar(106),
               DELETED timestamp,
               PRIMARY KEY (ID)
-          ); " }
+          )" }
 
     { "rm_cl_report_scheduling"
           "CREATE TABLE rm_cl_report_scheduling (
@@ -3310,14 +3309,14 @@
               RESULTS varchar(35),
               DELETED timestamp,
               PRIMARY KEY (ID)
-          ); " }
+          )" }
 
     { "rm_cl_study_product_type"
           "CREATE TABLE rm_cl_study_product_type (
               PROD_TYPE_NAME varchar(50),
               PROD_TYPE_ID numeric NOT NULL,
               PRIMARY KEY (PROD_TYPE_ID)
-          ); " }
+          )" }
 
     { "rm_cl_subject"
           "CREATE TABLE rm_cl_subject (
@@ -3325,7 +3324,7 @@
               SUBJECT varchar(30) NOT NULL,
               DELETED timestamp,
               PRIMARY KEY (ID)
-          ); " }
+          )" }
 
     { "rm_cl_term_type"
           "CREATE TABLE rm_cl_term_type (
@@ -3333,14 +3332,14 @@
               TYPE varchar(100),
               DELETED timestamp,
               PRIMARY KEY (ID)
-          ); " }
+          )" }
 
     { "rm_cl_trimester_status"
           "CREATE TABLE rm_cl_trimester_status (
               ID numeric NOT NULL,
               STATUS varchar(100),
               PRIMARY KEY (ID)
-          ); " }
+          )" }
 
     { "rm_cl_usage_of_device"
           "CREATE TABLE rm_cl_usage_of_device (
@@ -3348,7 +3347,7 @@
               USAGE_OF_DEVICE varchar(200),
               DELETED timestamp,
               PRIMARY KEY (ID)
-          ); " }
+          )" }
 
     { "rm_cmn_lookup"
           "CREATE TABLE rm_cmn_lookup (
@@ -3359,7 +3358,7 @@
               DRUG_TYPE varchar(20),
               DELETED timestamp,
               PRIMARY KEY (ID)
-          ); " }
+          )" }
 
     { "rm_cmn_profile_enterprise"
           "CREATE TABLE rm_cmn_profile_enterprise (
@@ -3379,7 +3378,7 @@
               SORT_ORDER numeric,
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,SECTION,KEY)
-          ); " }
+          )" }
 
     { "rm_cmn_profile_global"
           "CREATE TABLE rm_cmn_profile_global (
@@ -3398,7 +3397,7 @@
               SORT_ORDER numeric,
               DELETED timestamp,
               PRIMARY KEY (SECTION,KEY)
-          ); " }
+          )" }
 
     { "rm_cmn_reg_reports"
           "CREATE TABLE rm_cmn_reg_reports (
@@ -3473,10 +3472,10 @@
               NO_FOLLOWUP_DOWNGRADE numeric,
               EVENT_J varchar(250),
               BODY_SYS_J varchar(250),
-              RPT_COMMENT text,
+              RPT_COMMENT varchar(999),
               GROUP_2_COUNTRY_ADJUST_DAYS numeric,
               PRIMARY KEY (ENTERPRISE_ID,REG_REPORT_ID)
-          ); " }
+          )" }
 
     { "rm_code_list_code_attributes"
           "CREATE TABLE rm_code_list_code_attributes (
@@ -3489,7 +3488,7 @@
               DISPLAY numeric(1),
               DATA_SOURCE numeric(1),
               PRIMARY KEY (ENTERPRISE_ID,CODE_LIST_ID,CODE)
-          ); " }
+          )" }
 
     { "rm_code_list_detail_discrete"
           "CREATE TABLE rm_code_list_detail_discrete (
@@ -3502,7 +3501,7 @@
               SORT numeric,
               LAST_UPDATE_TIME timestamp,
               PRIMARY KEY (ENTERPRISE_ID,CODE_LIST_ID,DECODE_CONTEXT,CODE)
-          ); " }
+          )" }
 
     { "rm_code_list_master"
           "CREATE TABLE rm_code_list_master (
@@ -3514,7 +3513,7 @@
               LAST_UPDATE_TIME timestamp,
               DATA_SOURCE numeric(1),
               PRIMARY KEY (ENTERPRISE_ID,CODE_LIST_ID)
-          ); " }
+          )" }
 
     { "rm_lm_accidental_exposure"
           "CREATE TABLE rm_lm_accidental_exposure (
@@ -3526,7 +3525,7 @@
               PROTECTED numeric,
               DESCRIPTION_J varchar(20),
               PRIMARY KEY (ENTERPRISE_ID,ID)
-          ); " }
+          )" }
 
     { "rm_lm_action_item_type"
           "CREATE TABLE rm_lm_action_item_type (
@@ -3545,7 +3544,7 @@
               DESCRIPTION_J varchar(1000),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,ACTION_TYPE_ID)
-          ); " }
+          )" }
 
     { "rm_lm_action_taken"
           "CREATE TABLE rm_lm_action_taken (
@@ -3558,7 +3557,7 @@
               ACTION_TAKEN_J varchar(30),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,ACT_TAKEN_ID)
-          ); " }
+          )" }
 
     { "rm_lm_admin_route"
           "CREATE TABLE rm_lm_admin_route (
@@ -3574,7 +3573,7 @@
               ROUTE_J varchar(15),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,ADMIN_ROUTE_ID)
-          ); " }
+          )" }
 
     { "rm_lm_age_groups"
           "CREATE TABLE rm_lm_age_groups (
@@ -3589,7 +3588,7 @@
               GROUP_NAME_J varchar(20),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,AGE_GROUP_ID)
-          ); " }
+          )" }
 
     { "rm_lm_age_units"
           "CREATE TABLE rm_lm_age_units (
@@ -3603,7 +3602,7 @@
               AGE_UNIT_J varchar(10),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,AGE_UNIT_ID)
-          ); " }
+          )" }
 
     { "rm_lm_always_serious_term"
           "CREATE TABLE rm_lm_always_serious_term (
@@ -3636,7 +3635,7 @@
               SYN_CODE numeric,
               SYN_CODE_J numeric,
               PRIMARY KEY (ENTERPRISE_ID,AST_ID)
-          ); " }
+          )" }
 
     { "rm_lm_applications"
           "CREATE TABLE rm_lm_applications (
@@ -3644,7 +3643,7 @@
               APPLICATION_DESC varchar(50) NOT NULL,
               DELETED timestamp,
               PRIMARY KEY (APPLICATION_ID)
-          ); " }
+          )" }
 
     { "rm_lm_attachment_type"
           "CREATE TABLE rm_lm_attachment_type (
@@ -3655,7 +3654,7 @@
               PROTECTED numeric(1),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,ATTACHMENT_ID)
-          ); " }
+          )" }
 
     { "rm_lm_birth_type"
           "CREATE TABLE rm_lm_birth_type (
@@ -3667,7 +3666,7 @@
               BIRTH_TYPE_J varchar(35),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,BIRTH_TYPE_ID)
-          ); " }
+          )" }
 
     { "rm_lm_case_classification"
           "CREATE TABLE rm_lm_case_classification (
@@ -3680,7 +3679,7 @@
               DELETED timestamp,
               E2B_CODE numeric,
               PRIMARY KEY (ENTERPRISE_ID,CLASSIFICATION_ID)
-          ); " }
+          )" }
 
     { "rm_lm_causality"
           "CREATE TABLE rm_lm_causality (
@@ -3693,7 +3692,7 @@
               CAUSALITY_J varchar(35),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,CAUSALITY_ID)
-          ); " }
+          )" }
 
     { "rm_lm_causality_category"
           "CREATE TABLE rm_lm_causality_category (
@@ -3703,7 +3702,7 @@
               CAUSALITY_MAX_SCORE numeric,
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,CAUSALITY_ID)
-          ); " }
+          )" }
 
     { "rm_lm_causality_source"
           "CREATE TABLE rm_lm_causality_source (
@@ -3715,7 +3714,7 @@
               SOURCE_J varchar(35),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,SOURCE_ID)
-          ); " }
+          )" }
 
     { "rm_lm_centers"
           "CREATE TABLE rm_lm_centers (
@@ -3728,7 +3727,7 @@
               CENTER_NO_J varchar(20),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,CENTER_ID)
-          ); " }
+          )" }
 
     { "rm_lm_classification"
           "CREATE TABLE rm_lm_classification (
@@ -3741,7 +3740,7 @@
               CLASSIFICATION_J varchar(30),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,CLASSIFICATION_ID)
-          ); " }
+          )" }
 
     { "rm_lm_classification_sites"
           "CREATE TABLE rm_lm_classification_sites (
@@ -3751,7 +3750,7 @@
               CLASSIFICATION_ID numeric(22) NOT NULL,
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,SEQ_NUM)
-          ); " }
+          )" }
 
     { "rm_lm_clinical_ref_types"
           "CREATE TABLE rm_lm_clinical_ref_types (
@@ -3763,7 +3762,7 @@
               REF_TYPE_DESC_J varchar(20),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,REF_TYPE_ID)
-          ); " }
+          )" }
 
     { "rm_lm_condition_type"
           "CREATE TABLE rm_lm_condition_type (
@@ -3776,7 +3775,7 @@
               COND_CATEGORY numeric(1),
               COND_TYPE_J varchar(20),
               PRIMARY KEY (ENTERPRISE_ID,CONDITION_TYPE_ID)
-          ); " }
+          )" }
 
     { "rm_lm_contact_type"
           "CREATE TABLE rm_lm_contact_type (
@@ -3790,7 +3789,7 @@
               DESCRIPTION_J varchar(120),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,CONTACT_ID)
-          ); " }
+          )" }
 
     { "rm_lm_costart"
           "CREATE TABLE rm_lm_costart (
@@ -3799,7 +3798,7 @@
               DESCRIPTION varchar(1000),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,CODE)
-          ); " }
+          )" }
 
     { "rm_lm_countries"
           "CREATE TABLE rm_lm_countries (
@@ -3816,7 +3815,7 @@
               COUNTRY_J varchar(50),
               GROUP_2_COUNTRY numeric,
               PRIMARY KEY (ENTERPRISE_ID,COUNTRY_ID)
-          ); " }
+          )" }
 
     { "rm_lm_datasheet"
           "CREATE TABLE rm_lm_datasheet (
@@ -3832,9 +3831,9 @@
               NO_LOCAL_ASSESSMENT numeric,
               INCLUDE_DATASHEET_ID numeric,
               SHEET_NAME_J varchar(40),
-              NOTES text,
+              NOTES varchar(999),
               PRIMARY KEY (ENTERPRISE_ID,DATASHEET_ID,REVISION)
-          ); " }
+          )" }
 
     { "rm_lm_datasheet_event_groups"
           "CREATE TABLE rm_lm_datasheet_event_groups (
@@ -3845,7 +3844,7 @@
               EG_ID numeric NOT NULL,
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,SEQ_NUM)
-          ); " }
+          )" }
 
     { "rm_lm_date_ranges"
           "CREATE TABLE rm_lm_date_ranges (
@@ -3859,7 +3858,7 @@
               RANGE_NAME_J varchar(20),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,RANGE_ID)
-          ); " }
+          )" }
 
     { "rm_lm_delivery_types"
           "CREATE TABLE rm_lm_delivery_types (
@@ -3871,7 +3870,7 @@
               DELIVERY_TYPE_J varchar(30),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,DELIVERY_TYPE_ID)
-          ); " }
+          )" }
 
     { "rm_lm_device_cur_status"
           "CREATE TABLE rm_lm_device_cur_status (
@@ -3881,7 +3880,7 @@
               STATUS_J varchar(30),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,STATUS_ID)
-          ); " }
+          )" }
 
     { "rm_lm_device_future_act"
           "CREATE TABLE rm_lm_device_future_act (
@@ -3891,7 +3890,7 @@
               ACTION_J varchar(30),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,ACTION_ID)
-          ); " }
+          )" }
 
     { "rm_lm_device_mal_status"
           "CREATE TABLE rm_lm_device_mal_status (
@@ -3901,7 +3900,7 @@
               STATUS_J varchar(10),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,STATUS_ID)
-          ); " }
+          )" }
 
     { "rm_lm_device_pre_comments"
           "CREATE TABLE rm_lm_device_pre_comments (
@@ -3910,10 +3909,10 @@
               DISPLAY numeric,
               PROTECTED numeric,
               DELETED timestamp,
-              PRE_COMMENTS text,
-              PRE_COMMENTS_J text,
+              PRE_COMMENTS varchar(999),
+              PRE_COMMENTS_J varchar(999),
               PRIMARY KEY (ENTERPRISE_ID,PRE_COMMENTS_ID)
-          ); " }
+          )" }
 
     { "rm_lm_device_rpt_category"
           "CREATE TABLE rm_lm_device_rpt_category (
@@ -3925,7 +3924,7 @@
               PROTECTED numeric,
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,CATEGORY_ID)
-          ); " }
+          )" }
 
     { "rm_lm_device_subcomponents"
           "CREATE TABLE rm_lm_device_subcomponents (
@@ -3937,7 +3936,7 @@
               SUBCOMPONENT_NAME_J varchar(50),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,SUBCOMPONENT_ID)
-          ); " }
+          )" }
 
     { "rm_lm_device_type"
           "CREATE TABLE rm_lm_device_type (
@@ -3949,7 +3948,7 @@
               DEVICE_TYPE_DESC_J varchar(50),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,DEVICE_TYPE_ID)
-          ); " }
+          )" }
 
     { "rm_lm_device_use_duration"
           "CREATE TABLE rm_lm_device_use_duration (
@@ -3959,7 +3958,7 @@
               DURATION_J varchar(10),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,DURATION_ID)
-          ); " }
+          )" }
 
     { "rm_lm_dev_phase"
           "CREATE TABLE rm_lm_dev_phase (
@@ -3972,7 +3971,7 @@
               PROTECTED numeric(1),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,DEV_PHASE_ID)
-          ); " }
+          )" }
 
     { "rm_lm_dose_frequency"
           "CREATE TABLE rm_lm_dose_frequency (
@@ -3988,7 +3987,7 @@
               INTERVAL_DOSAGE_DEF_E2B numeric,
               FREQ_J varchar(15),
               PRIMARY KEY (ENTERPRISE_ID,FREQ_ID)
-          ); " }
+          )" }
 
     { "rm_lm_dose_units"
           "CREATE TABLE rm_lm_dose_units (
@@ -4004,7 +4003,7 @@
               UNIT_J varchar(25),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,UNIT_ID)
-          ); " }
+          )" }
 
     { "rm_lm_dsr_per_subrpt"
           "CREATE TABLE rm_lm_dsr_per_subrpt (
@@ -4021,7 +4020,7 @@
               PAGE_END_PIXEL numeric,
               SPLIT_BOOKMARK_CHILD numeric,
               PRIMARY KEY (ENTERPRISE_ID,PER_RPT_TYPE,SUB_RPT_ID)
-          ); " }
+          )" }
 
     { "rm_lm_emperor"
           "CREATE TABLE rm_lm_emperor (
@@ -4035,7 +4034,7 @@
               DATE_ENTRY_ABBREV varchar(1),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,EMPEROR_ID)
-          ); " }
+          )" }
 
     { "rm_lm_ethnicity"
           "CREATE TABLE rm_lm_ethnicity (
@@ -4047,7 +4046,7 @@
               ETHNICITY_J varchar(40),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,ETHNICITY_ID)
-          ); " }
+          )" }
 
     { "rm_lm_evaluator_type"
           "CREATE TABLE rm_lm_evaluator_type (
@@ -4058,7 +4057,7 @@
               EVALUATOR_TYPE_J varchar(25),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,EVALUATOR_TYPE_ID)
-          ); " }
+          )" }
 
     { "rm_lm_event_group"
           "CREATE TABLE rm_lm_event_group (
@@ -4069,7 +4068,7 @@
               DISPLAY numeric,
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,EG_ID)
-          ); " }
+          )" }
 
     { "rm_lm_event_group_child"
           "CREATE TABLE rm_lm_event_group_child (
@@ -4079,7 +4078,7 @@
               CHILD_ID numeric NOT NULL,
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,ID)
-          ); " }
+          )" }
 
     { "rm_lm_event_group_smq"
           "CREATE TABLE rm_lm_event_group_smq (
@@ -4090,7 +4089,7 @@
               DELETED timestamp,
               CODE_DICT numeric,
               PRIMARY KEY (ENTERPRISE_ID,SMQ_ID)
-          ); " }
+          )" }
 
     { "rm_lm_event_group_terms"
           "CREATE TABLE rm_lm_event_group_terms (
@@ -4119,7 +4118,7 @@
               CODE_STATUS_J numeric,
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,TERM_ID)
-          ); " }
+          )" }
 
     { "rm_lm_evt_consequence"
           "CREATE TABLE rm_lm_evt_consequence (
@@ -4132,7 +4131,7 @@
               TERM_J varchar(250),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,EVT_CONSEQUENCE_ID)
-          ); " }
+          )" }
 
     { "rm_lm_evt_frequency"
           "CREATE TABLE rm_lm_evt_frequency (
@@ -4144,7 +4143,7 @@
               EVT_FREQ_J varchar(15),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,EVT_FREQ_ID)
-          ); " }
+          )" }
 
     { "rm_lm_evt_intensity"
           "CREATE TABLE rm_lm_evt_intensity (
@@ -4156,7 +4155,7 @@
               EVT_INTENSITY_J varchar(30),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,EVT_INTENSITY_ID)
-          ); " }
+          )" }
 
     { "rm_lm_evt_nature"
           "CREATE TABLE rm_lm_evt_nature (
@@ -4168,7 +4167,7 @@
               EVT_NATURE_J varchar(40),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,EVT_NATURE_ID)
-          ); " }
+          )" }
 
     { "rm_lm_evt_outcome"
           "CREATE TABLE rm_lm_evt_outcome (
@@ -4181,7 +4180,7 @@
               EVT_OUTCOME_J varchar(50),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,EVT_OUTCOME_ID)
-          ); " }
+          )" }
 
     { "rm_lm_failure_code"
           "CREATE TABLE rm_lm_failure_code (
@@ -4191,9 +4190,9 @@
               FAILURE_CD_TYPE varchar(1),
               FAILURE_CD_GROUP varchar(16),
               DELETED timestamp,
-              FAILURE_DEF text,
+              FAILURE_DEF varchar(999),
               PRIMARY KEY (ENTERPRISE_ID,FAILURE_CD)
-          ); " }
+          )" }
 
     { "rm_lm_fetal_outcome"
           "CREATE TABLE rm_lm_fetal_outcome (
@@ -4205,7 +4204,7 @@
               FETAL_OUTCOME_J varchar(35),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,FETAL_OUTCOME_ID)
-          ); " }
+          )" }
 
     { "rm_lm_file_template_actions"
           "CREATE TABLE rm_lm_file_template_actions (
@@ -4214,7 +4213,7 @@
               MODULE_TYPE numeric NOT NULL,
               ACTION_TYPE numeric NOT NULL,
               PRIMARY KEY (ACTION_ID)
-          ); " }
+          )" }
 
     { "rm_lm_formulation"
           "CREATE TABLE rm_lm_formulation (
@@ -4227,7 +4226,7 @@
               FORMULATION_SYMBOL_J varchar(5),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,FORMULATION_ID)
-          ); " }
+          )" }
 
     { "rm_lm_gender"
           "CREATE TABLE rm_lm_gender (
@@ -4240,7 +4239,7 @@
               GENDER_J varchar(10),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,GENDER_ID)
-          ); " }
+          )" }
 
     { "rm_lm_hcp"
           "CREATE TABLE rm_lm_hcp (
@@ -4252,7 +4251,7 @@
               HCP_J varchar(30),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,HCP_ID)
-          ); " }
+          )" }
 
     { "rm_lm_holiday_calendar"
           "CREATE TABLE rm_lm_holiday_calendar (
@@ -4264,7 +4263,7 @@
               PROTECTED numeric(1),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,HOLIDAY_ID)
-          ); " }
+          )" }
 
     { "rm_lm_holiday_cal_countries"
           "CREATE TABLE rm_lm_holiday_cal_countries (
@@ -4274,7 +4273,7 @@
               COUNTRY_ID numeric NOT NULL,
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,SEQ_NUM)
-          ); " }
+          )" }
 
     { "rm_lm_improper_use"
           "CREATE TABLE rm_lm_improper_use (
@@ -4286,7 +4285,7 @@
               IMPROPER_USE_J varchar(30),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,IMPROPER_USE_ID)
-          ); " }
+          )" }
 
     { "rm_lm_ingredients"
           "CREATE TABLE rm_lm_ingredients (
@@ -4296,7 +4295,7 @@
               INGREDIENT_J varchar(120),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,INGREDIENT_ID)
-          ); " }
+          )" }
 
     { "rm_lm_institution"
           "CREATE TABLE rm_lm_institution (
@@ -4309,7 +4308,7 @@
               DISPLAY numeric(1),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,INST_ID)
-          ); " }
+          )" }
 
     { "rm_lm_intermediary"
           "CREATE TABLE rm_lm_intermediary (
@@ -4320,7 +4319,7 @@
               INTERMEDIARY_J varchar(30),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,INTERMEDIARY_ID)
-          ); " }
+          )" }
 
     { "rm_lm_investigators"
           "CREATE TABLE rm_lm_investigators (
@@ -4333,7 +4332,7 @@
               NOTES varchar(100),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,CENTER_ID,SEQ_NUM)
-          ); " }
+          )" }
 
     { "rm_lm_justifications"
           "CREATE TABLE rm_lm_justifications (
@@ -4345,7 +4344,7 @@
               JUSTIFICATION_J varchar(1000),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,JUSTIFICATION_ID,FIELD_ID)
-          ); " }
+          )" }
 
     { "rm_lm_keywords"
           "CREATE TABLE rm_lm_keywords (
@@ -4357,7 +4356,7 @@
               KEYWORD_J varchar(40),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,KEYWORD_ID)
-          ); " }
+          )" }
 
     { "rm_lm_labeled_terms"
           "CREATE TABLE rm_lm_labeled_terms (
@@ -4394,11 +4393,11 @@
               TERM_AS_REPTD_J varchar(250),
               SYN_CODE numeric,
               SYN_CODE_J numeric,
-              NOTES text,
-              NOTES_J text,
+              NOTES varchar(999),
+              NOTES_J varchar(999),
               EG_ID numeric,
               PRIMARY KEY (ENTERPRISE_ID,SEQ_NUM)
-          ); " }
+          )" }
 
     { "rm_lm_lab_assessment"
           "CREATE TABLE rm_lm_lab_assessment (
@@ -4410,7 +4409,7 @@
               ASSESSMENT_J varchar(20),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,ASSESSMENT_ID)
-          ); " }
+          )" }
 
     { "rm_lm_lab_test_group"
           "CREATE TABLE rm_lm_lab_test_group (
@@ -4421,7 +4420,7 @@
               PROTECTED numeric(1),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,LAB_TEST_GROUP_ID)
-          ); " }
+          )" }
 
     { "rm_lm_lab_test_types"
           "CREATE TABLE rm_lm_lab_test_types (
@@ -4456,7 +4455,7 @@
               SYN_CODE numeric,
               SYN_CODE_J numeric,
               PRIMARY KEY (ENTERPRISE_ID,LAB_TEST_ID)
-          ); " }
+          )" }
 
     { "rm_lm_lab_test_type_groups"
           "CREATE TABLE rm_lm_lab_test_type_groups (
@@ -4466,7 +4465,7 @@
               LAB_TEST_GROUP_ID numeric NOT NULL,
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,SEQ_NUM)
-          ); " }
+          )" }
 
     { "rm_lm_languages"
           "CREATE TABLE rm_lm_languages (
@@ -4477,7 +4476,7 @@
               LANGUAGE_J varchar(40),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,LANGUAGE_ID)
-          ); " }
+          )" }
 
     { "rm_lm_language_data"
           "CREATE TABLE rm_lm_language_data (
@@ -4486,9 +4485,9 @@
               FIELD_ID numeric NOT NULL,
               LANGUAGE_ID numeric NOT NULL,
               DELETED timestamp,
-              TEXT text,
+              TEXT varchar(999),
               PRIMARY KEY (ENTERPRISE_ID,ID,FIELD_ID,LANGUAGE_ID)
-          ); " }
+          )" }
 
     { "rm_lm_license"
           "CREATE TABLE rm_lm_license (
@@ -4528,7 +4527,7 @@
               PMDA_CLASS_ID_2 numeric,
               PMDA_CLASS_ID_3 numeric,
               PRIMARY KEY (ENTERPRISE_ID,LICENSE_ID)
-          ); " }
+          )" }
 
     { "rm_lm_license_types"
           "CREATE TABLE rm_lm_license_types (
@@ -4537,7 +4536,7 @@
               LICENSE_TYPE_J varchar(30),
               DELETED timestamp,
               PRIMARY KEY (LICENSE_TYPE_ID)
-          ); " }
+          )" }
 
     { "rm_lm_lic_category"
           "CREATE TABLE rm_lm_lic_category (
@@ -4550,7 +4549,7 @@
               PROTECTED numeric,
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,CATEGORY_ID)
-          ); " }
+          )" }
 
     { "rm_lm_lic_countries"
           "CREATE TABLE rm_lm_lic_countries (
@@ -4560,7 +4559,7 @@
               SEQ_NUM numeric NOT NULL,
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,COUNTRY_ID,LICENSE_ID,SEQ_NUM)
-          ); " }
+          )" }
 
     { "rm_lm_lic_products"
           "CREATE TABLE rm_lm_lic_products (
@@ -4571,7 +4570,7 @@
               DISPLAY numeric(4),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,LICENSE_ID,PRODUCT_ID,SEQ_NUM)
-          ); " }
+          )" }
 
     { "rm_lm_lic_report_rules"
           "CREATE TABLE rm_lm_lic_report_rules (
@@ -4583,7 +4582,7 @@
               END_MONTH numeric,
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,LICENSE_ID,SEQ_NUM)
-          ); " }
+          )" }
 
     { "rm_lm_listedness"
           "CREATE TABLE rm_lm_listedness (
@@ -4597,7 +4596,7 @@
               LABELEDNESS_J varchar(20),
               LISTEDNESS_J varchar(20),
               PRIMARY KEY (ENTERPRISE_ID,LISTEDNESS_ID)
-          ); " }
+          )" }
 
     { "rm_lm_literature_type"
           "CREATE TABLE rm_lm_literature_type (
@@ -4609,7 +4608,7 @@
               PROTECTED numeric(1),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,ID)
-          ); " }
+          )" }
 
     { "rm_lm_lit_citations"
           "CREATE TABLE rm_lm_lit_citations (
@@ -4626,7 +4625,7 @@
               TITLE_J varchar(250),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,LITERATURE_ID)
-          ); " }
+          )" }
 
     { "rm_lm_location"
           "CREATE TABLE rm_lm_location (
@@ -4638,7 +4637,7 @@
               LOCATION_DESC_J varchar(20),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,LOCATION_ID)
-          ); " }
+          )" }
 
     { "rm_lm_malfunction_type"
           "CREATE TABLE rm_lm_malfunction_type (
@@ -4651,7 +4650,7 @@
               MALFUNCTION_TYPE_J varchar(100),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,MALFUNCTION_TYPE_ID)
-          ); " }
+          )" }
 
     { "rm_lm_manufacturer"
           "CREATE TABLE rm_lm_manufacturer (
@@ -4675,7 +4674,7 @@
               MANU_NAME_J varchar(40),
               STATE_J varchar(10),
               PRIMARY KEY (ENTERPRISE_ID,MANUFACTURER_ID)
-          ); " }
+          )" }
 
     { "rm_lm_medical_device_info"
           "CREATE TABLE rm_lm_medical_device_info (
@@ -4686,7 +4685,7 @@
               DISPLAY numeric(1) NOT NULL,
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,MEDICAL_DEVICE_INFO_ID)
-          ); " }
+          )" }
 
     { "rm_lm_medical_status"
           "CREATE TABLE rm_lm_medical_status (
@@ -4699,7 +4698,7 @@
               LABEL_J varchar(40),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,MED_STATUS_ID)
-          ); " }
+          )" }
 
     { "rm_lm_mfr_eval_reason"
           "CREATE TABLE rm_lm_mfr_eval_reason (
@@ -4712,7 +4711,7 @@
               MFR_EVAL_CODE numeric NOT NULL,
               MFR_EVAL_REASON_J varchar(100),
               PRIMARY KEY (ENTERPRISE_ID,MFR_EVAL_ID)
-          ); " }
+          )" }
 
     { "rm_lm_occupations"
           "CREATE TABLE rm_lm_occupations (
@@ -4723,7 +4722,7 @@
               OCCUPATION_J varchar(40),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,OCCUPATION_ID)
-          ); " }
+          )" }
 
     { "rm_lm_pack_units"
           "CREATE TABLE rm_lm_pack_units (
@@ -4735,7 +4734,7 @@
               DESCRIPTION_J varchar(20),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,ID)
-          ); " }
+          )" }
 
     { "rm_lm_pf_ingredients"
           "CREATE TABLE rm_lm_pf_ingredients (
@@ -4747,7 +4746,7 @@
               DELETED timestamp,
               SORT_ID numeric,
               PRIMARY KEY (ENTERPRISE_ID,SEQ_NUM)
-          ); " }
+          )" }
 
     { "rm_lm_pmda_device_clasfication"
           "CREATE TABLE rm_lm_pmda_device_clasfication (
@@ -4758,7 +4757,7 @@
               CLASSIFICATION_J varchar(50),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,CLASSIFICATION_ID)
-          ); " }
+          )" }
 
     { "rm_lm_product"
           "CREATE TABLE rm_lm_product (
@@ -4778,8 +4777,8 @@
               DRL_ID varchar(45),
               DRUG_CODE varchar(20),
               DELETED timestamp,
-              PROD_GENERIC_NAME text,
-              PROD_GENERIC_NAME_J text,
+              PROD_GENERIC_NAME varchar(999),
+              PROD_GENERIC_NAME_J varchar(999),
               IND_LLT_CODE varchar(50),
               IND_LLT varchar(250),
               IND_HLT_CODE varchar(50),
@@ -4814,7 +4813,7 @@
               DEV_INTL_BIRTH_DATE timestamp,
               COMMENTS_J varchar(1000),
               PRIMARY KEY (ENTERPRISE_ID,PRODUCT_ID)
-          ); " }
+          )" }
 
     { "rm_lm_product_concentrations"
           "CREATE TABLE rm_lm_product_concentrations (
@@ -4826,7 +4825,7 @@
               CONC_UNIT_ID numeric,
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,PRODUCT_ID,INGREDIENT_ID,SEQ_NUM)
-          ); " }
+          )" }
 
     { "rm_lm_product_family"
           "CREATE TABLE rm_lm_product_family (
@@ -4841,7 +4840,7 @@
               NAME_J varchar(40),
               COMMENTS_J varchar(1000),
               PRIMARY KEY (ENTERPRISE_ID,FAMILY_ID)
-          ); " }
+          )" }
 
     { "rm_lm_product_group"
           "CREATE TABLE rm_lm_product_group (
@@ -4852,7 +4851,7 @@
               NAME_J varchar(70),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,PRODUCT_GROUP_ID)
-          ); " }
+          )" }
 
     { "rm_lm_product_lots"
           "CREATE TABLE rm_lm_product_lots (
@@ -4866,7 +4865,7 @@
               EXPIRATION_DATE_PARTIAL varchar(20),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,LOT_ID)
-          ); " }
+          )" }
 
     { "rm_lm_protocols"
           "CREATE TABLE rm_lm_protocols (
@@ -4877,7 +4876,7 @@
               DISPLAY numeric,
               PROTOCOL_DESC_J varchar(40),
               PRIMARY KEY (ENTERPRISE_ID,PROTOCOL_ID)
-          ); " }
+          )" }
 
     { "rm_lm_purchased_with"
           "CREATE TABLE rm_lm_purchased_with (
@@ -4887,7 +4886,7 @@
               PURCHASE_J varchar(40),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,PURCHASE_ID)
-          ); " }
+          )" }
 
     { "rm_lm_recipient"
           "CREATE TABLE rm_lm_recipient (
@@ -4907,7 +4906,7 @@
               COUNTRY_ID numeric,
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,RECIPIENT_ID)
-          ); " }
+          )" }
 
     { "rm_lm_ref_types"
           "CREATE TABLE rm_lm_ref_types (
@@ -4919,7 +4918,7 @@
               TYPE_DESC_J varchar(25),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,REF_TYPE_ID)
-          ); " }
+          )" }
 
     { "rm_lm_regulatory_contact"
           "CREATE TABLE rm_lm_regulatory_contact (
@@ -4997,10 +4996,10 @@
               ADJUST_DUE_DT_FOR_HOLIDAYS numeric(1),
               AGENCY_NAME_J varchar(40),
               CONT_COMPANY_NAME_J varchar(40),
-              EMAIL_BODY text,
+              EMAIL_BODY varchar(999),
               FAX_HEADER_J numeric,
               PRIMARY KEY (ENTERPRISE_ID,AGENCY_ID)
-          ); " }
+          )" }
 
     { "rm_lm_relation"
           "CREATE TABLE rm_lm_relation (
@@ -5010,7 +5009,7 @@
               DESCRIPTION_J varchar(50),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,ID)
-          ); " }
+          )" }
 
     { "rm_lm_reportable_prod_keyword"
           "CREATE TABLE rm_lm_reportable_prod_keyword (
@@ -5022,7 +5021,7 @@
               PROTECTED numeric(1),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,KEYWORD_ID)
-          ); " }
+          )" }
 
     { "rm_lm_reported"
           "CREATE TABLE rm_lm_reported (
@@ -5032,7 +5031,7 @@
               DESCRIPTION_J varchar(50),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,ID)
-          ); " }
+          )" }
 
     { "rm_lm_reporter"
           "CREATE TABLE rm_lm_reporter (
@@ -5070,7 +5069,7 @@
               PREFIX_J varchar(50),
               STATE_J varchar(40),
               PRIMARY KEY (ENTERPRISE_ID,REPORTER_ID)
-          ); " }
+          )" }
 
     { "rm_lm_reporter_institution"
           "CREATE TABLE rm_lm_reporter_institution (
@@ -5081,7 +5080,7 @@
               SORT_ID numeric,
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,SEQ_NUM)
-          ); " }
+          )" }
 
     { "rm_lm_reporter_type"
           "CREATE TABLE rm_lm_reporter_type (
@@ -5094,7 +5093,7 @@
               REPORTER_TYPE_J varchar(30),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,RPTR_TYPE_ID)
-          ); " }
+          )" }
 
     { "rm_lm_report_build_status"
           "CREATE TABLE rm_lm_report_build_status (
@@ -5103,7 +5102,7 @@
               REPORT_TYPE numeric NOT NULL,
               STATUS_NAME_J varchar(100),
               PRIMARY KEY (STATUS_ID,REPORT_TYPE)
-          ); " }
+          )" }
 
     { "rm_lm_report_forms"
           "CREATE TABLE rm_lm_report_forms (
@@ -5116,7 +5115,7 @@
               FORM_CATEGORY numeric,
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,REPORT_FORM_ID)
-          ); " }
+          )" }
 
     { "rm_lm_report_media"
           "CREATE TABLE rm_lm_report_media (
@@ -5128,7 +5127,7 @@
               MEDIA_J varchar(30),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,MEDIA_ID)
-          ); " }
+          )" }
 
     { "rm_lm_report_type"
           "CREATE TABLE rm_lm_report_type (
@@ -5146,7 +5145,7 @@
               DELETED timestamp,
               INCL_RESEARCH numeric NOT NULL,
               PRIMARY KEY (ENTERPRISE_ID,RPT_TYPE_ID)
-          ); " }
+          )" }
 
     { "rm_lm_rpt_category"
           "CREATE TABLE rm_lm_rpt_category (
@@ -5162,7 +5161,7 @@
               CATEGORY_FILTER numeric,
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,RPT_CATEGORY_ID)
-          ); " }
+          )" }
 
     { "rm_lm_severity"
           "CREATE TABLE rm_lm_severity (
@@ -5172,7 +5171,7 @@
               DISPLAY numeric,
               DELETED timestamp,
               PRIMARY KEY (SEVERITY_ID)
-          ); " }
+          )" }
 
     { "rm_lm_sites"
           "CREATE TABLE rm_lm_sites (
@@ -5188,7 +5187,7 @@
               PROCESS_LAM_ASSESS numeric NOT NULL,
               INTAKE_FOLDER_ID numeric,
               PRIMARY KEY (ENTERPRISE_ID,SITE_ID)
-          ); " }
+          )" }
 
     { "rm_lm_studies"
           "CREATE TABLE rm_lm_studies (
@@ -5219,12 +5218,12 @@
               STUDY_NUM_J varchar(35),
               TARGET_DISEASE_J varchar(500),
               CLIN_COMP_NUM_J varchar(70),
-              STUDY_DESC text,
-              STUDY_DESC_J text,
+              STUDY_DESC varchar(999),
+              STUDY_DESC_J varchar(999),
               CENTRAL_EVENT numeric,
               COMMENTS_J varchar(1000),
               PRIMARY KEY (ENTERPRISE_ID,STUDY_KEY)
-          ); " }
+          )" }
 
     { "rm_lm_study_centers"
           "CREATE TABLE rm_lm_study_centers (
@@ -5234,7 +5233,7 @@
               SEQ_NUM numeric NOT NULL,
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,CENTER_ID,STUDY_KEY,SEQ_NUM)
-          ); " }
+          )" }
 
     { "rm_lm_study_countries"
           "CREATE TABLE rm_lm_study_countries (
@@ -5245,7 +5244,7 @@
               INACTIVE_DATE timestamp,
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,STUDY_KEY,SEQ_NUM)
-          ); " }
+          )" }
 
     { "rm_lm_study_products"
           "CREATE TABLE rm_lm_study_products (
@@ -5259,7 +5258,7 @@
               COHORT_ID numeric NOT NULL,
               PROD_TYPE_ID numeric,
               PRIMARY KEY (ENTERPRISE_ID,COHORT_ID,PRODUCT_ID,SEQ_NUM)
-          ); " }
+          )" }
 
     { "rm_lm_study_references"
           "CREATE TABLE rm_lm_study_references (
@@ -5272,7 +5271,7 @@
               COUNTRY_ID numeric,
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,STUDY_KEY,SEQ_NUM)
-          ); " }
+          )" }
 
     { "rm_lm_study_susar"
           "CREATE TABLE rm_lm_study_susar (
@@ -5285,7 +5284,7 @@
               AGENCY_ID numeric,
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,STUDY_KEY,SEQ_NUM)
-          ); " }
+          )" }
 
     { "rm_lm_study_types"
           "CREATE TABLE rm_lm_study_types (
@@ -5296,7 +5295,7 @@
               STUDY_TYPE_J varchar(15),
               DELETED timestamp,
               PRIMARY KEY (STUDY_TYPE_ID)
-          ); " }
+          )" }
 
     { "rm_lm_udf_ddl_values"
           "CREATE TABLE rm_lm_udf_ddl_values (
@@ -5307,7 +5306,7 @@
               DESCRIPTION_J varchar(100),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,ID)
-          ); " }
+          )" }
 
     { "rm_lm_unblinding_status"
           "CREATE TABLE rm_lm_unblinding_status (
@@ -5319,7 +5318,7 @@
               UNBLINDING_STATUS_J varchar(30),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,STATUS_ID)
-          ); " }
+          )" }
 
     { "rm_lm_vaccinated_at"
           "CREATE TABLE rm_lm_vaccinated_at (
@@ -5329,7 +5328,7 @@
               LOCATION_J varchar(40),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,VACC_AT_ID)
-          ); " }
+          )" }
 
     { "rm_lm_vaccines"
           "CREATE TABLE rm_lm_vaccines (
@@ -5338,7 +5337,7 @@
               VACCINE_DESC varchar(100),
               DELETED timestamp,
               PRIMARY KEY (VACC_ID)
-          ); " }
+          )" }
 
     { "rm_lm_vaers_rpt_block"
           "CREATE TABLE rm_lm_vaers_rpt_block (
@@ -5348,7 +5347,7 @@
               BLOCK_NAME_J varchar(20),
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,BLOCK_ID)
-          ); " }
+          )" }
 
     { "rm_meddra_hlgt_hlt_comp"
           "CREATE TABLE rm_meddra_hlgt_hlt_comp (
@@ -5357,7 +5356,7 @@
               HLT_CODE numeric NOT NULL,
               DELETED timestamp,
               PRIMARY KEY (GLOBAL_DICT_ID,HLGT_CODE,HLT_CODE)
-          ); " }
+          )" }
 
     { "rm_meddra_hlg_pref_term"
           "CREATE TABLE rm_meddra_hlg_pref_term (
@@ -5373,7 +5372,7 @@
               HLGT_J_ART_CODE varchar(6),
               DELETED timestamp,
               PRIMARY KEY (GLOBAL_DICT_ID,HLGT_CODE)
-          ); " }
+          )" }
 
     { "rm_meddra_hlg_pref_term_j"
           "CREATE TABLE rm_meddra_hlg_pref_term_j (
@@ -5384,7 +5383,7 @@
               HLGT_KANA1 varchar(400),
               HLGT_KANA2 varchar(400),
               PRIMARY KEY (GLOBAL_DICT_ID,HLGT_CODE)
-          ); " }
+          )" }
 
     { "rm_meddra_hlt_pref_comp"
           "CREATE TABLE rm_meddra_hlt_pref_comp (
@@ -5393,7 +5392,7 @@
               PT_CODE numeric NOT NULL,
               DELETED timestamp,
               PRIMARY KEY (GLOBAL_DICT_ID,HLT_CODE,PT_CODE)
-          ); " }
+          )" }
 
     { "rm_meddra_hl_pref_term"
           "CREATE TABLE rm_meddra_hl_pref_term (
@@ -5409,7 +5408,7 @@
               HLT_J_ART_CODE varchar(6),
               DELETED timestamp,
               PRIMARY KEY (GLOBAL_DICT_ID,HLT_CODE)
-          ); " }
+          )" }
 
     { "rm_meddra_hl_pref_term_j"
           "CREATE TABLE rm_meddra_hl_pref_term_j (
@@ -5420,7 +5419,7 @@
               HLT_KANA1 varchar(400),
               HLT_KANA2 varchar(400),
               PRIMARY KEY (GLOBAL_DICT_ID,HLT_CODE)
-          ); " }
+          )" }
 
     { "rm_meddra_md_hierarchy"
           "CREATE TABLE rm_meddra_md_hierarchy (
@@ -5439,7 +5438,7 @@
               PRIMARY_SOC_FG varchar(1),
               DELETED timestamp,
               PRIMARY KEY (GLOBAL_DICT_ID,PT_CODE,HLT_CODE,HLGT_CODE,SOC_CODE)
-          ); " }
+          )" }
 
     { "rm_meddra_pref_term"
           "CREATE TABLE rm_meddra_pref_term (
@@ -5457,7 +5456,7 @@
               PT_J_ART_CODE varchar(6),
               DELETED timestamp,
               PRIMARY KEY (GLOBAL_DICT_ID,PT_CODE)
-          ); " }
+          )" }
 
     { "rm_meddra_pref_term_j"
           "CREATE TABLE rm_meddra_pref_term_j (
@@ -5468,7 +5467,7 @@
               PT_KANA1 varchar(400),
               PT_KANA2 varchar(400),
               PRIMARY KEY (GLOBAL_DICT_ID,PT_CODE)
-          ); " }
+          )" }
 
     { "rm_meddra_pref_term_llt"
           "CREATE TABLE rm_meddra_pref_term_llt (
@@ -5486,7 +5485,7 @@
               LLT_J_ART_CODE varchar(6),
               DELETED timestamp,
               PRIMARY KEY (GLOBAL_DICT_ID,LLT_CODE)
-          ); " }
+          )" }
 
     { "rm_meddra_pref_term_llt_j"
           "CREATE TABLE rm_meddra_pref_term_llt_j (
@@ -5498,7 +5497,7 @@
               LLT_KANA1 varchar(600),
               LLT_KANA2 varchar(600),
               PRIMARY KEY (GLOBAL_DICT_ID,LLT_CODE)
-          ); " }
+          )" }
 
     { "rm_meddra_smq_content"
           "CREATE TABLE rm_meddra_smq_content (
@@ -5513,7 +5512,7 @@
               TERM_ADDITION_VERSION varchar(5) NOT NULL,
               TERM_LAST_MODIFIED_VERSION varchar(5) NOT NULL,
               PRIMARY KEY (GLOBAL_DICT_ID,SMQ_CODE,TERM_CODE)
-          ); " }
+          )" }
 
     { "rm_meddra_smq_list"
           "CREATE TABLE rm_meddra_smq_list (
@@ -5528,7 +5527,7 @@
               STATUS varchar(1) NOT NULL,
               SMQ_ALGORITHM varchar(100) NOT NULL,
               PRIMARY KEY (GLOBAL_DICT_ID,SMQ_CODE)
-          ); " }
+          )" }
 
     { "rm_meddra_smq_list_j"
           "CREATE TABLE rm_meddra_smq_list_j (
@@ -5536,7 +5535,7 @@
               SMQ_CODE numeric,
               SMQ_KANJI varchar(120),
               SMQ_DESC_KANJI varchar(4000)
-          ); " }
+          )" }
 
     { "rm_meddra_smq_term"
           "CREATE TABLE rm_meddra_smq_term (
@@ -5556,7 +5555,7 @@
               CREATE_DATE timestamp,
               MODIFIED_DATE timestamp,
               PRIMARY KEY (GLOBAL_DICT_ID,SMQ_ID)
-          ); " }
+          )" }
 
     { "rm_meddra_smq_term_details"
           "CREATE TABLE rm_meddra_smq_term_details (
@@ -5576,7 +5575,7 @@
               TERM_LAST_MODIFIED_VERSION varchar(5),
               CREATE_DATE timestamp,
               PRIMARY KEY (GLOBAL_DICT_ID,SMQ_TERM_ID)
-          ); " }
+          )" }
 
     { "rm_meddra_soc"
           "CREATE TABLE rm_meddra_soc (
@@ -5593,7 +5592,7 @@
               SOC_J_ART_CODE varchar(6),
               DELETED timestamp,
               PRIMARY KEY (GLOBAL_DICT_ID,SOC_CODE)
-          ); " }
+          )" }
 
     { "rm_meddra_soc_hlgt_comp"
           "CREATE TABLE rm_meddra_soc_hlgt_comp (
@@ -5602,7 +5601,7 @@
               HLGT_CODE numeric NOT NULL,
               DELETED timestamp,
               PRIMARY KEY (GLOBAL_DICT_ID,SOC_CODE,HLGT_CODE)
-          ); " }
+          )" }
 
     { "rm_meddra_soc_intl_order"
           "CREATE TABLE rm_meddra_soc_intl_order (
@@ -5610,7 +5609,7 @@
               INTL_ORD_CODE numeric NOT NULL,
               SOC_CODE numeric NOT NULL,
               PRIMARY KEY (GLOBAL_DICT_ID,INTL_ORD_CODE)
-          ); " }
+          )" }
 
     { "rm_meddra_soc_j"
           "CREATE TABLE rm_meddra_soc_j (
@@ -5622,7 +5621,7 @@
               SOC_KANA1 varchar(400),
               SOC_KANA2 varchar(400),
               PRIMARY KEY (GLOBAL_DICT_ID,SOC_CODE)
-          ); " }
+          )" }
 
     { "rm_meddra_spec_cat"
           "CREATE TABLE rm_meddra_spec_cat (
@@ -5631,7 +5630,7 @@
               SPEC_NAME varchar(120) NOT NULL,
               SPEC_ABBREV varchar(10) NOT NULL,
               DELETED timestamp
-          ); " }
+          )" }
 
     { "rm_meddra_spec_pref_comp"
           "CREATE TABLE rm_meddra_spec_pref_comp (
@@ -5639,7 +5638,7 @@
               SPEC_CODE numeric NOT NULL,
               PT_CODE numeric NOT NULL,
               DELETED timestamp
-          ); " }
+          )" }
 
     { "rm_meddra_synonyms"
           "CREATE TABLE rm_meddra_synonyms (
@@ -5649,7 +5648,7 @@
               SYN varchar(255) NOT NULL,
               SYN_J varchar(255),
               PRIMARY KEY (GLOBAL_DICT_ID,SYN_ID)
-          ); " }
+          )" }
 
     { "rm_rpt_routing"
           "CREATE TABLE rm_rpt_routing (
@@ -5664,7 +5663,7 @@
               JUSTIFICATION_ID numeric,
               DELETED timestamp,
               PRIMARY KEY (ENTERPRISE_ID,REG_REPORT_ID,SEQ_NUM)
-          ); " }
+          )" }
 
     { "rm_su_case_study_drug"
           "CREATE TABLE rm_su_case_study_drug (
@@ -5674,7 +5673,7 @@
               UNBLIND_OK numeric(1),
               BLIND_NAME varchar(70),
               BLIND_NAME_J varchar(70)
-          ); " }
+          )" }
 
     { "rm_who_ard"
           "CREATE TABLE rm_who_ard (
@@ -5694,7 +5693,7 @@
               YEAR_QUARTER char(3),
               DELETED timestamp,
               PRIMARY KEY (GLOBAL_DICT_ID,ADV_REACTION_NUMBER,SEQ_NUM)
-          ); " }
+          )" }
 
     { "rm_who_atc_classification"
           "CREATE TABLE rm_who_atc_classification (
@@ -5708,7 +5707,7 @@
               OFFICIAL_ATC_CODE varchar(1),
               DELETED timestamp,
               PRIMARY KEY (GLOBAL_DICT_ID,DRUG_RECORD_NUMBER,SEQ_NUM1,SEQ_NUM2,CHECK_DIGIT,ATC_CODE)
-          ); " }
+          )" }
 
     { "rm_who_atc_code"
           "CREATE TABLE rm_who_atc_code (
@@ -5718,7 +5717,7 @@
               ATC_TEXT varchar(50),
               DELETED timestamp,
               PRIMARY KEY (GLOBAL_DICT_ID,ATC_CODE)
-          ); " }
+          )" }
 
     { "rm_who_countries"
           "CREATE TABLE rm_who_countries (
@@ -5727,16 +5726,16 @@
               COUNTRY_NAME varchar(30),
               DELETED timestamp,
               PRIMARY KEY (GLOBAL_DICT_ID,COUNTRY_CODE)
-          ); " }
+          )" }
 
     { "rm_who_drug_c_atc_code"
           "CREATE TABLE rm_who_drug_c_atc_code (
               GLOBAL_DICT_ID numeric NOT NULL,
               ATC_CODE varchar(10) NOT NULL,
-              LEVEL numeric(1),
+              level_val numeric(1),
               TEXT varchar(110),
               PRIMARY KEY (GLOBAL_DICT_ID,ATC_CODE)
-          ); " }
+          )" }
 
     { "rm_who_drug_c_country"
           "CREATE TABLE rm_who_drug_c_country (
@@ -5744,7 +5743,7 @@
               COUNTRY_CODE varchar(10) NOT NULL,
               COUNTRY_NAME varchar(80),
               PRIMARY KEY (GLOBAL_DICT_ID,COUNTRY_CODE)
-          ); " }
+          )" }
 
     { "rm_who_drug_c_ingredients"
           "CREATE TABLE rm_who_drug_c_ingredients (
@@ -5758,7 +5757,7 @@
               PHARM_PRODUCT_ID varchar(10),
               MEDICINAL_PROD_ID varchar(10),
               PRIMARY KEY (GLOBAL_DICT_ID,INGREDIENT_ID)
-          ); " }
+          )" }
 
     { "rm_who_drug_c_master"
           "CREATE TABLE rm_who_drug_c_master (
@@ -5783,7 +5782,7 @@
               ATC_TEXT varchar(110),
               NAME_SPECIFIER varchar(30),
               PRIMARY KEY (GLOBAL_DICT_ID,PK_ID)
-          ); " }
+          )" }
 
     { "rm_who_drug_c_medicinal_prod"
           "CREATE TABLE rm_who_drug_c_medicinal_prod (
@@ -5812,7 +5811,7 @@
               CREATE_DATE varchar(8),
               DATE_CHANGED varchar(8),
               PRIMARY KEY (GLOBAL_DICT_ID,MEDICINAL_PROD_ID)
-          ); " }
+          )" }
 
     { "rm_who_drug_c_organization"
           "CREATE TABLE rm_who_drug_c_organization (
@@ -5821,7 +5820,7 @@
               NAME varchar(80),
               COUNTRY_CODE varchar(10),
               PRIMARY KEY (GLOBAL_DICT_ID,ORGANIZATION_ID)
-          ); " }
+          )" }
 
     { "rm_who_drug_c_pharma_form"
           "CREATE TABLE rm_who_drug_c_pharma_form (
@@ -5829,7 +5828,7 @@
               PHARM_FORM_ID varchar(10) NOT NULL,
               TEXT varchar(80),
               PRIMARY KEY (GLOBAL_DICT_ID,PHARM_FORM_ID)
-          ); " }
+          )" }
 
     { "rm_who_drug_c_pharma_product"
           "CREATE TABLE rm_who_drug_c_pharma_product (
@@ -5841,7 +5840,7 @@
               NUMBER_OF_INGREDIENTS varchar(2),
               CREATE_DATE varchar(8),
               PRIMARY KEY (GLOBAL_DICT_ID,PHARM_PRODUCT_ID)
-          ); " }
+          )" }
 
     { "rm_who_drug_c_product_group"
           "CREATE TABLE rm_who_drug_c_product_group (
@@ -5850,7 +5849,7 @@
               PRODUCT_GROUP_NAME varchar(60),
               DATE_RECORDED varchar(8),
               PRIMARY KEY (GLOBAL_DICT_ID,PRODUCT_GROUP_ID)
-          ); " }
+          )" }
 
     { "rm_who_drug_c_product_type"
           "CREATE TABLE rm_who_drug_c_product_type (
@@ -5858,7 +5857,7 @@
               PROD_TYPE_ID varchar(10) NOT NULL,
               TEXT varchar(80),
               PRIMARY KEY (GLOBAL_DICT_ID,PROD_TYPE_ID)
-          ); " }
+          )" }
 
     { "rm_who_drug_c_source"
           "CREATE TABLE rm_who_drug_c_source (
@@ -5867,7 +5866,7 @@
               SOURCE varchar(80),
               COUNTRY_CODE varchar(10),
               PRIMARY KEY (GLOBAL_DICT_ID,SOURCE_CODE)
-          ); " }
+          )" }
 
     { "rm_who_drug_c_strength"
           "CREATE TABLE rm_who_drug_c_strength (
@@ -5875,7 +5874,7 @@
               STRENGTH_ID varchar(10) NOT NULL,
               TEXT varchar(500),
               PRIMARY KEY (GLOBAL_DICT_ID,STRENGTH_ID)
-          ); " }
+          )" }
 
     { "rm_who_drug_c_substance"
           "CREATE TABLE rm_who_drug_c_substance (
@@ -5887,7 +5886,7 @@
               SOURCE_YEAR varchar(3),
               SOURCE_CODE varchar(10),
               PRIMARY KEY (GLOBAL_DICT_ID,SUBSTANCE_ID)
-          ); " }
+          )" }
 
     { "rm_who_drug_c_therapeutic_grp"
           "CREATE TABLE rm_who_drug_c_therapeutic_grp (
@@ -5898,7 +5897,7 @@
               OFFICIAL_ATC_CODE varchar(1),
               MEDICINAL_PROD_ID varchar(10),
               PRIMARY KEY (GLOBAL_DICT_ID,THERAP_GROUP_ID)
-          ); " }
+          )" }
 
     { "rm_who_drug_c_unit"
           "CREATE TABLE rm_who_drug_c_unit (
@@ -5906,7 +5905,7 @@
               UNIT_ID varchar(10) NOT NULL,
               TEXT varchar(40),
               PRIMARY KEY (GLOBAL_DICT_ID,UNIT_ID)
-          ); " }
+          )" }
 
     { "rm_who_drug_c_unit_l"
           "CREATE TABLE rm_who_drug_c_unit_l (
@@ -5914,7 +5913,7 @@
               UNIT_ID varchar(10) NOT NULL,
               TEXT varchar(100),
               PRIMARY KEY (GLOBAL_DICT_ID,UNIT_ID)
-          ); " }
+          )" }
 
     { "rm_who_drug_c_unit_x"
           "CREATE TABLE rm_who_drug_c_unit_x (
@@ -5922,7 +5921,7 @@
               UNIT_ID varchar(10) NOT NULL,
               TEXT varchar(40),
               PRIMARY KEY (GLOBAL_DICT_ID,UNIT_ID)
-          ); " }
+          )" }
 
     { "rm_who_drug_dict"
           "CREATE TABLE rm_who_drug_dict (
@@ -5941,7 +5940,7 @@
               DRUG_NAME varchar(70),
               DELETED timestamp,
               PRIMARY KEY (GLOBAL_DICT_ID,DRUG_RECORD_NUMBER,SEQ_NUM1,SEQ_NUM2,CHECK_DIGIT)
-          ); " }
+          )" }
 
     { "rm_who_drug_source"
           "CREATE TABLE rm_who_drug_source (
@@ -5951,7 +5950,7 @@
               SOURCE varchar(70),
               DELETED timestamp,
               PRIMARY KEY (GLOBAL_DICT_ID,SOURCE_CODE)
-          ); " }
+          )" }
 
     { "rm_who_ingredients"
           "CREATE TABLE rm_who_ingredients (
@@ -5962,7 +5961,7 @@
               CHECK_DIGIT char(1) NOT NULL,
               CAS_NUMBER char(10),
               DELETED timestamp
-          ); " }
+          )" }
 
     { "rm_who_manufacturers"
           "CREATE TABLE rm_who_manufacturers (
@@ -5972,7 +5971,7 @@
               NAME varchar(100),
               DELETED timestamp,
               PRIMARY KEY (GLOBAL_DICT_ID,COMPANY_CODE)
-          ); " }
+          )" }
 
     { "rm_who_soc"
           "CREATE TABLE rm_who_soc (
@@ -5985,7 +5984,7 @@
               TEXT_PORTUGUESE varchar(100),
               DELETED timestamp,
               PRIMARY KEY (GLOBAL_DICT_ID,SYSTEM_ORGAN_CLASS_CODE)
-          ); " }
+          )" }
 
     { "rm_who_substances"
           "CREATE TABLE rm_who_substances (
@@ -5997,7 +5996,7 @@
               SOURCE_CODE char(4),
               DELETED timestamp,
               PRIMARY KEY (GLOBAL_DICT_ID,CAS_NUMBER)
-          ); " }
+          )" }
 
   ] ))
 
