@@ -124,7 +124,7 @@
 (defn drop-create-tables []
   (newline)
   (println "-----------------------------------------------------------------------------")
-  (println "Running drop/create on all Postgres tables...")
+  (println "Running drop/create on all destination tables...")
   (time
     (jdbc/with-db-connection [pg-conn dest-spec]
       (doseq [ [table-name creation-sql-str] tables/table-name->creation-sql ]
