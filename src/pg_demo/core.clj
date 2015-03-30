@@ -14,7 +14,7 @@
   (:gen-class))
 
 (def src-is-oracle false)
-(def insert-chunk-size 5000)
+(def tx-chunk-size 10000)
 (def pg-threadpool (cp/threadpool 4))
 (def large-db false)
 
@@ -181,11 +181,12 @@
       (newline)
     )))
 
+;-----------------------------------------------------------------------------
 (defn result-set->pg-insert [table-name result-set]
   (jdbc/with-db-connection [pg-conn dest-spec]
     (let [rows-inserted     (atom 0) 
           table-rows        (@src-table-rows table-name) ]
-      (doseq [rows-chunk (partition-all insert-chunk-size result-set) ]
+      (doseq [rows-chunk (partition-all tx-chunk-size result-set) ]
         (let [
           rows-chunk-new    (map #(set/rename-keys % column-name-corrections) rows-chunk) 
           start-time        (System/nanoTime)
@@ -204,18 +205,6 @@
                 (flush) (println msg) (flush)
                 (System/exit 1)))))))))
 
-(defn proc-table-pg [table-name]
-  (Thread/sleep (-> (rand 5) (* 1000) (long)))  ; 0..5 seconds (in millis)
-  (println "Processing:" table-name)
-  (try
-    (jdbc/with-db-connection [src-conn src-spec]
-    ; (let [table-rows (@src-table-rows table-name) ]
-        (jdbc/query src-conn [ (format "select * from %s offset 0 limit 50000" table-name) ]
-          :result-set-fn  #(result-set->pg-insert table-name %) ))
-      (catch Exception ex 
-        (println (format "    %s failed... will retry. Error: %s " table-name (.toString ex)))
-        (System/exit 1))))
-
 (defn proc-table [table-name]
   (Thread/sleep (-> (rand 5) (* 1000) (long)))  ; 0..5 seconds (in millis)
   (println "Processing:" table-name)
@@ -228,6 +217,45 @@
       (println (format "    %s failed... will retry. Error: %s " table-name (.toString ex)))
       (System/exit 1))))
 
+;-----------------------------------------------------------------------------
+(defn result-set-insert [table-name offset result-set]
+  (jdbc/with-db-connection [pg-conn dest-spec]
+    (let [table-rows (@src-table-rows table-name) ]
+      (let [
+        rows-chunk-new    (map #(set/rename-keys % column-name-corrections) result-set) 
+        start-time        (System/nanoTime)
+      ]
+        (try
+          (apply jdbc/insert! pg-conn table-name rows-chunk-new  ) 
+          (println (format "%9d/%9d  %35s  %10.3f"    
+                    (+ offset tx-chunk-size)
+                    table-rows table-name 
+                    (/ (double (- (System/nanoTime) start-time)) 1e9)))
+          (flush) 
+          (catch Exception ex 
+            (let [msg (format "    %s insert failed, error: %s  \n data: %s " 
+                          table-name (.toString ex) rows-chunk-new) ]
+              (spit "error.txt" msg)
+              (flush) (println msg) (flush)
+              (System/exit 1))))))))
+
+(defn proc-table-pg [table-name]
+  (Thread/sleep (-> (rand 5) (* 1000) (long)))  ; 0..5 seconds (in millis)
+  (println "Processing:" table-name)
+  (try
+    (jdbc/with-db-connection [src-conn src-spec]
+      (let [table-rows  (@src-table-rows table-name) 
+            offsets     (range 0 table-rows tx-chunk-size) ]
+        (doseq [offset offsets]
+          (jdbc/query src-conn 
+            [ (format "select * from %s offset %d limit %s" table-name offset tx-chunk-size ) ]
+            :result-set-fn  #(result-set-insert table-name offset %) ))))
+    (catch Exception ex 
+      (println (format "    %s failed... will retry. Error: %s " table-name (.toString ex)))
+      (System/exit 1))))
+
+
+;-----------------------------------------------------------------------------
 (defn transfer-data []
   (newline)
   (println "-----------------------------------------------------------------------------")
