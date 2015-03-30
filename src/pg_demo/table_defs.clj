@@ -4520,7 +4520,7 @@
               COMMENTS varchar(1000),
               MHLW_RE_EXAMINATION_DATE timestamp,
               CLINICAL_COMPOUND_NUMBER varchar(99),
-              TRADE_NAME_J varchar(99),
+              TRADE_NAME_J varchar(999),
               COMMENTS_J varchar(1000),
               EXCLUDE_RPT_CANDIDATE numeric(1),
               PMDA_CLASS_ID_1 numeric,
