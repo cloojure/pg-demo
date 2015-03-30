@@ -177,10 +177,11 @@
                       (/ (double (- (System/nanoTime) start-time)) 1e9)))
             (flush) 
             (catch Exception ex 
-              (println (format "    %s insert failed, error: %s " table-name (.toString ex)))
-              (println "data:" rows-chunk-new)
-              (flush)
-              (System/exit 1))))))))
+              (let [msg (format "    %s insert failed, error: %s  \n data: %s " 
+                            table-name (.toString ex) rows-chunk-new) ]
+                (spit "error.txt" msg)
+                (flush) (println msg) (flush)
+                (System/exit 1)))))))))
 
 (defn proc-table [table-name]
   (Thread/sleep (-> (rand 5) (* 1000) (long)))  ; 0..5 seconds (in millis)
