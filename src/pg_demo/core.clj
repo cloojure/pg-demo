@@ -43,6 +43,7 @@
     :subprotocol    "postgresql"
     :subname        "//localhost:5432/ubuntu_large"
     :user           "ubuntu"
+    :password       "dummy" 
   } )
 
 (def dest-spec
