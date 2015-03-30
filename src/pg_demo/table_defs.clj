@@ -1803,7 +1803,7 @@
               EXISTING_RPT_SEQ_MOD_FLG numeric,
               DRUG_CODE_J varchar(20),
               DRUG_CODE_TYPE_J numeric,
-              PRODUCT_NAME_J varchar(70),
+              PRODUCT_NAME_J varchar(999),
               PROD_CODED_J varchar(255),
               PROD_REPTD_J varchar(255),
               QC_CROSS_REFERENCE_J varchar(16),
