@@ -170,7 +170,7 @@
           start-time        (System/nanoTime)
         ]
           (apply jdbc/insert! pg-conn table-name rows-chunk-new  ) 
-          (println (format "%9d/%9d  %25s  %10.3f"    
+          (println (format "%9d/%9d  %35s  %10.3f"    
                     (swap! rows-inserted + (count rows-chunk-new))
                     table-rows table-name 
                     (/ (double (- (System/nanoTime) start-time)) 1e9)))
