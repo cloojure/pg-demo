@@ -14,7 +14,7 @@
   (:gen-class))
 
 (def src-is-oracle false)
-(def insert-chunk-size 1000)
+(def insert-chunk-size 5000)
 (def pg-threadpool (cp/threadpool 2))
 (def large-db false)
 
@@ -114,6 +114,26 @@
   (println "-----------------------------------------------------------------------------")
   (println "Testing src-spec...")
   (spyx (jdbc/query src-spec "select count(*) as result from rm_case_master" )))
+
+(defn count-tables-pg []
+  (newline)
+  (println "-----------------------------------------------------------------------------")
+  (println "Counting rows for all source tables...")
+  (time
+    (jdbc/with-db-connection [src-conn src-spec]
+     ;(src-set-context src-conn)
+      (deliver src-table-rows 
+        (into (sorted-map) 
+          (for [table-name (sort (keys tables/table-name->creation-sql)) ]
+            ; Postgres: fast table rows estimate
+            (let [table-rows   (-> (jdbc/query src-conn 
+                [ (format "select reltuples from pg_class where relname = '%s';" table-name) ] )
+                                first
+                                :result
+                                long ) 
+            ]
+              (println (format "%15d  %s" table-rows table-name))
+              {table-name table-rows} )))))))
 
 (defn count-tables []
   (newline)
@@ -231,7 +251,7 @@
 ; (oracle-init-src)
   (oracle-init-dest)
   (drop-create-tables)
-  (count-tables)
+  (count-tables-pg)
 
   (println "-----------------------------------------------------------------------------")
   (transfer-data)
