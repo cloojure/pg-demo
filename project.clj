@@ -17,5 +17,5 @@
   :target-path "target/%s"
   :resource-paths [ "resources/ojdbc7.jar" ]
   :profiles {:uberjar {:aot :all}}
-  :jvm-opts ["-Xmx32g" "-server"] 
+  :jvm-opts ["-Xmx64g" "-server"] 
 )

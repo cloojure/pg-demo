@@ -15,7 +15,7 @@
 
 (def src-is-oracle false)
 (def tx-chunk-size 10000)
-(def pg-threadpool (cp/threadpool 16))
+(def pg-threadpool (cp/threadpool 32))
 (def large-db false)
 
 ; (def ora-spec    
