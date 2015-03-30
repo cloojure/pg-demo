@@ -41,9 +41,8 @@
 (def src-spec
   { :classname      "org.postgresql.Driver"
     :subprotocol    "postgresql"
-    :subname        "//localhost:5432/ubuntu_large"
+    :subname        "//10.100.6.89:5432/ubuntu_large"
     :user           "ubuntu"
-    :password       "dummy" 
   } )
 
 (def dest-spec
