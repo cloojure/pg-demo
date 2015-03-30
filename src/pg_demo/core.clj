@@ -128,7 +128,7 @@
             ; Postgres: fast table rows estimate
             (let [table-rows   (-> 
               (spyx (jdbc/query src-conn 
-                        [ (format "select reltuples from pg_class where relname = '%s';"
+                        [ (format "select reltuples from pg_class as result where relname = '%s';"
                         table-name) ] ))
                                 first
                                 :result
@@ -252,8 +252,8 @@
   (test-src)
 ; (oracle-init-src)
   (oracle-init-dest)
-  (drop-create-tables)
   (count-tables-pg)
+  (drop-create-tables)
 
   (println "-----------------------------------------------------------------------------")
   (transfer-data)
