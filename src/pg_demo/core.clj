@@ -126,13 +126,12 @@
         (into (sorted-map) 
           (for [table-name (sort (keys tables/table-name->creation-sql)) ]
             ; Postgres: fast table rows estimate
-            (let [table-rows   (-> 
-              (spyx (jdbc/query src-conn 
-                        [ (format "select reltuples from pg_class where relname = '%s';"
-                        table-name) ] ))
-                                first
-                                :reltuples
-                                long ) 
+            (let [table-rows   
+                    (-> (jdbc/query src-conn 
+                            [ (format "select reltuples from pg_class where relname = '%s';" table-name) ] )
+                        first
+                        :reltuples
+                        long )
             ]
               (println (format "%15d  %s" table-rows table-name))
               {table-name table-rows} )))))))
@@ -211,7 +210,7 @@
   (try
     (jdbc/with-db-connection [src-conn src-spec]
     ; (let [table-rows (@src-table-rows table-name) ]
-        (jdbc/query src-conn [ (format "select * from %s offset 0 limit 10000" table-name) ]
+        (jdbc/query src-conn [ (format "select * from %s offset 0 limit 50000" table-name) ]
           :result-set-fn  #(result-set->pg-insert table-name %) ))
       (catch Exception ex 
         (println (format "    %s failed... will retry. Error: %s " table-name (.toString ex)))
