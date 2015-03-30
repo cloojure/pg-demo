@@ -183,6 +183,18 @@
                 (flush) (println msg) (flush)
                 (System/exit 1)))))))))
 
+(defn proc-table-pg [table-name]
+  (Thread/sleep (-> (rand 5) (* 1000) (long)))  ; 0..5 seconds (in millis)
+  (println "Processing:" table-name)
+  (try
+    (jdbc/with-db-connection [src-conn src-spec]
+    ; (let [table-rows (@src-table-rows table-name) ]
+        (jdbc/query src-conn [ (format "select * from %s offset 0 limit 10000" table-name) ]
+          :result-set-fn  #(result-set->pg-insert table-name %) ))
+      (catch Exception ex 
+        (println (format "    %s failed... will retry. Error: %s " table-name (.toString ex)))
+        (System/exit 1))))
+
 (defn proc-table [table-name]
   (Thread/sleep (-> (rand 5) (* 1000) (long)))  ; 0..5 seconds (in millis)
   (println "Processing:" table-name)
@@ -206,7 +218,7 @@
                                 (reverse it))                     ; descending order
     table-futures-map     (into (sorted-map)
                             (for [table-name table-names-sorted]
-                              { table-name (cp/future pg-threadpool (proc-table table-name)) } ))
+                              { table-name (cp/future pg-threadpool (proc-table-pg table-name)) } ))
   ]
     (doseq [it table-futures-map]
       (deref (val it))  ; block until complete
