@@ -12,21 +12,16 @@ FROM rm_case_master_5     cm
         WHERE cea1.license_id = 0
           AND cea1.datasheet_id = 0
           AND cea1.deleted IS NULL
-          AND (CASE
-                 WHEN (   COALESCE (cea1.det_causality_id, -1) < 0
-                       OR COALESCE (cea1.rpt_causality_id, -1) < 0
-                      ) 
-                   THEN 1
-                   ELSE 0
-               END) = 1
      ) cause
-   , (SELECT case_id, prod_seq_num, event_seq_num, det_listedness_id  
+   , (SELECT case_id, prod_seq_num, event_seq_num 
         from rm_case_event_assess 
         where license_id > 0 
         group by case_id, prod_seq_num, event_seq_num
      ) listed
 WHERE cm.case_id = ca.case_id
   AND cm.case_id = crr.case_id
+  AND cm.case_id = cause.case_id
+  AND cm.case_id = listed.case_id
   AND ca.listedness = ll.listedness_id
   AND ca.outcome = leo.evt_outcome_id
   AND (    COALESCE(ca.seriousness,-1)    < 0
