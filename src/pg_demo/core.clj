@@ -113,7 +113,7 @@
   (newline)
   (println "-----------------------------------------------------------------------------")
   (println "Testing src-spec...")
-  (jdbc/query src-spec "select count(*) as result from rm_case_master" ))
+  (spyx (jdbc/query src-spec "select count(*) as result from rm_case_master" )))
 
 (defn count-tables []
   (newline)
