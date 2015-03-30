@@ -3812,7 +3812,7 @@
               DELETED timestamp,
               COUNTRY_GROUP_ID numeric,
               COUNTRY_GROUP varchar(50),
-              COUNTRY_J varchar(50),
+              COUNTRY_J varchar(999),
               GROUP_2_COUNTRY numeric,
               PRIMARY KEY (ENTERPRISE_ID,COUNTRY_ID)
           )" }
