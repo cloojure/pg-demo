@@ -1,0 +1,55 @@
+You are now connected to database "ubuntu_large" as user "ubuntu".
+Timing is on.
+                                                                                                                           QUERY PLAN                                                                                                                            
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Merge Join  (cost=727586.13..743615.89 rows=677026081 width=196) (actual time=20101.319..20650.670 rows=758576 loops=1)
+   Merge Cond: (cm.case_id = crr.case_id)
+   ->  Merge Join  (cost=8892.51..17050.33 rows=197807 width=208) (actual time=65.263..134.452 rows=7618 loops=1)
+         Merge Cond: (cm.case_id = ca.case_id)
+         ->  Index Scan using idx_rm_case_master_5__case_id on rm_case_master_5 cm  (cost=0.29..5566.29 rows=100000 width=18) (actual time=0.010..36.686 rows=100000 loops=1)
+         ->  Sort  (cost=8892.22..8976.12 rows=33558 width=190) (actual time=64.760..66.014 rows=7619 loops=1)
+               Sort Key: ca.case_id
+               Sort Method: quicksort  Memory: 96kB
+               ->  Hash Join  (cost=2.47..6369.60 rows=33558 width=190) (actual time=0.164..64.340 rows=816 loops=1)
+                     Hash Cond: (ca.listedness = ll.listedness_id)
+                     ->  Hash Join  (cost=1.41..5901.33 rows=35100 width=137) (actual time=0.137..63.799 rows=1303 loops=1)
+                           Hash Cond: (ca.outcome = leo.evt_outcome_id)
+                           ->  Seq Scan on rm_case_assess_5 ca  (cost=0.00..5248.00 rows=80247 width=24) (actual time=0.008..54.722 rows=57870 loops=1)
+                                 Filter: ((COALESCE(seriousness, (-1)::numeric) < 0::numeric) OR (COALESCE(agent_suspect, (-1)::numeric) < 0::numeric) OR (COALESCE(listedness, (-1)::numeric) < 0::numeric) OR (COALESCE(outcome, (-1)::numeric) < 0::numeric))
+                                 Rows Removed by Filter: 42130
+                           ->  Hash  (cost=1.18..1.18 rows=18 width=150) (actual time=0.017..0.017 rows=18 loops=1)
+                                 Buckets: 1024  Batches: 1  Memory Usage: 1kB
+                                 ->  Seq Scan on rm_lm_evt_outcome leo  (cost=0.00..1.18 rows=18 width=150) (actual time=0.004..0.009 rows=18 loops=1)
+                     ->  Hash  (cost=1.03..1.03 rows=3 width=90) (actual time=0.012..0.012 rows=3 loops=1)
+                           Buckets: 1024  Batches: 1  Memory Usage: 1kB
+                           ->  Seq Scan on rm_lm_listedness ll  (cost=0.00..1.03 rows=3 width=90) (actual time=0.006..0.007 rows=3 loops=1)
+   ->  Materialize  (cost=718678.40..733169.44 rows=742099 width=18) (actual time=20035.586..20184.103 rows=778457 loops=1)
+         ->  Merge Join  (cost=718678.40..731314.19 rows=742099 width=18) (actual time=20035.579..20059.454 rows=25653 loops=1)
+               Merge Cond: (crr.case_id = listed.case_id)
+               ->  Sort  (cost=352015.47..352767.63 rows=300862 width=12) (actual time=9098.902..9101.353 rows=11695 loops=1)
+                     Sort Key: crr.case_id
+                     Sort Method: quicksort  Memory: 134364kB
+                     ->  Hash Join  (cost=306090.04..324638.92 rows=300862 width=12) (actual time=4349.265..5949.780 rows=1817844 loops=1)
+                           Hash Cond: (cea1.case_id = crr.case_id)
+                           ->  HashAggregate  (cost=263625.11..264225.71 rows=60059 width=11) (actual time=3609.103..4093.122 rows=1224816 loops=1)
+                                 Group Key: cea1.case_id, cea1.prod_seq_num, 'Missing'::text
+                                 ->  Seq Scan on rm_case_event_assess cea1  (cost=0.00..259120.72 rows=600586 width=11) (actual time=0.047..2337.985 rows=1798464 loops=1)
+                                       Filter: ((deleted IS NULL) AND (license_id = 0::numeric) AND (datasheet_id = 0::numeric))
+                                       Rows Removed by Filter: 6720984
+                           ->  Hash  (cost=25410.52..25410.52 rows=1364352 width=6) (actual time=739.201..739.201 rows=1364352 loops=1)
+                                 Buckets: 262144  Batches: 1  Memory Usage: 51963kB
+                                 ->  Seq Scan on rm_case_reg_reports crr  (cost=0.00..25410.52 rows=1364352 width=6) (actual time=0.008..322.782 rows=1364352 loops=1)
+               ->  Sort  (cost=366662.93..368342.39 rows=671787 width=6) (actual time=10936.660..10941.955 rows=29855 loops=1)
+                     Sort Key: listed.case_id
+                     Sort Method: quicksort  Memory: 116195kB
+                     ->  Subquery Scan on listed  (cost=288206.12..301641.86 rows=671787 width=6) (actual time=7226.359..8214.339 rows=1430244 loops=1)
+                           ->  HashAggregate  (cost=288206.12..294923.99 rows=671787 width=16) (actual time=7226.357..7803.508 rows=1430244 loops=1)
+                                 Group Key: rm_case_event_assess.case_id, rm_case_event_assess.prod_seq_num, rm_case_event_assess.event_seq_num
+                                 ->  Seq Scan on rm_case_event_assess  (cost=0.00..237822.10 rows=6717869 width=16) (actual time=0.047..2666.322 rows=6717108 loops=1)
+                                       Filter: (license_id > 0::numeric)
+                                       Rows Removed by Filter: 1802340
+ Planning time: 5.980 ms
+ Execution time: 20764.479 ms
+(48 rows)
+
+Time: 20773.413 ms

@@ -1,7 +1,7 @@
 \connect ubuntu_large
 \timing
 
-explain analyze
+-- explain analyze
 SELECT   cm.case_id,
          cm.case_num,
          ce.desc_reptd,
@@ -25,14 +25,6 @@ SELECT   cm.case_id,
          AND cp.drug_type = 1
          AND cs.classification_id = 1
          and lp.prod_name in ('RxLogi-Quick Tablet 15 mg')
-         AND (date_trunc('day', cm.init_rept_date) >= date_trunc('day', current_date - 14)
-              OR EXISTS
-                 (SELECT   1
-                    FROM   case_followup cf
-                   WHERE   cm.case_id = cf.case_id AND cf.significant = 1
-                           AND date_trunc('day', cf.receipt_date) >=
-                                 date_trunc('day', current_date - 14))
-             )
          AND (ca.seriousness = 1 OR ce.seriousness = 1)
          AND NOT EXISTS
                (SELECT   1
