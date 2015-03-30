@@ -126,8 +126,10 @@
         (into (sorted-map) 
           (for [table-name (sort (keys tables/table-name->creation-sql)) ]
             ; Postgres: fast table rows estimate
-            (let [table-rows   (-> (jdbc/query src-conn 
-                [ (format "select reltuples from pg_class where relname = '%s';" table-name) ] )
+            (let [table-rows   (-> 
+              (spyx (jdbc/query src-conn 
+                        [ (format "select reltuples from pg_class where relname = '%s';"
+                        table-name) ] ))
                                 first
                                 :result
                                 long ) 
