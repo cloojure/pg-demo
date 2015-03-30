@@ -14,7 +14,7 @@
   (:gen-class))
 
 (def src-is-oracle false)
-(def insert-chunk-size 10000)
+(def insert-chunk-size 1000)
 (def pg-threadpool (cp/threadpool 6))
 (def large-db false)
 
@@ -166,7 +166,7 @@
           table-rows        (@src-table-rows table-name) ]
       (doseq [rows-chunk (partition-all insert-chunk-size result-set) ]
         (let [
-          rows-chunk-new    (mapv #(set/rename-keys % column-name-corrections) rows-chunk) 
+          rows-chunk-new    (map #(set/rename-keys % column-name-corrections) rows-chunk) 
           start-time        (System/nanoTime)
         ]
           (try
