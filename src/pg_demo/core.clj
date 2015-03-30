@@ -14,7 +14,7 @@
   (:gen-class))
 
 (def src-is-oracle false)
-(def insert-chunk-size 10000)
+(def insert-chunk-size 100)
 (def pg-threadpool (cp/threadpool 16))
 (def large-db false)
 
@@ -169,27 +169,30 @@
           rows-chunk-new    (map #(set/rename-keys % column-name-corrections) rows-chunk) 
           start-time        (System/nanoTime)
         ]
-          (apply jdbc/insert! pg-conn table-name rows-chunk-new  ) 
-          (println (format "%9d/%9d  %35s  %10.3f"    
-                    (swap! rows-inserted + (count rows-chunk-new))
-                    table-rows table-name 
-                    (/ (double (- (System/nanoTime) start-time)) 1e9)))
-          (flush) )))))
+          (try
+            (apply jdbc/insert! pg-conn table-name rows-chunk-new  ) 
+            (println (format "%9d/%9d  %35s  %10.3f"    
+                      (swap! rows-inserted + (count rows-chunk-new))
+                      table-rows table-name 
+                      (/ (double (- (System/nanoTime) start-time)) 1e9)))
+            (flush) 
+            (catch Exception ex 
+              (println (format "    %s insert failed, error: %s " table-name (.toString ex)))
+              (println "data:" rows-chunk-new)
+              (flush)
+              (System/exit 1))))))))
 
 (defn proc-table [table-name]
-  (let [completed (atom false)]
-    (while (not @completed)
-      (Thread/sleep (-> (rand 5) (* 1000) (long)))  ; [0..5) seconds (in millis)
-      (println "Processing:" table-name)
-      (try
-        (jdbc/with-db-connection [src-conn src-spec]
-          (src-set-context src-conn)
-          (jdbc/query src-conn [ (format "select * from %s" table-name) ]
-            :result-set-fn  #(result-set->pg-insert table-name %) ))
-        (reset! completed true)
-        (catch Exception ex 
-          (println (format "    %s failed... will retry. Error: %s " table-name (.toString ex)))
-        )))))
+  (Thread/sleep (-> (rand 5) (* 1000) (long)))  ; 0..5 seconds (in millis)
+  (println "Processing:" table-name)
+  (try
+    (jdbc/with-db-connection [src-conn src-spec]
+      (src-set-context src-conn)
+      (jdbc/query src-conn [ (format "select * from %s" table-name) ]
+        :result-set-fn  #(result-set->pg-insert table-name %) ))
+    (catch Exception ex 
+      (println (format "    %s failed... will retry. Error: %s " table-name (.toString ex)))
+      (System/exit 1))))
 
 (defn transfer-data []
   (newline)
