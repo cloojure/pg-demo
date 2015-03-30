@@ -16,4 +16,6 @@
   :main ^:skip-aot pg-demo.core
   :target-path "target/%s"
   :resource-paths [ "resources/ojdbc7.jar" ]
-  :profiles {:uberjar {:aot :all}})
+  :profiles {:uberjar {:aot :all}}
+  :jvm-opts ["-Xmx14g" "-server"] 
+)
