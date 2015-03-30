@@ -1,0 +1,121 @@
+ubuntu_large db:
+   4M rows  rm_case_asses
+   1M rows  rm_case_asses_6
+ 100K rows  rm_case_asses_5
+
+  11M rows  rm_case_master
+   1M rows  rm_case_master_6
+ 100K rows  rm_case_master_5
+
+---------------------------------------------------------------------------------------------------
+before index:
+  explain select *
+    from rm_case_master_5 cm, rm_case_assess_5 ca
+    where cm.case_id=ca.case_id;
+
+  Hash Join  (cost=84654.00..321817.48 rows=589448 width=12303)
+    Hash Cond: (cm.case_id = ca.case_id)
+    ->  Seq Scan on rm_case_master_5 cm  (cost=0.00..3959.00 rows=100000 width=5845)
+    ->  Hash  (cost=4204.00..4204.00 rows=100000 width=6458)
+         ->  Seq Scan on rm_case_assess_5 ca  (cost=0.00..4204.00 rows=100000 width=6458)
+
+---------------------------------------------------------------------------------------------------
+after index:
+  create index idx_rm_case_master_5__case_id on rm_case_master_5 (case_id);
+  create index idx_rm_case_master_6__case_id on rm_case_master_6 (case_id);
+  create index idx_rm_case_assess_5__case_id on rm_case_assess_5 (case_id);
+  create index idx_rm_case_assess_6__case_id on rm_case_assess_6 (case_id);
+
+  Merge Join  (cost=0.58..15927.07 rows=589448 width=12303)
+    Merge Cond: (cm.case_id = ca.case_id)
+    ->  Index Scan using idx_rm_case_master_5__case_id on rm_case_master_5 cm  (cost=0.29..5566.29 rows=100000 width=5845)
+    ->  Materialize  (cost=0.29..6233.05 rows=100000 width=6458)
+          ->  Index Scan using idx_rm_case_assess_5__case_id on rm_case_assess_5 ca  (cost=0.29..5983.05 rows=100000 width=6458)
+
+---------------------------------------------------------------------------------------------------
+after cluster:
+  explain analyze select *
+    from rm_case_master_5 cm, rm_case_assess_5 ca
+    where cm.case_id=ca.case_id;
+
+  Merge Join  (cost=0.58..15944.12 rows=589448 width=12303)
+            (actual time=0.028..959.564 rows=639486 loops=1)
+    Merge Cond: (cm.case_id = ca.case_id)
+    ->  Index Scan using idx_rm_case_master_5__case_id on rm_case_master_5 cm  (cost=0.29..5566.29 rows=100000 width=5845) (actual time=0.007..40.350 rows=100000 loops=1)
+    ->  Materialize  (cost=0.29..6279.41 rows=100000 width=6458) (actual time=0.009..121.235 rows=639487 loops=1)
+          ->  Index Scan using idx_rm_case_assess_5__case_id on rm_case_assess_5 ca  (cost=0.29..6029.41 rows=100000 width=6458) (actual time=0.005..14.773 rows=36855 loops=1)
+  Planning time: 2.112 ms
+  Execution time: 1041.560 ms
+
+
+  explain analyze select *
+    from rm_case_master_6 cm, rm_case_assess_6 ca
+    where cm.case_id=ca.case_id;
+
+  Merge Join  (cost=2881.66..166732.88 rows=6282864 width=12302)
+            (actual time=37.111..11028.389 rows=7443640 loops=1)
+    Merge Cond: (cm.case_id = ca.case_id)
+    ->  Index Scan using idx_rm_case_master_6__case_id on rm_case_master_6 cm  (cost=0.42..56313.43 rows=1000000 width=5845) (actual time=0.006..371.166 rows=1000000 loops=1)
+    ->  Materialize  (cost=0.42..60910.98 rows=1000000 width=6457) (actual time=0.031..1379.659 rows=7480135 loops=1)
+          ->  Index Scan using idx_rm_case_assess_6__case_id on rm_case_assess_6 ca  (cost=0.42..58410.98 rows=1000000 width=6457) (actual time=0.025..149.488 rows=396237 loops=1)
+  Planning time: 2.232 ms
+  Execution time: 11980.145 ms
+
+More indexes/clustering:
+  cluster rm_case_event_6        using idx_rm_case_event_6__case_id;
+  cluster rm_case_event_5        using idx_rm_case_event_5__case_id;
+  cluster rm_case_event_assess_6 using idx_rm_case_event_assess_6__case_id;
+  cluster rm_case_event_assess_5 using idx_rm_case_event_assess_5__case_id;
+
+---------------------------------------------------------------------------------------------------
+escalation of cost:
+
+  explain select *
+    from rm_case_master_5 cm, rm_case_assess_5 ca, rm_case_event_5 ce
+    where cm.case_id=ca.case_id
+      and cm.case_id=ce.case_id;
+
+   Merge Join  (cost=1.55..59128.04 rows=6488548 width=18875)
+     Merge Cond: (cm.case_id = ca.case_id)
+     ->  Index Scan using idx_rm_case_master_5__case_id on rm_case_master_5 cm  (cost=0.29..5566.29 rows=100000 width=5845)
+     ->  Materialize  (cost=1.26..24188.38 rows=568098 width=13030)
+           ->  Merge Join  (cost=1.26..22768.14 rows=568098 width=13030)
+                 Merge Cond: (ce.case_id = ca.case_id)
+                 ->  Index Scan using idx_rm_case_event_5__case_id on rm_case_event_5 ce  (cost=0.29..9749.29 rows=100000 width=6572)
+                 ->  Materialize  (cost=0.29..6279.41 rows=100000 width=6458)
+                       ->  Index Scan using idx_rm_case_assess_5__case_id on rm_case_assess_5 ca  (cost=0.29..6029.41 rows=100000 width=6458)
+
+  explain select *
+    from rm_case_master_6 cm, rm_case_assess_6 ca, rm_case_event_6 ce
+    where cm.case_id=ca.case_id
+      and cm.case_id=ce.case_id;
+
+   Merge Join  (cost=17906.08..690066.59 rows=117469927 width=18857)
+     Merge Cond: (cm.case_id = ca.case_id)
+     ->  Index Scan using idx_rm_case_master_6__case_id on rm_case_master_6 cm  (cost=0.42..56313.43 rows=1000000 width=5845)
+     ->  Materialize  (cost=4687.25..262077.38 rows=6261382 width=13012)
+           ->  Merge Join  (cost=4687.25..246423.92 rows=6261382 width=13012)
+                 Merge Cond: (ca.case_id = ce.case_id)
+                 ->  Index Scan using idx_rm_case_assess_6__case_id on rm_case_assess_6 ca  (cost=0.42..58410.98 rows=1000000 width=6457)
+                 ->  Materialize  (cost=0.42..95368.43 rows=1000000 width=6555)
+                       ->  Index Scan using idx_rm_case_event_6__case_id on rm_case_event_6 ce  (cost=0.42..92868.43 rows=1000000 width=6555)
+
+  explain select *
+    from rm_case_master cm, rm_case_assess ca, rm_case_event ce
+    where cm.case_id=ca.case_id
+      and cm.case_id=ce.case_id;
+
+   Merge Join  (cost=12128561.14..76904459.66 rows=12741749810 width=18855)
+     Merge Cond: (cm.case_id = ca.case_id)
+     ->  Index Scan using idx_rm_case_master__case_id on rm_case_master cm  (cost=0.43..622905.26 rows=11096988 width=5844)
+     ->  Materialize  (cost=12127370.05..13940322.72 rows=80489316 width=13011)
+           ->  Merge Join  (cost=12127370.05..13739099.43 rows=80489316 width=13011)
+                 Merge Cond: (ce.case_id = ca.case_id)
+                 ->  Index Scan using idx_rm_case_event__case_id on rm_case_event ce  (cost=0.43..387545.51 rows=4155072 width=6553)
+                 ->  Materialize  (cost=12127348.66..12148104.64 rows=4151196 width=6458)
+                       ->  Sort  (cost=12127348.66..12137726.65 rows=4151196 width=6458)
+                             Sort Key: ca.case_id
+                             ->  Seq Scan on rm_case_assess ca  (cost=0.00..164023.96 rows=4151196 width=6458)
+
+---------------------------------------------------------------------------------------------------
+
