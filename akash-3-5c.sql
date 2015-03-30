@@ -27,6 +27,7 @@ FROM rm_case_master_5     cm
      ) listed
 WHERE cm.case_id = ca.case_id
   AND cm.case_id = crr.case_id
+  AND cm.case_id = cause.case_id    -- (+)
   AND ca.listedness = ll.listedness_id
   AND ca.outcome = leo.evt_outcome_id
   AND (    COALESCE(ca.seriousness,-1)    < 0
