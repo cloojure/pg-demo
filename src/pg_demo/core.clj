@@ -188,7 +188,7 @@
             :result-set-fn  #(result-set->pg-insert table-name %) ))
         (reset! completed true)
         (catch Exception ex 
-          (println (format "    %s failed... will retry" table-name))
+          (println (format "    %s failed... will retry. Error: %s " table-name (.toString ex)))
         )))))
 
 (defn transfer-data []
