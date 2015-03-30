@@ -5,7 +5,6 @@
             [java-jdbc.sql          :as jdbc-sql]
             [honeysql.core          :as honey]
             [honeysql.helpers       :refer :all]
-;           [cooljure.misc          :as cool-misc]
             [pg-demo.table-defs     :as tables]
             [com.climate.claypoole  :as cp]
   )
@@ -14,28 +13,36 @@
   (:import java.util.TimeZone)
   (:gen-class))
 
-(def large-db false)
+(def src-is-oracle false)
 (def insert-chunk-size 10000)
 (def pg-threadpool (cp/threadpool 4))
+(def large-db false)
 
-(def ora-spec    
-  { :classname      "oracle.jdbc.OracleDriver"  ; must be in classpath
-    :subprotocol    "oracle"
-    :subname        "thin:@//10.100.6.231:1521/pvram"
-    :user           (if large-db  "mart_user_bkp" 
-                                  "mart_user" )
-    :password       "rxlogix" 
-  } )
+; (def ora-spec    
+;   { :classname      "oracle.jdbc.OracleDriver"  ; must be in classpath
+;     :subprotocol    "oracle"
+;     :subname        "thin:@//10.100.6.231:1521/pvram"
+;     :user           (if large-db  "mart_user_bkp" 
+;                                   "mart_user" )
+;     :password       "rxlogix" 
+;   } )
 
-(def pg-spec
+; (def pg-spec
+;   { :classname      "org.postgresql.Driver"
+;     :subprotocol    "postgresql"
+;     :subname        "//pg-test-1.cksh17mdz5oo.us-west-1.rds.amazonaws.com:5432/postal"
+;     :user           "rxlogix"
+;     :password       "rxlogix123"
+
+; ;   :subname      (if large-db  "//localhost:5432/ubuntu_large"
+; ;                               "//localhost:5432/ubuntu" ) 
+;   } )
+
+(def src-spec
   { :classname      "org.postgresql.Driver"
     :subprotocol    "postgresql"
-    :subname        "//pg-test-1.cksh17mdz5oo.us-west-1.rds.amazonaws.com:5432/postal"
-    :user           "rxlogix"
-    :password       "rxlogix123"
-
-;   :subname      (if large-db  "//localhost:5432/ubuntu_large"
-;                               "//localhost:5432/ubuntu" ) 
+    :subname        "//10.100.6.89:5432/ubuntu"
+    :user           "ubuntu"
   } )
 
 (def dest-spec
@@ -50,15 +57,17 @@
   "A map used to rename problematic columns with more acceptable names.  In the future,
   it would be best if SQL reserved words (or their derivatives) were not used for column
   names in the first place."
-  { :primary :primary_val } )
+  { :primary :primary_val 
+    :level   :level_val } )
 
 
-(defn oracle-set-context [ora-conn]
-  (when-not large-db
-    (jdbc/execute! ora-conn 
-      [ "begin
-           pkg_rls.set_context('admin', '1','ARGUS_MART', '#$!AgSeRvIcE@SaFeTy');
-         end; " ] )))
+(defn src-set-context [src-conn]
+  (when src-is-oracle
+    (when-not large-db
+      (jdbc/execute! src-conn 
+        [ "begin
+             pkg_rls.set_context('admin', '1','ARGUS_MART', '#$!AgSeRvIcE@SaFeTy');
+           end; " ] ))))
 
 (defn oracle-init-src []
   (newline)
@@ -75,11 +84,11 @@
 
   ; Show size of main table
   (newline)
-  (jdbc/with-db-connection [ora-conn src-spec]
+  (jdbc/with-db-connection [src-conn src-spec]
     (spy :msg "pkg_rls.set_context()" 
-      (oracle-set-context ora-conn))
+      (src-set-context src-conn))
     (newline)
-    (spyx (jdbc/query ora-conn "select count(*) as result from rm_case_master" )))
+    (spyx (jdbc/query src-conn "select count(*) as result from rm_case_master" )))
   (newline)
 )
 
@@ -94,29 +103,23 @@
   (newline) (spyx (jdbc/query dest-spec "select sysdate as current_day from dual" ))
 
   ; Show Oracle DB version info
-  (newline) (spyx (jdbc/query dest-spec "select BANNER from SYS.V_$VERSION" ))
+  (newline) (spyx (jdbc/query dest-spec "select BANNER from SYS.V_$VERSION" )))
 
-  ; Show size of main table
-  (newline)
-  (spyx (jdbc/query dest-spec "select count(*) as result from rm_case_master" ))
-  (newline)
-)
-
-(def oracle-table-rows 
+(def src-table-rows 
   "A map from table-name to table-rows."
   (promise))
 
 (defn count-tables []
   (newline)
   (println "-----------------------------------------------------------------------------")
-  (println "Counting rows for all Oracle tables...")
+  (println "Counting rows for all source tables...")
   (time
-    (jdbc/with-db-connection [ora-conn src-spec]
-      (oracle-set-context ora-conn)
-      (deliver oracle-table-rows 
+    (jdbc/with-db-connection [src-conn src-spec]
+      (src-set-context src-conn)
+      (deliver src-table-rows 
         (into (sorted-map) 
           (for [table-name (sort (keys tables/table-name->creation-sql)) ]
-            (let [table-rows   (-> (jdbc/query ora-conn 
+            (let [table-rows   (-> (jdbc/query src-conn 
                                         [ (format "select count(*) as result from %s" table-name) ] )
                                 first
                                 :result
@@ -151,17 +154,10 @@
       (newline)
     )))
 
-(def enable-testing false)   ; #todo  FOR TESTING ONLY *******************************************
-(def test-rs-limit-fn       ; #todo  FOR TESTING ONLY *******************************************
-  (if enable-testing 
-    #(take 12345 %)
-    identity ))
-
 (defn result-set->pg-insert [table-name result-set]
   (jdbc/with-db-connection [pg-conn dest-spec]
     (let [rows-inserted     (atom 0) 
-          table-rows        (@oracle-table-rows table-name)
-          result-set        (test-rs-limit-fn result-set) ]
+          table-rows        (@src-table-rows table-name) ]
       (doseq [rows-chunk (partition-all insert-chunk-size result-set) ]
         (let [
           rows-chunk-new    (map #(set/rename-keys % column-name-corrections) rows-chunk) 
@@ -180,9 +176,9 @@
       (Thread/sleep (-> (rand 5) (* 1000) (long)))  ; [0..5) seconds (in millis)
       (println "Processing:" table-name)
       (try
-        (jdbc/with-db-connection [ora-conn src-spec]
-          (oracle-set-context ora-conn)
-          (jdbc/query ora-conn [ (format "select * from %s" table-name) ]
+        (jdbc/with-db-connection [src-conn src-spec]
+          (src-set-context src-conn)
+          (jdbc/query src-conn [ (format "select * from %s" table-name) ]
             :result-set-fn  #(result-set->pg-insert table-name %) ))
         (reset! completed true)
         (catch Exception ex 
@@ -195,8 +191,8 @@
   (println "Beginning data transfer...")
   (newline)
   (let [
-    table-names-sorted    (as-> (keys @oracle-table-rows) it      ; table names
-                                (sort-by @oracle-table-rows it)   ; sort by # rows
+    table-names-sorted    (as-> (keys @src-table-rows) it      ; table names
+                                (sort-by @src-table-rows it)   ; sort by # rows
                                 (reverse it))                     ; descending order
     table-futures-map     (into (sorted-map)
                             (for [table-name table-names-sorted]
@@ -209,7 +205,7 @@
   ))
 
 (defn -main []
-  (oracle-init-src)
+; (oracle-init-src)
   (oracle-init-dest)
   (drop-create-tables)
   (count-tables)
