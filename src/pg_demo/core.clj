@@ -14,9 +14,9 @@
   (:import java.util.TimeZone)
   (:gen-class))
 
-(def large-db true)
+(def large-db false)
 (def insert-chunk-size 10000)
-(def pg-threadpool (cp/threadpool 8))
+(def pg-threadpool (cp/threadpool 4))
 
 (def ora-spec    
   { :classname      "oracle.jdbc.OracleDriver"  ; must be in classpath
@@ -38,6 +38,14 @@
 ;                               "//localhost:5432/ubuntu" ) 
   } )
 
+(def dest-spec
+  { :classname    "oracle.jdbc.OracleDriver"  ; must be in classpath
+    :subprotocol  "oracle"
+    :subname      "thin:@//ora-test-1.cksh17mdz5oo.us-west-1.rds.amazonaws.com:1521/ORCL"
+    :user         "rxlogix" 
+    :password     "rxlogix123" 
+  } )
+
 (def column-name-corrections
   "A map used to rename problematic columns with more acceptable names.  In the future,
   it would be best if SQL reserved words (or their derivatives) were not used for column
@@ -52,26 +60,45 @@
            pkg_rls.set_context('admin', '1','ARGUS_MART', '#$!AgSeRvIcE@SaFeTy');
          end; " ] )))
 
-(defn oracle-init []
+(defn oracle-init-src []
   (newline)
   (println "-----------------------------------------------------------------------------")
-  (println "oracle-init")
+  (println "oracle-init-src")
   ; Stupid Oracle DB will often crash without this set
   ; Stupid Oracle DB gives bogus timezone offsets
   (let [timeZone  (TimeZone/getTimeZone "UTC") ]      ; or "America/Los_Angeles"
     (TimeZone/setDefault timeZone))
-  (newline) (spyx (jdbc/query ora-spec "select sysdate as current_day from dual" ))
+  (newline) (spyx (jdbc/query src-spec "select sysdate as current_day from dual" ))
 
   ; Show Oracle DB version info
-  (newline) (spyx (jdbc/query ora-spec "select BANNER from SYS.V_$VERSION" ))
+  (newline) (spyx (jdbc/query src-spec "select BANNER from SYS.V_$VERSION" ))
 
   ; Show size of main table
   (newline)
-  (jdbc/with-db-connection [ora-conn ora-spec]
+  (jdbc/with-db-connection [ora-conn src-spec]
     (spy :msg "pkg_rls.set_context()" 
       (oracle-set-context ora-conn))
     (newline)
     (spyx (jdbc/query ora-conn "select count(*) as result from rm_case_master" )))
+  (newline)
+)
+
+(defn oracle-init-dest []
+  (newline)
+  (println "-----------------------------------------------------------------------------")
+  (println "oracle-init-dest")
+  ; Stupid Oracle DB will often crash without this set
+  ; Stupid Oracle DB gives bogus timezone offsets
+  (let [timeZone  (TimeZone/getTimeZone "UTC") ]      ; or "America/Los_Angeles"
+    (TimeZone/setDefault timeZone))
+  (newline) (spyx (jdbc/query dest-spec "select sysdate as current_day from dual" ))
+
+  ; Show Oracle DB version info
+  (newline) (spyx (jdbc/query dest-spec "select BANNER from SYS.V_$VERSION" ))
+
+  ; Show size of main table
+  (newline)
+  (spyx (jdbc/query dest-spec "select count(*) as result from rm_case_master" ))
   (newline)
 )
 
@@ -84,7 +111,7 @@
   (println "-----------------------------------------------------------------------------")
   (println "Counting rows for all Oracle tables...")
   (time
-    (jdbc/with-db-connection [ora-conn ora-spec]
+    (jdbc/with-db-connection [ora-conn src-spec]
       (oracle-set-context ora-conn)
       (deliver oracle-table-rows 
         (into (sorted-map) 
@@ -101,17 +128,28 @@
 (defn drop-create-tables []
   (newline)
   (println "-----------------------------------------------------------------------------")
-  (println "Running drop/create on all Postgres tables...")
+  (println "Running drop/create on all destination tables...")
   (time
-    (jdbc/with-db-connection [pg-conn pg-spec]
+    (jdbc/with-db-connection [pg-conn dest-spec]
       (doseq [ [table-name creation-sql-str] tables/table-name->creation-sql ]
         (print ".")
+;       (println " " table-name)
         (flush)
-        (jdbc/execute! pg-conn [ (format "drop table if exists %s cascade" table-name) ] )
+
+        ; Stupid Oracle does not allow "drop table if exists <tablename>".  We need to use
+        ; try/catch to find the exception and ignore the harmless ones
+        (let [drop-cmd (format "drop table %s" table-name)]
+          (try
+;           (println "running:" drop-cmd)
+            (jdbc/execute! pg-conn [drop-cmd] )
+            (catch Exception ex 
+              (let [ex-str (.toString ex) ]
+                (when-not (re-find #"table or view does not exist" ex-str)
+                  (throw (Exception. (str "Command failed: " drop-cmd "  Exception: " ex))))))))
+;       (println "running:" creation-sql-str)
         (jdbc/execute! pg-conn [creation-sql-str] ))
       (newline)
     )))
-
 
 (def enable-testing false)   ; #todo  FOR TESTING ONLY *******************************************
 (def test-rs-limit-fn       ; #todo  FOR TESTING ONLY *******************************************
@@ -120,7 +158,7 @@
     identity ))
 
 (defn result-set->pg-insert [table-name result-set]
-  (jdbc/with-db-connection [pg-conn pg-spec]
+  (jdbc/with-db-connection [pg-conn dest-spec]
     (let [rows-inserted     (atom 0) 
           table-rows        (@oracle-table-rows table-name)
           result-set        (test-rs-limit-fn result-set) ]
@@ -142,7 +180,7 @@
       (Thread/sleep (-> (rand 5) (* 1000) (long)))  ; [0..5) seconds (in millis)
       (println "Processing:" table-name)
       (try
-        (jdbc/with-db-connection [ora-conn ora-spec]
+        (jdbc/with-db-connection [ora-conn src-spec]
           (oracle-set-context ora-conn)
           (jdbc/query ora-conn [ (format "select * from %s" table-name) ]
             :result-set-fn  #(result-set->pg-insert table-name %) ))
@@ -171,9 +209,12 @@
   ))
 
 (defn -main []
-  (oracle-init)
-  (count-tables)
+  (oracle-init-src)
+  (oracle-init-dest)
   (drop-create-tables)
+  (count-tables)
+
+  (println "-----------------------------------------------------------------------------")
   (transfer-data)
 )
 
