@@ -109,13 +109,19 @@
   "A map from table-name to table-rows."
   (promise))
 
+(defn test-src []
+  (newline)
+  (println "-----------------------------------------------------------------------------")
+  (println "Testing src-spec...")
+  (jdbc/query src-spec "select count(*) as result from rm_case_master" ))
+
 (defn count-tables []
   (newline)
   (println "-----------------------------------------------------------------------------")
   (println "Counting rows for all source tables...")
   (time
     (jdbc/with-db-connection [src-conn src-spec]
-      (src-set-context src-conn)
+     ;(src-set-context src-conn)
       (deliver src-table-rows 
         (into (sorted-map) 
           (for [table-name (sort (keys tables/table-name->creation-sql)) ]
@@ -205,6 +211,7 @@
   ))
 
 (defn -main []
+  (test-src)
 ; (oracle-init-src)
   (oracle-init-dest)
   (drop-create-tables)
