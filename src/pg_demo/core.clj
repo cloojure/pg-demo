@@ -18,20 +18,24 @@
 (def insert-chunk-size 10000)
 (def pg-threadpool (cp/threadpool 4))
 
-(def src-spec    
-  { :classname    "oracle.jdbc.OracleDriver"  ; must be in classpath
-    :subprotocol  "oracle"
-    :subname      "thin:@//10.100.6.231:1521/pvram"
-    :user         (if large-db  "mart_user_bkp" 
-                                "mart_user" )
-    :password     "rxlogix" 
+(def ora-spec    
+  { :classname      "oracle.jdbc.OracleDriver"  ; must be in classpath
+    :subprotocol    "oracle"
+    :subname        "thin:@//10.100.6.231:1521/pvram"
+    :user           (if large-db  "mart_user_bkp" 
+                                  "mart_user" )
+    :password       "rxlogix" 
   } )
 
 (def pg-spec
-  { :classname    "org.postgresql.Driver"
-    :subprotocol  "postgresql"
-    :subname      (if large-db  "//localhost:5432/ubuntu_large"
-                                "//localhost:5432/ubuntu" ) 
+  { :classname      "org.postgresql.Driver"
+    :subprotocol    "postgresql"
+    :subname        "//pg-test-1.cksh17mdz5oo.us-west-1.rds.amazonaws.com:5432/postal"
+    :user           "rxlogix"
+    :password       "rxlogix123"
+
+;   :subname      (if large-db  "//localhost:5432/ubuntu_large"
+;                               "//localhost:5432/ubuntu" ) 
   } )
 
 (def dest-spec
@@ -159,24 +163,21 @@
           table-rows        (@oracle-table-rows table-name)
           result-set        (test-rs-limit-fn result-set) ]
       (doseq [rows-chunk (partition-all insert-chunk-size result-set) ]
-        (let [rows-chunk-new (map #(set/rename-keys % column-name-corrections) rows-chunk) ]
-          (time (apply jdbc/insert! pg-conn table-name rows-chunk-new  ))
-          (println (format "%9d/%9d  %s"    (swap! rows-inserted + (count rows-chunk-new))
-                                            table-rows
-                                            table-name ))
-          (newline) (flush) )))
-
-    (when false
-      (newline)
-      (println table-name "query:")
-      (doseq [it (take 2 (jdbc/query dest-spec (format "select * from %s" table-name ))) ]
-        (newline)
-        (prn (into (sorted-map) it))))
-  ))
+        (let [
+          rows-chunk-new    (map #(set/rename-keys % column-name-corrections) rows-chunk) 
+          start-time        (System/nanoTime)
+        ]
+          (apply jdbc/insert! pg-conn table-name rows-chunk-new  ) 
+          (println (format "%9d/%9d  %25s  %10.3f"    
+                    (swap! rows-inserted + (count rows-chunk-new))
+                    table-rows table-name 
+                    (/ (double (- (System/nanoTime) start-time)) 1e9)))
+          (flush) )))))
 
 (defn proc-table [table-name]
   (let [completed (atom false)]
     (while (not @completed)
+      (Thread/sleep (-> (rand 5) (* 1000) (long)))  ; [0..5) seconds (in millis)
       (println "Processing:" table-name)
       (try
         (jdbc/with-db-connection [ora-conn src-spec]
@@ -186,7 +187,6 @@
         (reset! completed true)
         (catch Exception ex 
           (println (format "    %s failed... will retry" table-name))
-          (Thread/sleep (-> (rand 5) (+ 5) (* 1000) (long)))  ; [5..10) seconds (in millis)
         )))))
 
 (defn transfer-data []
