@@ -166,7 +166,7 @@
           table-rows        (@src-table-rows table-name) ]
       (doseq [rows-chunk (partition-all insert-chunk-size result-set) ]
         (let [
-          rows-chunk-new    (map #(set/rename-keys % column-name-corrections) rows-chunk) 
+          rows-chunk-new    (mapv #(set/rename-keys % column-name-corrections) rows-chunk) 
           start-time        (System/nanoTime)
         ]
           (try
@@ -178,7 +178,7 @@
             (flush) 
             (catch Exception ex 
               (let [msg (format "    %s insert failed, error: %s  \n data: %s " 
-                            table-name (.toString ex) (doall rows-chunk-new)) ]
+                            table-name (.toString ex) rows-chunk-new) ]
                 (spit "error.txt" msg)
                 (flush) (println msg) (flush)
                 (System/exit 1)))))))))
