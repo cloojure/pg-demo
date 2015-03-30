@@ -14,7 +14,7 @@
   (:gen-class))
 
 (def src-is-oracle false)
-(def insert-chunk-size 100)
+(def insert-chunk-size 1000)
 (def pg-threadpool (cp/threadpool 16))
 (def large-db false)
 
@@ -178,7 +178,7 @@
             (flush) 
             (catch Exception ex 
               (let [msg (format "    %s insert failed, error: %s  \n data: %s " 
-                            table-name (.toString ex) rows-chunk-new) ]
+                            table-name (.toString ex) (doall rows-chunk-new)) ]
                 (spit "error.txt" msg)
                 (flush) (println msg) (flush)
                 (System/exit 1)))))))))
