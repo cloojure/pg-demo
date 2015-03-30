@@ -128,10 +128,10 @@
             ; Postgres: fast table rows estimate
             (let [table-rows   (-> 
               (spyx (jdbc/query src-conn 
-                        [ (format "select reltuples from pg_class as result where relname = '%s';"
+                        [ (format "select reltuples from pg_class where relname = '%s';"
                         table-name) ] ))
                                 first
-                                :result
+                                :reltuples
                                 long ) 
             ]
               (println (format "%15d  %s" table-rows table-name))
