@@ -14,7 +14,7 @@
   (:gen-class))
 
 (def src-is-oracle false)
-(def tx-chunk-size 10000)
+(def tx-chunk-size 100)
 (def pg-threadpool (cp/threadpool 32))
 (def large-db false)
 
