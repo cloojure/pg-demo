@@ -234,7 +234,7 @@
           (flush) 
           (catch Exception ex 
             (let [msg (format "    %s insert failed, error: %s  \n data: %s " 
-                          table-name (.toString ex) rows-chunk-new) ]
+                          table-name (.toString ex) (pr-str rows-chunk-new)) ]
               (spit "error.txt" msg)
               (flush) (println msg) (flush)
               (System/exit 1))))))))
