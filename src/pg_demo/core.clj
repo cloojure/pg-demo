@@ -13,10 +13,12 @@
   (:import java.util.TimeZone)
   (:gen-class))
 
-(def src-is-oracle false)
-(def tx-chunk-size 10000)
-(def pg-threadpool (cp/threadpool 32))
-(def large-db false)
+(def src-is-oracle      false)
+(def dest-is-oracle     false)
+(def tx-chunk-size      10000)
+(def pg-threadpool 
+  (cp/threadpool        32))
+(def large-db           false)
 
 ; (def ora-spec    
 ;   { :classname      "oracle.jdbc.OracleDriver"  ; must be in classpath
@@ -286,7 +288,8 @@
 (defn -main []
   (test-src)
 ; (oracle-init-src)
-  (oracle-init-dest)
+  (when dest-is-oracle
+    (oracle-init-dest))
   (count-tables-pg)
   (drop-create-tables)
 
