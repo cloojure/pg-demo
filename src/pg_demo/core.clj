@@ -45,12 +45,20 @@
     :user           "ubuntu"
   } )
 
+; (def dest-spec
+;   { :classname    "oracle.jdbc.OracleDriver"  ; must be in classpath
+;     :subprotocol  "oracle"
+;     :subname      "thin:@//ora-test-1.cksh17mdz5oo.us-west-1.rds.amazonaws.com:1521/ORCL"
+;     :user         "rxlogix" 
+;     :password     "rxlogix123" 
+;   } )
+
 (def dest-spec
-  { :classname    "oracle.jdbc.OracleDriver"  ; must be in classpath
-    :subprotocol  "oracle"
-    :subname      "thin:@//ora-test-1.cksh17mdz5oo.us-west-1.rds.amazonaws.com:1521/ORCL"
-    :user         "rxlogix" 
-    :password     "rxlogix123" 
+  { :classname      "org.postgresql.Driver"
+    :subprotocol    "postgresql"
+    :subname        "//pg-test-1.cksh17mdz5oo.us-west-1.rds.amazonaws.com:5432/postal"
+    :user           "rxlogix"
+    :password       "rxlogix123"
   } )
 
 (def column-name-corrections
