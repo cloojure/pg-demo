@@ -251,4 +251,69 @@ Time: 243714.755
 
 ***************************************************************************************************
 After cluster (sort)
+                                                                                           QUERY PLAN
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Merge Join  (cost=182340.63..543548233.71 rows=36020686618 width=104) (actual time=61855.643..231732.328 rows=3672320 loops=1)
+   Merge Cond: (rm_case_master.case_id = rm_case_event.case_id)
+   ->  Merge Join  (cost=0.96..2243333.87 rows=35057445 width=42) (actual time=0.039..143876.135 rows=33653504 loops=1)
+         Merge Cond: (rm_case_pat_info.case_id = rm_case_master.case_id)
+         ->  Index Scan using idx_rm_case_pat_info__case_id on rm_case_pat_info  (cost=0.43..86457.83 rows=1918620 width=11) (actual time=0.011..2479.834 rows=1820421 loops=1)
+         ->  Materialize  (cost=0.43..1654154.14 rows=11096988 width=31) (actual time=0.014..55831.147 rows=33653504 loops=1)
+               ->  Index Scan using idx_rm_case_master__case_id on rm_case_master  (cost=0.43..1626411.67 rows=11096988 width=31) (actual time=0.009..15204.828 rows=10579996 loops=1)
+   ->  Materialize  (cost=176057.61..2749436.20 rows=61350564 width=93) (actual time=15472.464..45949.033 rows=3681161 loops=1)
+         ->  Merge Join  (cost=176057.61..2596059.79 rows=61350564 width=93) (actual time=15472.453..42556.674 rows=22096 loops=1)
+               Merge Cond: (rm_case_event.case_id = rm_case_event_assess.case_id)
+               Join Filter: (rm_case_event.seq_num = rm_case_event_assess.event_seq_num)
+               ->  Nested Loop  (cost=173444.28..346302.34 rows=1133463 width=87) (actual time=5925.691..7503.814 rows=34176 loops=1)
+                     Join Filter: (rm_case_product.case_id = rm_case_event.case_id)
+                     ->  Merge Join  (cost=173443.85..209165.44 rows=33710 width=49) (actual time=5397.384..7309.759 rows=9432 loops=1)
+                           Merge Cond: (rm_case_narrative.case_id = rm_case_product.case_id)
+                           ->  Index Scan using idx_rm_case_narrative__case_id on rm_case_narrative  (cost=0.42..33507.53 rows=833340 width=15) (actual time=0.009..999.376 rows=811941 loops=1)
+                           ->  Sort  (cost=173254.53..173284.21 rows=11871 width=34) (actual time=5384.507..5396.075 rows=12044 loops=1)
+                                 Sort Key: rm_case_product.case_id
+                                 Sort Method: quicksort  Memory: 2078kB
+                                 ->  Seq Scan on rm_case_product  (cost=0.00..172451.15 rows=11871 width=34) (actual time=4.192..5365.677 rows=12044 loops=1)
+                                       Filter: ((product_name)::text ~~* 'TYLENOL%'::text)
+                                       Rows Removed by Filter: 2883328
+                     ->  Index Scan using idx_rm_case_event__case_id on rm_case_event  (cost=0.43..3.21 rows=69 width=38) (actual time=0.005..0.009 rows=4 loops=9432)
+                           Index Cond: (case_id = rm_case_narrative.case_id)
+               ->  Materialize  (cost=0.43..766385.39 rows=8519448 width=16) (actual time=0.029..25683.960 rows=8326474 loops=1)
+                     ->  Index Scan using idx_rm_case_event_assess__case_id on rm_case_event_assess  (cost=0.43..745086.77 rows=8519448 width=16) (actual time=0.018..10384.192 rows=8306494 loops=1)
+ Planning time: 20.813 ms
+ Execution time: 240833.423 ms
+(28 rows)
 
+Time: 240948.323 ms
+                                                                                              QUERY PLAN
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Merge Join  (cost=182340.63..543548233.71 rows=36020686618 width=104) (actual time=61425.140..229655.192 rows=3672320 loops=1)
+   Merge Cond: (rm_case_master.case_id = rm_case_event.case_id)
+   ->  Merge Join  (cost=0.96..2243333.87 rows=35057445 width=42) (actual time=0.039..142439.344 rows=33653504 loops=1)
+         Merge Cond: (rm_case_pat_info.case_id = rm_case_master.case_id)
+         ->  Index Scan using idx_rm_case_pat_info__case_id on rm_case_pat_info  (cost=0.43..86457.83 rows=1918620 width=11) (actual time=0.012..2416.872 rows=1820421 loops=1)
+         ->  Materialize  (cost=0.43..1654154.14 rows=11096988 width=31) (actual time=0.014..55112.335 rows=33653504 loops=1)
+               ->  Index Scan using idx_rm_case_master__case_id on rm_case_master  (cost=0.43..1626411.67 rows=11096988 width=31) (actual time=0.009..14870.487 rows=10579996 loops=1)
+   ->  Materialize  (cost=176057.61..2749436.20 rows=61350564 width=93) (actual time=15412.902..45623.986 rows=3681161 loops=1)
+         ->  Merge Join  (cost=176057.61..2596059.79 rows=61350564 width=93) (actual time=15412.890..42238.022 rows=22096 loops=1)
+               Merge Cond: (rm_case_event.case_id = rm_case_event_assess.case_id)
+               Join Filter: (rm_case_event.seq_num = rm_case_event_assess.event_seq_num)
+               ->  Nested Loop  (cost=173444.28..346302.34 rows=1133463 width=87) (actual time=5957.890..7505.475 rows=34176 loops=1)
+                     Join Filter: (rm_case_product.case_id = rm_case_event.case_id)
+                     ->  Merge Join  (cost=173443.85..209165.44 rows=33710 width=49) (actual time=5434.767..7314.223 rows=9432 loops=1)
+                           Merge Cond: (rm_case_narrative.case_id = rm_case_product.case_id)
+                           ->  Index Scan using idx_rm_case_narrative__case_id on rm_case_narrative  (cost=0.42..33507.53 rows=833340 width=15) (actual time=0.009..977.467 rows=811941 loops=1)
+                           ->  Sort  (cost=173254.53..173284.21 rows=11871 width=34) (actual time=5422.017..5433.367 rows=12044 loops=1)
+                                 Sort Key: rm_case_product.case_id
+                                 Sort Method: quicksort  Memory: 2078kB
+                                 ->  Seq Scan on rm_case_product  (cost=0.00..172451.15 rows=11871 width=34) (actual time=4.172..5403.206 rows=12044 loops=1)
+                                       Filter: ((product_name)::text ~~* 'TYLENOL%'::text)
+                                       Rows Removed by Filter: 2883328
+                     ->  Index Scan using idx_rm_case_event__case_id on rm_case_event  (cost=0.43..3.21 rows=69 width=38) (actual time=0.005..0.009 rows=4 loops=9432)
+                           Index Cond: (case_id = rm_case_narrative.case_id)
+               ->  Materialize  (cost=0.43..766385.39 rows=8519448 width=16) (actual time=0.031..25432.554 rows=8326474 loops=1)
+                     ->  Index Scan using idx_rm_case_event_assess__case_id on rm_case_event_assess  (cost=0.43..745086.77 rows=8519448 width=16) (actual time=0.017..10224.964 rows=8306494 loops=1)
+ Planning time: 20.478 ms
+ Execution time: 239166.414 ms
+(28 rows)
+
+Time: 239413.684 ms
