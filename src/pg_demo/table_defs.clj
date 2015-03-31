@@ -5280,7 +5280,7 @@
               SMQ_ALGORITHM varchar(999),
               SMQ_TYPE numeric,
               CREATE_DATE timestamp,
-              MODIFIED_DATE timestamp,
+              MODIFIED_DATE timestamp
           )" }
 
     { "rm_meddra_smq_term_details"
