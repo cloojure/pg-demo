@@ -1,0 +1,106 @@
+***************************************************************************************************
+No indexes
+
+******** explain
+
+~/work/pg-demo/time-1 > psql --dbname=postal --username=rxlogix --host=pg-test-1.cksh17mdz5oo.us-west-1.rds.amazonaws.com -f q00-orig.sql
+Timing is on.
+psql:q00-orig.sql:9: NOTICE:  materialized view "rmc_meepnp_s1" does not exist, skipping
+DROP MATERIALIZED VIEW
+Time: 36.215 ms
+                                                                     QUERY PLAN
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+ Merge Join  (cost=4042859.31..580285966.32 rows=38302481111 width=104)
+   Merge Cond: (rm_case_master.case_id = rm_case_event.case_id)
+   ->  Merge Join  (cost=1551517.18..1752674.48 rows=9875848 width=91)
+         Merge Cond: (rm_case_narrative.case_id = rm_case_master.case_id)
+         ->  Merge Join  (cost=404243.76..449175.06 rows=2412002 width=26)
+               Merge Cond: (rm_case_narrative.case_id = rm_case_pat_info.case_id)
+               ->  Sort  (cost=115857.07..117930.54 rows=829391 width=15)
+                     Sort Key: rm_case_narrative.case_id
+                     ->  Seq Scan on rm_case_narrative  (cost=0.00..20145.91 rows=829391 width=15)
+               ->  Materialize  (cost=288385.62..297973.49 rows=1917573 width=11)
+                     ->  Sort  (cost=288385.62..293179.56 rows=1917573 width=11)
+                           Sort Key: rm_case_pat_info.case_id
+                           ->  Seq Scan on rm_case_pat_info  (cost=0.00..55504.73 rows=1917573 width=11)
+         ->  Materialize  (cost=1147268.37..1153371.05 rows=1220537 width=65)
+               ->  Sort  (cost=1147268.37..1150319.71 rows=1220537 width=65)
+                     Sort Key: rm_case_master.case_id
+                     ->  Hash Join  (cost=658809.65..973813.67 rows=1220537 width=65)
+                           Hash Cond: (rm_case_product.case_id = rm_case_master.case_id)
+                           ->  Seq Scan on rm_case_product  (cost=0.00..170326.64 rows=13557 width=34)
+                                 Filter: ((product_name)::text ~~* 'TYLENOL%'::text)
+                           ->  Hash  (cost=444323.62..444323.62 rows=11092562 width=31)
+                                 ->  Seq Scan on rm_case_master  (cost=0.00..444323.62 rows=11092562 width=31)
+   ->  Materialize  (cost=2490660.16..7112332.78 rows=228631948 width=43)
+         ->  Merge Join  (cost=2490660.16..6540752.91 rows=228631948 width=43)
+               Merge Cond: ((rm_case_event.case_id = rm_case_event_assess.case_id) AND (rm_case_event.seq_num = rm_case_event_assess.event_seq_num))
+               ->  Sort  (cost=1000106.32..1010483.17 rows=4150741 width=37)
+                     Sort Key: rm_case_event.case_id, rm_case_event.seq_num
+                     ->  Seq Scan on rm_case_event  (cost=0.00..316841.41 rows=4150741 width=37)
+               ->  Materialize  (cost=1488299.11..1530893.17 rows=8518813 width=16)
+                     ->  Sort  (cost=1488299.11..1509596.14 rows=8518813 width=16)
+                           Sort Key: rm_case_event_assess.case_id, rm_case_event_assess.event_seq_num
+                           ->  Seq Scan on rm_case_event_assess  (cost=0.00..216517.13 rows=8518813 width=16)
+(32 rows)
+
+Time: 61.517 ms
+
+
+******** explain analyze
+
+~/work/pg-demo/time-1 > psql --dbname=postal --username=rxlogix --host=pg-test-1.cksh17mdz5oo.us-west-1.rds.amazonaws.com -f q00-orig.sql
+Timing is on.
+psql:q00-orig.sql:9: NOTICE:  materialized view "rmc_meepnp_s1" does not exist, skipping
+DROP MATERIALIZED VIEW
+Time: 32.493 ms
+                                                                             QUERY PLAN
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Merge Join  (cost=4009157.83..548897587.66 rows=36047405179 width=104) (actual time=277483.515..622324.240 rows=3672320 loops=1)
+   Merge Cond: (rm_case_master.case_id = rm_case_event.case_id)
+   ->  Merge Join  (cost=1515989.42..1718168.68 rows=9598395 width=91) (actual time=58765.546..80868.974 rows=1822560 loops=1)
+         Merge Cond: (rm_case_narrative.case_id = rm_case_master.case_id)
+         ->  Merge Join  (cost=405074.25..453632.42 rows=2639618 width=26) (actual time=14934.751..28706.923 rows=2353249 loops=1)
+               Merge Cond: (rm_case_narrative.case_id = rm_case_pat_info.case_id)
+               ->  Sort  (cost=116383.33..118466.68 rows=833340 width=15) (actual time=4537.320..5364.440 rows=811941 loops=1)
+                     Sort Key: rm_case_narrative.case_id
+                     Sort Method: external sort  Disk: 21184kB
+                     ->  Seq Scan on rm_case_narrative  (cost=0.00..20185.40 rows=833340 width=15) (actual time=0.035..1259.865 rows=833340 loops=1)
+               ->  Materialize  (cost=288689.78..298288.72 rows=1919787 width=11) (actual time=10397.408..16793.752 rows=3150185 loops=1)
+                     ->  Sort  (cost=288689.78..293489.25 rows=1919787 width=11) (actual time=10397.401..12264.560 rows=1870121 loops=1)
+                           Sort Key: rm_case_pat_info.case_id
+                           Sort Method: external sort  Disk: 35832kB
+                           ->  Seq Scan on rm_case_pat_info  (cost=0.00..55526.87 rows=1919787 width=11) (actual time=0.045..2807.466 rows=1918620 loops=1)
+         ->  Materialize  (cost=1110909.70..1116259.36 rows=1069933 width=65) (actual time=43720.461..45986.567 rows=1830578 loops=1)
+               ->  Sort  (cost=1110909.70..1113584.53 rows=1069933 width=65) (actual time=43720.415..44106.773 rows=235845 loops=1)
+                     Sort Key: rm_case_master.case_id
+                     Sort Method: external merge  Disk: 25088kB
+                     ->  Hash Join  (cost=658940.24..959874.28 rows=1069933 width=65) (actual time=36313.082..42813.081 rows=235845 loops=1)
+                           Hash Cond: (rm_case_product.case_id = rm_case_master.case_id)
+                           ->  Seq Scan on rm_case_product  (cost=0.00..170226.26 rows=11878 width=34) (actual time=35.151..4958.591 rows=12044 loops=1)
+                                 Filter: ((product_name)::text ~~* 'TYLENOL%'::text)
+                                 Rows Removed by Filter: 2883328
+                           ->  Hash  (cost=444368.33..444368.33 rows=11097033 width=31) (actual time=36067.378..36067.378 rows=11096988 loops=1)
+                                 Buckets: 8192  Batches: 256  Memory Usage: 3266kB
+                                 ->  Seq Scan on rm_case_master  (cost=0.00..444368.33 rows=11097033 width=31) (actual time=0.016..20972.129 rows=11096988 loops=1)
+   ->  Materialize  (cost=2492559.08..7039498.61 rows=224933528 width=44) (actual time=88081.318..462111.030 rows=70771895 loops=1)
+         ->  Merge Join  (cost=2492559.08..6477164.79 rows=224933528 width=44) (actual time=88081.306..329838.861 rows=67105775 loops=1)
+               Merge Cond: ((rm_case_event.case_id = rm_case_event_assess.case_id) AND (rm_case_event.seq_num = rm_case_event_assess.event_seq_num))
+               ->  Sort  (cost=1000940.12..1011328.41 rows=4155317 width=38) (actual time=31153.856..39036.952 rows=4091370 loops=1)
+                     Sort Key: rm_case_event.case_id, rm_case_event.seq_num
+                     Sort Method: external merge  Disk: 197288kB
+                     ->  Seq Scan on rm_case_event  (cost=0.00..316887.17 rows=4155317 width=38) (actual time=0.025..9750.357 rows=4155072 loops=1)
+               ->  Materialize  (cost=1488531.77..1531132.78 rows=8520201 width=16) (actual time=56798.414..142532.330 rows=69902754 loops=1)
+                     ->  Sort  (cost=1488531.77..1509832.28 rows=8520201 width=16) (actual time=56798.385..71584.695 rows=8306494 loops=1)
+                           Sort Key: rm_case_event_assess.case_id, rm_case_event_assess.event_seq_num
+                           Sort Method: external merge  Disk: 218544kB
+                           ->  Seq Scan on rm_case_event_assess  (cost=0.00..216531.01 rows=8520201 width=16) (actual time=0.026..11468.562 rows=8519448 loops=1)
+ Planning time: 16.193 ms
+ Execution time: 631146.595 ms
+(41 rows)
+
+Time: 631417.962 ms
+
+***************************************************************************************************
+Create indexes
+
