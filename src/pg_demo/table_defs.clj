@@ -5410,7 +5410,7 @@
               TEXT_GERMAN varchar(999),
               TEXT_SPANISH varchar(999),
               YEAR_QUARTER char(3),
-              DELETED timestamp,
+              DELETED timestamp
           )" }
 
     { "rm_who_atc_classification"
