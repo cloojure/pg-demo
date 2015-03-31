@@ -5266,7 +5266,7 @@
 
     { "rm_meddra_smq_term"
           "CREATE TABLE rm_meddra_smq_term (
-              GLOBAL_DICT_ID numeric NOT NULL
+              GLOBAL_DICT_ID numeric NOT NULL,
               SMQ_ID numeric NOT NULL,
               SMQ_CODE numeric,
               SMQ_NAME varchar(999),
@@ -5355,7 +5355,7 @@
 
     { "rm_meddra_spec_pref_comp"
           "CREATE TABLE rm_meddra_spec_pref_comp (
-              GLOBAL_DICT_ID numeric NOT NULL
+              GLOBAL_DICT_ID numeric NOT NULL,
               SPEC_CODE numeric NOT NULL,
               PT_CODE numeric NOT NULL,
               DELETED timestamp
@@ -5396,7 +5396,7 @@
 
     { "rm_who_ard"
           "CREATE TABLE rm_who_ard (
-              GLOBAL_DICT_ID numeric NOT NULL
+              GLOBAL_DICT_ID numeric NOT NULL,
               ADV_REACTION_NUMBER char(4) NOT NULL,
               SEQ_NUM char(3) NOT NULL,
               CHECK_DIGIT char(1),
