@@ -2645,7 +2645,7 @@
               VALUE varchar(4) NOT NULL,
               DESCRIPTION varchar(999) NOT NULL,
               DEFINITION varchar(999),
-              SORTBY numeric(10
+              SORTBY numeric(10,2) NOT NULL
           )" }
 
     { "rm_cfg_mem_report"
