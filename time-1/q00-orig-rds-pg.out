@@ -311,9 +311,137 @@ Time: 240948.323 ms
                      ->  Index Scan using idx_rm_case_event__case_id on rm_case_event  (cost=0.43..3.21 rows=69 width=38) (actual time=0.005..0.009 rows=4 loops=9432)
                            Index Cond: (case_id = rm_case_narrative.case_id)
                ->  Materialize  (cost=0.43..766385.39 rows=8519448 width=16) (actual time=0.031..25432.554 rows=8326474 loops=1)
-                     ->  Index Scan using idx_rm_case_event_assess__case_id on rm_case_event_assess  (cost=0.43..745086.77 rows=8519448 width=16) (actual time=0.017..10224.964 rows=8306494 loops=1)
+                     ->  Indekjjjjjjjjkkx Scan using idx_rm_case_event_assess__case_id on rm_case_event_assess  (cost=0.43..745086.77 rows=8519448 width=16) (actual time=0.017..10224.964 rows=8306494 loops=1)
  Planning time: 20.478 ms
  Execution time: 239166.414 ms
 (28 rows)
 
 Time: 239413.684 ms
+---------------------------------------------------------------------------------------------------
+select count(*) from rmc_meepnp_s1;
+  count
+---------
+ 3672320
+(1 row)
+
+Time: 8210.999 ms
+
+===================================================================================================
+Using UPPER() & alan_tmp:
+
+***** WOW!  Using "explain analyze" causes execution time to increase by 5x !!!!!
+
+drop   table if exists alan_tmp ;
+psql:q00-orig.sql:12: NOTICE:  table "alan_tmp" does not exist, skipping
+DROP TABLE
+Time: 58.623 ms
+create table alan_tmp
+  as select
+    rm_case_master.case_id,
+    rm_case_master.case_num,
+    rm_case_master.create_time,
+    rm_case_master.dlp_revision_number,
+    rm_case_event.art_code,
+    rm_case_event.code_status,
+    rm_case_event.details,
+    rm_case_event.diagnosis,
+    rm_case_event_assess.det_listedness_id,
+    rm_case_product.product_name,
+    rm_case_product.generic_name,
+    rm_case_narrative.narrative,
+    rm_case_pat_info.gender_id
+  from
+    rm_case_master,
+    rm_case_event,
+    rm_case_event_assess,
+    rm_case_product,
+    rm_case_narrative,
+    rm_case_pat_info
+  where
+    rm_case_master.case_id = rm_case_event.case_id and
+    rm_case_master.case_id = rm_case_event_assess.case_id and
+    rm_case_master.case_id = rm_case_product.case_id and
+    rm_case_master.case_id = rm_case_narrative.case_id and
+    rm_case_master.case_id = rm_case_pat_info.case_id and
+    UPPER(rm_case_product.product_name) LIKE 'TYLENOL%'
+    and rm_case_event.seq_num = rm_case_event_assess.event_seq_num
+SELECT 3672320
+Time: 55294.629 ms
+
+drop   table if exists alan_tmp ;
+DROP TABLE
+Time: 1492.262 ms
+create table alan_tmp
+  as select
+    rm_case_master.case_id,
+    rm_case_master.case_num,
+    rm_case_master.create_time,
+    rm_case_master.dlp_revision_number,
+    rm_case_event.art_code,
+    rm_case_event.code_status,
+    rm_case_event.details,
+    rm_case_event.diagnosis,
+    rm_case_event_assess.det_listedness_id,
+    rm_case_product.product_name,
+    rm_case_product.generic_name,
+    rm_case_narrative.narrative,
+    rm_case_pat_info.gender_id
+  from
+    rm_case_master,
+    rm_case_event,
+    rm_case_event_assess,
+    rm_case_product,
+    rm_case_narrative,
+    rm_case_pat_info
+  where
+    rm_case_master.case_id = rm_case_event.case_id and
+    rm_case_master.case_id = rm_case_event_assess.case_id and
+    rm_case_master.case_id = rm_case_product.case_id and
+    rm_case_master.case_id = rm_case_narrative.case_id and
+    rm_case_master.case_id = rm_case_pat_info.case_id and
+    UPPER(rm_case_product.product_name) LIKE 'TYLENOL%'
+    and rm_case_event.seq_num = rm_case_event_assess.event_seq_num
+SELECT 3672320
+Time: 56320.287 ms
+
+===================================================================================================
+Using IBUPROFEN:
+
+drop   table if exists alan_tmp ;
+DROP TABLE
+Time: 398.522 ms
+create table alan_tmp
+  as select
+    rm_case_master.case_id,
+    rm_case_master.case_num,
+    rm_case_master.create_time,
+    rm_case_master.dlp_revision_number,
+    rm_case_event.art_code,
+    rm_case_event.code_status,
+    rm_case_event.details,
+    rm_case_event.diagnosis,
+    rm_case_event_assess.det_listedness_id,
+    rm_case_product.product_name,
+    rm_case_product.generic_name,
+    rm_case_narrative.narrative,
+    rm_case_pat_info.gender_id
+  from
+    rm_case_master,
+    rm_case_event,
+    rm_case_event_assess,
+    rm_case_product,
+    rm_case_narrative,
+    rm_case_pat_info
+  where
+    rm_case_master.case_id = rm_case_event.case_id and
+    rm_case_master.case_id = rm_case_event_assess.case_id and
+    rm_case_master.case_id = rm_case_product.case_id and
+    rm_case_master.case_id = rm_case_narrative.case_id and
+    rm_case_master.case_id = rm_case_pat_info.case_id and
+    UPPER(rm_case_product.product_name) LIKE 'IBUPROFEN%'
+    and rm_case_event.seq_num = rm_case_event_assess.event_seq_num
+SELECT 173324656
+
+Time = 438.5 sec (438586.491 ms)
+Rows = 173,324,656
+
