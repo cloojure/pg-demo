@@ -1,0 +1,112 @@
+***************************************************************************************************
+No indexes
+
+***** Run 1:
+
+drop table alan_tmp;
+create materialized view  alan_tmp
+  as select
+    rm_case_master.case_id,
+    rm_case_master.case_num,
+    rm_case_master.create_time,
+    rm_case_master.dlp_revision_number,
+
+    rm_case_event.art_code,
+    rm_case_event.code_status,
+    rm_case_event.details,
+    rm_case_event.diagnosis,
+
+    rm_case_event_assess.det_listedness_id,
+
+    rm_case_product.product_name,
+    rm_case_product.generic_name,
+
+    rm_case_narrative.narrative,
+
+    rm_case_pat_info.gender_id 
+  from
+    rm_case_master,
+    rm_case_event,
+    rm_case_event_assess,
+    rm_case_product,
+    rm_case_narrative, 
+    rm_case_pat_info
+  where
+    rm_case_master.case_id = rm_case_event.case_id and
+    rm_case_master.case_id = rm_case_event_assess.case_id and
+    rm_case_master.case_id = rm_case_product.case_id and
+    rm_case_master.case_id = rm_case_narrative.case_id and
+    rm_case_master.case_id = rm_case_pat_info.case_id and
+    UPPER(rm_case_product.product_name) LIKE 'TYLENOL%'  
+    and rm_case_event.seq_num = rm_case_event_assess.event_seq_num ; 
+
+Time = 151.8 sec
+
+***** Run 2:  Time = 125.8 sec
+***** Run 3:  Time = 101.7 sec
+***** Run 4:  Time = 102.2 sec
+
+***************************************************************************************************
+Create indexes:
+
+10.0 sec    create index idx_rm_case_master__case_id on rm_case_master (case_id);   
+ 4.1 sec    create index idx_rm_case_event__case_id on rm_case_event (case_id);
+            create index idx_rm_case_event__seq_num on rm_case_event (seq_num);
+            create index idx_rm_case_event_assess__case_id on rm_case_event_assess (case_id);
+            create index idx_rm_case_event_assess__event_seq_num on rm_case_event_assess (event_seq_num);
+            create index idx_rm_case_narrative__case_id on rm_case_narrative (case_id);
+            create index idx_rm_case_pat_info__case_id on rm_case_pat_info (case_id);
+            create index idx_rm_case_product__case_id on rm_case_product (case_id);
+            create index idx_rm_case_product__product_name on rm_case_product (product_name);
+
+***************************************************************************************************
+Run with indexes:
+
+***** Run 1:  Time = 101.7 sec
+***** Run 2:  Time = 101.4 sec
+***** Run 3:  Time = 101.5 sec
+
+  rows=36,792,832
+
+===================================================================================================
+Using IBUPROFEN:
+
+drop   table alan_tmp ;
+create table alan_tmp
+  as select
+    rm_case_master.case_id,
+    rm_case_master.case_num,
+    rm_case_master.create_time,
+    rm_case_master.dlp_revision_number,
+
+    rm_case_event.art_code,
+    rm_case_event.code_status,
+    rm_case_event.details,
+    rm_case_event.diagnosis,
+
+    rm_case_event_assess.det_listedness_id,
+
+    rm_case_product.product_name,
+    rm_case_product.generic_name,
+
+    rm_case_narrative.narrative,
+
+    rm_case_pat_info.gender_id 
+  from
+    rm_case_master,
+    rm_case_event,
+    rm_case_event_assess,
+    rm_case_product,
+    rm_case_narrative, 
+    rm_case_pat_info
+  where
+    rm_case_master.case_id = rm_case_event.case_id and
+    rm_case_master.case_id = rm_case_event_assess.case_id and
+    rm_case_master.case_id = rm_case_product.case_id and
+    rm_case_master.case_id = rm_case_narrative.case_id and
+    rm_case_master.case_id = rm_case_pat_info.case_id and
+    UPPER(rm_case_product.product_name) LIKE 'IBUPROFEN%'
+    and rm_case_event.seq_num = rm_case_event_assess.event_seq_num ;
+
+Time = 451.4 sec
+Rows = 143,175,004 (143175004) (117.5 sec)
