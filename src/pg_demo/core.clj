@@ -299,7 +299,7 @@
 ; (oracle-init-src)
   (when dest-is-oracle
     (oracle-init-dest))
-  (count-tables-pg)
+  (count-tables)
   (drop-create-tables)
 
   (println "-----------------------------------------------------------------------------")
