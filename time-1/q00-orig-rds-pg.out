@@ -401,8 +401,8 @@ create table alan_tmp
     rm_case_master.case_id = rm_case_pat_info.case_id and
     UPPER(rm_case_product.product_name) LIKE 'TYLENOL%'
     and rm_case_event.seq_num = rm_case_event_assess.event_seq_num
-SELECT 3672320
-Time: 56320.287 ms
+SELECT 3,672,320 rows
+Time: 56.320 sec
 
 ===================================================================================================
 Using IBUPROFEN:
