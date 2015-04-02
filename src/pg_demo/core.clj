@@ -13,11 +13,11 @@
   (:import java.util.TimeZone)
   (:gen-class))
 
-(def src-is-oracle      false)
-(def dest-is-oracle     false)
 (def tx-chunk-size      10000)
 (def pg-threadpool 
-  (cp/threadpool        16))
+  (cp/threadpool        4))
+(def src-is-oracle      false)
+(def dest-is-oracle     false)
 (def large-db           false)
 
 ; (def ora-spec    
@@ -39,14 +39,14 @@
 ; ;   :subname      (if large-db  "//localhost:5432/ubuntu_large"
 ; ;                               "//localhost:5432/ubuntu" ) 
 ;   } )
+;---------------------------------------------------------------------------
 
-(def src-spec
-  { :classname      "org.postgresql.Driver"
-    :subprotocol    "postgresql"
-    :subname        "//10.100.6.89:5432/ubuntu_large"
-    :user           "ubuntu"
-  } )
-
+; (def src-spec
+;   { :classname      "org.postgresql.Driver"
+;     :subprotocol    "postgresql"
+;     :subname        "//10.100.6.89:5432/ubuntu_large"
+;     :user           "ubuntu"
+;   } )
 ; (def dest-spec
 ;   { :classname    "oracle.jdbc.OracleDriver"  ; must be in classpath
 ;     :subprotocol  "oracle"
@@ -55,10 +55,19 @@
 ;     :password     "rxlogix123" 
 ;   } )
 
+(def src-spec
+  { :classname    "oracle.jdbc.OracleDriver"  ; must be in classpath
+    :subprotocol  "oracle"
+    :subname      "thin:@//ora-test-1.cksh17mdz5oo.us-west-1.rds.amazonaws.com:1521/ORCL"
+    :user         "argus_mart" 
+    :password     "rxlogix"
+  } )
+
+
 (def dest-spec
   { :classname      "org.postgresql.Driver"
     :subprotocol    "postgresql"
-    :subname        "//pg-test-1.cksh17mdz5oo.us-west-1.rds.amazonaws.com:5432/postal"
+    :subname        "//pg-test-1.cksh17mdz5oo.us-west-1.rds.amazonaws.com:5432/argus_mart"
     :user           "rxlogix"
     :password       "rxlogix123"
   } )

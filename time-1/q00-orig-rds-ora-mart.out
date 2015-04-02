@@ -549,5 +549,4 @@ SELECT cm.case_id,
            AND cc1.classification_id = lcc.classification_id
            AND lcc.description IN ('Pre-Clinical Toxicity', 'Non-Valid'));
 
-run 1: Time = 9089.8 sec (2.52 hours)
-run 2: Time = sec
+run 1: Time = 9089.8 sec (2.5 hours)
