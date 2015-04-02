@@ -15,7 +15,7 @@
 
 (def tx-chunk-size      10000)
 (def pg-threadpool 
-  (cp/threadpool        4))
+  (cp/threadpool        16))
 (def src-is-oracle      false)
 (def dest-is-oracle     false)
 (def large-db           false)
