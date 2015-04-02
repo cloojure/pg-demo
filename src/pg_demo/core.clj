@@ -286,7 +286,10 @@
                                 (reverse it))                     ; descending order
     table-futures-map     (into (sorted-map)
                             (for [table-name table-names-sorted]
-                              { table-name (cp/future pg-threadpool (proc-table-pg table-name)) } ))
+                              { table-name (cp/future pg-threadpool 
+                                            ; (proc-table-pg table-name)
+                                              (proc-table    table-name)
+                                           ) } ))
   ]
     (doseq [it table-futures-map]
       (deref (val it))  ; block until complete
