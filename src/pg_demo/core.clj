@@ -193,7 +193,7 @@
             (jdbc/execute! pg-conn [drop-cmd] )
             (catch Exception ex 
               (let [ex-str (.toString ex) ]
-                (when-not (re-find #"table or view does not exist" ex-str)
+                (when-not (re-find #"not exist" ex-str)
                   (throw (Exception. (str "Command failed: " drop-cmd "  Exception: " ex))))))))
       ; (println "running:" creation-sql-str)
         (jdbc/execute! pg-conn [creation-sql-str] ))
