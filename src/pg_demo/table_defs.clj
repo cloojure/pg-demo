@@ -5693,12 +5693,6 @@
 
   ] ))
 
-(def dummy 
-
-    { ""
-          "
-          " }
-
 (def table-name->creation-sql-test
   (into (sorted-map) [
 
@@ -5820,5 +5814,3 @@
           )" }
 
   ] ))
-
-)
