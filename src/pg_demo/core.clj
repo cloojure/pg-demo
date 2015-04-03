@@ -67,7 +67,8 @@
 (def dest-spec
   { :classname      "org.postgresql.Driver"
     :subprotocol    "postgresql"
-    :subname        "//pg-test-1.cksh17mdz5oo.us-west-1.rds.amazonaws.com:5432/argus_mart"
+;   :subname        "//pg-test-1.cksh17mdz5oo.us-west-1.rds.amazonaws.com:5432/argus_mart"
+    :subname        "//pg-test-1.cksh17mdz5oo.us-west-1.rds.amazonaws.com:5432/demo"
     :user           "rxlogix"
     :password       "rxlogix123"
   } )
@@ -222,7 +223,9 @@
                             table-name (.toString ex) rows-chunk-new) ]
                 (spit "error.txt" msg)
                 (flush) (println msg) (flush)
-                (System/exit 1)))))))))
+                (System/exit 1))))))))
+  nil ; do not return the entire result-set!
+)
 
 (defn proc-table [table-name]
   (Thread/sleep (-> (rand 5) (* 1000) (long)))  ; 0..5 seconds (in millis)
@@ -231,7 +234,10 @@
     (jdbc/with-db-connection [src-conn src-spec]
       (src-set-context src-conn)
       (jdbc/query src-conn [ (format "select * from %s" table-name) ]
-        :result-set-fn  #(result-set->pg-insert table-name %) ))
+        :result-set-fn  #(result-set->pg-insert table-name %) )
+      (println "  finished processing:" table-name)
+      nil ; do not return the result-set of the query!
+    )
     (catch Exception ex 
       (println (format "    %s failed... will retry. Error: %s " table-name (.toString ex)))
       (System/exit 1))))
@@ -307,5 +313,7 @@
 
   (println "-----------------------------------------------------------------------------")
   (transfer-data)
+  (println "-----------------------------------------------------------------------------")
+  (println "complete")
 )
 
