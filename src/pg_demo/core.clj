@@ -13,7 +13,7 @@
   (:import java.util.TimeZone)
   (:gen-class))
 
-(def tx-chunk-size      10000)
+(def tx-chunk-size      1000)
 (def pg-threadpool 
   (cp/threadpool        16))
 (def src-is-oracle      false)
