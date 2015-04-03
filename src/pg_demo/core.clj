@@ -165,7 +165,7 @@
      ;(src-set-context src-conn)
       (deliver src-table-rows 
         (into (sorted-map) 
-          (for [table-name (sort (keys tables/table-name->creation-sql)) ]
+          (for [table-name (sort (keys tables/table-name->creation-sql-test)) ]
             (let [table-rows   (-> (jdbc/query src-conn 
                                         [ (format "select count(*) as result from %s" table-name) ] )
                                 first
