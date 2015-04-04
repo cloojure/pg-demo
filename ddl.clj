@@ -1,3 +1,5 @@
+; Oracle has a limit of varchar(4000), so we use 3900 for clob and 
+; any size larger than varchar(1000)
 
 create table rm_case_assess
 (
