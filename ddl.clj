@@ -1,4 +1,5 @@
-  CREATE TABLE "MART_USER"."RM_CASE_ASSESS" 
+
+  create table "RM_CASE_ASSESS" 
   (	"ENTERPRISE_ID" NUMBER , 
 	"CASE_ID" NUMBER, 
 	"TEMPLATE_ID" NUMBER, 
@@ -166,8 +167,8 @@
 --  DDL for Table RM_CASE_CLASSIFICATIONS
 --------------------------------------------------------
 
-  CREATE TABLE "MART_USER"."RM_CASE_CLASSIFICATIONS" 
-   (	"ENTERPRISE_ID" NUMBER DEFAULT SYS_CONTEXT('ARGUS_MART_CTX','enterprise_id'), 
+  create table "RM_CASE_CLASSIFICATIONS" 
+   (	"ENTERPRISE_ID" NUMBER , 
 	"CASE_ID" NUMBER, 
 	"SEQ_NUM" NUMBER, 
 	"CLASSIFICATION_ID" NUMBER, 
@@ -224,8 +225,8 @@
 --  DDL for Table RM_CASE_EVENT
 --------------------------------------------------------
 
-  CREATE TABLE "MART_USER"."RM_CASE_EVENT" 
-   (	"ENTERPRISE_ID" NUMBER DEFAULT SYS_CONTEXT('ARGUS_MART_CTX','enterprise_id'), 
+  create table "RM_CASE_EVENT" 
+   (	"ENTERPRISE_ID" NUMBER , 
 	"CASE_ID" NUMBER, 
 	"SEQ_NUM" NUMBER, 
 	"DESC_REPTD" varchar(250), 
@@ -417,8 +418,8 @@
 --  DDL for Table RM_CASE_EVENT_ASSESS
 --------------------------------------------------------
 
-  CREATE TABLE "MART_USER"."RM_CASE_EVENT_ASSESS" 
-   (	"ENTERPRISE_ID" NUMBER DEFAULT SYS_CONTEXT('ARGUS_MART_CTX','enterprise_id'), 
+  create table "RM_CASE_EVENT_ASSESS" 
+   (	"ENTERPRISE_ID" NUMBER , 
 	"CASE_ID" NUMBER, 
 	"EVENT_SEQ_NUM" NUMBER, 
 	"PROD_SEQ_NUM" NUMBER, 
@@ -492,8 +493,8 @@
 --  DDL for Table RM_CASE_FOLLOWUP
 --------------------------------------------------------
 
-  CREATE TABLE "MART_USER"."RM_CASE_FOLLOWUP" 
-   (	"ENTERPRISE_ID" NUMBER DEFAULT SYS_CONTEXT('ARGUS_MART_CTX','enterprise_id'), 
+  create table "RM_CASE_FOLLOWUP" 
+   (	"ENTERPRISE_ID" NUMBER , 
 	"CASE_ID" NUMBER, 
 	"SEQ_NUM" NUMBER, 
 	"RECEIPT_DATE" DATE, 
@@ -561,8 +562,8 @@
 --  DDL for Table RM_CASE_MASTER
 --------------------------------------------------------
 
-  CREATE TABLE "MART_USER"."RM_CASE_MASTER" 
-   (	"ENTERPRISE_ID" NUMBER DEFAULT SYS_CONTEXT('ARGUS_MART_CTX','enterprise_id'), 
+  create table "RM_CASE_MASTER" 
+   (	"ENTERPRISE_ID" NUMBER , 
 	"CASE_ID" NUMBER, 
 	"CASE_NUM" varchar(20), 
 	"REV" NUMBER, 
@@ -712,8 +713,8 @@
 --  DDL for Table RM_CASE_NARRATIVE
 --------------------------------------------------------
 
-  CREATE TABLE "MART_USER"."RM_CASE_NARRATIVE" 
-   (	"ENTERPRISE_ID" NUMBER DEFAULT SYS_CONTEXT('ARGUS_MART_CTX','enterprise_id'), 
+  create table "RM_CASE_NARRATIVE" 
+   (	"ENTERPRISE_ID" NUMBER , 
 	"CASE_ID" NUMBER, 
 	"ABBREV_NARRATIVE" CLOB DEFAULT EMPTY_CLOB(), 
 	"ABBREV_NARRATIVE_J" CLOB, 
@@ -792,8 +793,8 @@
 --  DDL for Table RM_CASE_PAT_INFO
 --------------------------------------------------------
 
-  CREATE TABLE "MART_USER"."RM_CASE_PAT_INFO" 
-   (	"ENTERPRISE_ID" NUMBER DEFAULT SYS_CONTEXT('ARGUS_MART_CTX','enterprise_id'), 
+  create table "RM_CASE_PAT_INFO" 
+   (	"ENTERPRISE_ID" NUMBER , 
 	"CASE_ID" NUMBER, 
 	"PAT_ID" varchar(10), 
 	"PAT_SUBJ_NUM" varchar(20), 
@@ -950,8 +951,8 @@
 --  DDL for Table RM_CASE_PROD_DRUGS
 --------------------------------------------------------
 
-  CREATE TABLE "MART_USER"."RM_CASE_PROD_DRUGS" 
-   (	"ENTERPRISE_ID" NUMBER DEFAULT SYS_CONTEXT('ARGUS_MART_CTX','enterprise_id'), 
+  create table "RM_CASE_PROD_DRUGS" 
+   (	"ENTERPRISE_ID" NUMBER , 
 	"CASE_ID" NUMBER, 
 	"SEQ_NUM" NUMBER, 
 	"FORMULATION_ID" NUMBER, 
@@ -1093,8 +1094,8 @@
 --  DDL for Table RM_CASE_PRODUCT
 --------------------------------------------------------
 
-  CREATE TABLE "MART_USER"."RM_CASE_PRODUCT" 
-   (	"ENTERPRISE_ID" NUMBER DEFAULT SYS_CONTEXT('ARGUS_MART_CTX','enterprise_id'), 
+  create table "RM_CASE_PRODUCT" 
+   (	"ENTERPRISE_ID" NUMBER , 
 	"CASE_ID" NUMBER, 
 	"SEQ_NUM" NUMBER, 
 	"PRODUCT_ID" NUMBER, 
@@ -1324,8 +1325,8 @@
 --  DDL for Table RM_CASE_REPORTERS
 --------------------------------------------------------
 
-  CREATE TABLE "MART_USER"."RM_CASE_REPORTERS" 
-   (	"ENTERPRISE_ID" NUMBER DEFAULT SYS_CONTEXT('ARGUS_MART_CTX','enterprise_id'), 
+  create table "RM_CASE_REPORTERS" 
+   (	"ENTERPRISE_ID" NUMBER , 
 	"CASE_ID" NUMBER, 
 	"SEQ_NUM" NUMBER, 
 	"MEDIA_ID" NUMBER, 
@@ -1433,8 +1434,8 @@
 --  DDL for Table RM_CASE_STUDY
 --------------------------------------------------------
 
-  CREATE TABLE "MART_USER"."RM_CASE_STUDY" 
-   (	"ENTERPRISE_ID" NUMBER DEFAULT SYS_CONTEXT('ARGUS_MART_CTX','enterprise_id'), 
+  create table "RM_CASE_STUDY" 
+   (	"ENTERPRISE_ID" NUMBER , 
 	"CASE_ID" NUMBER, 
 	"STUDY_KEY" NUMBER, 
 	"STUDY_NUM" varchar(35), 
@@ -1525,8 +1526,8 @@
 --  DDL for Table RM_LM_CASE_CLASSIFICATION
 --------------------------------------------------------
 
-  CREATE TABLE "MART_USER"."RM_LM_CASE_CLASSIFICATION" 
-   (	"ENTERPRISE_ID" NUMBER DEFAULT SYS_CONTEXT('ARGUS_MART_CTX','enterprise_id'), 
+  create table "RM_LM_CASE_CLASSIFICATION" 
+   (	"ENTERPRISE_ID" NUMBER , 
 	"CLASSIFICATION_ID" NUMBER, 
 	"DESCRIPTION" varchar(30), 
 	"PROTECTED" NUMBER, 
@@ -1568,8 +1569,8 @@
 --  DDL for Table RM_LM_CAUSALITY
 --------------------------------------------------------
 
-  CREATE TABLE "MART_USER"."RM_LM_CAUSALITY" 
-   (	"ENTERPRISE_ID" NUMBER DEFAULT SYS_CONTEXT('ARGUS_MART_CTX','enterprise_id'), 
+  create table "RM_LM_CAUSALITY" 
+   (	"ENTERPRISE_ID" NUMBER , 
 	"CAUSALITY_ID" NUMBER, 
 	"CAUSALITY" varchar(35), 
 	"REPORTABILITY" NUMBER, 
@@ -1611,8 +1612,8 @@
 --  DDL for Table RM_LM_COUNTRIES
 --------------------------------------------------------
 
-  CREATE TABLE "MART_USER"."RM_LM_COUNTRIES" 
-   (	"ENTERPRISE_ID" NUMBER DEFAULT SYS_CONTEXT('ARGUS_MART_CTX','enterprise_id'), 
+  create table "RM_LM_COUNTRIES" 
+   (	"ENTERPRISE_ID" NUMBER , 
 	"COUNTRY_ID" NUMBER, 
 	"COUNTRY" varchar(50), 
 	"A2" varchar(2), 
@@ -1658,8 +1659,8 @@
 --  DDL for Table RM_LM_PRODUCT
 --------------------------------------------------------
 
-  CREATE TABLE "MART_USER"."RM_LM_PRODUCT" 
-   (	"ENTERPRISE_ID" NUMBER DEFAULT SYS_CONTEXT('ARGUS_MART_CTX','enterprise_id'), 
+  create table "RM_LM_PRODUCT" 
+   (	"ENTERPRISE_ID" NUMBER , 
 	"PRODUCT_ID" NUMBER, 
 	"PROD_NAME" varchar(70), 
 	"FAMILY_ID" NUMBER, 
@@ -1752,8 +1753,8 @@
 --  DDL for Table RM_LM_PRODUCT_FAMILY
 --------------------------------------------------------
 
-  CREATE TABLE "MART_USER"."RM_LM_PRODUCT_FAMILY" 
-   (	"ENTERPRISE_ID" NUMBER DEFAULT SYS_CONTEXT('ARGUS_MART_CTX','enterprise_id'), 
+  create table "RM_LM_PRODUCT_FAMILY" 
+   (	"ENTERPRISE_ID" NUMBER , 
 	"FAMILY_ID" NUMBER, 
 	"NAME" varchar(40), 
 	"PRIMARY_VIEW" NUMBER, 
@@ -1795,8 +1796,8 @@
 --  DDL for Table RM_LM_REPORT_TYPE
 --------------------------------------------------------
 
-  CREATE TABLE "MART_USER"."RM_LM_REPORT_TYPE" 
-   (	"ENTERPRISE_ID" NUMBER DEFAULT SYS_CONTEXT('ARGUS_MART_CTX','enterprise_id'), 
+  create table "RM_LM_REPORT_TYPE" 
+   (	"ENTERPRISE_ID" NUMBER , 
 	"RPT_TYPE_ID" NUMBER, 
 	"REPORT_TYPE" varchar(30), 
 	"PROTECTED" NUMBER, 
@@ -1845,8 +1846,8 @@
 --  DDL for Table RM_MEDDRA_SMQ_CONTENT
 --------------------------------------------------------
 
-  CREATE TABLE "MART_USER"."RM_MEDDRA_SMQ_CONTENT" 
-   (	"GLOBAL_DICT_ID" NUMBER DEFAULT SYS_CONTEXT('ARGUS_MART_CTX','meddra_global_dict_id'), 
+  create table "RM_MEDDRA_SMQ_CONTENT" 
+   (	"GLOBAL_DICT_ID" NUMBER , 
 	"SMQ_CODE" NUMBER, 
 	"TERM_CODE" NUMBER, 
 	"TERM_LEVEL" NUMBER, 
@@ -1902,8 +1903,8 @@
 --  DDL for Table RM_MEDDRA_SMQ_LIST
 --------------------------------------------------------
 
-  CREATE TABLE "MART_USER"."RM_MEDDRA_SMQ_LIST" 
-   (	"GLOBAL_DICT_ID" NUMBER DEFAULT SYS_CONTEXT('ARGUS_MART_CTX','meddra_global_dict_id'), 
+  create table "RM_MEDDRA_SMQ_LIST" 
+   (	"GLOBAL_DICT_ID" NUMBER , 
 	"SMQ_CODE" NUMBER, 
 	"SMQ_NAME" varchar(100), 
 	"SMQ_LEVEL" NUMBER, 
