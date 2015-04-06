@@ -9,6 +9,12 @@
 ; Oracle has a limit of varchar(4000), so we use 3900 for clob and
 ; any size larger than varchar(1000)
 
+;***************************************************************************
+; CONVERSION NOTE: don't forget about column-name-conversion
+;   primary     -> primary_val
+;   level       -> level_val
+;***************************************************************************
+
 (def table-ddl 
   "A map from table-name (as keyword) to ddl (as map)"
   {

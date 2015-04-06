@@ -1,8 +1,6 @@
 (ns pg-demo.create
   (:require [clojure.java.jdbc      :as jdbc]
             [clojure.set            :as set]
-            [honeysql.core          :as honey]
-            [honeysql.helpers       :refer :all]
             [pg-demo.ddl            :as ddl]
             [com.climate.claypoole  :as cp]
   )
@@ -13,7 +11,7 @@
 
 (def tx-chunk-size      1000)
 (def pg-threadpool 
-  (cp/threadpool        16))
+  (cp/threadpool        4))
 (def src-is-oracle      true)
 (def dest-is-oracle     false)
 
