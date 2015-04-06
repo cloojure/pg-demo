@@ -1,10 +1,22 @@
 (ns pg-demo.pva-trans
   (:require 
+    [clojure.java.jdbc      :as jdbc]
     [clojure.string         :as str]
+    [clojure.set            :as set]
+    [pg-demo.ddl            :as ddl]
+    [com.climate.claypoole  :as cp]
   )
   (:use cooljure.core 
         cooljure.misc)
   (:gen-class))
+
+(def db-spec
+  { :classname      "org.postgresql.Driver"
+    :subprotocol    "postgresql"
+    :subname        "//10.100.6.130:5432/demo"
+    :user           "demo"
+    :password       "demo123"
+  } )
 
 (def pva-trans
   "The tranformation from ArgusMart schema to PVA schema"
@@ -459,3 +471,10 @@
     :lm_report_type
        "select * from rm_lm_report_type "
   } )
+
+(defn -main []
+  (jdbc/with-db-connection [db-conn db-spec]
+    (spyx (jdbc/query db-conn ["select count(*) from rm_case_master"] ))
+
+  ))
+

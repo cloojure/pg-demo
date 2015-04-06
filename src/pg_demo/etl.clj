@@ -1,8 +1,10 @@
 (ns pg-demo.etl
-  (:require [clojure.java.jdbc      :as jdbc]
-            [clojure.set            :as set]
-            [pg-demo.ddl            :as ddl]
-            [com.climate.claypoole  :as cp]
+  (:require 
+    [clojure.java.jdbc      :as jdbc]
+    [clojure.string         :as str]
+    [clojure.set            :as set]
+    [pg-demo.ddl            :as ddl]
+    [com.climate.claypoole  :as cp]
   )
   (:use cooljure.core
         cooljure.misc)
