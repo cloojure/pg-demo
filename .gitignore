@@ -10,7 +10,6 @@ pom.xml.asc
 .hgignore
 .hg/
 *.log
-*.out
 out.txt
 out-*.txt
 tmptmp

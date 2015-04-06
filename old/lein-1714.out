@@ -1,0 +1,1172 @@
+
+-----------------------------------------------------------------------------
+Testing src-spec...
+(jdbc/query src-spec "select count(*) as result from rm_case_master") => ({:result 11096988})
+
+-----------------------------------------------------------------------------
+oracle-init-dest
+
+(jdbc/query dest-spec "select sysdate as current_day from dual") => ({:current_day #inst "2015-03-30T23:56:20.000000000-00:00"})
+
+(jdbc/query dest-spec "select BANNER from SYS.V_$VERSION") => ({:banner "Oracle Database 11g Release 11.2.0.4.0 - 64bit Production"} {:banner "PL/SQL Release 11.2.0.4.0 - Production"} {:banner "CORE\t11.2.0.4.0\tProduction"} {:banner "TNS for Linux: Version 11.2.0.4.0 - Production"} {:banner "NLSRTL Version 11.2.0.4.0 - Production"})
+
+-----------------------------------------------------------------------------
+Counting rows for all source tables...
+         127908  rm_case_actions
+          34884  rm_case_afssaps
+        1899240  rm_case_all_locked_rev
+        4151196  rm_case_assess
+              0  rm_case_bfarm_data
+          38760  rm_case_classifications
+         344964  rm_case_comments
+         259692  rm_case_company_cmts
+         709308  rm_case_contact_log
+        1065900  rm_case_death
+          15504  rm_case_death_details
+          11628  rm_case_device_prod_deliv
+         523260  rm_case_dose_regimens
+         352716  rm_case_eu_device
+        4155072  rm_case_event
+        8519448  rm_case_event_assess
+          15504  rm_case_event_consequence
+        1810092  rm_case_event_detail
+           3876  rm_case_event_imputability
+              0  rm_case_event_nature
+        1620168  rm_case_event_product_rptblty
+              0  rm_case_event_rech_prod
+         193800  rm_case_followup
+          69768  rm_case_hosp
+          54264  rm_case_justifications
+         426360  rm_case_lab_data
+              0  rm_case_language
+         596904  rm_case_letters
+         344964  rm_case_literature
+          19380  rm_case_local_eva_comment
+       11096988  rm_case_master
+              0  rm_case_med_status
+        1511640  rm_case_medwatch_data
+              0  rm_case_mhlw_notes
+         833340  rm_case_narrative
+          31008  rm_case_neonates
+         155040  rm_case_notes_attach
+          69768  rm_case_parent_info
+         511632  rm_case_pat_hist
+        1918620  rm_case_pat_info
+         604656  rm_case_pat_tests
+              0  rm_case_pmda_event_assess
+         116280  rm_case_pmda_general
+          11628  rm_case_pmda_lic_studies
+        3961272  rm_case_pmda_license
+              0  rm_case_pmda_mgmt_num
+         275196  rm_case_pmda_notes
+         209304  rm_case_pmda_reportability
+         162792  rm_case_pmda_rpt_version
+         275196  rm_case_pregnancy
+         387600  rm_case_prod_devices
+          85272  rm_case_prod_devices_pmda
+        2651184  rm_case_prod_drugs
+         864348  rm_case_prod_indications
+        1259700  rm_case_prod_ingredient
+          38760  rm_case_prod_qc_cid
+        2895372  rm_case_product
+         689928  rm_case_reference
+        1364352  rm_case_reg_reports
+              0  rm_case_relationships
+        1434120  rm_case_reporters
+       15810204  rm_case_rev_master
+        2736456  rm_case_routing
+        1313964  rm_case_study
+         379848  rm_case_user_defined
+          69768  rm_case_vacc_hist
+          11628  rm_case_vacc_prior_ae
+          69768  rm_case_vacc_vaers
+              0  rm_cfg_auth_countries
+              0  rm_cfg_auth_products
+              0  rm_cfg_auth_sites
+              0  rm_cfg_auth_studies
+             13  rm_cfg_dictionaries_enterprise
+             13  rm_cfg_dictionaries_global
+              0  rm_cfg_dsr_owner
+             32  rm_cfg_dsr_report
+             96  rm_cfg_dsr_template_variables
+             26  rm_cfg_groups
+              0  rm_cfg_groups_product
+              0  rm_cfg_groups_study
+              2  rm_cfg_lam_central_site
+             11  rm_cfg_lam_rpt_sched
+              6  rm_cfg_letter_site
+              0  rm_cfg_list_acc_user_country
+           1521  rm_cfg_medwatch_codes
+             12  rm_cfg_mem_report
+             12  rm_cfg_narr_template_phrase
+              9  rm_cfg_narrative_template
+             56  rm_cfg_per_report
+           2282  rm_cfg_per_rpt_child
+            189  rm_cfg_per_rpt_cri
+             83  rm_cfg_per_rpt_freq
+             40  rm_cfg_per_rpt_security
+            735  rm_cfg_placeholders
+              7  rm_cfg_priorities
+            312  rm_cfg_psur_multi_ingredients
+             96  rm_cfg_reg_report_rules
+              0  rm_cfg_rpt_wf_rules
+              8  rm_cfg_rpt_wf_states
+             27  rm_cfg_templates
+            178  rm_cfg_user_access
+            343  rm_cfg_user_enterprise_apps
+             88  rm_cfg_user_groups
+             66  rm_cfg_users
+            303  rm_cfg_users_sites
+             25  rm_cfg_workflow_rules
+             24  rm_cfg_workflow_states
+              6  rm_cl_autopsy_results
+              6  rm_cl_bfarm_causality
+              4  rm_cl_device_deliv_type
+              3  rm_cl_device_evaluation
+              5  rm_cl_device_operator
+              3  rm_cl_device_usage
+             15  rm_cl_followup_type
+              3  rm_cl_jpn_drug_code_type
+              8  rm_cl_mfr_evaluation
+              3  rm_cl_pmda_device_use
+              5  rm_cl_prev_use
+              3  rm_cl_rechall_outcome
+            256  rm_cl_remedial_action
+              4  rm_cl_report_scheduling
+              4  rm_cl_study_product_type
+              3  rm_cl_subject
+              2  rm_cl_term_type
+              8  rm_cl_trimester_status
+             64  rm_cl_usage_of_device
+              4  rm_cmn_lookup
+            287  rm_cmn_profile_enterprise
+            112  rm_cmn_profile_global
+            427  rm_cmn_reg_reports
+           1683  rm_code_list_code_attributes
+           4023  rm_code_list_detail_discrete
+             89  rm_code_list_master
+              3  rm_lm_accidental_exposure
+             12  rm_lm_action_item_type
+              7  rm_lm_action_taken
+             83  rm_lm_admin_route
+              6  rm_lm_age_groups
+              9  rm_lm_age_units
+            306  rm_lm_always_serious_term
+              5  rm_lm_applications
+              0  rm_lm_attachment_type
+             19  rm_lm_birth_type
+             18  rm_lm_case_classification
+              9  rm_lm_causality
+              8  rm_lm_causality_category
+              3  rm_lm_causality_source
+              3  rm_lm_centers
+             20  rm_lm_classification
+              0  rm_lm_classification_sites
+              6  rm_lm_clinical_ref_types
+              8  rm_lm_condition_type
+              5  rm_lm_contact_type
+              0  rm_lm_costart
+            251  rm_lm_countries
+             42  rm_lm_datasheet
+             13  rm_lm_datasheet_event_groups
+             18  rm_lm_date_ranges
+              2  rm_lm_delivery_types
+             22  rm_lm_dev_phase
+              2  rm_lm_device_cur_status
+              3  rm_lm_device_future_act
+              3  rm_lm_device_mal_status
+             13  rm_lm_device_pre_comments
+              5  rm_lm_device_rpt_category
+             11  rm_lm_device_subcomponents
+              8  rm_lm_device_type
+              3  rm_lm_device_use_duration
+             28  rm_lm_dose_frequency
+            266  rm_lm_dose_units
+             71  rm_lm_dsr_per_subrpt
+              4  rm_lm_emperor
+             10  rm_lm_ethnicity
+              2  rm_lm_evaluator_type
+              3  rm_lm_event_group
+              1  rm_lm_event_group_child
+              0  rm_lm_event_group_smq
+              8  rm_lm_event_group_terms
+              2  rm_lm_evt_consequence
+              4  rm_lm_evt_frequency
+              4  rm_lm_evt_intensity
+              0  rm_lm_evt_nature
+             18  rm_lm_evt_outcome
+              0  rm_lm_failure_code
+              7  rm_lm_fetal_outcome
+              5  rm_lm_file_template_actions
+             70  rm_lm_formulation
+              4  rm_lm_gender
+              3  rm_lm_hcp
+              1  rm_lm_holiday_cal_countries
+              1  rm_lm_holiday_calendar
+              3  rm_lm_improper_use
+          10088  rm_lm_ingredients
+              2  rm_lm_institution
+              5  rm_lm_intermediary
+              1  rm_lm_investigators
+            975  rm_lm_justifications
+             30  rm_lm_keywords
+              8  rm_lm_lab_assessment
+             10  rm_lm_lab_test_group
+             20  rm_lm_lab_test_type_groups
+             21  rm_lm_lab_test_types
+            320  rm_lm_labeled_terms
+              0  rm_lm_language_data
+              6  rm_lm_languages
+              6  rm_lm_lic_category
+             67  rm_lm_lic_countries
+             68  rm_lm_lic_products
+              0  rm_lm_lic_report_rules
+             64  rm_lm_license
+              6  rm_lm_license_types
+              3  rm_lm_listedness
+              1  rm_lm_lit_citations
+              2  rm_lm_literature_type
+             12  rm_lm_location
+              2  rm_lm_malfunction_type
+              6  rm_lm_manufacturer
+              9  rm_lm_medical_device_info
+             13  rm_lm_medical_status
+              5  rm_lm_mfr_eval_reason
+             36  rm_lm_occupations
+              0  rm_lm_pack_units
+             23  rm_lm_pf_ingredients
+              8  rm_lm_pmda_device_clasfication
+             34  rm_lm_product
+             40  rm_lm_product_concentrations
+             20  rm_lm_product_family
+              2  rm_lm_product_group
+              2  rm_lm_product_lots
+              4  rm_lm_protocols
+              4  rm_lm_purchased_with
+              0  rm_lm_recipient
+             54  rm_lm_ref_types
+              7  rm_lm_regulatory_contact
+              4  rm_lm_relation
+             70  rm_lm_report_build_status
+            108  rm_lm_report_forms
+              4  rm_lm_report_media
+             13  rm_lm_report_type
+              0  rm_lm_reportable_prod_keyword
+              4  rm_lm_reported
+              2  rm_lm_reporter
+              3  rm_lm_reporter_institution
+             14  rm_lm_reporter_type
+             16  rm_lm_rpt_category
+              4  rm_lm_severity
+             10  rm_lm_sites
+             21  rm_lm_studies
+              7  rm_lm_study_centers
+             25  rm_lm_study_cohorts
+             15  rm_lm_study_countries
+             38  rm_lm_study_products
+              5  rm_lm_study_references
+              1  rm_lm_study_susar
+              3  rm_lm_study_types
+              5  rm_lm_udf_ddl_values
+              5  rm_lm_unblinding_status
+              4  rm_lm_vaccinated_at
+              0  rm_lm_vaccines
+              5  rm_lm_vaers_rpt_block
+           1717  rm_meddra_hl_pref_term
+           1717  rm_meddra_hl_pref_term_j
+            334  rm_meddra_hlg_pref_term
+            334  rm_meddra_hlg_pref_term_j
+           1735  rm_meddra_hlgt_hlt_comp
+          28307  rm_meddra_hlt_pref_comp
+          29840  rm_meddra_md_hierarchy
+          20057  rm_meddra_pref_term
+          20057  rm_meddra_pref_term_j
+          71326  rm_meddra_pref_term_llt
+          71326  rm_meddra_pref_term_llt_j
+          64381  rm_meddra_smq_content
+            206  rm_meddra_smq_list
+            206  rm_meddra_smq_list_j
+            410  rm_meddra_smq_term
+         183162  rm_meddra_smq_term_details
+             26  rm_meddra_soc
+            351  rm_meddra_soc_hlgt_comp
+             26  rm_meddra_soc_intl_order
+             26  rm_meddra_soc_j
+              0  rm_meddra_spec_cat
+              0  rm_meddra_spec_pref_comp
+              0  rm_meddra_synonyms
+            114  rm_rpt_routing
+             79  rm_su_case_study_drug
+              0  rm_who_ard
+          25129  rm_who_atc_classification
+           1246  rm_who_atc_code
+            247  rm_who_countries
+              0  rm_who_drug_c_atc_code
+              0  rm_who_drug_c_country
+              0  rm_who_drug_c_ingredients
+              0  rm_who_drug_c_master
+              0  rm_who_drug_c_medicinal_prod
+              0  rm_who_drug_c_organization
+              0  rm_who_drug_c_pharma_form
+              0  rm_who_drug_c_pharma_product
+              0  rm_who_drug_c_product_group
+              0  rm_who_drug_c_product_type
+              0  rm_who_drug_c_source
+              0  rm_who_drug_c_strength
+              0  rm_who_drug_c_substance
+              0  rm_who_drug_c_therapeutic_grp
+              0  rm_who_drug_c_unit
+              0  rm_who_drug_c_unit_l
+              0  rm_who_drug_c_unit_x
+          69591  rm_who_drug_dict
+            377  rm_who_drug_source
+          56562  rm_who_ingredients
+              1  rm_who_manufacturers
+              0  rm_who_soc
+           9547  rm_who_substances
+"Elapsed time: 159.579142 msecs"
+
+-----------------------------------------------------------------------------
+Running drop/create on all destination tables...
+........................................................................................................................................................................................................................................................................................................................
+"Elapsed time: 22674.679224 msecs"
+-----------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------
+Beginning data transfer...
+
+Processing: rm_case_pmda_license
+Processing: rm_case_routing
+Processing: rm_case_prod_indications
+Processing: rm_case_rev_master
+Processing: rm_case_event_detail
+Processing: rm_case_reporters
+Processing: rm_case_prod_drugs
+Processing: rm_case_product
+Processing: rm_case_event_assess
+Processing: rm_case_contact_log
+Processing: rm_case_study
+Processing: rm_case_prod_devices
+Processing: rm_case_prod_ingredient
+Processing: rm_case_pat_info
+Processing: rm_case_user_defined
+Processing: rm_case_event
+Processing: rm_case_master
+Processing: rm_case_lab_data
+Processing: rm_case_assess
+Processing: rm_case_dose_regimens
+Processing: rm_case_literature
+Processing: rm_case_eu_device
+Processing: rm_case_pat_hist
+Processing: rm_case_medwatch_data
+Processing: rm_case_letters
+Processing: rm_case_narrative
+Processing: rm_case_pat_tests
+Processing: rm_case_death
+Processing: rm_case_reg_reports
+Processing: rm_case_reference
+Processing: rm_case_all_locked_rev
+Processing: rm_case_event_product_rptblty
+    10000/  3961272                 rm_case_pmda_license      23.591
+    10000/  1810092                 rm_case_event_detail      23.302
+    10000/  2736456                      rm_case_routing      23.779
+    10000/ 15810204                   rm_case_rev_master      23.362
+    10000/   864348             rm_case_prod_indications      23.633
+    10000/   709308                  rm_case_contact_log      23.060
+    10000/  1259700              rm_case_prod_ingredient      22.494
+    10000/  8519448                 rm_case_event_assess      23.187
+    10000/  1313964                        rm_case_study      23.085
+    10000/  1434120                    rm_case_reporters      23.914
+    10000/   379848                 rm_case_user_defined      23.363
+    10000/  2895372                      rm_case_product      24.873
+    10000/   833340                    rm_case_narrative      22.530
+    10000/   426360                     rm_case_lab_data      23.787
+    10000/   344964                   rm_case_literature      23.081
+    10000/  1065900                        rm_case_death      22.749
+    10000/   604656                    rm_case_pat_tests      22.835
+    10000/   387600                 rm_case_prod_devices      25.201
+    10000/  1364352                  rm_case_reg_reports      22.848
+    10000/   596904                      rm_case_letters      23.191
+    10000/  2651184                   rm_case_prod_drugs      26.206
+    10000/   352716                    rm_case_eu_device      23.677
+    10000/   689928                    rm_case_reference      22.706
+    10000/  1511640                rm_case_medwatch_data      23.562
+    10000/ 11096988                       rm_case_master      24.925
+    10000/  1899240               rm_case_all_locked_rev      22.714
+    10000/  1918620                     rm_case_pat_info      25.335
+    10000/  4151196                       rm_case_assess      24.974
+    10000/  1620168        rm_case_event_product_rptblty      23.096
+    10000/   523260                rm_case_dose_regimens      25.094
+    10000/  4155072                        rm_case_event      25.914
+    10000/   511632                     rm_case_pat_hist      25.077
+    20000/  2736456                      rm_case_routing      21.448
+    20000/  3961272                 rm_case_pmda_license      21.989
+    20000/ 15810204                   rm_case_rev_master      21.787
+    20000/  1810092                 rm_case_event_detail      21.879
+    20000/   709308                  rm_case_contact_log      21.808
+    20000/  8519448                 rm_case_event_assess      22.042
+    20000/   864348             rm_case_prod_indications      22.408
+    20000/  1259700              rm_case_prod_ingredient      22.177
+    20000/  1313964                        rm_case_study      22.304
+    20000/  1434120                    rm_case_reporters      22.380
+    20000/   833340                    rm_case_narrative      21.252
+    20000/   379848                 rm_case_user_defined      22.193
+    20000/   344964                   rm_case_literature      21.483
+    20000/  1065900                        rm_case_death      21.390
+    20000/   604656                    rm_case_pat_tests      21.399
+    20000/  1364352                  rm_case_reg_reports      21.507
+    20000/   596904                      rm_case_letters      21.320
+    20000/   689928                    rm_case_reference      21.339
+    20000/   426360                     rm_case_lab_data      22.090
+    20000/  1899240               rm_case_all_locked_rev      21.003
+    20000/   352716                    rm_case_eu_device      21.996
+    20000/  1620168        rm_case_event_product_rptblty      21.678
+    20000/  2895372                      rm_case_product      23.544
+    20000/  1511640                rm_case_medwatch_data      22.443
+    20000/  2651184                   rm_case_prod_drugs      23.610
+    20000/   387600                 rm_case_prod_devices      24.518
+    20000/  4151196                       rm_case_assess      23.761
+    20000/  1918620                     rm_case_pat_info      24.081
+    20000/ 11096988                       rm_case_master      24.097
+    20000/   523260                rm_case_dose_regimens      23.921
+    20000/   511632                     rm_case_pat_hist      23.694
+    20000/  4155072                        rm_case_event      24.827
+    30000/ 15810204                   rm_case_rev_master      21.268
+    30000/  2736456                      rm_case_routing      21.658
+    30000/  3961272                 rm_case_pmda_license      21.559
+    30000/  1810092                 rm_case_event_detail      21.366
+    30000/   709308                  rm_case_contact_log      21.490
+    30000/  1259700              rm_case_prod_ingredient      21.602    30000/  8519448                 rm_case_event_assess      21.675
+
+    30000/   864348             rm_case_prod_indications      21.767
+    30000/  1313964                        rm_case_study      21.855
+    30000/   833340                    rm_case_narrative      20.881
+    30000/  1434120                    rm_case_reporters      22.375
+    30000/   596904                      rm_case_letters      21.051
+    30000/   604656                    rm_case_pat_tests      21.243
+    30000/  1364352                  rm_case_reg_reports      21.205
+    30000/   344964                   rm_case_literature      21.445
+    30000/  1065900                        rm_case_death      21.458
+    30000/   379848                 rm_case_user_defined      21.685
+    30000/  1899240               rm_case_all_locked_rev      21.234
+    30000/   689928                    rm_case_reference      21.573
+    30000/  1620168        rm_case_event_product_rptblty      21.326
+    30000/   426360                     rm_case_lab_data      22.248
+    30000/   352716                    rm_case_eu_device      22.133
+    30000/  1511640                rm_case_medwatch_data      22.088
+    30000/  2895372                      rm_case_product      24.187
+    30000/ 11096988                       rm_case_master      23.071
+    30000/  4151196                       rm_case_assess      23.542
+    30000/   387600                 rm_case_prod_devices      23.756
+    30000/  2651184                   rm_case_prod_drugs      24.606
+    30000/   523260                rm_case_dose_regimens      22.966
+    30000/   511632                     rm_case_pat_hist      23.138
+    30000/  1918620                     rm_case_pat_info      24.286
+    30000/  4155072                        rm_case_event      24.056
+    40000/  1810092                 rm_case_event_detail      21.668
+    40000/ 15810204                   rm_case_rev_master      21.856
+    40000/  2736456                      rm_case_routing      21.788
+    40000/   709308                  rm_case_contact_log      21.658
+    40000/  3961272                 rm_case_pmda_license      22.287
+    40000/  1259700              rm_case_prod_ingredient      21.732
+    40000/   833340                    rm_case_narrative      21.470
+    40000/  8519448                 rm_case_event_assess      22.170
+    40000/   864348             rm_case_prod_indications      22.202
+    40000/  1313964                        rm_case_study      22.066
+    40000/   604656                    rm_case_pat_tests      21.447
+    40000/  1364352                  rm_case_reg_reports      21.351
+    40000/   344964                   rm_case_literature      21.684
+    40000/  1065900                        rm_case_death      21.741
+    40000/   596904                      rm_case_letters      21.972
+    40000/  1899240               rm_case_all_locked_rev      21.503
+    40000/  1434120                    rm_case_reporters      22.583
+    40000/   689928                    rm_case_reference      21.914
+    40000/  1620168        rm_case_event_product_rptblty      21.296
+    40000/   379848                 rm_case_user_defined      22.648
+    40000/   426360                     rm_case_lab_data      21.962
+    40000/   352716                    rm_case_eu_device      22.107
+    40000/  1511640                rm_case_medwatch_data      22.629
+    40000/  2895372                      rm_case_product      23.391
+    40000/   523260                rm_case_dose_regimens      22.495
+    40000/  4151196                       rm_case_assess      23.071
+    40000/ 11096988                       rm_case_master      23.140
+    40000/   387600                 rm_case_prod_devices      23.523
+    40000/   511632                     rm_case_pat_hist      23.665
+    40000/  1918620                     rm_case_pat_info      23.427
+    40000/  2651184                   rm_case_prod_drugs      24.365
+    40000/  4155072                        rm_case_event      24.057
+    50000/ 15810204                   rm_case_rev_master      21.510
+    50000/   709308                  rm_case_contact_log      21.411
+    50000/  2736456                      rm_case_routing      21.827
+    50000/  3961272                 rm_case_pmda_license      21.371
+    50000/  1810092                 rm_case_event_detail      22.008
+    50000/  1259700              rm_case_prod_ingredient      21.470
+    50000/   833340                    rm_case_narrative      21.330
+    50000/  8519448                 rm_case_event_assess      21.317
+    50000/   604656                    rm_case_pat_tests      21.320
+    50000/  1313964                        rm_case_study      21.930
+    50000/   344964                   rm_case_literature      21.339
+    50000/  1364352                  rm_case_reg_reports      21.736
+    50000/   864348             rm_case_prod_indications      22.075
+    50000/  1065900                        rm_case_death      21.507
+    50000/   596904                      rm_case_letters      21.572
+    50000/  1899240               rm_case_all_locked_rev      21.515
+    50000/   689928                    rm_case_reference      21.061
+    50000/  1620168        rm_case_event_product_rptblty      20.910
+    50000/  1434120                    rm_case_reporters      22.346
+    50000/   379848                 rm_case_user_defined      22.269
+    50000/   352716                    rm_case_eu_device      21.692
+    50000/   426360                     rm_case_lab_data      22.103
+    50000/  1511640                rm_case_medwatch_data      22.103
+    50000/   523260                rm_case_dose_regimens      22.398
+    50000/  4151196                       rm_case_assess      22.575
+    50000/  2895372                      rm_case_product      22.966
+    50000/ 11096988                       rm_case_master      22.835
+    50000/   387600                 rm_case_prod_devices      22.735
+    50000/   511632                     rm_case_pat_hist      22.429
+    50000/  1918620                     rm_case_pat_info      23.642
+    50000/  2651184                   rm_case_prod_drugs      23.690
+    50000/  4155072                        rm_case_event      24.029
+    60000/ 15810204                   rm_case_rev_master      21.519
+    60000/  1810092                 rm_case_event_detail      21.916
+    60000/  3961272                 rm_case_pmda_license      22.167
+    60000/  1259700              rm_case_prod_ingredient      21.729
+    60000/   833340                    rm_case_narrative      21.721
+    60000/  8519448                 rm_case_event_assess      21.839
+    60000/   709308                  rm_case_contact_log      23.018
+    60000/   604656                    rm_case_pat_tests      21.899
+    60000/  1364352                  rm_case_reg_reports      21.740
+    60000/  1313964                        rm_case_study      22.074
+    60000/  1065900                        rm_case_death      21.738
+    60000/  2736456                      rm_case_routing      23.756
+    60000/   864348             rm_case_prod_indications      21.934
+    60000/   596904                      rm_case_letters      21.744
+    60000/  1620168        rm_case_event_product_rptblty      21.489
+    60000/   689928                    rm_case_reference      21.501
+    60000/  1899240               rm_case_all_locked_rev      21.723
+    60000/   344964                   rm_case_literature      22.794
+    60000/  1434120                    rm_case_reporters      22.234
+    60000/   379848                 rm_case_user_defined      22.211
+    60000/   352716                    rm_case_eu_device      21.975
+    60000/   426360                     rm_case_lab_data      23.225
+    60000/  1511640                rm_case_medwatch_data      22.568
+    60000/   523260                rm_case_dose_regimens      23.998
+    60000/  4151196                       rm_case_assess      23.641
+    60000/ 11096988                       rm_case_master      23.443
+    60000/   387600                 rm_case_prod_devices      23.952
+    60000/  2895372                      rm_case_product      24.130
+    60000/   511632                     rm_case_pat_hist      23.407
+    60000/  1918620                     rm_case_pat_info      23.379
+    60000/  2651184                   rm_case_prod_drugs      23.510
+    60000/  4155072                        rm_case_event      26.247
+    70000/ 15810204                   rm_case_rev_master      21.426
+    70000/   833340                    rm_case_narrative      21.002
+    70000/  1810092                 rm_case_event_detail      21.756
+    70000/  1259700              rm_case_prod_ingredient      21.568
+    70000/  3961272                 rm_case_pmda_license      21.716
+    70000/   709308                  rm_case_contact_log      21.489
+    70000/   604656                    rm_case_pat_tests      21.157
+    70000/  8519448                 rm_case_event_assess      21.937
+    70000/  1364352                  rm_case_reg_reports      21.252
+    70000/  1899240               rm_case_all_locked_rev      21.098
+    70000/  1065900                        rm_case_death      21.328
+    70000/   689928                    rm_case_reference      21.312
+    70000/   596904                      rm_case_letters      21.425
+    70000/  1620168        rm_case_event_product_rptblty      21.431
+    70000/  1313964                        rm_case_study      21.587
+    70000/  2736456                      rm_case_routing      22.017
+    70000/   864348             rm_case_prod_indications      22.400
+    70000/   344964                   rm_case_literature      21.659
+    70000/   379848                 rm_case_user_defined      21.822
+    70000/  1434120                    rm_case_reporters      22.513
+    70000/   352716                    rm_case_eu_device      23.656
+    70000/   426360                     rm_case_lab_data      22.363
+    70000/  1511640                rm_case_medwatch_data      22.143
+    70000/   523260                rm_case_dose_regimens      23.423
+    70000/ 11096988                       rm_case_master      23.031
+    70000/  4151196                       rm_case_assess      23.609
+    70000/   387600                 rm_case_prod_devices      24.331
+    70000/  1918620                     rm_case_pat_info      23.120
+    70000/  2895372                      rm_case_product      23.731
+    70000/   511632                     rm_case_pat_hist      25.082
+    70000/  2651184                   rm_case_prod_drugs      24.161
+    80000/ 15810204                   rm_case_rev_master      20.952
+    80000/   833340                    rm_case_narrative      20.836
+    80000/  1810092                 rm_case_event_detail      21.033
+    70000/  4155072                        rm_case_event      23.581
+    80000/  1259700              rm_case_prod_ingredient      21.146
+    80000/   604656                    rm_case_pat_tests      20.884
+    80000/  3961272                 rm_case_pmda_license      21.359
+    80000/   709308                  rm_case_contact_log      21.389
+    80000/  1065900                        rm_case_death      20.571
+    80000/  1364352                  rm_case_reg_reports      21.207
+    80000/  1620168        rm_case_event_product_rptblty      21.012
+    80000/   689928                    rm_case_reference      21.147
+    80000/  1899240               rm_case_all_locked_rev      21.267
+    80000/   596904                      rm_case_letters      21.301
+    80000/  8519448                 rm_case_event_assess      22.142
+    80000/  1313964                        rm_case_study      21.555
+    80000/  2736456                      rm_case_routing      21.800
+    80000/   344964                   rm_case_literature      22.007
+    80000/   864348             rm_case_prod_indications      22.869
+    80000/   379848                 rm_case_user_defined      22.895
+    80000/  1434120                    rm_case_reporters      23.148
+    80000/   426360                     rm_case_lab_data      21.913
+    80000/   352716                    rm_case_eu_device      22.222
+    80000/  1511640                rm_case_medwatch_data      22.451
+    80000/  4151196                       rm_case_assess      23.506
+    80000/ 11096988                       rm_case_master      23.760
+    80000/   523260                rm_case_dose_regimens      24.487
+    80000/  1918620                     rm_case_pat_info      23.695
+    80000/   387600                 rm_case_prod_devices      24.057
+    80000/  2895372                      rm_case_product      24.515
+    80000/   511632                     rm_case_pat_hist      23.866
+    80000/  2651184                   rm_case_prod_drugs      24.365
+    90000/ 15810204                   rm_case_rev_master      21.185
+    90000/  1810092                 rm_case_event_detail      21.540
+    90000/  1259700              rm_case_prod_ingredient      21.654
+    90000/   833340                    rm_case_narrative      22.670
+    90000/   604656                    rm_case_pat_tests      22.054
+    90000/  3961272                 rm_case_pmda_license      22.127
+    90000/  1065900                        rm_case_death      21.759
+    90000/   709308                  rm_case_contact_log      21.842
+    90000/  1620168        rm_case_event_product_rptblty      21.726
+    90000/  1364352                  rm_case_reg_reports      22.069
+    90000/   596904                      rm_case_letters      21.549
+    90000/  1899240               rm_case_all_locked_rev      21.887
+    90000/   689928                    rm_case_reference      22.170
+    90000/  1313964                        rm_case_study      22.051
+    90000/  8519448                 rm_case_event_assess      22.295
+    90000/  2736456                      rm_case_routing      22.202
+    90000/   344964                   rm_case_literature      22.103
+    80000/  4155072                        rm_case_event      26.114
+    90000/   864348             rm_case_prod_indications      21.980
+    90000/   379848                 rm_case_user_defined      22.031
+    90000/  1434120                    rm_case_reporters      22.588
+    90000/   352716                    rm_case_eu_device      22.086
+    90000/   426360                     rm_case_lab_data      22.216
+    90000/  1511640                rm_case_medwatch_data      22.239
+    90000/  4151196                       rm_case_assess      22.675
+    90000/ 11096988                       rm_case_master      22.607
+    90000/   523260                rm_case_dose_regimens      24.005
+   100000/ 15810204                   rm_case_rev_master      20.853
+    90000/  1918620                     rm_case_pat_info      23.099
+    90000/   387600                 rm_case_prod_devices      23.578
+   100000/  1810092                 rm_case_event_detail      20.904
+    90000/   511632                     rm_case_pat_hist      22.976
+   100000/  1259700              rm_case_prod_ingredient      20.740
+    90000/  2895372                      rm_case_product      22.946
+   100000/   833340                    rm_case_narrative      21.155
+   100000/   604656                    rm_case_pat_tests      20.868
+    90000/  2651184                   rm_case_prod_drugs      23.616
+   100000/   709308                  rm_case_contact_log      21.116
+   100000/  1065900                        rm_case_death      21.198
+   100000/  1899240               rm_case_all_locked_rev      20.685
+   100000/  3961272                 rm_case_pmda_license      21.640
+   100000/  1364352                  rm_case_reg_reports      21.205
+   100000/   596904                      rm_case_letters      21.252
+   100000/  1620168        rm_case_event_product_rptblty      21.544
+   100000/   689928                    rm_case_reference      21.282
+   100000/  1313964                        rm_case_study      21.044
+   100000/  8519448                 rm_case_event_assess      21.836
+   100000/  2736456                      rm_case_routing      21.606
+   100000/   344964                   rm_case_literature      21.670
+   100000/   864348             rm_case_prod_indications      21.611
+   100000/   379848                 rm_case_user_defined      22.036
+   100000/   352716                    rm_case_eu_device      21.817
+   100000/  1434120                    rm_case_reporters      21.833
+    90000/  4155072                        rm_case_event      24.550
+   100000/  1511640                rm_case_medwatch_data      22.034
+   100000/   426360                     rm_case_lab_data      23.244
+   100000/  4151196                       rm_case_assess      23.583
+   100000/ 11096988                       rm_case_master      24.190
+   110000/ 15810204                   rm_case_rev_master      23.274
+   110000/  1259700              rm_case_prod_ingredient      21.873
+   100000/   523260                rm_case_dose_regimens      23.772
+   110000/  1810092                 rm_case_event_detail      22.466
+   100000/  1918620                     rm_case_pat_info      24.050
+   110000/   833340                    rm_case_narrative      21.870
+   110000/  1065900                        rm_case_death      21.397
+   110000/   709308                  rm_case_contact_log      21.431
+   110000/   604656                    rm_case_pat_tests      22.005
+   110000/  1899240               rm_case_all_locked_rev      21.571
+   100000/   387600                 rm_case_prod_devices      24.019
+   110000/  1364352                  rm_case_reg_reports      21.551
+   110000/  3961272                 rm_case_pmda_license      21.852
+   100000/   511632                     rm_case_pat_hist      23.642
+   110000/   596904                      rm_case_letters      21.904
+   110000/  1620168        rm_case_event_product_rptblty      21.746
+   110000/  1313964                        rm_case_study      21.770
+   110000/   689928                    rm_case_reference      22.240
+   100000/  2651184                   rm_case_prod_drugs      24.167
+   100000/  2895372                      rm_case_product      24.067
+   110000/  8519448                 rm_case_event_assess      21.834
+   110000/  2736456                      rm_case_routing      21.502
+   110000/   344964                   rm_case_literature      22.120
+   110000/   864348             rm_case_prod_indications      22.104
+   110000/   379848                 rm_case_user_defined      22.434
+   110000/   352716                    rm_case_eu_device      21.982
+   110000/  1434120                    rm_case_reporters      22.377
+   110000/  1511640                rm_case_medwatch_data      22.162
+   110000/   426360                     rm_case_lab_data      21.980
+   100000/  4155072                        rm_case_event      24.804
+   110000/  4151196                       rm_case_assess      23.507
+   120000/ 15810204                   rm_case_rev_master      21.758
+   120000/  1259700              rm_case_prod_ingredient      21.933
+   120000/  1810092                 rm_case_event_detail      21.769
+   120000/  1065900                        rm_case_death      21.480
+   120000/   833340                    rm_case_narrative      21.687
+   120000/   709308                  rm_case_contact_log      21.879
+   120000/   604656                    rm_case_pat_tests      21.876
+   120000/  1899240               rm_case_all_locked_rev      21.705
+   110000/ 11096988                       rm_case_master      24.051
+   120000/  1364352                  rm_case_reg_reports      21.825
+   120000/   596904                      rm_case_letters      21.450
+   120000/  1620168        rm_case_event_product_rptblty      21.484
+   120000/  3961272                 rm_case_pmda_license      22.275
+   110000/  1918620                     rm_case_pat_info      23.415
+   120000/   689928                    rm_case_reference      21.683
+   110000/   387600                 rm_case_prod_devices      23.873
+   120000/  1313964                        rm_case_study      22.841
+   110000/   523260                rm_case_dose_regimens      25.252
+   120000/  2736456                      rm_case_routing      22.165
+   120000/  8519448                 rm_case_event_assess      22.354   110000/   511632                     rm_case_pat_hist      24.282
+
+   110000/  2651184                   rm_case_prod_drugs      24.095
+   120000/   344964                   rm_case_literature      21.904
+   120000/   864348             rm_case_prod_indications      21.858
+   110000/  2895372                      rm_case_product      24.177
+   120000/   379848                 rm_case_user_defined      22.532
+   120000/   352716                    rm_case_eu_device      21.785
+   120000/  1434120                    rm_case_reporters      22.601
+   120000/  1511640                rm_case_medwatch_data      22.263
+   120000/   426360                     rm_case_lab_data      22.118
+   110000/  4155072                        rm_case_event      24.859
+   130000/ 15810204                   rm_case_rev_master      21.287
+   130000/   833340                    rm_case_narrative      21.257
+   130000/  1259700              rm_case_prod_ingredient      21.678
+   130000/  1810092                 rm_case_event_detail      21.390
+   130000/  1065900                        rm_case_death      21.344
+   130000/   604656                    rm_case_pat_tests      21.100
+   130000/  1899240               rm_case_all_locked_rev      21.100
+   130000/  1364352                  rm_case_reg_reports      21.094
+   130000/   709308                  rm_case_contact_log      21.745
+   120000/  4151196                       rm_case_assess      23.010
+   130000/  1620168        rm_case_event_product_rptblty      21.288
+   130000/   596904                      rm_case_letters      21.537
+   130000/  3961272                 rm_case_pmda_license      21.563
+   120000/ 11096988                       rm_case_master      22.643
+   130000/   689928                    rm_case_reference      21.607
+   130000/  1313964                        rm_case_study      21.849
+   120000/  1918620                     rm_case_pat_info      23.276
+   130000/  8519448                 rm_case_event_assess      21.972
+   130000/  2736456                      rm_case_routing      22.512
+   120000/   523260                rm_case_dose_regimens      23.052
+   120000/   387600                 rm_case_prod_devices      23.965
+   130000/   344964                   rm_case_literature      21.828
+   120000/   511632                     rm_case_pat_hist      23.462
+   130000/   864348             rm_case_prod_indications      23.041
+   120000/  2651184                   rm_case_prod_drugs      24.126
+   130000/   352716                    rm_case_eu_device      22.200
+   120000/  2895372                      rm_case_product      23.950
+   130000/   379848                 rm_case_user_defined      22.691
+   130000/  1511640                rm_case_medwatch_data      22.628
+   130000/   426360                     rm_case_lab_data      22.166
+   130000/  1434120                    rm_case_reporters      23.410
+   140000/ 15810204                   rm_case_rev_master      21.525
+   120000/  4155072                        rm_case_event      24.231
+   140000/  1065900                        rm_case_death      21.264
+   140000/  1259700              rm_case_prod_ingredient      21.521
+   140000/   833340                    rm_case_narrative      21.527
+   140000/   604656                    rm_case_pat_tests      21.970
+   140000/  1364352                  rm_case_reg_reports      21.457
+   140000/   709308                  rm_case_contact_log      21.572
+   140000/  1899240               rm_case_all_locked_rev      22.033
+   140000/  1620168        rm_case_event_product_rptblty      21.657
+   140000/  1810092                 rm_case_event_detail      23.001
+   140000/   596904                      rm_case_letters      21.706
+   140000/   689928                    rm_case_reference      21.355
+   140000/  3961272                 rm_case_pmda_license      22.131
+   130000/  4151196                       rm_case_assess      23.170
+   140000/  8519448                 rm_case_event_assess      21.382   140000/  1313964                        rm_case_study      22.362
+
+   130000/ 11096988                       rm_case_master      23.990
+   140000/   344964                   rm_case_literature      21.380
+   140000/  2736456                      rm_case_routing      22.672
+   130000/   523260                rm_case_dose_regimens      23.234
+   130000/  1918620                     rm_case_pat_info      24.419
+   130000/   511632                     rm_case_pat_hist      22.448
+   140000/   864348             rm_case_prod_indications      21.506
+   130000/   387600                 rm_case_prod_devices      23.514
+   140000/   352716                    rm_case_eu_device      21.952
+   140000/   379848                 rm_case_user_defined      21.910
+   130000/  2651184                   rm_case_prod_drugs      23.793
+   140000/  1511640                rm_case_medwatch_data      22.229
+   130000/  2895372                      rm_case_product      23.655
+   140000/   426360                     rm_case_lab_data      22.505
+   140000/  1434120                    rm_case_reporters      23.583
+   150000/ 15810204                   rm_case_rev_master      21.285
+   150000/  1065900                        rm_case_death      20.921
+   150000/   833340                    rm_case_narrative      21.153
+   150000/  1364352                  rm_case_reg_reports      20.852
+   150000/   604656                    rm_case_pat_tests      21.106
+   150000/   709308                  rm_case_contact_log      20.928
+   150000/  1259700              rm_case_prod_ingredient      22.223
+   150000/  1899240               rm_case_all_locked_rev      21.249
+   150000/   596904                      rm_case_letters      20.783
+   150000/  1620168        rm_case_event_product_rptblty      21.265
+   150000/  1810092                 rm_case_event_detail      21.323
+   150000/   689928                    rm_case_reference      21.176
+   150000/  3961272                 rm_case_pmda_license      21.447
+   130000/  4155072                        rm_case_event      24.319
+   140000/  4151196                       rm_case_assess      22.886
+   150000/  8519448                 rm_case_event_assess      21.230
+   150000/  1313964                        rm_case_study      21.814
+   150000/   344964                   rm_case_literature      21.019
+   150000/  2736456                      rm_case_routing      21.885
+   140000/ 11096988                       rm_case_master      23.485
+   150000/   864348             rm_case_prod_indications      21.915
+   140000/   523260                rm_case_dose_regimens      23.149
+   140000/   511632                     rm_case_pat_hist      23.396
+   140000/  1918620                     rm_case_pat_info      23.871
+   140000/   387600                 rm_case_prod_devices      23.641
+   150000/   379848                 rm_case_user_defined      22.167
+   150000/   352716                    rm_case_eu_device      23.450
+   140000/  2651184                   rm_case_prod_drugs      24.066
+   150000/   426360                     rm_case_lab_data      22.077
+   150000/  1511640                rm_case_medwatch_data      22.902
+   150000/  1434120                    rm_case_reporters      22.424
+   140000/  2895372                      rm_case_product      23.496
+   160000/ 15810204                   rm_case_rev_master      21.821
+   160000/  1065900                        rm_case_death      21.819
+   160000/   833340                    rm_case_narrative      21.783
+   160000/  1364352                  rm_case_reg_reports      21.574
+   160000/  1259700              rm_case_prod_ingredient      21.503
+   160000/   604656                    rm_case_pat_tests      22.039
+   160000/   709308                  rm_case_contact_log      22.052
+   160000/  1899240               rm_case_all_locked_rev      21.876
+   160000/   596904                      rm_case_letters      22.117
+   160000/  1810092                 rm_case_event_detail      21.868
+   160000/  1620168        rm_case_event_product_rptblty      22.448
+   160000/   689928                    rm_case_reference      22.037
+   160000/  3961272                 rm_case_pmda_license      21.962
+   160000/  8519448                 rm_case_event_assess      21.966
+   160000/  1313964                        rm_case_study      22.161
+   160000/   344964                   rm_case_literature      22.071
+   150000/  4151196                       rm_case_assess      24.060
+   160000/  2736456                      rm_case_routing      21.664
+   160000/   864348             rm_case_prod_indications      21.809
+   150000/ 11096988                       rm_case_master      23.084
+   140000/  4155072                        rm_case_event      25.169
+   150000/   523260                rm_case_dose_regimens      23.906
+   150000/   511632                     rm_case_pat_hist      23.503
+   160000/   352716                    rm_case_eu_device      21.796
+   150000/   387600                 rm_case_prod_devices      23.566
+   160000/   379848                 rm_case_user_defined      23.072
+   150000/  1918620                     rm_case_pat_info      24.173
+   160000/   426360                     rm_case_lab_data      22.567
+   160000/  1511640                rm_case_medwatch_data      22.586
+   150000/  2651184                   rm_case_prod_drugs      24.157
+   160000/  1434120                    rm_case_reporters      22.247
+   150000/  2895372                      rm_case_product      24.130
+   170000/ 15810204                   rm_case_rev_master      21.168
+   170000/  1065900                        rm_case_death      21.357
+   170000/   833340                    rm_case_narrative      21.044
+   170000/  1364352                  rm_case_reg_reports      21.392
+   170000/  1259700              rm_case_prod_ingredient      21.153
+   170000/   709308                  rm_case_contact_log      21.049
+   170000/   604656                    rm_case_pat_tests      21.321
+   170000/  1899240               rm_case_all_locked_rev      21.119
+   170000/   596904                      rm_case_letters      21.553
+   170000/  1620168        rm_case_event_product_rptblty      21.163
+   170000/  1810092                 rm_case_event_detail      22.317
+   170000/   689928                    rm_case_reference      21.352
+   170000/  3961272                 rm_case_pmda_license      21.504
+   170000/  8519448                 rm_case_event_assess      21.549
+   170000/  1313964                        rm_case_study      21.727
+   170000/   344964                   rm_case_literature      21.369
+   170000/  2736456                      rm_case_routing      21.228
+   170000/   864348             rm_case_prod_indications      21.492
+   160000/  4151196                       rm_case_assess      23.651
+   160000/ 11096988                       rm_case_master      22.799
+   160000/   523260                rm_case_dose_regimens      22.430
+   170000/   352716                    rm_case_eu_device      21.725
+   170000/   379848                 rm_case_user_defined      21.846
+   160000/   511632                     rm_case_pat_hist      22.563
+   150000/  4155072                        rm_case_event      23.799
+   160000/   387600                 rm_case_prod_devices      23.072
+   160000/  1918620                     rm_case_pat_info      23.090
+   170000/  1511640                rm_case_medwatch_data      21.505
+   170000/   426360                     rm_case_lab_data      21.734
+   170000/  1434120                    rm_case_reporters      21.682
+   160000/  2651184                   rm_case_prod_drugs      23.449
+   180000/   833340                    rm_case_narrative      20.801
+   180000/ 15810204                   rm_case_rev_master      21.191
+   180000/  1065900                        rm_case_death      21.374
+   180000/  1364352                  rm_case_reg_reports      20.916
+   180000/  1259700              rm_case_prod_ingredient      20.824
+   180000/   709308                  rm_case_contact_log      20.847
+   180000/  1899240               rm_case_all_locked_rev      21.007
+   180000/   604656                    rm_case_pat_tests      21.314
+   160000/  2895372                      rm_case_product      23.402
+   180000/  1620168        rm_case_event_product_rptblty      21.337
+   180000/   596904                      rm_case_letters      21.619
+   180000/   689928                    rm_case_reference      21.178
+   180000/  1810092                 rm_case_event_detail      22.086
+   180000/  3961272                 rm_case_pmda_license      21.745
+   180000/  1313964                        rm_case_study      21.645
+   180000/   344964                   rm_case_literature      21.794
+   180000/  8519448                 rm_case_event_assess      22.819
+   180000/  2736456                      rm_case_routing      22.223
+   180000/   864348             rm_case_prod_indications      21.492
+   170000/  4151196                       rm_case_assess      22.943
+   180000/   352716                    rm_case_eu_device      21.784
+   170000/ 11096988                       rm_case_master      22.717
+   180000/   379848                 rm_case_user_defined      21.590
+   170000/   523260                rm_case_dose_regimens      23.397
+   170000/   511632                     rm_case_pat_hist      23.026
+   180000/  1511640                rm_case_medwatch_data      22.189
+   180000/   426360                     rm_case_lab_data      22.074
+   170000/   387600                 rm_case_prod_devices      23.489
+   170000/  1918620                     rm_case_pat_info      23.245
+   180000/  1434120                    rm_case_reporters      21.961
+   160000/  4155072                        rm_case_event      25.500
+   170000/  2651184                   rm_case_prod_drugs      23.613
+   190000/   833340                    rm_case_narrative      21.522
+   190000/ 15810204                   rm_case_rev_master      21.849
+   190000/  1364352                  rm_case_reg_reports      21.534
+   190000/  1065900                        rm_case_death      21.846
+   190000/  1259700              rm_case_prod_ingredient      21.708
+   190000/   604656                    rm_case_pat_tests      21.045
+   190000/   709308                  rm_case_contact_log      21.644
+   190000/  1899240               rm_case_all_locked_rev      21.654
+   190000/  1620168        rm_case_event_product_rptblty      21.329
+   190000/   596904                      rm_case_letters      21.714
+   190000/   689928                    rm_case_reference      21.695
+   190000/  3961272                 rm_case_pmda_license      21.385
+   190000/  1810092                 rm_case_event_detail      21.914
+   170000/  2895372                      rm_case_product      23.866
+   190000/  8519448                 rm_case_event_assess      22.002
+   190000/  1313964                        rm_case_study      22.883
+   190000/   344964                   rm_case_literature      23.205
+   190000/  2736456                      rm_case_routing      22.316
+   190000/   864348             rm_case_prod_indications      21.779
+   190000/   379848                 rm_case_user_defined      21.504
+   180000/  4151196                       rm_case_assess      23.914
+   190000/   352716                    rm_case_eu_device      22.054
+   180000/   511632                     rm_case_pat_hist      23.210
+   180000/   523260                rm_case_dose_regimens      23.828
+   180000/ 11096988                       rm_case_master      24.404
+   190000/  1511640                rm_case_medwatch_data      22.949
+   190000/   426360                     rm_case_lab_data      23.206
+   190000/  1434120                    rm_case_reporters      22.725
+   180000/  1918620                     rm_case_pat_info      24.163
+   180000/   387600                 rm_case_prod_devices      24.361
+   200000/   833340                    rm_case_narrative      21.416
+   200000/  1364352                  rm_case_reg_reports      21.107
+   200000/  1065900                        rm_case_death      21.167
+   200000/ 15810204                   rm_case_rev_master      21.683
+   200000/  1259700              rm_case_prod_ingredient      20.981
+   200000/   604656                    rm_case_pat_tests      21.061
+   200000/   709308                  rm_case_contact_log      21.023
+   200000/  1899240               rm_case_all_locked_rev      21.385
+   180000/  2651184                   rm_case_prod_drugs      24.026
+   200000/  1620168        rm_case_event_product_rptblty      21.402
+   200000/   596904                      rm_case_letters      21.248
+   200000/   689928                    rm_case_reference      21.242
+   170000/  4155072                        rm_case_event      24.942
+   200000/  3961272                 rm_case_pmda_license      21.491
+   200000/  1810092                 rm_case_event_detail      21.300
+   200000/   344964                   rm_case_literature      20.650
+   200000/  1313964                        rm_case_study      21.604
+   200000/  8519448                 rm_case_event_assess      21.841
+   200000/  2736456                      rm_case_routing      21.310
+   180000/  2895372                      rm_case_product      23.785
+   200000/   864348             rm_case_prod_indications      21.457
+   200000/   379848                 rm_case_user_defined      21.571
+   200000/   352716                    rm_case_eu_device      22.272
+   190000/  4151196                       rm_case_assess      22.924
+   190000/   511632                     rm_case_pat_hist      22.756
+   200000/  1511640                rm_case_medwatch_data      21.909
+   190000/   523260                rm_case_dose_regimens      22.735
+   200000/  1434120                    rm_case_reporters      21.653
+   200000/   426360                     rm_case_lab_data      22.030
+   190000/ 11096988                       rm_case_master      23.403
+   190000/  1918620                     rm_case_pat_info      23.138
+   210000/   833340                    rm_case_narrative      21.448
+   210000/  1364352                  rm_case_reg_reports      21.504
+   210000/ 15810204                   rm_case_rev_master      21.302
+   210000/  1259700              rm_case_prod_ingredient      21.303
+   190000/   387600                 rm_case_prod_devices      23.696
+   210000/   604656                    rm_case_pat_tests      21.178
+   210000/   709308                  rm_case_contact_log      21.344
+   210000/  1065900                        rm_case_death      22.003
+   210000/  1899240               rm_case_all_locked_rev      21.109
+   210000/   596904                      rm_case_letters      21.109
+   210000/  1620168        rm_case_event_product_rptblty      22.112
+   210000/   689928                    rm_case_reference      22.280
+   210000/  3961272                 rm_case_pmda_license      21.283
+   210000/  1810092                 rm_case_event_detail      21.700
+   190000/  2651184                   rm_case_prod_drugs      25.885
+   210000/   344964                   rm_case_literature      21.262
+   210000/  8519448                 rm_case_event_assess      21.301
+   210000/  1313964                        rm_case_study      21.540
+   210000/  2736456                      rm_case_routing      21.470
+   180000/  4155072                        rm_case_event      25.700
+   210000/   864348             rm_case_prod_indications      21.576
+   190000/  2895372                      rm_case_product      24.417
+   210000/   379848                 rm_case_user_defined      21.787
+   200000/  4151196                       rm_case_assess      23.001
+   210000/   352716                    rm_case_eu_device      24.356
+   210000/  1511640                rm_case_medwatch_data      22.284
+   210000/   426360                     rm_case_lab_data      21.798
+   220000/   604656                    rm_case_pat_tests      20.682
+   200000/   511632                     rm_case_pat_hist      24.171
+   220000/ 15810204                   rm_case_rev_master      21.130
+   220000/  1259700              rm_case_prod_ingredient      21.136
+   220000/  1364352                  rm_case_reg_reports      21.246
+   210000/  1434120                    rm_case_reporters      24.075
+   220000/   709308                  rm_case_contact_log      21.017
+   220000/   833340                    rm_case_narrative      22.849
+   220000/  1065900                        rm_case_death      21.723
+   220000/  1899240               rm_case_all_locked_rev      21.713
+   200000/   523260                rm_case_dose_regimens      26.183
+   200000/  1918620                     rm_case_pat_info      24.299
+   200000/ 11096988                       rm_case_master      24.287
+   220000/   596904                      rm_case_letters      22.173
+   200000/   387600                 rm_case_prod_devices      24.085
+   220000/  1620168        rm_case_event_product_rptblty      21.525
+   220000/  3961272                 rm_case_pmda_license      21.540
+   220000/   689928                    rm_case_reference      21.802
+   220000/  1810092                 rm_case_event_detail      22.030
+   200000/  2651184                   rm_case_prod_drugs      23.601
+   220000/   344964                   rm_case_literature      21.763
+   220000/  8519448                 rm_case_event_assess      21.966
+   220000/  1313964                        rm_case_study      22.011
+   220000/  2736456                      rm_case_routing      22.665
+   220000/   864348             rm_case_prod_indications      22.349
+   190000/  4155072                        rm_case_event      24.300
+   220000/   379848                 rm_case_user_defined      22.555
+   200000/  2895372                      rm_case_product      24.009
+   220000/   352716                    rm_case_eu_device      22.589
+   210000/  4151196                       rm_case_assess      23.448
+   220000/  1511640                rm_case_medwatch_data      22.417
+   220000/   426360                     rm_case_lab_data      22.339
+   230000/   604656                    rm_case_pat_tests      21.606
+   230000/ 15810204                   rm_case_rev_master      21.745
+   230000/   709308                  rm_case_contact_log      21.556
+   230000/  1065900                        rm_case_death      20.844
+   230000/  1259700              rm_case_prod_ingredient      22.056
+   230000/   833340                    rm_case_narrative      21.036
+   230000/  1364352                  rm_case_reg_reports      22.248
+   230000/  1899240               rm_case_all_locked_rev      21.057
+   220000/  1434120                    rm_case_reporters      22.728
+   210000/   511632                     rm_case_pat_hist      23.520
+   230000/  1620168        rm_case_event_product_rptblty      20.882
+   230000/   596904                      rm_case_letters      21.302
+   210000/   523260                rm_case_dose_regimens      22.669
+   230000/   689928                    rm_case_reference      20.984
+   210000/  1918620                     rm_case_pat_info      22.992
+   230000/  3961272                 rm_case_pmda_license      21.439
+   210000/ 11096988                       rm_case_master      23.280
+   210000/   387600                 rm_case_prod_devices      23.097
+   230000/  1810092                 rm_case_event_detail      21.045
+   230000/   344964                   rm_case_literature      21.524
+   230000/  1313964                        rm_case_study      21.119
+   230000/  8519448                 rm_case_event_assess      21.837
+   230000/  2736456                      rm_case_routing      21.080
+   210000/  2651184                   rm_case_prod_drugs      23.944
+   230000/   864348             rm_case_prod_indications      22.118
+   230000/   379848                 rm_case_user_defined      22.398
+   200000/  4155072                        rm_case_event      24.600
+   230000/   352716                    rm_case_eu_device      22.184
+   240000/   604656                    rm_case_pat_tests      20.979
+   230000/   426360                     rm_case_lab_data      21.648
+   220000/  4151196                       rm_case_assess      23.346
+   230000/  1511640                rm_case_medwatch_data      22.394
+   240000/ 15810204                   rm_case_rev_master      21.240
+   240000/  1065900                        rm_case_death      21.199
+   210000/  2895372                      rm_case_product      24.005
+   240000/   709308                  rm_case_contact_log      21.575
+   240000/  1259700              rm_case_prod_ingredient      21.561
+   240000/  1364352                  rm_case_reg_reports      21.327
+   240000/  1899240               rm_case_all_locked_rev      21.422
+   240000/   833340                    rm_case_narrative      22.807
+   230000/  1434120                    rm_case_reporters      22.450
+   240000/  1620168        rm_case_event_product_rptblty      21.494
+   240000/   596904                      rm_case_letters      22.542
+   220000/   511632                     rm_case_pat_hist      23.558
+   240000/   689928                    rm_case_reference      21.786
+   240000/  3961272                 rm_case_pmda_license      21.944
+   240000/  1810092                 rm_case_event_detail      22.211
+   220000/   523260                rm_case_dose_regimens      24.547
+   220000/  1918620                     rm_case_pat_info      24.718
+   220000/   387600                 rm_case_prod_devices      24.058
+   220000/ 11096988                       rm_case_master      25.280
+   240000/  1313964                        rm_case_study      21.725
+   240000/   344964                   rm_case_literature      21.710
+   240000/  8519448                 rm_case_event_assess      22.031
+   240000/  2736456                      rm_case_routing      21.789
+   240000/   864348             rm_case_prod_indications      22.236
+   220000/  2651184                   rm_case_prod_drugs      24.583
+   240000/   379848                 rm_case_user_defined      21.660
+   250000/   604656                    rm_case_pat_tests      21.053
+   250000/  1065900                        rm_case_death      21.403
+   240000/   426360                     rm_case_lab_data      22.325
+   250000/ 15810204                   rm_case_rev_master      21.770
+   250000/  1259700              rm_case_prod_ingredient      21.362
+   240000/   352716                    rm_case_eu_device      23.758
+   250000/   709308                  rm_case_contact_log      21.556
+   250000/  1364352                  rm_case_reg_reports      21.400
+   240000/  1511640                rm_case_medwatch_data      22.642
+   250000/  1899240               rm_case_all_locked_rev      21.739
+   230000/  4151196                       rm_case_assess      23.566
+   250000/   833340                    rm_case_narrative      21.168
+   250000/  1620168        rm_case_event_product_rptblty      21.072
+   240000/  1434120                    rm_case_reporters      22.151
+   220000/  2895372                      rm_case_product      23.198
+   250000/   596904                      rm_case_letters      21.468
+   250000/   689928                    rm_case_reference      21.346
+   210000/  4155072                        rm_case_event      25.937
+   250000/  3961272                 rm_case_pmda_license      22.193
+   230000/   511632                     rm_case_pat_hist      22.876
+   250000/  1810092                 rm_case_event_detail      21.665
+   250000/  1313964                        rm_case_study      22.004
+   250000/   344964                   rm_case_literature      21.830
+   230000/   523260                rm_case_dose_regimens      25.083
+   230000/   387600                 rm_case_prod_devices      23.937
+   230000/  1918620                     rm_case_pat_info      24.212
+   230000/ 11096988                       rm_case_master      23.737
+   250000/  8519448                 rm_case_event_assess      22.079
+   250000/  2736456                      rm_case_routing      23.650
+   250000/   864348             rm_case_prod_indications      22.196
+   230000/  2651184                   rm_case_prod_drugs      24.363
+   250000/   379848                 rm_case_user_defined      22.226
+   260000/   604656                    rm_case_pat_tests      22.382
+   260000/  1065900                        rm_case_death      21.465
+   260000/  1259700              rm_case_prod_ingredient      21.655
+   260000/   709308                  rm_case_contact_log      21.556
+   260000/ 15810204                   rm_case_rev_master      21.852
+   260000/  1364352                  rm_case_reg_reports      21.704
+   260000/  1899240               rm_case_all_locked_rev      21.519
+   250000/   426360                     rm_case_lab_data      22.533
+   260000/   833340                    rm_case_narrative      21.539
+   250000/  1511640                rm_case_medwatch_data      22.352
+   250000/   352716                    rm_case_eu_device      22.967
+   260000/  1620168        rm_case_event_product_rptblty      21.596
+   240000/  4151196                       rm_case_assess      23.239
+   260000/   689928                    rm_case_reference      21.420
+   260000/   596904                      rm_case_letters      21.625
+   250000/  1434120                    rm_case_reporters      22.378
+   260000/  3961272                 rm_case_pmda_license      21.987
+   260000/  1810092                 rm_case_event_detail      22.748
+   240000/   511632                     rm_case_pat_hist      23.671
+   230000/  2895372                      rm_case_product      26.680
+   260000/   344964                   rm_case_literature      21.250
+   260000/  1313964                        rm_case_study      21.875
+    rm_case_product insert failed, error: java.sql.SQLIntegrityConstraintViolationException: ORA-00001: unique constraint (RXLOGIX.SYS_C0069403) violated
+  
+ data: clojure.lang.LazySeq@97003f85 
+Command exited with non-zero status 1
+1814.34user 204.54system 10:03.83elapsed 334%CPU (0avgtext+0avgdata 9044384maxresident)k
+0inputs+1776outputs (0major+1819134minor)pagefaults 0swaps
