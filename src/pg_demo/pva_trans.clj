@@ -1,12 +1,12 @@
 (ns pg-demo.pva-trans
-  (:require 
+  (:require
     [clojure.java.jdbc      :as jdbc]
     [clojure.string         :as str]
     [clojure.set            :as set]
     [pg-demo.ddl            :as ddl]
     [com.climate.claypoole  :as cp]
   )
-  (:use cooljure.core 
+  (:use cooljure.core
         cooljure.misc)
   (:gen-class))
 
@@ -356,25 +356,25 @@
 
     :case_reporters
        "select
-          a.enterprise_id
-          a.case_id
-          a.seq_num
-          a.media_id
-          a.occupation_id
+          a.enterprise_id,
+          a.case_id,
+          a.seq_num,
+          a.media_id,
+          a.occupation_id,
           a.hcp_flag,
-          a.primary_contact
-          a.corr_contact
-          a.reporter_type
-          a.intermediary_id
+          a.primary_contact,
+          a.corr_contact,
+          a.reporter_type,
+          a.intermediary_id,
           a.rpt_sent,
-          a.sort_id
-          a.confidential
-          a.country_id
-          a.reporter_id
+          a.sort_id,
+          a.confidential,
+          a.country_id,
+          a.reporter_id,
           a.institution,
-          a.institution_id
-          b.version_num
-          b.effective_start_date
+          a.institution_id,
+          b.version_num,
+          b.effective_start_date,
           b.effective_end_date
         from
           rm_case_reporters as a,
@@ -388,19 +388,19 @@
 
     :case_study
        "select
-          a.case_id
-          a.blind_name
-          a.center_id
-          a.classification_id
+          a.case_id,
+          a.blind_name,
+          a.center_id,
+          a.classification_id,
           a.code_broken,
-          a.dev_phase_id
-          a.other_id
-          a.study_desc
-          a.study_key
-          a.study_num
+          a.dev_phase_id,
+          a.other_id,
+          a.study_desc,
+          a.study_key,
+          a.study_num,
           b.version_num,
-          b.effective_start_date
-          b.effective_end_date
+          b.effective_start_date,
+          b.effective_end_date,
           a.enterprise_id
         from
           rm_case_study as a,
@@ -423,33 +423,33 @@
 
     :lm_product
        "select
-          enterprise_id
+          enterprise_id,
           product_id,
-          prod_name
+          prod_name,
           family_id,
-          formulation_id
+          formulation_id,
           manufacturer_id,
-          concentration
+          concentration,
           conc_unit_id,
-          indication_id
+          indication_id,
           code_dict,
-          indication_text
+          indication_text,
           intl_birth_date,
-          model_no
+          model_no,
           drug_code,
-          prod_generic_name
+          prod_generic_name,
           ind_llt_code,
-          ind_llt
+          ind_llt,
           ind_hlt_code,
-          ind_hlt
+          ind_hlt,
           ind_hlgt_code,
-          ind_hlgt
+          ind_hlgt,
           ind_soc_code,
-          ind_soc
+          ind_soc,
           ind_syn_code,
-          ind_code_status
+          ind_code_status,
           prod_name_abbrv,
-          ind_coded
+          ind_coded,
           ind_reptd
         from
           rm_lm_product
@@ -458,23 +458,48 @@
 
     :lm_product_family
        "select
-          enterprise_id,
-          family_id
-          name,
-          primary_view,
-          product_group_id,
-          deleted
-          name_j
+          t.enterprise_id,
+          t.family_id,
+          t.name,
+          t.primary_view,
+          t.product_group_id,
+          t.deleted,
+          t.name_j
         from
-          rm_lm_product_family "
+          rm_lm_product_family t"
 
     :lm_report_type
        "select * from rm_lm_report_type "
   } )
 
 (defn -main []
-  (jdbc/with-db-connection [db-conn db-spec]
-    (spyx (jdbc/query db-conn ["select count(*) from rm_case_master"] ))
+  (let [pva-tables-kw (keys pva-trans) ]
+    (jdbc/with-db-connection [db-conn db-spec]
+      (print "Dropping pva.* tables ")
+      (doseq [table-name (mapv name pva-tables-kw)]
+        (let [drop-cmd (format "drop table if exists pva.%s;" table-name) ]
 
-  ))
+          ; example drop-cmd = " drop table if exists pva.lm_report_type; "
+          (jdbc/execute! db-conn [drop-cmd] )
+
+          (print ".") (flush)))
+      (newline) (newline)
+
+      (doseq [table-kw pva-tables-kw]
+        (spyx table-kw)
+        (let [
+          table-name        (name table-kw)
+          pva-fullname      (format "pva.%s" table-name)
+          creation-select   (pva-trans table-kw)
+          create-cmd        (format "create table %s as ( %s )"
+                                pva-fullname creation-select)
+        ]
+          (println "Creating table:" pva-fullname)
+          ; example create-cmd =
+          ;   "create table pva.lm_report_type as
+          ;      (select * from rm_lm_report_type); "
+          (spyx create-cmd)
+          (jdbc/execute! db-conn [create-cmd] )
+        ))
+    )))
 

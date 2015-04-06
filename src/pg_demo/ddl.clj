@@ -1027,6 +1027,9 @@
       :status                         "varchar(9)"
       :smq_algorithm                  "varchar(999)"
     }
+    
+    ; this is a "view" in ArgusMart
+    :case_version_table     ; no "rm_" prefix here!!!
 
   }
 )
