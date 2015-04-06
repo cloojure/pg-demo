@@ -13,10 +13,12 @@
   (:import java.util.TimeZone)
   (:gen-class))
 
-(def src-is-oracle false)
-(def tx-chunk-size 10000)
-(def pg-threadpool (cp/threadpool 32))
-(def large-db false)
+(def tx-chunk-size      1000)
+(def pg-threadpool 
+  (cp/threadpool        16))
+(def src-is-oracle      false)
+(def dest-is-oracle     false)
+(def large-db           false)
 
 ; (def ora-spec    
 ;   { :classname      "oracle.jdbc.OracleDriver"  ; must be in classpath
@@ -37,20 +39,38 @@
 ; ;   :subname      (if large-db  "//localhost:5432/ubuntu_large"
 ; ;                               "//localhost:5432/ubuntu" ) 
 ;   } )
+;---------------------------------------------------------------------------
+
+; (def src-spec
+;   { :classname      "org.postgresql.Driver"
+;     :subprotocol    "postgresql"
+;     :subname        "//10.100.6.89:5432/ubuntu_large"
+;     :user           "ubuntu"
+;   } )
+; (def dest-spec
+;   { :classname    "oracle.jdbc.OracleDriver"  ; must be in classpath
+;     :subprotocol  "oracle"
+;     :subname      "thin:@//ora-test-1.cksh17mdz5oo.us-west-1.rds.amazonaws.com:1521/ORCL"
+;     :user         "rxlogix" 
+;     :password     "rxlogix123" 
+;   } )
 
 (def src-spec
-  { :classname      "org.postgresql.Driver"
-    :subprotocol    "postgresql"
-    :subname        "//10.100.6.89:5432/ubuntu_large"
-    :user           "ubuntu"
-  } )
-
-(def dest-spec
   { :classname    "oracle.jdbc.OracleDriver"  ; must be in classpath
     :subprotocol  "oracle"
     :subname      "thin:@//ora-test-1.cksh17mdz5oo.us-west-1.rds.amazonaws.com:1521/ORCL"
-    :user         "rxlogix" 
-    :password     "rxlogix123" 
+    :user         "argus_mart" 
+    :password     "rxlogix"
+  } )
+
+
+(def dest-spec
+  { :classname      "org.postgresql.Driver"
+    :subprotocol    "postgresql"
+;   :subname        "//pg-test-1.cksh17mdz5oo.us-west-1.rds.amazonaws.com:5432/argus_mart"
+    :subname        "//pg-test-1.cksh17mdz5oo.us-west-1.rds.amazonaws.com:5432/demo"
+    :user           "rxlogix"
+    :password       "rxlogix123"
   } )
 
 (def column-name-corrections
@@ -145,7 +165,7 @@
      ;(src-set-context src-conn)
       (deliver src-table-rows 
         (into (sorted-map) 
-          (for [table-name (sort (keys tables/table-name->creation-sql)) ]
+          (for [table-name (sort (keys tables/table-name->creation-sql-test)) ]
             (let [table-rows   (-> (jdbc/query src-conn 
                                         [ (format "select count(*) as result from %s" table-name) ] )
                                 first
@@ -163,20 +183,20 @@
     (jdbc/with-db-connection [pg-conn dest-spec]
       (doseq [ [table-name creation-sql-str] tables/table-name->creation-sql ]
         (print ".")
-        (println " " table-name)
+      ; (println " " table-name)
         (flush)
 
         ; Stupid Oracle does not allow "drop table if exists <tablename>".  We need to use
         ; try/catch to find the exception and ignore the harmless ones
         (let [drop-cmd (format "drop table %s" table-name)]
           (try
-            (println "running:" drop-cmd)
+          ; (println "running:" drop-cmd)
             (jdbc/execute! pg-conn [drop-cmd] )
             (catch Exception ex 
               (let [ex-str (.toString ex) ]
-                (when-not (re-find #"table or view does not exist" ex-str)
+                (when-not (re-find #"not exist" ex-str)
                   (throw (Exception. (str "Command failed: " drop-cmd "  Exception: " ex))))))))
-        (println "running:" creation-sql-str)
+      ; (println "running:" creation-sql-str)
         (jdbc/execute! pg-conn [creation-sql-str] ))
       (newline)
     )))
@@ -203,7 +223,9 @@
                             table-name (.toString ex) rows-chunk-new) ]
                 (spit "error.txt" msg)
                 (flush) (println msg) (flush)
-                (System/exit 1)))))))))
+                (System/exit 1))))))))
+  nil ; do not return the entire result-set!
+)
 
 (defn proc-table [table-name]
   (Thread/sleep (-> (rand 5) (* 1000) (long)))  ; 0..5 seconds (in millis)
@@ -212,7 +234,10 @@
     (jdbc/with-db-connection [src-conn src-spec]
       (src-set-context src-conn)
       (jdbc/query src-conn [ (format "select * from %s" table-name) ]
-        :result-set-fn  #(result-set->pg-insert table-name %) ))
+        :result-set-fn  #(result-set->pg-insert table-name %) )
+      (println "  finished processing:" table-name)
+      nil ; do not return the result-set of the query!
+    )
     (catch Exception ex 
       (println (format "    %s failed... will retry. Error: %s " table-name (.toString ex)))
       (System/exit 1))))
@@ -267,7 +292,10 @@
                                 (reverse it))                     ; descending order
     table-futures-map     (into (sorted-map)
                             (for [table-name table-names-sorted]
-                              { table-name (cp/future pg-threadpool (proc-table-pg table-name)) } ))
+                              { table-name (cp/future pg-threadpool 
+                                            ; (proc-table-pg table-name)
+                                              (proc-table    table-name)
+                                           ) } ))
   ]
     (doseq [it table-futures-map]
       (deref (val it))  ; block until complete
@@ -278,11 +306,14 @@
 (defn -main []
   (test-src)
 ; (oracle-init-src)
-  (oracle-init-dest)
-  (count-tables-pg)
+  (when dest-is-oracle
+    (oracle-init-dest))
+  (count-tables)
   (drop-create-tables)
 
   (println "-----------------------------------------------------------------------------")
   (transfer-data)
+  (println "-----------------------------------------------------------------------------")
+  (println "complete")
 )
 

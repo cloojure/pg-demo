@@ -13,7 +13,7 @@
     [com.climate/claypoole      "0.4.0"]
   ]
   :update :always
-  :main ^:skip-aot pg-demo.core
+  :main ^:skip-aot pg-demo.etl
   :target-path "target/%s"
   :resource-paths [ "resources/ojdbc7.jar" ]
   :profiles {:uberjar {:aot :all}}
