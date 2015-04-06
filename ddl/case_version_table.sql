@@ -5,7 +5,9 @@
 --  DDL for View CASE_VERSION_TABLE
 --------------------------------------------------------
 
-  CREATE OR REPLACE FORCE VIEW "MART_USER"."CASE_VERSION_TABLE" ("ENTERPRISE_ID", "CASE_ID", "EFFECTIVE_START_DATE", "DATE_LOCKED", "EFFECTIVE_END_DATE", "VERSION_NUM") AS 
+  CREATE OR REPLACE FORCE VIEW "MART_USER"."CASE_VERSION_TABLE" 
+    ("ENTERPRISE_ID", "CASE_ID", "EFFECTIVE_START_DATE", "DATE_LOCKED", "EFFECTIVE_END_DATE", "VERSION_NUM") 
+  AS 
   WITH drcm AS
         (SELECT   a.enterprise_id, a.case_id,
                   MAX (b.CASE_REVISION_DATE ) effective_start_date,
