@@ -1,8 +1,8 @@
 (ns pg-demo.ddl
-  (:require 
+  (:require
             [clojure.string         :as str]
   )
-  (:use cooljure.core 
+  (:use cooljure.core
         cooljure.misc)
   (:gen-class))
 
@@ -15,10 +15,10 @@
 ;   level       -> level_val
 ;***************************************************************************
 
-(def table-ddl 
+(def table-ddl
   "A map from table-name (as keyword) to ddl (as map)"
   {
-    :rm_case_assess   ; key -> table-name 
+    :rm_case_assess   ; key -> table-name
     { ; value -> table-ddl map
 
 ;     key -> column-name              value -> column-type
@@ -128,7 +128,7 @@
       :effective_start_date           "date"
       :effective_end_date             "date"
     }
-                                                          
+
     :rm_case_classifications
     {
       :enterprise_id                  "numeric(38)"
@@ -142,7 +142,7 @@
       :effective_start_date           "date"
       :effective_end_date             "date"
     }
-                                                          
+
     :rm_case_event
     {
       :enterprise_id                  "numeric(38)"
@@ -281,7 +281,7 @@
       :effective_start_date           "date"
       :effective_end_date             "date"
     }
-                                                          
+
     :rm_case_event_assess
     {
       :enterprise_id                  "numeric(38)"
@@ -312,7 +312,7 @@
       :effective_start_date           "date"
       :effective_end_date             "date"
     }
-                                                          
+
     :rm_case_followup
     {
       :enterprise_id                  "numeric(38)"
@@ -337,7 +337,7 @@
       :effective_start_date           "date"
       :effective_end_date             "date"
     }
-                                                          
+
     :rm_case_master
     {
       :enterprise_id                  "numeric(38)"
@@ -444,7 +444,7 @@
       :effective_start_date           "date"
       :effective_end_date             "date"
     }
-                                                          
+
     :rm_case_narrative
     {
       :enterprise_id                  "numeric(38)"
@@ -460,7 +460,7 @@
       :effective_start_date           "date"
       :effective_end_date             "date"
     }
-                                                          
+
     :rm_case_pat_info
     {
       :enterprise_id                  "numeric(38)"
@@ -564,7 +564,7 @@
       :age_unit_id_at_vacc            "numeric(38)"
       :pat_age_at_vacc                "numeric(38)"
     }
-                                                          
+
     :rm_case_prod_drugs
     {
       :enterprise_id                  "numeric(38)"
@@ -663,7 +663,7 @@
       :effective_start_date           "date"
       :effective_end_date             "date"
     }
-                                                          
+
     :rm_case_product
     {
       :enterprise_id                  "numeric(38)"
@@ -780,7 +780,7 @@
       :vaers_block_id                 "numeric(38)"
       :prod_lic_id                    "numeric(38)"
     }
-                                                          
+
     :rm_case_reporters
     {
       :enterprise_id                  "numeric(38)"
@@ -835,7 +835,7 @@
       :notes_j                        "varchar(3900)"
       :institution_id                 "varchar(99)"
     }
-                                                          
+
     :rm_case_study
     {
       :enterprise_id                  "numeric(38)"
@@ -873,7 +873,7 @@
       :effective_end_date             "date"
       :cohort_id                      "numeric(38)"
     }
-                                                          
+
     :rm_lm_case_classification
     {
       :enterprise_id                  "numeric(38)"
@@ -885,7 +885,7 @@
       :deleted                        "date"
       :e2b_code                       "numeric(38)"
     }
-                                                          
+
     :rm_lm_causality
     {
       :enterprise_id                  "numeric(38)"
@@ -897,7 +897,7 @@
       :causality_j                    "varchar(99)"
       :deleted                        "date"
     }
-                                                          
+
     :rm_lm_countries
     {
       :enterprise_id                  "numeric(38)"
@@ -913,7 +913,7 @@
       :country_j                      "varchar(99)"
       :group_2_country                "numeric(38)"
     }
-                                                          
+
     :rm_lm_product
     {
       :enterprise_id                  "numeric(38)"
@@ -968,7 +968,7 @@
       :dev_intl_birth_date            "date"
       :comments_j                     "varchar(3900)"
     }
-                                                          
+
     :rm_lm_product_family
     {
       :enterprise_id                  "numeric(38)"
@@ -982,7 +982,7 @@
       :name_j                         "varchar(99)"
       :comments_j                     "varchar(3900)"
     }
-                                                          
+
     :rm_lm_report_type
     {
       :enterprise_id                  "numeric(38)"
@@ -999,7 +999,7 @@
       :deleted                        "date"
       :incl_research                  "numeric(38)"
     }
-                                                          
+
     :rm_meddra_smq_content
     {
       :global_dict_id                 "numeric(38)"
@@ -1013,7 +1013,7 @@
       :term_addition_version          "varchar(9)"
       :term_last_modified_version     "varchar(9)"
     }
-                                                          
+
     :rm_meddra_smq_list
     {
       :global_dict_id                 "numeric(38)"
@@ -1027,9 +1027,30 @@
       :status                         "varchar(9)"
       :smq_algorithm                  "varchar(999)"
     }
-    
+
+    :rm_case_rev_master
+    {
+      enterprise_id                   "numeric(38)"
+      case_id                         "numeric(38)"
+      dlp_revision_number             "numeric(38)"
+      case_locked                     "numeric(38)"
+      data_cleanup                    "numeric(38)"
+      case_revision_date              "date"
+      date_locked                     "date"
+      site_id                         "numeric(38)"
+      state_id                        "numeric(38)"
+      country_id                      "numeric(38)"
+      effective_receipt_date          "date"
+      effective_receipt_date_j        "date"
+      effective_safety_date           "date"
+      effective_time_stamp            "date"
+      dcm_xref_num                    "numeric(38)"
+      revision_delete_flag            "numeric(38)"
+    }
+
     ; this is a "view" in ArgusMart
-    :case_version_table     ; no "rm_" prefix here!!!
+;   :case_version_table     ; no "rm_" prefix here!!!
+;   {}
 
   }
 )
