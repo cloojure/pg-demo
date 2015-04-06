@@ -1,13 +1,21 @@
+(ns pg-demo.ddl
+  (:require 
+            [clojure.string         :as str]
+  )
+  (:use cooljure.core 
+        cooljure.misc)
+  (:gen-class))
+
 ; Oracle has a limit of varchar(4000), so we use 3900 for clob and
 ; any size larger than varchar(1000)
 
 (def table-ddl 
   "A map from table-name (as keyword) to ddl (as map)"
   {
-    :rm_case_assess   ; table-name keyword
-    ; table-ddl map
-    {
-  ;   column-name                     column-type
+    :rm_case_assess   ; key -> table-name 
+    { ; value -> table-ddl map
+
+;     key -> column-name              value -> column-type
       :enterprise_id                  "numeric(38)"
       :case_id                        "numeric(38)"
       :template_id                    "numeric(38)"
