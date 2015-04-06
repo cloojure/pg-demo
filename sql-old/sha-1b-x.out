@@ -1,0 +1,48 @@
+You are now connected to database "ubuntu_large" as user "ubuntu".
+Timing is on.
+                                                                                                          QUERY PLAN                                                                                                           
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Nested Loop  (cost=88963.67..8893387836.69 rows=608 width=235)
+   Join Filter: (ce.case_id = cm.case_id)
+   ->  Nested Loop Anti Join  (cost=2.69..8883782431.94 rows=4014 width=231)
+         Join Filter: (cc.case_id = cm.case_id)
+         ->  Nested Loop  (cost=1.44..8883520942.15 rows=4031 width=231)
+               Join Filter: (cp.case_id = cm.case_id)
+               ->  Seq Scan on case_master cm  (cost=0.00..8821096039.82 rows=687344 width=67)
+                     Filter: ((date_trunc('day'::text, init_rept_date) >= date_trunc('day'::text, ((('now'::cstring)::date - 14))::timestamp with time zone)) OR (alternatives: SubPlan 1 or hashed SubPlan 2))
+                     SubPlan 1
+                       ->  Seq Scan on case_followup cf  (cost=0.00..8555.68 rows=1 width=0)
+                             Filter: ((cm.case_id = case_id) AND (significant = 1::numeric) AND (date_trunc('day'::text, receipt_date) >= date_trunc('day'::text, ((('now'::cstring)::date - 14))::timestamp with time zone)))
+                     SubPlan 2
+                       ->  Seq Scan on case_followup cf_1  (cost=0.00..8129.32 rows=47769 width=7)
+                             Filter: ((significant = 1::numeric) AND (date_trunc('day'::text, receipt_date) >= date_trunc('day'::text, ((('now'::cstring)::date - 14))::timestamp with time zone)))
+               ->  Materialize  (cost=1.44..79379.93 rows=6047 width=164)
+                     ->  Hash Join  (cost=1.44..79349.69 rows=6047 width=164)
+                           Hash Cond: (COALESCE(cp.pat_exposure, cp.product_id) = lp.product_id)
+                           ->  Seq Scan on case_product cp  (cost=0.00..74752.75 rows=1209342 width=15)
+                                 Filter: (drug_type = 1::numeric)
+                           ->  Hash  (cost=1.43..1.43 rows=1 width=190)
+                                 ->  Seq Scan on lm_product lp  (cost=0.00..1.43 rows=1 width=190)
+                                       Filter: ((prod_name)::text = 'RxLogi-Quick Tablet 15 mg'::text)
+         ->  Materialize  (cost=1.25..1077.81 rows=4307 width=6)
+               ->  Hash Join  (cost=1.25..1056.27 rows=4307 width=6)
+                     Hash Cond: (cc.classification_id = lcc.classification_id)
+                     ->  Seq Scan on case_classifications cc  (cost=0.00..866.60 rows=38760 width=11)
+                     ->  Hash  (cost=1.23..1.23 rows=2 width=32)
+                           ->  Seq Scan on lm_case_classification lcc  (cost=0.00..1.23 rows=2 width=32)
+                                 Filter: ((description)::text = ANY ('{Non-Valid,"Pre-Clinical Toxicity"}'::text[]))
+   ->  Materialize  (cost=88960.99..197139.97 rows=156264 width=28)
+         ->  Hash Join  (cost=88960.99..196358.65 rows=156264 width=28)
+               Hash Cond: (ce.case_id = ca.case_id)
+               Join Filter: ((ca.seriousness = 1::numeric) OR (ce.seriousness = 1::numeric))
+               ->  Hash Join  (cost=30599.12..133432.65 rows=165969 width=26)
+                     Hash Cond: (ce.case_id = cs.case_id)
+                     ->  Seq Scan on case_event ce  (cost=0.00..84865.56 rows=1186056 width=20)
+                     ->  Hash  (cost=28795.70..28795.70 rows=144274 width=6)
+                           ->  Seq Scan on case_study cs  (cost=0.00..28795.70 rows=144274 width=6)
+                                 Filter: (classification_id = 1::numeric)
+               ->  Hash  (cost=45474.16..45474.16 rows=1031016 width=10)
+                     ->  Seq Scan on case_assess ca  (cost=0.00..45474.16 rows=1031016 width=10)
+(41 rows)
+
+Time: 9.347 ms

@@ -112,10 +112,74 @@
               (println (format "%15d  %s" table-rows table-name))
               {table-name table-rows} )))))))
 
+;-----------------------------------------------------------------------------
+
+(defn result-set->pg-insert [table-name result-set]
+  (jdbc/with-db-connection [pg-conn dest-spec]
+    (let [rows-inserted     (atom 0) 
+          table-rows        (@src-table-rows table-name) ]
+      (doseq [rows-chunk (partition-all tx-chunk-size result-set) ]
+        (let [
+          rows-chunk-new    (map #(set/rename-keys % column-name-corrections) rows-chunk) 
+          start-time        (System/nanoTime)
+        ]
+          (try
+            (apply jdbc/insert! pg-conn table-name rows-chunk-new  ) 
+            (println (format "%9d/%9d  %35s  %10.3f"    
+                      (swap! rows-inserted + (count rows-chunk-new))
+                      table-rows table-name 
+                      (/ (double (- (System/nanoTime) start-time)) 1e9)))
+            (flush) 
+            (catch Exception ex 
+              (let [msg (format "    %s insert failed, error: %s  \n data: %s " 
+                            table-name (.toString ex) rows-chunk-new) ]
+                (spit "error.txt" msg)
+                (flush) (println msg) (flush)
+                (System/exit 1))))))))
+  nil ; do not return the entire result-set!
+)
+
+(defn proc-table [table-name]
+  (Thread/sleep (-> (rand 5) (* 1000) (long)))  ; 0..5 seconds (in millis)
+  (println "Beginning:" table-name) (flush)
+  (try
+    (jdbc/with-db-connection [src-conn src-spec]
+      (src-set-context src-conn)
+      (jdbc/query src-conn [ (format "select * from %s" table-name) ]
+        :result-set-fn  #(result-set->pg-insert table-name %) )
+      (println "  finished:" table-name) (flush)
+      nil ; do not return the result-set of the query!
+    )
+    (catch Exception ex 
+      (println (format "    %s failed... Error: %s " table-name (.toString ex)))
+      (println ex)
+      (System/exit 1))))
+
+;-----------------------------------------------------------------------------
+(defn transfer-data []
+  (newline)
+  (println "-----------------------------------------------------------------------------")
+  (println "Beginning data transfer...")
+  (newline)
+  (let [
+    table-names-sorted    (as-> (keys @src-table-rows) it       ; table names
+                                (sort-by @src-table-rows it)    ; sort by # rows
+                                (reverse it))                   ; descending order
+    table-futures-map     (forv [table-name table-names-sorted]
+                            [ table-name (cp/future pg-threadpool 
+                                              (proc-table table-name)) ] )
+  ]
+    (doseq [ [table-name table-future] table-futures-map]
+      (deref table-future)  ; block until complete
+      (println table-name "  done"))
+    (shutdown-agents)
+  ))
+
 (defn -main []
   (oracle-init-src)
   (count-tables)
   (drop-create-pg)
+  (transfer-data)
 
   (newline)
   (println "-----------------------------------------------------------------------------")

@@ -1,0 +1,44 @@
+You are now connected to database "ubuntu_large" as user "ubuntu".
+Timing is on.
+                                                                                                                              QUERY PLAN                                                                                                                               
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Merge Join  (cost=1071835.84..4812559.91 rows=2543049497 width=196)
+   Merge Cond: (crr.case_id = cm.case_id)
+   ->  Merge Join  (cost=718678.40..731314.19 rows=742099 width=18)
+         Merge Cond: (crr.case_id = listed.case_id)
+         ->  Sort  (cost=352015.47..352767.63 rows=300862 width=12)
+               Sort Key: crr.case_id
+               ->  Hash Join  (cost=306090.04..324638.92 rows=300862 width=12)
+                     Hash Cond: (cea1.case_id = crr.case_id)
+                     ->  HashAggregate  (cost=263625.11..264225.71 rows=60059 width=11)
+                           Group Key: cea1.case_id, cea1.prod_seq_num, 'Missing'::text
+                           ->  Seq Scan on rm_case_event_assess cea1  (cost=0.00..259120.72 rows=600586 width=11)
+                                 Filter: ((deleted IS NULL) AND (license_id = 0::numeric) AND (datasheet_id = 0::numeric))
+                     ->  Hash  (cost=25410.52..25410.52 rows=1364352 width=6)
+                           ->  Seq Scan on rm_case_reg_reports crr  (cost=0.00..25410.52 rows=1364352 width=6)
+         ->  Sort  (cost=366662.93..368342.39 rows=671787 width=6)
+               Sort Key: listed.case_id
+               ->  Subquery Scan on listed  (cost=288206.12..301641.86 rows=671787 width=6)
+                     ->  HashAggregate  (cost=288206.12..294923.99 rows=671787 width=16)
+                           Group Key: rm_case_event_assess.case_id, rm_case_event_assess.prod_seq_num, rm_case_event_assess.event_seq_num
+                           ->  Seq Scan on rm_case_event_assess  (cost=0.00..237822.10 rows=6717869 width=16)
+                                 Filter: (license_id > 0::numeric)
+   ->  Materialize  (cost=353156.00..1975572.20 rows=55950293 width=209)
+         ->  Merge Join  (cost=353156.00..1835696.46 rows=55950293 width=209)
+               Merge Cond: (cm.case_id = ca.case_id)
+               ->  Index Scan using idx_rm_case_master__case_id on rm_case_master cm  (cost=0.43..622905.26 rows=11096988 width=18)
+               ->  Sort  (cost=353141.44..355842.53 rows=1080435 width=191)
+                     Sort Key: ca.case_id
+                     ->  Hash Join  (cost=2.47..244864.67 rows=1080435 width=191)
+                           Hash Cond: (ca.listedness = ll.listedness_id)
+                           ->  Hash Join  (cost=1.41..229687.46 rows=1165811 width=138)
+                                 Hash Cond: (ca.outcome = leo.evt_outcome_id)
+                                 ->  Seq Scan on rm_case_assess ca  (cost=0.00..205535.92 rows=3331207 width=25)
+                                       Filter: ((COALESCE(seriousness, (-1)::numeric) < 0::numeric) OR (COALESCE(agent_suspect, (-1)::numeric) < 0::numeric) OR (COALESCE(listedness, (-1)::numeric) < 0::numeric) OR (COALESCE(outcome, (-1)::numeric) < 0::numeric))
+                                 ->  Hash  (cost=1.18..1.18 rows=18 width=150)
+                                       ->  Seq Scan on rm_lm_evt_outcome leo  (cost=0.00..1.18 rows=18 width=150)
+                           ->  Hash  (cost=1.03..1.03 rows=3 width=90)
+                                 ->  Seq Scan on rm_lm_listedness ll  (cost=0.00..1.03 rows=3 width=90)
+(37 rows)
+
+Time: 13.035 ms
