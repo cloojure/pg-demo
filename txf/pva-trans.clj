@@ -1,6 +1,13 @@
 select
-    a.case_id, a.listedness, a.outcome, a.seriousness, a.agent_suspect,
-    a.company_diagnosis, b.version_num, b.effective_start_date, b.effective_end_date,
+    a.case_id,
+    a.listedness,
+    a.outcome,
+    a.seriousness,
+    a.agent_suspect,
+    a.company_diagnosis,
+    b.version_num,
+    b.effective_start_date,
+    b.effective_end_date,
     a.enterprise_id
 from
     argusmart.rm_case_assess as a,
@@ -8,7 +15,7 @@ from
 where
     (a.case_id = b.case_id) and
     (a.enterprise_id = b.enterprise_id) and
-    (a.deleted_flag = convert(0, bigdecimal)) and
+    (a.deleted_flag = convert(0,bigdecimal)) and
     (convert(a.effective_start_date, timestamp) <= b.effective_start_date) and
     (convert(a.effective_end_date, timestamp) > b.effective_start_date)
 
@@ -45,7 +52,7 @@ from
 where
     (a.case_id = b.case_id) and
     (a.enterprise_id = b.enterprise_id) and
-    (a.deleted_flag = convert(0, bigdecimal)) and
+    (a.deleted_flag = convert(0,bigdecimal)) and
     (convert(a.effective_start_date, timestamp) <= b.effective_start_date) and
     (convert(a.effective_end_date, timestamp) > b.effective_start_date)
 
@@ -63,7 +70,7 @@ from
 where
     (a.case_id = b.case_id) and
     (a.enterprise_id = b.enterprise_id) and
-    (a.deleted_flag = convert(0, bigdecimal)) and
+    (a.deleted_flag = convert(0,bigdecimal)) and
     (convert(a.effective_start_date, timestamp) <= b.effective_start_date) and
     (convert(a.effective_end_date, timestamp) > b.effective_start_date)
 
@@ -81,7 +88,7 @@ where
     (cf.enterprise_id = cvt.enterprise_id) and
     (convert(cf.effective_start_date, timestamp) <= cvt.effective_start_date) and
     (convert(cf.effective_end_date, timestamp) > cvt.effective_start_date) and
-    (cf.deleted_flag = convert(0, bigdecimal))
+    (cf.deleted_flag = convert(0,bigdecimal))
 
 --------------------
 
@@ -101,7 +108,7 @@ where
     (cvt.case_id = cm.case_id) and
     (cvt.effective_start_date >= convert(cm.effective_start_date, timestamp)) and
     (cvt.effective_start_date < convert(cm.effective_end_date, timestamp)) and
-    (cm.deleted_flag = convert(0, bigdecimal)) and
+    (cm.deleted_flag = convert(0,bigdecimal)) and
     (cm.enterprise_id = cvt.enterprise_id)
 
 --------------------
@@ -129,7 +136,7 @@ from
 where
     (a.case_id = b.case_id) and
     (a.enterprise_id = b.enterprise_id) and
-    (a.deleted_flag = convert(0, bigdecimal)) and
+    (a.deleted_flag = convert(0,bigdecimal)) and
     (convert(a.effective_start_date, timestamp) <= b.effective_start_date) and
     (convert(a.effective_end_date, timestamp) > b.effective_start_date)
 
@@ -170,7 +177,7 @@ where
     (cp.enterprise_id = cvt.enterprise_id) and
     (convert(cp.effective_start_date, timestamp) <= cvt.effective_start_date) and
     (convert(cp.effective_end_date, timestamp) > cvt.effective_start_date) and
-    (cp.deleted_flag = convert(0, bigdecimal))
+    (cp.deleted_flag = convert(0,bigdecimal))
 
 --------------------
 
@@ -185,7 +192,7 @@ from
 where
     (a.case_id = b.case_id) and
     (a.enterprise_id = b.enterprise_id) and
-    (a.deleted_flag = convert(0, bigdecimal)) and
+    (a.deleted_flag = convert(0,bigdecimal)) and
     (convert(a.effective_start_date, timestamp) <= b.effective_start_date) and
     (convert(a.effective_end_date, timestamp) > b.effective_start_date)
 
@@ -201,7 +208,7 @@ from
 where
     (a.case_id = b.case_id) and
     (a.enterprise_id = b.enterprise_id) and
-    (a.deleted_flag = convert(0, bigdecimal)) and
+    (a.deleted_flag = convert(0,bigdecimal)) and
     (convert(a.effective_start_date, timestamp) <= b.effective_start_date) and
     (convert(a.effective_end_date, timestamp) > b.effective_start_date)
 
