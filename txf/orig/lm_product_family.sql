@@ -6,3 +6,6 @@ SELECT
     ArgusMart.RM_LM_PRODUCT_FAMILY.DELETED, ArgusMart.RM_LM_PRODUCT_FAMILY.NAME_J
 FROM
     ArgusMart.RM_LM_PRODUCT_FAMILY
+
+--------------------
+

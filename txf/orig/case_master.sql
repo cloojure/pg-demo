@@ -15,3 +15,6 @@ WHERE
     (cvt.EFFECTIVE_START_DATE < convert(CM.EFFECTIVE_END_DATE, timestamp)) AND 
     (CM.DELETED_FLAG = convert(0, bigdecimal)) AND 
     (CM.ENTERPRISE_ID = cvt.ENTERPRISE_ID)
+
+--------------------
+

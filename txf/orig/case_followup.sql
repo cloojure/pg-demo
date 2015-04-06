@@ -10,3 +10,6 @@ WHERE
     (convert(cf.EFFECTIVE_START_DATE, timestamp) <= cvt.EFFECTIVE_START_DATE) AND 
     (convert(cf.EFFECTIVE_END_DATE, timestamp) > cvt.EFFECTIVE_START_DATE) AND 
     (cf.DELETED_FLAG = convert(0, bigdecimal))
+
+--------------------
+

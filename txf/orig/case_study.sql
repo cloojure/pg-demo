@@ -10,3 +10,6 @@ WHERE
     (a.DELETED_FLAG = convert(0, bigdecimal)) AND 
     (convert(a.EFFECTIVE_START_DATE, timestamp) <= b.EFFECTIVE_START_DATE) AND 
     (convert(a.EFFECTIVE_END_DATE, timestamp) > b.EFFECTIVE_START_DATE)
+
+--------------------
+

@@ -17,3 +17,6 @@ FROM
     ArgusMart.RM_LM_PRODUCT
 WHERE
     ArgusMart.RM_LM_PRODUCT.DELETED IS NULL
+
+--------------------
+
