@@ -177,7 +177,7 @@
     (shutdown-agents)
   ))
 
-(defn -main []
+(defn run []
   (oracle-init-src)
   (count-tables)
   (drop-create-pg)
@@ -188,3 +188,5 @@
   (println "complete")
 )
 
+(defn -main []
+  (time (run)))
