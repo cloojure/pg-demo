@@ -10,7 +10,7 @@
   (:gen-class))
 
 
-(def tx-chunk-size      1000)
+(def tx-chunk-size      10000)
 (def pg-threadpool
   (cp/threadpool        4))
 (def src-is-oracle      true)
