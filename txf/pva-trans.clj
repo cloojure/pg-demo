@@ -3,12 +3,13 @@ select
     a.company_diagnosis, b.version_num, b.effective_start_date, b.effective_end_date,
     a.enterprise_id
 from
-    argusmart.rm_case_assess as a, argusmart.case_version_table as b
+    argusmart.rm_case_assess as a,
+    argusmart.case_version_table as b
 where
-    (a.case_id = b.case_id) and 
-    (a.enterprise_id = b.enterprise_id) and 
-    (a.deleted_flag = convert(0, bigdecimal)) and 
-    (convert(a.effective_start_date, timestamp) <= b.effective_start_date) and 
+    (a.case_id = b.case_id) and
+    (a.enterprise_id = b.enterprise_id) and
+    (a.deleted_flag = convert(0, bigdecimal)) and
+    (convert(a.effective_start_date, timestamp) <= b.effective_start_date) and
     (convert(a.effective_end_date, timestamp) > b.effective_start_date)
 
 --------------------
@@ -17,10 +18,11 @@ select
     a.enterprise_id, a.case_id, a.seq_num, a.classification_id, a.deleted,
     b.version_num, b.effective_start_date, b.effective_end_date
 from
-    argusmart.rm_case_classifications as a, argusmart.case_version_table as b
+    argusmart.rm_case_classifications as a,
+    argusmart.case_version_table as b
 where
-    (a.case_id = b.case_id) and 
-    (a.effective_start_date <= b.effective_start_date) and 
+    (a.case_id = b.case_id) and
+    (a.effective_start_date <= b.effective_start_date) and
     (a.effective_end_date > b.effective_start_date)
 
 --------------------
@@ -38,12 +40,13 @@ select
     a.study_dropped, a.inc_code, a.onset_minutes, a.delay_minutes, b.version_num,
     b.effective_start_date, b.effective_end_date
 from
-    argusmart.rm_case_event as a, argusmart.case_version_table as b
+    argusmart.rm_case_event as a,
+    argusmart.case_version_table as b
 where
-    (a.case_id = b.case_id) and 
-    (a.enterprise_id = b.enterprise_id) and 
-    (a.deleted_flag = convert(0, bigdecimal)) and 
-    (convert(a.effective_start_date, timestamp) <= b.effective_start_date) and 
+    (a.case_id = b.case_id) and
+    (a.enterprise_id = b.enterprise_id) and
+    (a.deleted_flag = convert(0, bigdecimal)) and
+    (convert(a.effective_start_date, timestamp) <= b.effective_start_date) and
     (convert(a.effective_end_date, timestamp) > b.effective_start_date)
 
 --------------------
@@ -55,12 +58,13 @@ select
     a.prt_causality_id, b.version_num, b.effective_start_date, b.effective_end_date,
     a.enterprise_id
 from
-    argusmart.rm_case_event_assess as a, argusmart.case_version_table as b
+    argusmart.rm_case_event_assess as a,
+    argusmart.case_version_table as b
 where
-    (a.case_id = b.case_id) and 
-    (a.enterprise_id = b.enterprise_id) and 
-    (a.deleted_flag = convert(0, bigdecimal)) and 
-    (convert(a.effective_start_date, timestamp) <= b.effective_start_date) and 
+    (a.case_id = b.case_id) and
+    (a.enterprise_id = b.enterprise_id) and
+    (a.deleted_flag = convert(0, bigdecimal)) and
+    (convert(a.effective_start_date, timestamp) <= b.effective_start_date) and
     (convert(a.effective_end_date, timestamp) > b.effective_start_date)
 
 --------------------
@@ -70,12 +74,13 @@ select
     cf.safety_date, cf.significant, cvt.version_num, cvt.effective_start_date,
     cvt.effective_end_date, cf.enterprise_id
 from
-    argusmart.rm_case_followup as cf, argusmart.case_version_table as cvt
+    argusmart.rm_case_followup as cf,
+    argusmart.case_version_table as cvt
 where
-    (cf.case_id = cvt.case_id) and 
-    (cf.enterprise_id = cvt.enterprise_id) and 
-    (convert(cf.effective_start_date, timestamp) <= cvt.effective_start_date) and 
-    (convert(cf.effective_end_date, timestamp) > cvt.effective_start_date) and 
+    (cf.case_id = cvt.case_id) and
+    (cf.enterprise_id = cvt.enterprise_id) and
+    (convert(cf.effective_start_date, timestamp) <= cvt.effective_start_date) and
+    (convert(cf.effective_end_date, timestamp) > cvt.effective_start_date) and
     (cf.deleted_flag = convert(0, bigdecimal))
 
 --------------------
@@ -90,12 +95,13 @@ select
     cm.last_update_user_id, cm.seriousness, cvt.version_num, cvt.effective_start_date,
     cvt.effective_end_date, cm.enterprise_id
 from
-    argusmart.rm_case_master as cm, argusmart.case_version_table as cvt
+    argusmart.rm_case_master as cm,
+    argusmart.case_version_table as cvt
 where
-    (cvt.case_id = cm.case_id) and 
-    (cvt.effective_start_date >= convert(cm.effective_start_date, timestamp)) and 
-    (cvt.effective_start_date < convert(cm.effective_end_date, timestamp)) and 
-    (cm.deleted_flag = convert(0, bigdecimal)) and 
+    (cvt.case_id = cm.case_id) and
+    (cvt.effective_start_date >= convert(cm.effective_start_date, timestamp)) and
+    (cvt.effective_start_date < convert(cm.effective_end_date, timestamp)) and
+    (cm.deleted_flag = convert(0, bigdecimal)) and
     (cm.enterprise_id = cvt.enterprise_id)
 
 --------------------
@@ -104,10 +110,11 @@ select
     a.enterprise_id, a.case_id, a.abbrev_narrative, a.abbrev_narrative_j, a.narrative,
     a.narrative_j, b.version_num, b.effective_start_date, b.effective_end_date
 from
-    argusmart.rm_case_narrative as a, argusmart.case_version_table as b
+    argusmart.rm_case_narrative as a,
+    argusmart.case_version_table as b
 where
-    (a.case_id = b.case_id) and 
-    (a.effective_start_date <= b.effective_start_date) and 
+    (a.case_id = b.case_id) and
+    (a.effective_start_date <= b.effective_start_date) and
     (a.effective_end_date > b.effective_start_date)
 
 --------------------
@@ -117,12 +124,13 @@ select
     a.pat_stat_preg, a.age_unit_id, b.version_num, b.effective_start_date,
     b.effective_end_date, a.enterprise_id
 from
-    argusmart.rm_case_pat_info as a, argusmart.case_version_table as b
+    argusmart.rm_case_pat_info as a,
+    argusmart.case_version_table as b
 where
-    (a.case_id = b.case_id) and 
-    (a.enterprise_id = b.enterprise_id) and 
-    (a.deleted_flag = convert(0, bigdecimal)) and 
-    (convert(a.effective_start_date, timestamp) <= b.effective_start_date) and 
+    (a.case_id = b.case_id) and
+    (a.enterprise_id = b.enterprise_id) and
+    (a.deleted_flag = convert(0, bigdecimal)) and
+    (convert(a.effective_start_date, timestamp) <= b.effective_start_date) and
     (convert(a.effective_end_date, timestamp) > b.effective_start_date)
 
 --------------------
@@ -137,12 +145,13 @@ select
     a.duration_seconds, b.version_num, b.effective_start_date, b.effective_end_date,
     a.enterprise_id, a.first_dose_partial, a.last_dose_partial
 from
-    argusmart.rm_case_prod_drugs as a, argusmart.case_version_table as b
+    argusmart.rm_case_prod_drugs as a,
+    argusmart.case_version_table as b
 where
-    (a.case_id = b.case_id) and 
-    (a.enterprise_id = b.enterprise_id) and 
-    (a.deleted_flag = 0) and 
-    (a.effective_start_date <= b.effective_start_date) and 
+    (a.case_id = b.case_id) and
+    (a.enterprise_id = b.enterprise_id) and
+    (a.deleted_flag = 0) and
+    (a.effective_start_date <= b.effective_start_date) and
     (a.effective_end_date > b.effective_start_date)
 
 --------------------
@@ -154,12 +163,13 @@ select
     cp.product_name, cp.generic_name, cvt.version_num, cvt.effective_start_date,
     cvt.effective_end_date, cp.enterprise_id, cp.sort_id
 from
-    argusmart.rm_case_product as cp, argusmart.case_version_table as cvt
+    argusmart.rm_case_product as cp,
+    argusmart.case_version_table as cvt
 where
-    (cp.case_id = cvt.case_id) and 
-    (cp.enterprise_id = cvt.enterprise_id) and 
-    (convert(cp.effective_start_date, timestamp) <= cvt.effective_start_date) and 
-    (convert(cp.effective_end_date, timestamp) > cvt.effective_start_date) and 
+    (cp.case_id = cvt.case_id) and
+    (cp.enterprise_id = cvt.enterprise_id) and
+    (convert(cp.effective_start_date, timestamp) <= cvt.effective_start_date) and
+    (convert(cp.effective_end_date, timestamp) > cvt.effective_start_date) and
     (cp.deleted_flag = convert(0, bigdecimal))
 
 --------------------
@@ -170,12 +180,13 @@ select
     a.sort_id, a.confidential, a.country_id, a.reporter_id, a.institution,
     a.institution_id, b.version_num, b.effective_start_date, b.effective_end_date
 from
-    argusmart.rm_case_reporters as a, argusmart.case_version_table as b
+    argusmart.rm_case_reporters as a,
+    argusmart.case_version_table as b
 where
-    (a.case_id = b.case_id) and 
-    (a.enterprise_id = b.enterprise_id) and 
-    (a.deleted_flag = convert(0, bigdecimal)) and 
-    (convert(a.effective_start_date, timestamp) <= b.effective_start_date) and 
+    (a.case_id = b.case_id) and
+    (a.enterprise_id = b.enterprise_id) and
+    (a.deleted_flag = convert(0, bigdecimal)) and
+    (convert(a.effective_start_date, timestamp) <= b.effective_start_date) and
     (convert(a.effective_end_date, timestamp) > b.effective_start_date)
 
 --------------------
@@ -185,12 +196,13 @@ select
     a.dev_phase_id, a.other_id, a.study_desc, a.study_key, a.study_num, b.version_num,
     b.effective_start_date, b.effective_end_date, a.enterprise_id
 from
-    argusmart.rm_case_study as a, argusmart.case_version_table as b
+    argusmart.rm_case_study as a,
+    argusmart.case_version_table as b
 where
-    (a.case_id = b.case_id) and 
-    (a.enterprise_id = b.enterprise_id) and 
-    (a.deleted_flag = convert(0, bigdecimal)) and 
-    (convert(a.effective_start_date, timestamp) <= b.effective_start_date) and 
+    (a.case_id = b.case_id) and
+    (a.enterprise_id = b.enterprise_id) and
+    (a.deleted_flag = convert(0, bigdecimal)) and
+    (convert(a.effective_start_date, timestamp) <= b.effective_start_date) and
     (convert(a.effective_end_date, timestamp) > b.effective_start_date)
 
 --------------------
