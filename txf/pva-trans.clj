@@ -1,3 +1,5 @@
+
+  :case_assess
 select
   a.case_id,
   a.listedness,
@@ -10,8 +12,8 @@ select
   b.effective_end_date,
   a.enterprise_id
 from
-  argusmart.rm_case_assess as a,
-  argusmart.case_version_table as b
+  rm_case_assess as a,
+  case_version_table as b
 where
   (a.case_id = b.case_id) and
   (a.enterprise_id = b.enterprise_id) and
@@ -21,6 +23,7 @@ where
 
 --------------------
 
+  :case_classifications
 select
   a.enterprise_id,
   a.enterprise_id,
@@ -32,8 +35,8 @@ select
   b.effective_start_date,
   b.effective_end_date
 from
-  argusmart.rm_case_classifications as a,
-  argusmart.case_version_table as b
+  rm_case_classifications as a,
+  case_version_table as b
 where
   (a.case_id = b.case_id) and
   (a.effective_start_date <= b.effective_start_date) and
@@ -41,6 +44,7 @@ where
 
 --------------------
 
+  :case_event
 select
   a.enterprise_id,
   a.case_id,
@@ -101,8 +105,8 @@ select
   b.effective_start_date,
   b.effective_end_date
 from
-  argusmart.rm_case_event as a,
-  argusmart.case_version_table as b
+  rm_case_event as a,
+  case_version_table as b
 where
   (a.case_id = b.case_id) and
   (a.enterprise_id = b.enterprise_id) and
@@ -112,6 +116,7 @@ where
 
 --------------------
 
+  :case_event_assess
 select
   a.case_id,
   a.prod_seq_num,
@@ -133,8 +138,8 @@ select
   b.effective_end_date,
   a.enterprise_id
 from
-  argusmart.rm_case_event_assess as a,
-  argusmart.case_version_table as b
+  rm_case_event_assess as a,
+  case_version_table as b
 where
   (a.case_id = b.case_id) and
   (a.enterprise_id = b.enterprise_id) and
@@ -144,6 +149,7 @@ where
 
 --------------------
 
+  :case_followup
 select
   cf.case_id
   cf.seq_num
@@ -157,8 +163,8 @@ select
   cvt.effective_end_date
   cf.enterprise_id
 from
-  argusmart.rm_case_followup as cf,
-  argusmart.case_version_table as cvt
+  rm_case_followup as cf,
+  case_version_table as cvt
 where
   (cf.case_id = cvt.case_id) and
   (cf.enterprise_id = cvt.enterprise_id) and
@@ -168,6 +174,7 @@ where
 
 --------------------
 
+  :case_master
 select
   cm.case_id
   cm.global_num
@@ -202,8 +209,8 @@ select
   cvt.effective_end_date
   cm.enterprise_id
 from
-  argusmart.rm_case_master as cm,
-  argusmart.case_version_table as cvt
+  rm_case_master as cm,
+  case_version_table as cvt
 where
   (cvt.case_id = cm.case_id) and
   (cvt.effective_start_date >= convert(cm.effective_start_date,timestamp)) and
@@ -213,6 +220,7 @@ where
 
 --------------------
 
+  :case_narrative
 select
   a.enterprise_id
   a.case_id
@@ -224,8 +232,8 @@ select
   b.effective_start_date
   b.effective_end_date
 from
-  argusmart.rm_case_narrative as a,
-  argusmart.case_version_table as b
+  rm_case_narrative as a,
+  case_version_table as b
 where
   (a.case_id = b.case_id) and
   (a.effective_start_date <= b.effective_start_date) and
@@ -233,6 +241,7 @@ where
 
 --------------------
 
+  :case_pat_info
 select
   a.case_id
   a.age_group_id
@@ -247,8 +256,8 @@ select
   b.effective_end_date
   a.enterprise_id
 from
-  argusmart.rm_case_pat_info as a,
-  argusmart.case_version_table as b
+  rm_case_pat_info as a,
+  case_version_table as b
 where
   (a.case_id = b.case_id) and
   (a.enterprise_id = b.enterprise_id) and
@@ -258,6 +267,7 @@ where
 
 --------------------
 
+  :case_prod_drugs
 select
   a.case_id
   a.seq_num
@@ -296,8 +306,8 @@ select
   a.first_dose_partial
   a.last_dose_partial
 from
-  argusmart.rm_case_prod_drugs as a,
-  argusmart.case_version_table as b
+  rm_case_prod_drugs as a,
+  case_version_table as b
 where
   (a.case_id = b.case_id) and
   (a.enterprise_id = b.enterprise_id) and
@@ -307,6 +317,7 @@ where
 
 --------------------
 
+  :case_product
 select
   cp.sdrug_not_admin
   cp.prod_reptd
@@ -330,8 +341,8 @@ select
   cp.enterprise_id
   cp.sort_id
 from
-  argusmart.rm_case_product as cp,
-  argusmart.case_version_table as cvt
+  rm_case_product as cp,
+  case_version_table as cvt
 where
   (cp.case_id = cvt.case_id) and
   (cp.enterprise_id = cvt.enterprise_id) and
@@ -341,6 +352,7 @@ where
 
 --------------------
 
+  :case_reporters
 select
   a.enterprise_id
   a.case_id
@@ -363,8 +375,8 @@ select
   b.effective_start_date
   b.effective_end_date
 from
-  argusmart.rm_case_reporters as a,
-  argusmart.case_version_table as b
+  rm_case_reporters as a,
+  case_version_table as b
 where
   (a.case_id = b.case_id) and
   (a.enterprise_id = b.enterprise_id) and
@@ -374,6 +386,7 @@ where
 
 --------------------
 
+  :case_study
 select
   a.case_id
   a.blind_name
@@ -390,8 +403,8 @@ select
   b.effective_end_date
   a.enterprise_id
 from
-  argusmart.rm_case_study as a,
-  argusmart.case_version_table as b
+  rm_case_study as a,
+  case_version_table as b
 where
   (a.case_id = b.case_id) and
   (a.enterprise_id = b.enterprise_id) and
@@ -401,68 +414,74 @@ where
 
 --------------------
 
-select * from argusmart.rm_lm_case_classification
+  :lm_case_classification
+select * from rm_lm_case_classification
 
 --------------------
 
-select * from argusmart.rm_lm_causality
+  :lm_causality
+select * from rm_lm_causality
 
 --------------------
 
-select * from argusmart.rm_lm_countries
+  :lm_countries
+select * from rm_lm_countries
 
 --------------------
 
+  :lm_product
 select
-  argusmart.rm_lm_product.enterprise_id
-  argusmart.rm_lm_product.product_id,
-  argusmart.rm_lm_product.prod_name
-  argusmart.rm_lm_product.family_id,
-  argusmart.rm_lm_product.formulation_id
-  argusmart.rm_lm_product.manufacturer_id,
-  argusmart.rm_lm_product.concentration
-  argusmart.rm_lm_product.conc_unit_id,
-  argusmart.rm_lm_product.indication_id
-  argusmart.rm_lm_product.code_dict,
-  argusmart.rm_lm_product.indication_text
-  argusmart.rm_lm_product.intl_birth_date,
-  argusmart.rm_lm_product.model_no
-  argusmart.rm_lm_product.drug_code,
-  argusmart.rm_lm_product.prod_generic_name
-  argusmart.rm_lm_product.ind_llt_code,
-  argusmart.rm_lm_product.ind_llt
-  argusmart.rm_lm_product.ind_hlt_code,
-  argusmart.rm_lm_product.ind_hlt
-  argusmart.rm_lm_product.ind_hlgt_code,
-  argusmart.rm_lm_product.ind_hlgt
-  argusmart.rm_lm_product.ind_soc_code,
-  argusmart.rm_lm_product.ind_soc
-  argusmart.rm_lm_product.ind_syn_code,
-  argusmart.rm_lm_product.ind_code_status
-  argusmart.rm_lm_product.prod_name_abbrv,
-  argusmart.rm_lm_product.ind_coded
-  argusmart.rm_lm_product.ind_reptd
+  enterprise_id
+  product_id,
+  prod_name
+  family_id,
+  formulation_id
+  manufacturer_id,
+  concentration
+  conc_unit_id,
+  indication_id
+  code_dict,
+  indication_text
+  intl_birth_date,
+  model_no
+  drug_code,
+  prod_generic_name
+  ind_llt_code,
+  ind_llt
+  ind_hlt_code,
+  ind_hlt
+  ind_hlgt_code,
+  ind_hlgt
+  ind_soc_code,
+  ind_soc
+  ind_syn_code,
+  ind_code_status
+  prod_name_abbrv,
+  ind_coded
+  ind_reptd
 from
-  argusmart.rm_lm_product
+  rm_lm_product
 where
-  argusmart.rm_lm_product.deleted is null
+  deleted is null
 
 --------------------
 
+  :lm_product_family
 select
-  argusmart.rm_lm_product_family.enterprise_id,
-  argusmart.rm_lm_product_family.family_id
-  argusmart.rm_lm_product_family.name,
-  argusmart.rm_lm_product_family.primary_view,
-  argusmart.rm_lm_product_family.product_group_id,
-  argusmart.rm_lm_product_family.deleted
-  argusmart.rm_lm_product_family.name_j
+  enterprise_id,
+  family_id
+  name,
+  primary_view,
+  product_group_id,
+  deleted
+  name_j
 from
-  argusmart.rm_lm_product_family
+  rm_lm_product_family
 
 --------------------
 
-select * from argusmart.rm_lm_report_type
+  :lm_report_type
+select * from rm_lm_report_type
 
 --------------------
 
