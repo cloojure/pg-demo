@@ -20,7 +20,8 @@
    SELECT dcl.enterprise_id, dcl.case_id, dcl.effective_start_date,
           dcl.date_locked,
           NVL
-             (LEAD (effective_start_date, 1) OVER (PARTITION BY dcl.enterprise_id, dcl.case_id ORDER BY effective_start_date),
+             (LEAD (effective_start_date, 1) OVER 
+               (PARTITION BY dcl.enterprise_id, dcl.case_id ORDER BY effective_start_date),
               TO_DATE ('31129999', 'ddmmyyyy')
              ) effective_end_date,
           ROW_NUMBER () OVER (PARTITION BY dcl.enterprise_id, dcl.case_id ORDER BY dcl.effective_start_date)
