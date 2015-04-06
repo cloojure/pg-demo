@@ -177,7 +177,7 @@
     (shutdown-agents)
   ))
 
-(defn run []
+(defn run-all []
   (oracle-init-src)
   (count-tables)
   (drop-create-pg)
@@ -189,4 +189,11 @@
 )
 
 (defn -main []
-  (time (run)))
+  (let [start-millis (System/currentTimeMillis)]
+    (run-all)
+    (let [stop-millis   (System/currentTimeMillis)
+          elapsed-sec   (as->   (- stop-millis start-millis) it
+                                (double it)
+                                (/ it 1000))
+    ]
+      (println (format "Elapsed time: %.1f sec" elapsed-sec)))))
