@@ -1,6 +1,6 @@
-(ns pg-demo.txf.pva-trans
+(ns pg-demo.pva-trans
   (:require 
-            [clojure.string         :as str]
+    [clojure.string         :as str]
   )
   (:use cooljure.core 
         cooljure.misc)
@@ -28,8 +28,8 @@
           (a.case_id = b.case_id) and
           (a.enterprise_id = b.enterprise_id) and
           (a.deleted_flag = convert(0,bigdecimal)) and
-          (convert(a.effective_start_date,timestamp) <= b.effective_start_date) and
-          (convert(a.effective_end_date,timestamp) > b.effective_start_date) "
+          (a.effective_start_date <= b.effective_start_date) and
+          (a.effective_end_date > b.effective_start_date) "
 
     :case_classifications
        "select
@@ -117,8 +117,8 @@
           (a.case_id = b.case_id) and
           (a.enterprise_id = b.enterprise_id) and
           (a.deleted_flag = convert(0,bigdecimal)) and
-          (convert(a.effective_start_date,timestamp) <= b.effective_start_date) and
-          (convert(a.effective_end_date,timestamp) > b.effective_start_date) "
+          (a.effective_start_date <= b.effective_start_date) and
+          (a.effective_end_date > b.effective_start_date) "
 
     :case_event_assess
        "select
@@ -148,8 +148,8 @@
           (a.case_id = b.case_id) and
           (a.enterprise_id = b.enterprise_id) and
           (a.deleted_flag = convert(0,bigdecimal)) and
-          (convert(a.effective_start_date,timestamp) <= b.effective_start_date) and
-          (convert(a.effective_end_date,timestamp) > b.effective_start_date) "
+          (a.effective_start_date <= b.effective_start_date) and
+          (a.effective_end_date > b.effective_start_date) "
 
     :case_followup
        "select
@@ -170,8 +170,8 @@
         where
           (cf.case_id = cvt.case_id) and
           (cf.enterprise_id = cvt.enterprise_id) and
-          (convert(cf.effective_start_date,timestamp) <= cvt.effective_start_date) and
-          (convert(cf.effective_end_date,timestamp) > cvt.effective_start_date) and
+          (cf.effective_start_date <= cvt.effective_start_date) and
+          (cf.effective_end_date > cvt.effective_start_date) and
           (cf.deleted_flag = convert(0,bigdecimal)) "
 
     :case_master
@@ -213,8 +213,8 @@
           case_version_table as cvt
         where
           (cvt.case_id = cm.case_id) and
-          (cvt.effective_start_date >= convert(cm.effective_start_date,timestamp)) and
-          (cvt.effective_start_date < convert(cm.effective_end_date,timestamp)) and
+          (cvt.effective_start_date >= cm.effective_start_date) and
+          (cvt.effective_start_date < cm.effective_end_date) and
           (cm.deleted_flag = convert(0,bigdecimal)) and
           (cm.enterprise_id = cvt.enterprise_id) "
 
@@ -258,8 +258,8 @@
           (a.case_id = b.case_id) and
           (a.enterprise_id = b.enterprise_id) and
           (a.deleted_flag = convert(0,bigdecimal)) and
-          (convert(a.effective_start_date,timestamp) <= b.effective_start_date) and
-          (convert(a.effective_end_date,timestamp) > b.effective_start_date) "
+          (a.effective_start_date <= b.effective_start_date) and
+          (a.effective_end_date > b.effective_start_date) "
 
     :case_prod_drugs
        "select
@@ -338,8 +338,8 @@
         where
           (cp.case_id = cvt.case_id) and
           (cp.enterprise_id = cvt.enterprise_id) and
-          (convert(cp.effective_start_date,timestamp) <= cvt.effective_start_date) and
-          (convert(cp.effective_end_date,timestamp) > cvt.effective_start_date) and
+          (cp.effective_start_date <= cvt.effective_start_date) and
+          (cp.effective_end_date > cvt.effective_start_date) and
           (cp.deleted_flag = convert(0,bigdecimal)) "
 
     :case_reporters
@@ -371,8 +371,8 @@
           (a.case_id = b.case_id) and
           (a.enterprise_id = b.enterprise_id) and
           (a.deleted_flag = convert(0,bigdecimal)) and
-          (convert(a.effective_start_date,timestamp) <= b.effective_start_date) and
-          (convert(a.effective_end_date,timestamp) > b.effective_start_date) "
+          (a.effective_start_date <= b.effective_start_date) and
+          (a.effective_end_date > b.effective_start_date) "
 
     :case_study
        "select
@@ -397,8 +397,8 @@
           (a.case_id = b.case_id) and
           (a.enterprise_id = b.enterprise_id) and
           (a.deleted_flag = convert(0,bigdecimal)) and
-          (convert(a.effective_start_date,timestamp) <= b.effective_start_date) and
-          (convert(a.effective_end_date,timestamp) > b.effective_start_date) "
+          (a.effective_start_date <= b.effective_start_date) and
+          (a.effective_end_date > b.effective_start_date) "
 
     :lm_case_classification
        "select * from rm_lm_case_classification "
