@@ -1030,22 +1030,22 @@
 
     :rm_case_rev_master
     {
-      enterprise_id                   "numeric(38)"
-      case_id                         "numeric(38)"
-      dlp_revision_number             "numeric(38)"
-      case_locked                     "numeric(38)"
-      data_cleanup                    "numeric(38)"
-      case_revision_date              "date"
-      date_locked                     "date"
-      site_id                         "numeric(38)"
-      state_id                        "numeric(38)"
-      country_id                      "numeric(38)"
-      effective_receipt_date          "date"
-      effective_receipt_date_j        "date"
-      effective_safety_date           "date"
-      effective_time_stamp            "date"
-      dcm_xref_num                    "numeric(38)"
-      revision_delete_flag            "numeric(38)"
+      :enterprise_id                   "numeric(38)"
+      :case_id                         "numeric(38)"
+      :dlp_revision_number             "numeric(38)"
+      :case_locked                     "numeric(38)"
+      :data_cleanup                    "numeric(38)"
+      :case_revision_date              "date"
+      :date_locked                     "date"
+      :site_id                         "numeric(38)"
+      :state_id                        "numeric(38)"
+      :country_id                      "numeric(38)"
+      :effective_receipt_date          "date"
+      :effective_receipt_date_j        "date"
+      :effective_safety_date           "date"
+      :effective_time_stamp            "date"
+      :dcm_xref_num                    "numeric(38)"
+      :revision_delete_flag            "numeric(38)"
     }
 
     ; this is a "view" in ArgusMart
