@@ -149,7 +149,7 @@
       (src-set-context src-conn)
       (jdbc/query src-conn [ (format "select * from %s" table-name) ]
         :result-set-fn  #(result-set->pg-insert table-name %) )
-      (println "  finished:" table-name) (flush)
+      (println "          " table-name "finished") (flush)
       nil ; do not return the result-set of the query!
     )
     (catch Exception ex 
