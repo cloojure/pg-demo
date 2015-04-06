@@ -27,7 +27,7 @@
         where
           (a.case_id = b.case_id) and
           (a.enterprise_id = b.enterprise_id) and
-          (a.deleted_flag = convert(0,bigdecimal)) and
+          (a.deleted_flag = 0) and
           (a.effective_start_date <= b.effective_start_date) and
           (a.effective_end_date > b.effective_start_date) "
 
@@ -116,7 +116,7 @@
         where
           (a.case_id = b.case_id) and
           (a.enterprise_id = b.enterprise_id) and
-          (a.deleted_flag = convert(0,bigdecimal)) and
+          (a.deleted_flag = 0) and
           (a.effective_start_date <= b.effective_start_date) and
           (a.effective_end_date > b.effective_start_date) "
 
@@ -147,7 +147,7 @@
         where
           (a.case_id = b.case_id) and
           (a.enterprise_id = b.enterprise_id) and
-          (a.deleted_flag = convert(0,bigdecimal)) and
+          (a.deleted_flag = 0) and
           (a.effective_start_date <= b.effective_start_date) and
           (a.effective_end_date > b.effective_start_date) "
 
@@ -172,7 +172,7 @@
           (cf.enterprise_id = cvt.enterprise_id) and
           (cf.effective_start_date <= cvt.effective_start_date) and
           (cf.effective_end_date > cvt.effective_start_date) and
-          (cf.deleted_flag = convert(0,bigdecimal)) "
+          (cf.deleted_flag = 0) "
 
     :case_master
        "select
@@ -215,7 +215,7 @@
           (cvt.case_id = cm.case_id) and
           (cvt.effective_start_date >= cm.effective_start_date) and
           (cvt.effective_start_date < cm.effective_end_date) and
-          (cm.deleted_flag = convert(0,bigdecimal)) and
+          (cm.deleted_flag = 0) and
           (cm.enterprise_id = cvt.enterprise_id) "
 
     :case_narrative
@@ -257,7 +257,7 @@
         where
           (a.case_id = b.case_id) and
           (a.enterprise_id = b.enterprise_id) and
-          (a.deleted_flag = convert(0,bigdecimal)) and
+          (a.deleted_flag = 0) and
           (a.effective_start_date <= b.effective_start_date) and
           (a.effective_end_date > b.effective_start_date) "
 
@@ -340,7 +340,7 @@
           (cp.enterprise_id = cvt.enterprise_id) and
           (cp.effective_start_date <= cvt.effective_start_date) and
           (cp.effective_end_date > cvt.effective_start_date) and
-          (cp.deleted_flag = convert(0,bigdecimal)) "
+          (cp.deleted_flag = 0) "
 
     :case_reporters
        "select
@@ -370,7 +370,7 @@
         where
           (a.case_id = b.case_id) and
           (a.enterprise_id = b.enterprise_id) and
-          (a.deleted_flag = convert(0,bigdecimal)) and
+          (a.deleted_flag = 0) and
           (a.effective_start_date <= b.effective_start_date) and
           (a.effective_end_date > b.effective_start_date) "
 
@@ -396,7 +396,7 @@
         where
           (a.case_id = b.case_id) and
           (a.enterprise_id = b.enterprise_id) and
-          (a.deleted_flag = convert(0,bigdecimal)) and
+          (a.deleted_flag = 0) and
           (a.effective_start_date <= b.effective_start_date) and
           (a.effective_end_date > b.effective_start_date) "
 
