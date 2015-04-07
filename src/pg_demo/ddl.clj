@@ -6,13 +6,20 @@
         cooljure.misc)
   (:gen-class))
 
-; Oracle has a limit of varchar(4000), so we use 3900 for clob and
-; any size larger than varchar(1000)
+; Oracle has a limit of varchar(4000), so we use 3900 for clob and any size larger than
+; varchar(1000). Other expansions are included, since (1) foreign chars can expand to
+; multiple bytes in UTF-8, and (2) <newline> is sometimes expanded into 4 bytes '\r\n'. 
+; Therefore we map string fields as:
+;   varchar(n)          -> varchar(9)
+;   varchar(nn)         -> varchar(99)
+;   varchar(nnn)        -> varchar(999)
+;   varchar(nnnn)       -> varchar(3900)
+;   clob                -> varchar(3900)
 
 ;***************************************************************************
 ; CONVERSION NOTE: don't forget about column-name-conversion
-;   primary     -> primary_val
-;   level       -> level_val
+;   primary   -> primary_val
+;   level     -> level_val
 ;***************************************************************************
 
 (def table-ddl

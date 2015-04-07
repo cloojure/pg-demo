@@ -486,22 +486,19 @@
       (newline) (newline)
 
       (doseq [table-kw pva-tables-kw]
-      ; (spyx table-kw)
-        (let [
-          table-name        (name table-kw)
-          pva-fullname      (format "pva.%s" table-name)
-          creation-select   (pva-trans table-kw)
-          create-cmd        (format "create table %s as ( %s )"
-                                pva-fullname creation-select)
+        (let [table-name        (name table-kw)
+              pva-fullname      (format "pva.%s" table-name)
+              creation-select   (pva-trans table-kw)
+              create-cmd        (format "create table %s as ( %s )"
+                                  pva-fullname creation-select)
+                ; ex: "create table pva.lm_report_type as 
+                ;         (select * from rm_lm_report_type); "
         ]
           (println "Creating table:" pva-fullname)
-          ; example create-cmd =
-          ;   "create table pva.lm_report_type as
-          ;      (select * from rm_lm_report_type); "
-        ; (spyx create-cmd)
-          (jdbc/execute! db-conn [create-cmd] )
-        ))))
+          (jdbc/execute! db-conn [create-cmd] )))
+    ))
   (newline)
   (println "-----------------------------------------------------------------------------")
-  (println "complete"))
+  (println "complete")
+)
 

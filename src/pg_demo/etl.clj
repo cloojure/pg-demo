@@ -123,14 +123,15 @@
       (doseq [rows-chunk (partition-all tx-chunk-size result-set) ]
         (let [
           rows-chunk-new    (map #(set/rename-keys % column-name-corrections) rows-chunk) 
-          start-time        (System/nanoTime)
+          start-time        (System/currentTimeMillis)
         ]
           (try
             (apply jdbc/insert! pg-conn table-name rows-chunk-new  ) 
+
+            (swap! rows-inserted + (count rows-chunk-new))
             (println (format "%9d/%9d  %35s  %10.3f"    
-                      (swap! rows-inserted + (count rows-chunk-new))
-                      table-rows table-name 
-                      (/ (double (- (System/nanoTime) start-time)) 1e9)))
+                      @rows-inserted table-rows table-name 
+                      (/ (double (- (System/currentTimeMillis) start-time)) 1e3)))
             (flush) 
             (catch Exception ex 
               (let [msg (format "    %s insert failed, error: %s  \n data: %s " 
