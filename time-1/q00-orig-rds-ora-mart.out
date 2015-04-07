@@ -129,12 +129,16 @@ SELECT cm.case_id,
    AND ce.seriousness = 1
    AND cp.drug_type = 1
    AND LC.COUNTRY <> 'CHINA'
-   AND (cm.init_rept_date between trunc(add_months(sysdate, -1), 'MM') and
-       trunc(sysdate, 'MM') - 1 or
-       (cf.receipt_date between trunc(add_months(sysdate, -1), 'MM') and
-       trunc(sysdate, 'MM') - 1 and cf.significant = 1))
+   AND ( (cm.init_rept_date between 
+            (trunc(add_months(sysdate, -1), 'MM')) and
+            (trunc(sysdate, 'MM') - 1))
+         OR
+         ( (cf.receipt_date between 
+              (trunc(add_months(sysdate, -1), 'MM')) and
+              (trunc(sysdate, 'MM') - 1))
+           AND cf.significant = 1))
    AND NOT EXISTS
- (SELECT 1
+     (SELECT 1
           FROM rm_case_classifications cc, rm_lm_case_classification lcc
          WHERE cc.classification_id = lcc.classification_id
            AND cc.case_id = cm.case_id

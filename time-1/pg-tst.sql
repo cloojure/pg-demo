@@ -143,21 +143,27 @@ SELECT cmcf.case_id,
    AND ce.seriousness = 1
    AND cp.drug_type = 1
    AND LC.COUNTRY <> 'CHINA'
-   AND (cmcf.init_rept_date between date_trunc('day', (add_months(current_date, -1), 'MM')) and
-       date_trunc('day', (current_date, 'MM')) - 1 or
-       (cmcf.receipt_date between date_trunc('day', (add_months(current_date, -1), 'MM')) and
-       date_trunc('day', (current_date, 'MM')) - 1 and cmcf.significant = 1))
+
+   -- ***** must fix others to look like this *****
+   AND ( (cmcf.init_rept_date between       -- a date last month [1..31]
+              (date_trunc('month', current_date) - interval '1 month') and
+              (date_trunc('month', current_date) - interval '1 day'))
+         OR 
+         ( (cmcf.receipt_date between         -- a date last month [1..31]
+                  (date_trunc('month', current_date) - interval '1 month') and
+                  (date_trunc('month', current_date) - interval '1 day'))
+           AND cmcf.significant = 1))
+
    AND NOT EXISTS
- (SELECT 1
-          FROM rm_case_classifications cc, rm_lm_case_classification lcc
+     (SELECT 1
+          FROM rm_case_classifications      cc, 
+               rm_lm_case_classification    lcc
          WHERE cc.classification_id = lcc.classification_id
            AND cc.case_id = cmcf.case_id
            AND lcc.description IN ('Non-Valid', 'Pre-Clinical Toxicity'));
 
--- Had to remove duplicate col name:  lp.prod_name
-
-run 1: Time = 46.5 sec
-run 2: Time = 46.7 sec
+SELECT 108
+Time: 35.343 ms
 
 ----------------------------------------------------------------------------
 -- PVR-ST-016-003
